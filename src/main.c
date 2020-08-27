@@ -1,6 +1,6 @@
 //-----------------------------LICENSE NOTICE------------------------------------
 //  This file is part of CPCtelera: An Amstrad CPC Game Engine
-//  Copyright (C) 2018 ronaldo / Fremos / Cheesetea / ByteRealms (@FranGallegoBR)
+//  Copyright (C) 2015 ronaldo / Fremos / Cheesetea / ByteRealms (@FranGallegoBR)
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Lesser General Public License as published by
@@ -21,15 +21,12 @@
 void main(void) {
    u8* pvmem;  // Pointer to video memory
 
-   // Make pvmem point to the byte in video memory where we want
-   // to print our string (coordinates (20, 96) in bytes, (80, 96) in pixels,
-   // as each byte is 4 pixels wide in mode 1)
+   // Clear Screen
+   cpct_memset(CPCT_VMEM_START, 0, 0x4000);
+
+   // Draw String on the middle of the screen
    pvmem = cpct_getScreenPtr(CPCT_VMEM_START, 20, 96);
-   // Set Mode 1 Character&String drawing functions to use colours 
-   // 1 (yellow) for foreground and 0 (blue) for background
-   cpct_setDrawCharM1(1, 0);
-   // Draw the actual string where pvmem is pointing
-   cpct_drawStringM1("Welcome to CPCtelera!", pvmem);
+   cpct_drawStringM1("Welcome to CPCtelera!", pvmem, 1, 0);
 
    // Loop forever
    while (1);
