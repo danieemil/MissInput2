@@ -18,6 +18,7 @@
 
 ;; Include all CPCtelera constant definitions, macros and variables
 .include "cpctelera.h.s"
+.include "man/manager_player.h.s"
 
 ;;
 ;; Start of _DATA area 
@@ -34,6 +35,7 @@ string: .asciz "CPCtelera up and running!";
 ;; Start of _CODE area
 ;; 
 .area _CODE
+
 
 ;; 
 ;; Declare all function entry points as global symbols for the compiler.
