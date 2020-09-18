@@ -17,8 +17,10 @@
 ;;-------------------------------------------------------------------------------
 
 ;; Include all CPCtelera constant definitions, macros and variables
-.include "cpctelera.h.s"
-.include "man/manager_player.h.s"
+
+;.include "cpctelera.h.s"
+.include "main.h.s"
+.include "man/manager_game.h.s"
 
 ;;
 ;; Start of _DATA area 
@@ -43,7 +45,7 @@ string: .asciz "CPCtelera up and running!";
 ;; WARNING: Every global symbol declared will be linked, so DO NOT declare 
 ;; symbols for functions you do not use.
 ;;
-.globl cpct_disableFirmware_asm
+
 .globl cpct_getScreenPtr_asm
 .globl cpct_setDrawCharM1_asm
 .globl cpct_drawStringM1_asm
@@ -54,7 +56,27 @@ string: .asciz "CPCtelera up and running!";
 ;;
 _main::
    ;; Disable firmware to prevent it from interfering with string drawing
-   call cpct_disableFirmware_asm
+
+   call _mg_game_init
+
+; loopaaa:
+
+;       call cpct_scanKeyboard_asm
+;       ld hl, #_cpct_keyboardStatusBuffer 
+
+;       jr .
+
+;       call cpct_isKeyPressed_asm
+
+;    jr z, loopaaa
+
+
+
+
+   call _mg_game_loop_singleplayer_init
+   call _mg_game_loop_singleplayer
+
+
 
    ;; Set up draw char colours before calling draw string
    ld    d, #0         ;; D = Background PEN (0)
@@ -63,7 +85,7 @@ _main::
    call cpct_setDrawCharM1_asm   ;; Set draw char colours
 
    ;; Calculate a video-memory location for printing a string
-   ld   de, #CPCT_VMEM_START_ASM ;; DE = Pointer to start of the screen
+   ld   de, #0xC000 ;; DE = Pointer to start of the screen
    ld    b, #24                  ;; B = y coordinate (24 = 0x18)
    ld    c, #16                  ;; C = x coordinate (16 = 0x10)
 
@@ -78,4 +100,9 @@ _main::
 
    ;; Loop forever
 loop:
+
+
+
+
+
    jr    loop

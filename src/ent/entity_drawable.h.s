@@ -1,10 +1,11 @@
 .include "ent/entity_physics.h.s"
 
-.macro DefineEntityDrawable _ed_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite
+.macro DefineEntityDrawable _ed_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h
 _ed_name:
     DefineEntityPhysics _ed_name'_eph, _x, _y, _w, _h, _vx, _vy, _attributes
     
     .dw _sprite     ;; Sprite ptr
+    .db _spr_w, _spr_h  ;;Sprite Width/Height
     .db #0         ;; Sprite offset
     .db _x, _y      ;; Previous x, y
 
@@ -13,11 +14,13 @@ _ed_name:
 
 _ed_spr_l       = 0 + _eph_size
 _ed_spr_h       = 1 + _eph_size
-_ed_spr_offset  = 2 + _eph_size
-_ed_pre_x       = 3 + _eph_size
-_ed_pre_y       = 4 + _eph_size
+_ed_spr_wi      = 2 + _eph_size
+_ed_spr_he      = 3 + _eph_size
+_ed_spr_offset  = 4 + _eph_size
+_ed_pre_x       = 5 + _eph_size
+_ed_pre_y       = 6 + _eph_size
 
-_ed_size        = 5 + _eph_size
+_ed_size        = 7 + _eph_size
 
 
 

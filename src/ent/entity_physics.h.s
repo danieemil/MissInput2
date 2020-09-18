@@ -1,3 +1,6 @@
+
+.include "cpctelera.h.s"
+
 .macro DefineEntityPhysics _eph_name, _x, _y, _w, _h, _vx, _vy, _attributes
 
     _eph_name:
