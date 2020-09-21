@@ -50,7 +50,7 @@ $(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette 					))
 $(eval $(call IMG2SP, SET_IMG_FORMAT  , sprites									))
 $(eval $(call IMG2SP, SET_OUTPUT      , c                						))
 $(eval $(call IMG2SP, SET_MASK        , interlaced               						))
-$(eval $(call IMG2SP, CONVERT         , assets/pruebasprite01.png , 12, 8, prueba01_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/pruebasprite02.png , 12, 8, prueba01_spr	))
 
 ##
 ## OLD MACROS (For compatibility)

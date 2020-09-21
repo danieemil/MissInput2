@@ -6,7 +6,7 @@ _ed_name:
     
     .dw _sprite     ;; Sprite ptr
     .db _spr_w, _spr_h  ;;Sprite Width/Height
-    .db #0         ;; Sprite offset
+    .db #0         ;; Sprite offset [0, 48, 96, 144]
     .db _x, _y      ;; Previous x, y
 
     _ed_name'_size = . - _ed_name ;; Saves the number of bytes that fills a DefineEntity

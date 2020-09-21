@@ -6,7 +6,9 @@
 
 
 .globl cpct_drawSprite_asm
+.globl cpct_drawSpriteVFlip_asm
 .globl cpct_drawSpriteMasked_asm
+.globl cpct_drawSpriteVFlipMasked_asm
 
 
 .globl cpct_setPalette_asm
@@ -17,7 +19,9 @@
 
 .globl _cpct_keyboardStatusBuffer
 .globl _g_palette
-.globl _prueba01_spr
+
+;.globl _prueba01_spr
+.globl _prueba01_spr_0
 
 .globl player_1
 .globl player_2
@@ -48,4 +52,7 @@ _ed_size        = 7 + _eph_size
 _ep_keys    = 0 + _ed_size
 _ep_size    = 1 + _ed_size
 
+
+;;SPRITE SIZES
+PLAYER = 48  ;; 0x30 
 

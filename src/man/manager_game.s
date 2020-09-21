@@ -64,7 +64,7 @@ _mg_game_loop_singleplayer_init:
 ;;==================================================================
 _mg_game_loop_singleplayer:
 
-    ld ix, #player_1
+    ld iy, #player_1
 
     call _sr_draw_entity
 
