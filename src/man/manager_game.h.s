@@ -1,7 +1,7 @@
 ;;DEPENDENCIAS
     .include "man/manager_player.h.s"
     .include "sys/system_render.h.s"
-    .include "main.h.s"
+    .include "sys/system_physics.h.s"
     
 
 ;;FUNCIONES

@@ -66,6 +66,7 @@ _mg_game_loop_singleplayer:
 
     ld iy, #player_1
 
+    call _sp_move_entity
     call _sr_draw_entity
 
     call cpct_waitVSYNC_asm

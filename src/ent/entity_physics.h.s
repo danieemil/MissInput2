@@ -7,6 +7,7 @@
     .db _x, _y
     .db _w, _h
     .db _vx, _vy
+    .db #0x00           ;;Offset en X
     .db _attributes
     _eph_name'_size = . - _eph_name ;; Saves the number of bytes that fills a DefineEntity
 
@@ -18,8 +19,9 @@ _eph_w           = 2
 _eph_h           = 3
 _eph_vx          = 4
 _eph_vy          = 5
-_eph_attributes  = 6
-_eph_size        = 7
+_eph_offset      = 6
+_eph_attributes  = 7
+_eph_size        = 8
 
 
 

@@ -43,11 +43,19 @@ sde_no_add_b:
     call cpct_getScreenPtr_asm  ;;[277]
     ex de, hl                   ;;[4]  -> [281]
     
+    
     ld h, _ed_spr_h(iy)         ;;[19]
     ld l, _ed_spr_l(iy)         ;;[19]
     ld b, #0x00                 ;;[7]
-    ld c, _ed_spr_offset(iy)    ;;[19]
-    add hl, bc                  ;;[11] -> [75]
+    ld c, _ed_spr_size(iy)      ;;[19]
+    ld a, _eph_offset(iy)       ;;[]
+    cp #0x00
+    jr z, sde_offset_continue
+sde_offset_loop:
+        add hl, bc
+        dec a
+        jr nz, sde_offset_loop
+sde_offset_continue:
 
     ld c, _ed_spr_wi(iy)        ;;[19]
     ld b, _ed_spr_he(iy)        ;;[19] -> [38]

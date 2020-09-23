@@ -35,15 +35,16 @@ _eph_w           = 2
 _eph_h           = 3
 _eph_vx          = 4
 _eph_vy          = 5
-_eph_attributes  = 6
-_eph_size        = 7
+_eph_offset      = 6
+_eph_attributes  = 7
+_eph_size        = 8
 
 ;;ENTITY DRAWABLE CONSTS
 _ed_spr_l       = 0 + _eph_size
 _ed_spr_h       = 1 + _eph_size
 _ed_spr_wi      = 2 + _eph_size
 _ed_spr_he      = 3 + _eph_size
-_ed_spr_offset  = 4 + _eph_size
+_ed_spr_size    = 4 + _eph_size
 _ed_pre_x       = 5 + _eph_size
 _ed_pre_y       = 6 + _eph_size
 _ed_size        = 7 + _eph_size
