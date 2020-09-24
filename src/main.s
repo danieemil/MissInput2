@@ -46,10 +46,6 @@ string: .asciz "CPCtelera up and running!";
 ;; symbols for functions you do not use.
 ;;
 
-.globl cpct_getScreenPtr_asm
-.globl cpct_setDrawCharM1_asm
-.globl cpct_drawStringM1_asm
-
 ;;
 ;; MAIN function. This is the entry point of the application.
 ;;    _main:: global symbol is required for correctly compiling and linking
@@ -59,50 +55,26 @@ _main::
 
    call _mg_game_init
 
-; loopaaa:
+   ;;DE -> Final del destino en memoria del mapa
+   ld hl, #0x3000
+   ld de, #_map_pruebas_size-1
+   add hl, de
+   ld d, h
+   ld e, l
+   ;;HL -> Final del archivo comprimido
+   ld hl, #_map_pruebas_end
+   call cpct_zx7b_decrunch_s_asm
 
-;       call cpct_scanKeyboard_asm
-;       ld hl, #_cpct_keyboardStatusBuffer 
+   ld b, #25 ;;Height
+   ld c, #20 ;;Width
+   ld de, #20
+   ld hl, #_tileset_spr_00
+   call cpct_etm_setDrawTilemap4x8_ag_asm
 
-;       jr .
-
-;       call cpct_isKeyPressed_asm
-
-;    jr z, loopaaa
-
-
+   ld hl, #0xC000
+   ld de, #0x3000
+   call cpct_etm_drawTilemap4x8_ag_asm
 
 
    call _mg_game_loop_singleplayer_init
    call _mg_game_loop_singleplayer
-
-
-
-   ;; Set up draw char colours before calling draw string
-   ld    d, #0         ;; D = Background PEN (0)
-   ld    e, #3         ;; E = Foreground PEN (3)
-
-   call cpct_setDrawCharM1_asm   ;; Set draw char colours
-
-   ;; Calculate a video-memory location for printing a string
-   ld   de, #0xC000 ;; DE = Pointer to start of the screen
-   ld    b, #24                  ;; B = y coordinate (24 = 0x18)
-   ld    c, #16                  ;; C = x coordinate (16 = 0x10)
-
-   call cpct_getScreenPtr_asm    ;; Calculate video memory location and return it in HL
-
-   ;; Print the string in video memory
-   ;; HL already points to video memory, as it is the return
-   ;; value from cpct_getScreenPtr_asm
-   ld   iy, #string    ;; IY = Pointer to the string 
-
-   call cpct_drawStringM1_asm  ;; Draw the string
-
-   ;; Loop forever
-loop:
-
-
-
-
-
-   jr    loop

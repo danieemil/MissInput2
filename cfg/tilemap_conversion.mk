@@ -38,6 +38,11 @@
 # Conversion 
 #$(eval $(call TMX2DATA, CONVERT, tmxfile, array )) 
 
+$(eval $(call TMX2DATA, SET_OUTPUTS     , hs bin       )) 
+$(eval $(call TMX2DATA, SET_FOLDER      , src/maps/     ))
+$(eval $(call TMX2DATA, SET_BITSPERITEM , 8         )) 
+
+$(eval $(call TMX2DATA, CONVERT, assets/map-pruebas.tmx, map01 ))
 
 ##
 ## OLD MACROS (For compatibility)
@@ -64,6 +69,7 @@
 ##
 
 #$(eval $(call TMX2C,img/level0b.tmx,g_level0_4bit,src/levels/,4))
+
 
 
 

@@ -3,6 +3,7 @@
 .globl cpct_disableFirmware_asm
 .globl cpct_scanKeyboard_asm
 .globl cpct_isKeyPressed_asm
+.globl cpct_zx7b_decrunch_s_asm
 
 
 .globl cpct_drawSprite_asm
@@ -17,12 +18,21 @@
 .globl cpct_getScreenPtr_asm
 .globl cpct_waitVSYNC_asm
 
+.globl cpct_etm_setDrawTilemap4x8_ag_asm
+.globl cpct_etm_drawTilemap4x8_ag_asm
+
 .globl _cpct_keyboardStatusBuffer
 .globl _g_palette
 
-;.globl _prueba01_spr
+;;SPRITES
+.globl _tileset_spr_00
 .globl _prueba01_spr_0
 
+;;MAPAS
+.include "bins/map_pruebas.h.s"
+
+
+;;ENTIDADES
 .globl player_1
 .globl player_2
 

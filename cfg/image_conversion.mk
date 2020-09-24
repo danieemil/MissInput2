@@ -52,6 +52,11 @@ $(eval $(call IMG2SP, SET_OUTPUT      , c                						))
 $(eval $(call IMG2SP, SET_MASK        , interlaced               						))
 $(eval $(call IMG2SP, CONVERT         , assets/pruebasprite02.png , 12, 8, prueba01_spr	))
 
+$(eval $(call IMG2SP, SET_IMG_FORMAT  , zgtiles            ))
+$(eval $(call IMG2SP, SET_MASK        , none               						))
+$(eval $(call IMG2SP, CONVERT         , assets/tileset.png , 16, 8, tileset_spr	))
+
+
 ##
 ## OLD MACROS (For compatibility)
 ##
