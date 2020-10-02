@@ -2,6 +2,7 @@
 
 .globl cpct_disableFirmware_asm
 .globl cpct_scanKeyboard_asm
+.globl cpct_isAnyKeyPressed_f_asm
 .globl cpct_isKeyPressed_asm
 .globl cpct_zx7b_decrunch_s_asm
 
@@ -38,6 +39,11 @@
 
 
 
+;;GAME STATES
+GS_MAIN_MENU = 0
+GS_SINGLEPLAYER = 1
+GS_MULTIPLAYER = 2
+
 ;;ENTITY PHYSICS CONSTS
 _eph_x           = 0
 _eph_y           = 1
@@ -60,9 +66,11 @@ _ed_pre_y       = 6 + _eph_size
 _ed_size        = 7 + _eph_size
 
 ;;ENTITY PLAYER CONSTS
-_ep_keys    = 0 + _ed_size
-_ep_size    = 1 + _ed_size
+_ep_jump_state  = 0 + _ed_size
+_ep_size        = 1 + _ed_size
 
+;;JUMP TABLE
+JT_ON_GROUND = 9
 
 ;;SPRITE SIZES
 PLAYER = 48  ;; 0x30 

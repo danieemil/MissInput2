@@ -2,6 +2,7 @@
     .include "man/manager_player.h.s"
     .include "sys/system_render.h.s"
     .include "sys/system_physics.h.s"
+    .include "sys/system_user.h.s"
     
 
 ;;FUNCIONES

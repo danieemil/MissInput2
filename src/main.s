@@ -55,6 +55,9 @@ _main::
 
    call _mg_game_init
 
+   ld a, #GS_SINGLEPLAYER
+   ld (mg_game_state), a
+
    ;;DE -> Final del destino en memoria del mapa
    ld hl, #0x3000
    ld de, #_map_pruebas_size-1
