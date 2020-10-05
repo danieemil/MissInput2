@@ -30,6 +30,7 @@
 .globl _prueba01_spr_0
 
 ;;MAPAS
+MAPA_DIR = 0x3000
 .include "bins/map_pruebas.h.s"
 
 
@@ -38,6 +39,15 @@
 .globl player_2
 
 
+;;AMSTRAD CONSTS
+SCREEN_W = 80
+SCREEN_H = 200
+
+;;TILEMAP CONSTS
+TILEMAP_W = 20
+TILEMAP_H = 25
+TILE_W    = 4
+TILE_H    = 8
 
 ;;GAME STATES
 GS_MAIN_MENU = 0
@@ -75,3 +85,13 @@ JT_ON_GROUND = 9
 ;;SPRITE SIZES
 PLAYER = 48  ;; 0x30 
 
+
+;;COLLISION CONSTS
+GROUP_TRANSPARENT   = 1
+GROUP_SOLID         = 7
+GROUP_DANGEROUS     = 9
+
+
+TRANSPARENT = 0     ; Prioridad +
+DANGEROUS   = 1     ; Prioridad ++
+SOLID       = 2     ; Prioridad +++

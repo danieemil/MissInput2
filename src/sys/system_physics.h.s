@@ -1,7 +1,8 @@
 .include "main.h.s"
 
 
-.globl _sp_move_entity
+.globl _sp_move_entity_x
+.globl _sp_move_entity_y
 .globl _sy_manage_player_physics
 
 
