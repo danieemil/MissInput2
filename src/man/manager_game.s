@@ -19,7 +19,7 @@
     p2_key_j:: .dw #0x0804      ;;Default - 'P'
 
 
-    jump_table:: .db -1, -1, -1, -1, -1, 00, 1, 1, 1 ,1, 1, 1 ,#0x80
+    jump_table:: .db -4, -4, -2, -2, -2, -1, -1, -1, 00, 1, 1, 1 ,2,#0x80
     
 
 .area _CODE
@@ -78,6 +78,7 @@ _mg_game_loop_singleplayer:
 ;;FISICAS DEL JUGADOR-------------------
     push de
 
+    ;Fisicas P1
     ld iy, #player_1
     ld  a, (p1_key_gameplay)
     ld  e, a

@@ -80,6 +80,7 @@ _ep_jump_state  = 0 + _ed_size
 _ep_size        = 1 + _ed_size
 
 ;;JUMP TABLE
+JT_INIT      = 0
 JT_ON_GROUND = 9
 
 ;;SPRITE SIZES
@@ -88,8 +89,8 @@ PLAYER = 48  ;; 0x30
 
 ;;COLLISION CONSTS
 GROUP_TRANSPARENT   = 1
-GROUP_SOLID         = 7
-GROUP_DANGEROUS     = 9
+GROUP_SOLID         = 16
+GROUP_DANGEROUS     = 19
 
 
 TRANSPARENT = 0     ; Prioridad +

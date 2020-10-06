@@ -11,6 +11,54 @@
 
 
 ;;==================================================================
+;;                            FIX Y
+;;------------------------------------------------------------------
+;; Comprueba las colisiones del escenario a partir de 2 puntos
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  DE -> Punto en el tilemap que coincide con el tile colisionado en X
+;;  B  -> VY
+;;  IY -> Entity_Physics_ptr
+;;
+;; OUTPUT:
+;;   
+;;
+;; DESTROYS:
+;;  
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sp_fix_y::
+
+    ld a, b
+    ld b, #0x00
+    cp #0x00
+    jp m, sfx_move_up
+
+        dec e
+        dec e
+        ld a, #TILE_H
+        ld b, _eph_h(iy)
+        sub b
+        ld b, a
+
+sfx_move_up:
+        inc e
+
+    sla e
+    sla e
+    sla e
+
+    ld a, e
+    add b
+
+    ld _eph_y(iy), a
+
+    ret
+
+;;==================================================================
 ;;                            FIX X
 ;;------------------------------------------------------------------
 ;; Comprueba las colisiones del escenario a partir de 2 puntos
@@ -92,6 +140,11 @@ _sp_check_map_collisions::
     srl c
     ;B/4 -> Sacamos la posicion en el tilemap
     ;C/8 -> Sacamos la posicion en el tilemap
+    ;DEBUG
+    ;ld a, b
+    ;ld (0x5000), a
+    ;ld a, c
+    ;ld (0x5001), a
 
     srl d
     srl d
@@ -102,6 +155,11 @@ _sp_check_map_collisions::
     push de
     ;D/4 -> Sacamos la posicion en el tilemap
     ;E/8 -> Sacamos la posicion en el tilemap
+    ;DEBUG
+    ;ld a, d
+    ;ld (0x5002), a
+    ;ld a, e
+    ;ld (0x5003), a
 
     ld a, d ; -> Obtenemos la diferencia en X de los 2 puntos
     sub b
@@ -188,6 +246,7 @@ _sp_get_collision_points_x::
 
     add hl, bc
     ex de, hl
+    dec e
     ;;BC -> Arriba Izquierda
     ;;DE -> Abajo Izquierda
 
@@ -304,15 +363,26 @@ mpp_no_orientation:
                                             ;;Aplicamos la velocidad Horizontal
     ld _eph_vx(iy), d
     
-    xor a                                   ;;SALTO
+;;------------------------------------------SALTO------------------------------------
+    xor a                                   
     ld _eph_vy(iy), a
 
     bit 0, e                                ;;Comprobamos el boton de saltar
     jr z, mpp_no_key_j 
+        
+        bit 4, _eph_attributes(iy)
+        jr z, mpp_no_key_j
 
-        ld a, #0xFF
-        ld _eph_vy(iy), a
-        jr mpp_no_key_j
+        bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar
+        jr nz, mpp_hold_key_j
+
+            ld _ep_jump_state(iy), #JT_INIT
+
+
+mpp_hold_key_j:
+
+
+mpp_no_key_j:                               ;;No se ha pulsado el boton de saltar
 
         ld hl, #jump_table
         ld b, #0x00
@@ -323,9 +393,9 @@ mpp_no_orientation:
         cp #0x80
         jr nz, mpp_jump_continue
 
-            ld hl, #jump_table
+            dec hl
+            dec c
             ld a, (hl)
-            ld c, #0xFF
 
 mpp_jump_continue:
         inc c
@@ -333,7 +403,7 @@ mpp_jump_continue:
 
         ld _eph_vy(iy), a
 
-mpp_no_key_j:   
+
     ;A -> VY
     ;D -> VX
     push af
@@ -362,13 +432,31 @@ mpp_no_map_collision_x:
     pop af
     cp #0x00
     jr z, mpp_no_map_collision_y
+        ld b, a
+        push bc
         call _sp_get_collision_points_y
         call _sp_check_map_collisions
+        pop bc
+                                                    ;;TRANSPARENTES Y
         cp #0x00
-        jr z, mpp_no_map_collision_y
-        jr .
-mpp_no_map_collision_y:
+        jr nz, mpp_collision_y_dangerous
+            res 4, _eph_attributes(iy)
+            jr mpp_no_map_collision_y
 
+mpp_collision_y_dangerous:                          ;;PELIGROSOS Y
+        cp #0x01
+        jr nz, mpp_collision_y_solid
+            jr mpp_no_map_collision_y
+
+mpp_collision_y_solid:                              ;;SOLIDOS Y
+        cp #0x02
+        jr nz, mpp_collision_y_solid
+            call _sp_fix_y                          ;Corregimos la posicion en Y
+            set 4, _eph_attributes(iy)              ;Indicamos que ahora esta en el suelo
+            ld _ep_jump_state(iy), #JT_ON_GROUND    ;Ponemos la jump table a la posicion de colision con el suelo
+            jr mpp_no_map_collision_y
+
+mpp_no_map_collision_y:
     ret
 
 
