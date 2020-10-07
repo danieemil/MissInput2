@@ -1,8 +1,8 @@
-
 .include "man/manager_game.h.s"
 
 .area _DATA
-    mg_video_addr: .dw #0xC000
+    mg_front_buffer:: .db #0xC0
+    mg_back_buffer:: .db #0x80
     mg_game_state:: .db #0x00
 
     
@@ -19,7 +19,7 @@
     p2_key_j:: .dw #0x0804      ;;Default - 'P'
 
 
-    jump_table:: .db -4, -4, -2, -2, -2, -1, -1, -1, 00, 1, 1, 1 ,2,#0x80
+    jump_table:: .db -4, -4, -4, -2, -2, -2, -1, -1, -1, -1, 00, 1, 1, 1, 1,2,#0x80
     
 
 .area _CODE
@@ -48,7 +48,7 @@
 ;; CYCLES: []
 ;;==================================================================
 _mg_game_loop_singleplayer_init:
-
+    call _sr_init_buffers
     ret
     
 
@@ -82,13 +82,23 @@ _mg_game_loop_singleplayer:
 
     ;Fisicas P1
     ld iy, #player_1
+    
+    call _sr_redraw_tiles           ;;Redibujamos los tiles de fondo
+    ld b, _eph_x(iy)                ;;Establecemos la posicion actual a la pasada
+    ld _ed_pre_x(iy), b
+    ld b, _eph_y(iy)
+    ld _ed_pre_y(iy), b
+
+    pop de
+    push de
+
     ld  a, (p1_key_gameplay)
     ld  e, a
-    call _sy_manage_player_physics
+    call _sy_manage_player_physics  ;;Aplicamos las fisicas al jugador 1
 
     pop de
     ld a, (mg_game_state)
-    cp #GS_MULTIPLAYER
+    cp #GS_MULTIPLAYER              ;;Comprobamos si esta en modo multijugador
     jr nz, gl_end_physics
 
     ;Fisicas P2
@@ -102,7 +112,9 @@ gl_end_physics:;------------------------
     call _sr_draw_entity
     ld iy, #player_1
     call _sr_draw_entity
+
     call cpct_waitVSYNC_asm
+    call _sr_swap_buffers
 
     jp _mg_game_loop_singleplayer
 
@@ -130,8 +142,6 @@ gl_end_physics:;------------------------
 ;; CYCLES: []
 ;;==================================================================
 _mg_game_init:
-    
-
     call cpct_disableFirmware_asm
 
     ld c, #0x01
@@ -144,4 +154,5 @@ _mg_game_init:
     ld hl, #0x0B10
     call cpct_setPALColour_asm
 
+    call _sr_init_buffers
     ret

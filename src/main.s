@@ -51,7 +51,7 @@ string: .asciz "CPCtelera up and running!";
 ;;    _main:: global symbol is required for correctly compiling and linking
 ;;
 _main::
-   ;; Disable firmware to prevent it from interfering with string drawing
+   ld sp, #0x8000
 
    call _mg_game_init
 

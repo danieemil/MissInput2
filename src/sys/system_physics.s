@@ -39,8 +39,8 @@ _sp_fix_y::
 
         dec e
         dec e
-        ld a, #TILE_H
-        ld b, _eph_h(iy)
+        ld b, #TILE_H
+        ld a, _eph_h(iy)
         sub b
         ld b, a
 
@@ -370,7 +370,7 @@ mpp_no_orientation:
     bit 0, e                                ;;Comprobamos el boton de saltar
     jr z, mpp_no_key_j 
         
-        bit 4, _eph_attributes(iy)
+        bit 4, _eph_attributes(iy)          ;;Comprobamos si esta en el suelo
         jr z, mpp_no_key_j
 
         bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar

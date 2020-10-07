@@ -1,16 +1,17 @@
 ;;GLOBLS :D
 
 .globl cpct_disableFirmware_asm
+.globl cpct_zx7b_decrunch_s_asm
 .globl cpct_scanKeyboard_asm
 .globl cpct_isAnyKeyPressed_f_asm
 .globl cpct_isKeyPressed_asm
-.globl cpct_zx7b_decrunch_s_asm
 
 
 .globl cpct_drawSprite_asm
 .globl cpct_drawSpriteVFlip_asm
 .globl cpct_drawSpriteMasked_asm
 .globl cpct_drawSpriteVFlipMasked_asm
+.globl cpct_drawTileZigZagGrayCode4x8_af_asm
 
 
 .globl cpct_setPalette_asm
@@ -18,6 +19,8 @@
 .globl cpct_setPALColour_asm
 .globl cpct_getScreenPtr_asm
 .globl cpct_waitVSYNC_asm
+.globl cpct_setVideoMemoryPage_asm
+
 
 .globl cpct_etm_setDrawTilemap4x8_ag_asm
 .globl cpct_etm_drawTilemap4x8_ag_asm
@@ -28,6 +31,7 @@
 ;;SPRITES
 .globl _tileset_spr_00
 .globl _prueba01_spr_0
+TILE_SIZE = 4 * 8
 
 ;;MAPAS
 MAPA_DIR = 0x3000
@@ -81,7 +85,7 @@ _ep_size        = 1 + _ed_size
 
 ;;JUMP TABLE
 JT_INIT      = 0
-JT_ON_GROUND = 9
+JT_ON_GROUND = 11
 
 ;;SPRITE SIZES
 PLAYER = 48  ;; 0x30 
