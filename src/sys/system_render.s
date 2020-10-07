@@ -3,11 +3,236 @@
 
 .area _DATA
 
-
+aux_01: .db #0x00
+aux_02: .db #0x00
 
 
 
 .area _CODE
+
+
+
+;;==================================================================
+;;                         REDRAW TILES
+;;------------------------------------------------------------------
+;; Dibuja una entidad a partir de un puntero a la misma.
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  IY -> entity_drawable_ptr
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL, IX
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_redraw_tiles:
+    ld c, _ed_pre_x(iy)
+    ld b, _ed_pre_y(iy)
+    ld l, _ed_spr_wi(iy)
+    ld h, _ed_spr_he(iy)
+    add hl, bc
+    ex de, hl
+    ;;BC -> Esquina Superior Izquierda en 
+    ;;HL -> Esquina Inferior Derecha
+
+    srl b
+    srl b
+    srl b
+
+    srl c
+    srl c
+    
+
+    srl d
+    srl d
+    srl d
+
+    srl e
+    srl e
+
+    ld a, d
+    sub b
+    ld d, a
+
+    ld a, e
+    sub c
+    ld e, a 
+    
+    
+    ;BC ->  [Y, X]  Tile que corresponde con la esquina superior izquierda
+    ;DE -> [dY, dX] Diferencia en tiles de la esquina superior izquierda con la esquina inferior derecha
+    
+    push bc
+    push de
+    
+    sla b   ;;obtenemos la posicion inicial del tile arriba a la izquierda
+    sla b
+    sla b
+    sla c
+    sla c
+
+    ld a, (mg_back_buffer) 
+    ld d, a
+    ld e, #0x00
+    call cpct_getScreenPtr_asm
+    ;;HL -> Puntero a memoria de video del tile que corresponde a la esquina superior izquierda de la entity_drawable
+    ;ld bc, #TILE_SIZE
+    ;ld de, #SCREEN_W
+
+    exx
+    pop de
+    pop bc
+
+    ld a, b
+    ld b, #0x00
+
+    ld hl, #MAPA_DIR
+    add hl, bc
+    ld bc, #TILEMAP_W
+
+    cp #0x00
+    jr z, rt_loop_get_init_point_end
+rt_loop_get_init_point:
+        add hl, bc
+        dec a
+        jr nz, rt_loop_get_init_point
+
+rt_loop_get_init_point_end:
+    ;HL  -> Puntero al tile que corresponde con la esquina superior izquierda
+    ;HL' -> Puntero a memoria de video del tile que corresponde a la esquina superior izquierda de la entity_drawable
+    ;DE  -> [dY, dX] Diferencia en tiles de la esquina superior izquierda con la esquina inferior derecha
+    ld a, e
+    inc a
+    ld (aux_01), a
+
+    ld a, d
+    inc a
+    
+    
+
+rt_loop_redraw_tile_rows:
+        push af
+        push hl   ;;PUSH HL
+        exx
+        push hl   ;;PUSH HL'
+        exx
+        ld a, (aux_01)
+rt_loop_redraw_tile_cols:
+            push af
+
+            ld a, (hl)
+            push hl
+
+            ld hl, #_tileset_spr_00
+            ld bc, #TILE_SIZE
+            cp #0x00
+            jr z, rt_loop_retdaw_get_tile_ptr_end
+rt_loop_retdaw_get_tile_ptr:
+                add hl, bc
+                dec a
+                jr nz ,rt_loop_retdaw_get_tile_ptr
+
+rt_loop_retdaw_get_tile_ptr_end:
+            ;HL -> sprite_ptr
+            exx
+            ld d, h
+            ld e, l
+            push de
+            ld de, #TILE_W
+            add hl, de
+            exx
+            pop de
+            ;DE -> vmem_ptr
+            call cpct_drawTileZigZagGrayCode4x8_af_asm
+        
+            pop hl
+            inc hl
+
+            pop af
+            dec a
+            jr nz, rt_loop_redraw_tile_cols
+
+        exx
+        pop hl
+        ld bc, #SCREEN_W
+        add hl, bc
+        exx
+
+        pop hl
+        ld bc, #TILEMAP_W
+        add hl, bc
+
+        pop af
+        dec a
+        jr nz, rt_loop_redraw_tile_rows
+    ret
+
+
+
+;;==================================================================
+;;                         INIT BUFFERS
+;;------------------------------------------------------------------
+;; Dibuja una entidad a partir de un puntero a la misma.
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  NONE
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL, IX
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_init_buffers:
+    ld hl, #0xC000
+    ld de, #0x8000
+    ld bc, #0x4000
+    ldir
+    ret
+
+
+;;==================================================================
+;;                         SWAP BUFFERS
+;;------------------------------------------------------------------
+;; Dibuja una entidad a partir de un puntero a la misma.
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  NONE
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL, IX
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_swap_buffers:
+    ld a, (mg_front_buffer)
+    ld b, a
+    ld a, (mg_back_buffer)
+    ld (mg_front_buffer), a
+    ld a, b
+    ld (mg_back_buffer), a
+
+    srl a
+    srl a
+    ld l, a
+
+    jp cpct_setVideoMemoryPage_asm
+
+
 ;;==================================================================
 ;;                         DRAW ENTITY    -    OPTIMIZARRRR
 ;;------------------------------------------------------------------
@@ -28,7 +253,9 @@
 ;;==================================================================
 _sr_draw_entity:
 
-    ld de, #0xC000              ;;[10] Poner en un futuro el inicio del doble buffer
+    ld a, (mg_back_buffer)
+    ld d, a
+    ld e, #0x00              ;;[10] Poner en un futuro el inicio del doble buffer
     ld b, _eph_y(iy)            ;;[19]
     ld c, _eph_x(iy)            ;;[19] -> [48]
 
