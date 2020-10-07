@@ -335,7 +335,7 @@ gcpy_check_offset:
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
-;;  DE -> 
+;;  DE -> D = Player(key_r + key_l),  E = Player(key_j state)
 ;;
 ;; OUTPUT:
 ;;  NONE
@@ -360,8 +360,8 @@ mpp_change_orientation_right:
         set 5, _eph_attributes(iy)
 mpp_no_orientation:
 
-                                            ;;Aplicamos la velocidad Horizontal
-    ld _eph_vx(iy), d
+
+    ld _eph_vx(iy), d                       ;;Aplicamos la velocidad Horizontal
     
 ;;------------------------------------------SALTO------------------------------------
     xor a                                   
@@ -422,7 +422,6 @@ mpp_jump_continue:
         cp #0x00
         jr z, mpp_no_map_collision_x
             call _sp_fix_x
-            ;jr .
 
 
 mpp_no_map_collision_x:
@@ -457,6 +456,13 @@ mpp_collision_y_solid:                              ;;SOLIDOS Y
             jr mpp_no_map_collision_y
 
 mpp_no_map_collision_y:
+
+
+    ; MANEJAR COLISIONES CON LAS ENTIDADES
+    call _sp_check_entity_collision
+
+
+
     ret
 
 
@@ -588,4 +594,121 @@ ctig_check_group_dangerous:
 
         ld a, #DANGEROUS
         ret
+    ret
+
+
+;;==================================================================
+;;                        CHECK ENTITY COLLISION
+;;------------------------------------------------------------------
+;; Comprueba si han colisionado dos entidades entre sí
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  IY -> Entity_physics ptr
+;;  IX -> Entity_physics_2 ptr
+;;
+;; OUTPUT:
+;;  A -> (0 -> No colisión, 1 -> Colisión)
+;;
+;; DESTROYS:
+;;  AF, BC, AF'
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sp_check_entity_collision:
+
+
+;; Colisiones en eje X o eje Y
+
+;; X            -> Posición
+;; X + W        -> Posición + Tamaño en el eje
+
+;; X2
+;; X2 + W2
+
+;;
+;; Forma general de las físicas (no óptimo)
+;; if(X < X2 + W2 && X + W > X2) -> Colisiona
+;; if(X - (X2 + W2) < 0)
+;;      if(x2 - (X + W) < 0)
+;;          colisiona ;/
+
+
+
+ld a, _eph_x(ix)
+ld b, _eph_w(ix)
+add b
+ld b, a
+inc b
+ld a, _eph_x(iy)
+sub b
+jr nc, no_entity_collision              ;; X - X2 + W2
+
+
+
+    ld a, _eph_x(iy)
+    ld b, _eph_w(iy)
+    add b
+    ld b, a
+    inc b
+    ld a, _eph_x(ix)
+    sub b
+    jr nc, no_entity_collision          ;; X2 - X + W
+        
+        ld a, _eph_y(ix)
+        ld b, _eph_h(ix)
+        add b
+        ld b, a
+        ld a, _eph_y(iy)
+        cp b
+        jr nc, no_entity_collision      ;; Y - Y2 + H2
+
+            ld b, _eph_h(iy)
+            add b
+            ld b, a
+            ld a, _eph_y(ix)
+            sub b
+            jr nc, no_entity_collision  ;; Y2 - Y + H
+
+
+                ;;Offset
+                ld a, _eph_x(iy)
+                ld b, _eph_x(ix)
+                cp b
+                jr nc, left_offset
+                    ;; a -> derecha, b -> izquierda
+                    sub b
+                    cp _eph_w(iy)
+                    jr c, .
+
+                    ld e, _eph_offset(iy) ;; Derecha
+                    ld a, _eph_offset(ix) ;; Izquierda
+
+                    jr check_offset
+
+                left_offset:
+                ;; a -> izquierda, b -> derecha
+                ld c, a
+                ld a, b
+                ld b, c
+
+                sub b
+                cp _eph_w(ix)
+                jr c, .
+
+                ld e, _eph_offset(ix)
+                ld a, _eph_offset(iy)
+
+                check_offset:
+                ;; Si el offset de la derecha es >= al de la izquierda NO hay colisión
+                ;; A -> Derecha
+                ;; E -> Izquierda
+
+                cp e
+                jr c, .
+                
+
+no_entity_collision:
+
     ret

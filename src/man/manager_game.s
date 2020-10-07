@@ -78,6 +78,8 @@ _mg_game_loop_singleplayer:
 ;;FISICAS DEL JUGADOR-------------------
     push de
 
+    ld ix, #player_2
+
     ;Fisicas P1
     ld iy, #player_1
     ld  a, (p1_key_gameplay)
@@ -90,9 +92,14 @@ _mg_game_loop_singleplayer:
     jr nz, gl_end_physics
 
     ;Fisicas P2
+    ld iy, #player_2
+    ld  de, #0x0000
+    call _sy_manage_player_physics
 
 gl_end_physics:;------------------------
     
+    ld iy, #player_2
+    call _sr_draw_entity
     ld iy, #player_1
     call _sr_draw_entity
     call cpct_waitVSYNC_asm
