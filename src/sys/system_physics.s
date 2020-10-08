@@ -609,9 +609,10 @@ ctig_check_group_dangerous:
 ;;
 ;; OUTPUT:
 ;;  A -> (0 -> No colisión, 1 -> Colisión)
+;;  B -> Colisión de IY respecto de IX (-1 -> A su izquierda, 0 -> Muy a dentro, 1 -> A su derecha)
 ;;
 ;; DESTROYS:
-;;  AF, BC, AF'
+;;  AF, BC, 
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -635,21 +636,15 @@ _sp_check_entity_collision:
 ;;          colisiona ;/
 
 
-
 ld a, _eph_x(ix)
-ld b, _eph_w(ix)
-add b
+add _eph_w(ix)
 ld b, a
 inc b
 ld a, _eph_x(iy)
-sub b
+cp b
 jr nc, no_entity_collision              ;; X - X2 + W2
 
-
-
-    ld a, _eph_x(iy)
-    ld b, _eph_w(iy)
-    add b
+    add _eph_w(iy)
     ld b, a
     inc b
     ld a, _eph_x(ix)
@@ -657,15 +652,13 @@ jr nc, no_entity_collision              ;; X - X2 + W2
     jr nc, no_entity_collision          ;; X2 - X + W
         
         ld a, _eph_y(ix)
-        ld b, _eph_h(ix)
-        add b
+        add _eph_h(ix)
         ld b, a
         ld a, _eph_y(iy)
         cp b
         jr nc, no_entity_collision      ;; Y - Y2 + H2
 
-            ld b, _eph_h(iy)
-            add b
+            add _eph_h(iy)
             ld b, a
             ld a, _eph_y(ix)
             sub b
@@ -676,39 +669,55 @@ jr nc, no_entity_collision              ;; X - X2 + W2
                 ld a, _eph_x(iy)
                 ld b, _eph_x(ix)
                 cp b
-                jr nc, left_offset
-                    ;; a -> derecha, b -> izquierda
+                jr c, right_offset
+                    ;; a -> Derecha, b -> Izquierda
                     sub b
                     cp _eph_w(iy)
-                    jr c, .
+                    jr nc, left_edge
+                        ld b, #0x00
+                        jr colliding
 
-                    ld e, _eph_offset(iy) ;; Derecha
-                    ld a, _eph_offset(ix) ;; Izquierda
+                    left_edge:
+
+                    ld a, _eph_offset(iy) ;; Derecha
+                    ld c, _eph_offset(ix) ;; Izquierda
+
+                    ld b, #0x01
 
                     jr check_offset
 
-                left_offset:
-                ;; a -> izquierda, b -> derecha
+                right_offset:
+                ;; a -> Izquierda, b -> Derecha
                 ld c, a
                 ld a, b
                 ld b, c
 
                 sub b
                 cp _eph_w(ix)
-                jr c, .
+                jr nc, right_edge
+                    ld b, #0x00
+                    jr colliding
 
-                ld e, _eph_offset(ix)
-                ld a, _eph_offset(iy)
+                right_edge:
+
+                ld b, #0xFF
+
+                ld a, _eph_offset(ix) ;; Derecha
+                ld c, _eph_offset(iy) ;; Izquierda 
 
                 check_offset:
                 ;; Si el offset de la derecha es >= al de la izquierda NO hay colisión
                 ;; A -> Derecha
-                ;; E -> Izquierda
+                ;; C -> Izquierda
 
-                cp e
-                jr c, .
-                
+                cp c
+                jr nc, no_entity_collision
 
+                colliding:
+                    ld a, #01
+                    ret
+
+                    
 no_entity_collision:
-
+    xor a
     ret
