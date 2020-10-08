@@ -5,10 +5,11 @@
 .area _CODE
 
 
+
 ;;==================================================================
 ;;                        GET KEY INPUT
 ;;------------------------------------------------------------------
-;; Descripcion
+;; Gestiona el input en función de las teclas que se han pulsado
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -16,26 +17,8 @@
 ;;
 ;; OUTPUT:
 ;;  DE ->  D = P1(key_r + key_l),  E = P2(key_r + key_l)
-;;
-;; DESTROYS:
-;;  AF, BC, DE, HL, AF', BC', DE', HL'
-;;
-;;------------------------------------------------------------------
-;; CYCLES: []
-;;==================================================================
-
-
-;;==================================================================
-;;                        GET KEY INPUT
-;;------------------------------------------------------------------
-;; Descripcion
-;;------------------------------------------------------------------
-;;
-;; INPUT:
-;;  NONE
-;;
-;; OUTPUT:
-;;  DE ->  D = P1(key_r + key_l),  E = P2(key_r + key_l)
+;;  p1_key_gameplay -> Estado actual y previo de la tecla de salto del jugador 1
+;;  p2_key_gameplay -> Estado actual y previo de la tecla de salto del jugador 2
 ;;
 ;; DESTROYS:
 ;;  AF, BC, DE, HL, AF', BC', DE', HL'

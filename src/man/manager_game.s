@@ -30,7 +30,7 @@
 
 
 ;;==================================================================
-;;                   GAME LOOP SINGLEPLAYER INIT
+;;                   GAME LOOP INIT
 ;;------------------------------------------------------------------
 ;; Descripcion
 ;;------------------------------------------------------------------
@@ -47,16 +47,16 @@
 ;;------------------------------------------------------------------
 ;; CYCLES: []
 ;;==================================================================
-_mg_game_loop_singleplayer_init:
+_mg_game_loop_init:
     call _sr_init_buffers
     ret
     
 
 
 ;;==================================================================
-;;                      GAME LOOP SINGLEPLAYER
+;;                           GAME LOOP
 ;;------------------------------------------------------------------
-;; Descripcion
+;; Bucle inicial en el que se ejecuta el juego (NO MENUS)
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -66,19 +66,20 @@ _mg_game_loop_singleplayer_init:
 ;;  NONE
 ;;
 ;; DESTROYS:
-;;  NONE
+;;  AF, BC, DE, HL, AF', BC', DE', HL'
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: []
 ;;==================================================================
-_mg_game_loop_singleplayer:
+_mg_game_loop:
 
     call _sr_get_key_input
     
 ;;FISICAS DEL JUGADOR-------------------
     push de
 
-    ld ix, #player_2
+
+    ld ix, #player_2;;Quitar
 
     ;Fisicas P1
     ld iy, #player_1
@@ -110,13 +111,14 @@ gl_end_physics:;------------------------
     
     ld iy, #player_2
     call _sr_draw_entity
+
     ld iy, #player_1
     call _sr_draw_entity
 
     call cpct_waitVSYNC_asm
     call _sr_swap_buffers
 
-    jp _mg_game_loop_singleplayer
+    jp _mg_game_loop
 
 
 

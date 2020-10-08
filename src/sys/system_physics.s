@@ -13,7 +13,7 @@
 ;;==================================================================
 ;;                            FIX Y
 ;;------------------------------------------------------------------
-;; Comprueba las colisiones del escenario a partir de 2 puntos
+;; Rectifica la posición en Y de la entidad respecto a la colisión con el escenario
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -22,10 +22,10 @@
 ;;  IY -> Entity_Physics_ptr
 ;;
 ;; OUTPUT:
-;;   
+;;  NONE
 ;;
 ;; DESTROYS:
-;;  
+;;  AF, B, E
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -61,7 +61,7 @@ sfx_move_up:
 ;;==================================================================
 ;;                            FIX X
 ;;------------------------------------------------------------------
-;; Comprueba las colisiones del escenario a partir de 2 puntos
+;; Rectifica la posición en X de la entidad respecto a la colisión con el escenario
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -70,10 +70,10 @@ sfx_move_up:
 ;;  IY -> Entity_Physics_ptr
 ;;
 ;; OUTPUT:
-;;   
+;;  NONE
 ;;
 ;; DESTROYS:
-;;  
+;;  AF, B, D
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -113,19 +113,17 @@ sfx_move_left:
 ;; Comprueba las colisiones del escenario a partir de 2 puntos
 ;;------------------------------------------------------------------
 ;;
+;;
 ;; INPUT:
 ;;  BC -> Punto 1
 ;;  DE -> Punto 2
 ;;
 ;; OUTPUT:
-;;   A  -> Tile sobre el que se colisiona
-;;   BC -> Posicion X,Y del tilemap que corresponde con el punto 1
+;;  A  -> Tile sobre el que se colisiona
+;;  BC -> Posicion X,Y del tilemap que corresponde con el punto 1
 ;;
 ;; DESTROYS:
-
-            ; 0  1  2  3  4  5  6  7  8....
-    ;TILESET = F, F, F, F, S, S, S, S, S, S, S, S, S, S, S, S, S, M, M, M, M, M
-
+;;  AF, BC, DE, HL,
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -190,7 +188,7 @@ cmc_loop_point_1_end:
     ld c, e     ; -> Aplicamos la diferencia en X
     ld e, d
     ld d, a
-    add hl, de 
+    add hl, de
 
     ld a, c     ; -> Aplicamos la diferencia en Y
     ld de, #TILEMAP_W
@@ -221,18 +219,18 @@ cmc_loop_point_2_end:
 ;;==================================================================
 ;;                      GET COLLISION POINTS X
 ;;------------------------------------------------------------------
-;; Actualiza la posicion de una entidad.
+;; Devuelve los dos puntos de colisión con el escenario en función de la velocidad, [en X].
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
 ;;  IY -> Entity_physics ptr
-;;   A -> Vel.
+;;   A -> Velocidad en X.
 ;;
 ;; OUTPUT:
 ;;  NONE
 ;;
 ;; DESTROYS:
-;;  
+;;  AF, BC, DE, HL,
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -274,18 +272,18 @@ _sp_get_collision_points_x::
 ;;==================================================================
 ;;                      GET COLLISION POINTS Y
 ;;------------------------------------------------------------------
-;; Actualiza la posicion de una entidad.
+;; Devuelve los dos puntos de colisión con el escenario en función de la velocidad, [en Y].
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
 ;;  IY -> Entity_physics ptr
-;;   A -> Vel.
+;;   A -> Velocidad en Y.
 ;;
 ;; OUTPUT:
 ;;  NONE
 ;;
 ;; DESTROYS:
-;;  
+;;  AF, BC, DE, HL
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -331,17 +329,18 @@ gcpy_check_offset:
 ;;==================================================================
 ;;                         MANAGE PLAYER PHYSICS
 ;;------------------------------------------------------------------
-;; Actualiza la posicion de una entidad.
+;; Actualiza las físicas del jugador.
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
+;;  IY -> Puntero al jugador 
 ;;  DE -> D = Player(key_r + key_l),  E = Player(key_j state)
 ;;
 ;; OUTPUT:
 ;;  NONE
 ;;
 ;; DESTROYS:
-;;  
+;;  AF, BC, DE, HL, AF'
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -461,15 +460,13 @@ mpp_no_map_collision_y:
     ; MANEJAR COLISIONES CON LAS ENTIDADES
     call _sp_check_entity_collision
 
-
-
     ret
 
 
 ;;==================================================================
 ;;                         MOVE ENTITY X
 ;;------------------------------------------------------------------
-;; Actualiza la posicion de una entidad.
+;; Actualiza la posicion de una entidad en el eje X.
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -529,7 +526,7 @@ sme_loop_continue:
 ;;==================================================================
 ;;                         MOVE ENTITY Y
 ;;------------------------------------------------------------------
-;; Actualiza la posicion de una entidad.
+;; Actualiza la posicion de una entidad en el eje Y.
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -551,6 +548,8 @@ _sp_move_entity_y:
     add c
     ld _eph_y(iy), a
 
+    ret
+
 
 
 
@@ -558,8 +557,11 @@ _sp_move_entity_y:
 ;;==================================================================
 ;;                      CHECK TILE ID GROUP
 ;;------------------------------------------------------------------
-;; Actualiza la posicion de una entidad.
+;; Comprueba a qué grupo de colisiones pertenece en función de su id en el tileset
 ;;------------------------------------------------------------------
+;;
+;;           0  1  2  3  4  5  6  7  8....
+;; TILESET = F, F, F, F, S, S, S, S, S, S, S, S, S, S, S, S, S, M, M, M, M, M
 ;;
 ;; INPUT:
 ;;   A -> Tile ID
@@ -568,7 +570,7 @@ _sp_move_entity_y:
 ;;   A -> Tile ID Group
 ;;
 ;; DESTROYS:
-;;  
+;;  AF
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]

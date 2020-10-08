@@ -1,4 +1,4 @@
-;;GLOBLS :D
+;;GLOBLS
 
 .globl cpct_disableFirmware_asm
 .globl cpct_zx7b_decrunch_s_asm

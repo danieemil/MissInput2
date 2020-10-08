@@ -15,7 +15,7 @@ aux_02: .db #0x00
 ;;==================================================================
 ;;                         REDRAW TILES
 ;;------------------------------------------------------------------
-;; Dibuja una entidad a partir de un puntero a la misma.
+;; Redibuja la parte del tilemap que está alrededor de la entidad
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -25,7 +25,7 @@ aux_02: .db #0x00
 ;;  NONE
 ;;
 ;; DESTROYS:
-;;  AF, BC, DE, HL, IX
+;;  AF, BC, DE, HL, BC', DE', HL'
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -177,7 +177,7 @@ rt_loop_retdaw_get_tile_ptr_end:
 ;;==================================================================
 ;;                         INIT BUFFERS
 ;;------------------------------------------------------------------
-;; Dibuja una entidad a partir de un puntero a la misma.
+;; Inicializa los buffers copiando el contenido de la memoria de video en 0x8000
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -187,7 +187,7 @@ rt_loop_retdaw_get_tile_ptr_end:
 ;;  NONE
 ;;
 ;; DESTROYS:
-;;  AF, BC, DE, HL, IX
+;;  F, BC, DE, HL
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -203,7 +203,7 @@ _sr_init_buffers:
 ;;==================================================================
 ;;                         SWAP BUFFERS
 ;;------------------------------------------------------------------
-;; Dibuja una entidad a partir de un puntero a la misma.
+;; Intercambia el backbuffer y el frontbuffer, y modifica el CRTC para que apunte al frontbuffer
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -213,7 +213,7 @@ _sr_init_buffers:
 ;;  NONE
 ;;
 ;; DESTROYS:
-;;  AF, BC, DE, HL, IX
+;;  AF, BC, HL
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
