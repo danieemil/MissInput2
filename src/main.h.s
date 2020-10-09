@@ -31,6 +31,7 @@
 ;;SPRITES
 .globl _tileset_spr_00
 .globl _prueba01_spr_0
+.globl _prueba02_spr_0
 TILE_SIZE = 4 * 8
 
 ;;MAPAS
@@ -85,7 +86,7 @@ _ep_size        = 1 + _ed_size
 
 ;;JUMP TABLE
 JT_INIT      = 0
-JT_ON_GROUND = 11
+JT_ON_GROUND = 14
 
 ;;SPRITE SIZES
 PLAYER = 48  ;; 0x30 

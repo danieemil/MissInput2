@@ -39,8 +39,8 @@ _sp_fix_y::
 
         dec e
         dec e
-        ld b, #TILE_H
-        ld a, _eph_h(iy)
+        ld b, _eph_h(iy)
+        ld a, #TILE_H
         sub b
         ld b, a
 
@@ -70,10 +70,10 @@ sfx_move_up:
 ;;  IY -> Entity_Physics_ptr
 ;;
 ;; OUTPUT:
-;;   
+;;
 ;;
 ;; DESTROYS:
-;;  
+;;
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -360,7 +360,7 @@ mpp_change_orientation_right:
         set 5, _eph_attributes(iy)
 mpp_no_orientation:
 
-
+    sla d
     ld _eph_vx(iy), d                       ;;Aplicamos la velocidad Horizontal
     
 ;;------------------------------------------SALTO------------------------------------

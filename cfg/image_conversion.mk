@@ -51,6 +51,7 @@ $(eval $(call IMG2SP, SET_IMG_FORMAT  , sprites									))
 $(eval $(call IMG2SP, SET_OUTPUT      , c                						))
 $(eval $(call IMG2SP, SET_MASK        , interlaced               						))
 $(eval $(call IMG2SP, CONVERT         , assets/pruebasprite02.png , 12, 8, prueba01_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/pruebasprite03.png , 12, 9, prueba02_spr	))
 
 $(eval $(call IMG2SP, SET_IMG_FORMAT  , zgtiles            ))
 $(eval $(call IMG2SP, SET_MASK        , none               						))

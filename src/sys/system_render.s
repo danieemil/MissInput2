@@ -112,8 +112,6 @@ rt_loop_get_init_point_end:
 
     ld a, d
     inc a
-    
-    
 
 rt_loop_redraw_tile_rows:
         push af
