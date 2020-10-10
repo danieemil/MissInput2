@@ -458,7 +458,15 @@ mpp_no_map_collision_y:
 
 
     ; MANEJAR COLISIONES CON LAS ENTIDADES
-    call _sp_check_entity_collision
+    ld ix, #enemy_vector
+    ld a, #me_num_enemy
+    ld de, #_ee_size
+    call _sp_check_entity_vector_collision
+    ret z
+
+    .db #0xDD, #0x5D        ;; OPCODE ld e, ixl
+    .db #0xDD, #0x54        ;; OPCODE ld d, ixh
+    call _me_remove_enemy
 
     ret
 
@@ -722,4 +730,45 @@ jr nc, cec_no_entity_collision              ;; X - X2 + W2
                     
 cec_no_entity_collision:
     xor a
+    ret
+
+;;==================================================================
+;;                    CHECK ENTITY VECTOR COLLISION
+;;------------------------------------------------------------------
+;; Comprueba si una entidad ha colisionado con alguna entidad del vector
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  IY  -> Puntero a la entidad
+;;  IX  -> Puntero al vector de entidades
+;;  A   -> Número de elementos de la entidad
+;;  DE  -> Tamaño de cada elemento del vector
+;;
+;; OUTPUT:
+;;  A   -> (0 -> No colisión, 1 -> Colisión)
+;;  B   -> Colisión de IY respecto de IX (-1 -> A su izquierda, 0 -> Muy a dentro, 1 -> A su derecha)
+;;  IX  -> Puntero a la entidad con la que ha colisionado / Fin del vector
+;;
+;; DESTROYS:
+;;  AF, BC, IX, AF'
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sp_check_entity_vector_collision:
+
+    cp #00
+    ret z
+    cevc_loop_vector:
+
+        ex af, af'
+        call _sp_check_entity_collision
+        cp #0x00
+        ret nz
+        ex af, af'
+
+        add ix, de
+        dec a
+        jr nz, cevc_loop_vector
+
     ret

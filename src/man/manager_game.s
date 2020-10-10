@@ -49,6 +49,23 @@
 ;;==================================================================
 _mg_game_loop_init:
     call _sr_init_buffers
+    call _me_init_vector
+    
+    
+    xor a               ;; Tipo de enemigo
+    ld b, #0x18         ;; Posicion en X
+    ld c, #0x78         ;; Posicion en Y
+    ld d, #0x00         ;; Velocidad en X
+    ld e, #0x00         ;; Velocidad en Y
+    call _me_add_enemy
+
+    ld a, #01            ;; Tipo de enemigo
+    ld b, #0x22         ;; Posicion en X
+    ld c, #0x88         ;; Posicion en Y
+    ld d, #0x00         ;; Velocidad en X
+    ld e, #0x00         ;; Velocidad en Y
+    call _me_add_enemy
+
     ret
     
 
@@ -114,6 +131,12 @@ gl_end_physics:;------------------------
 
     ld iy, #player_1
     call _sr_draw_entity
+
+    ld iy, #enemy_vector
+    ld a, (me_num_enemy)
+    ld b, #0x00
+    ld c, #_ee_size
+    call _sr_draw_entity_vector
 
     call cpct_waitVSYNC_asm
     call _sr_swap_buffers

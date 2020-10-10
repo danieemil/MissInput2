@@ -4,6 +4,7 @@
 .globl mg_back_buffer
 
 .globl _sr_draw_entity
+.globl _sr_draw_entity_vector
 .globl _sr_swap_buffers
 .globl _sr_init_buffers
 .globl _sr_redraw_tiles
