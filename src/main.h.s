@@ -34,14 +34,10 @@
 .globl _prueba02_spr_0
 TILE_SIZE = 4 * 8
 
-;;MAPAS
+;;MAPS
 MAPA_DIR = 0x3000
 .include "bins/map_pruebas.h.s"
 
-
-;;ENTIDADES
-.globl player_1
-.globl player_2
 
 
 ;;AMSTRAD CONSTS
@@ -80,11 +76,34 @@ _ed_pre_x       = 5 + _eph_size
 _ed_pre_y       = 6 + _eph_size
 _ed_size        = 7 + _eph_size
 
+;;ENTITY ENEMY CONSTS
+_ee_size       = _ed_size
+
+_eet_w          = 0
+_eet_h          = 1
+_eet_attributes = 2
+_eet_spr_l      = 3
+_eet_spr_h      = 4
+_eet_spr_wi     = 5
+_eet_spr_he     = 6
+_eet_spr_size   = 7
+
+
 ;;ENTITY PLAYER CONSTS
 _ep_jump_state = 0 + _ed_size ;;Offset de la tabla de saltos
 _ep_wall_dir   = 1 + _ed_size ;;Indica si esta chocando con una pared y su orientacion
 
 _ep_size       = 2 + _ed_size
+
+;;PLAYERS
+.globl player_1
+.globl player_2
+
+;; ENEMIES
+.globl enemy_index
+
+.globl enemy_vector
+.globl me_num_enemy
 
 ;;JUMP TABLE
 JT_INIT      = 0

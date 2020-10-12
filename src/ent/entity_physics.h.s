@@ -1,5 +1,5 @@
-
 .include "cpctelera.h.s"
+.include "main.h.s"
 
 .macro DefineEntityPhysics _eph_name, _x, _y, _w, _h, _vx, _vy, _attributes
 
@@ -7,7 +7,7 @@
     .db _x, _y
     .db _w, _h
     .db _vx, _vy
-    .db #0x02           ;;Offset en X
+    .db #0x00           ;;Offset en X
     .db _attributes
     _eph_name'_size = . - _eph_name ;; Saves the number of bytes that fills a DefineEntity
 

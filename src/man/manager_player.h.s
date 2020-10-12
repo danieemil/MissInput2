@@ -1,6 +1,5 @@
 ;;DEPENDENCIAS
-    .include "ent/entity_player.h.s"
-    .include "main.h.s"
+    .include "man/manager_enemy.h.s"
 
 
 ;;FUNCIONES

@@ -8,3 +8,5 @@
 
 .globl mg_game_state
 .globl jump_table
+
+.globl _me_remove_enemy ;; Quitar?

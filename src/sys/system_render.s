@@ -309,3 +309,43 @@ sde_masqued:
     add ix, bc                          ;;[15]
     ex de, hl                           ;;[4]
     jp cpct_drawSpriteVFlipMasked_asm   ;;[3686 | 12038] -> [3771 | 12123] -> [4316 | 12668]
+
+
+
+;;==================================================================
+;;                       DRAW ENTITY VECTOR
+;;------------------------------------------------------------------
+;; Dibuja todas las entidades de un vector.
+;; PD: El contador del vector tiene que estar un byte antes del vector
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  IY  -> Puntero al principio del vector
+;;  A   -> Número de elementos del vector
+;;  BC  -> Tamaño de cada elemento del vector
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL, IX, IY, AF'
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_draw_entity_vector:
+
+    cp #00
+    ret z
+    dev_vector_loop:
+        ex af, af'
+        push bc
+        call _sr_draw_entity
+        pop bc
+        ex af, af'
+
+        add iy, bc
+        dec a
+        jr nz, dev_vector_loop
+
+    ret

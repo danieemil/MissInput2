@@ -1,4 +1,4 @@
-.include "ent/entity_drawable.h.s"
+.include "ent/entity_enemy.h.s"
 
 .macro DefineEntityPlayer _ep_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size
 _ep_name:
