@@ -3,7 +3,7 @@
 
 .area _DATA
 
-
+aux_01: .db #0x00
 
 
 
@@ -360,6 +360,8 @@ gcpy_check_offset:
 ;;==================================================================
 _sy_manage_player_physics:
 
+
+
     ;TRANSFORMAR INPUT
     ld a, d                                 ;;Obtenemos la direccion del jugador
     cp #0x00
@@ -404,6 +406,9 @@ mpp_no_orientation:
 
     
 ;;------------------------------------------SALTO------------------------------------
+    ld a, _ep_wall_dir(iy)
+    ld b, a
+
     xor a                                   
     ld _eph_vy(iy), a
 
@@ -411,72 +416,101 @@ mpp_no_orientation:
     jr z, mpp_no_key_j 
         
         bit 4, _eph_attributes(iy)          ;;Comprobamos si esta en el suelo
-        jr z, mpp_no_key_j
+        jr z, mpp_no_floor_jump
 
         bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar
         jr nz, mpp_hold_key_j
 
             ld _ep_jump_state(iy), #JT_INIT
+            jr mpp_no_key_j
+
+
+
+
+mpp_no_floor_jump:
+        ld a, b     ;B -> _ep_wall_dir(iy)
+        cp #0x00
+        jr z, mpp_double_jump
+
+            bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar
+            jr nz, mpp_hold_key_j
+                
+                ld _ep_jump_state(iy), #JT_INIT
+                ld _ep_wall_dir(iy), #0x00
+                jr mpp_no_key_j
+
+mpp_double_jump:
+
 
 
 mpp_hold_key_j:
+        
+        jr mpp_no_key_j
 
 
 mpp_no_key_j:                               ;;No se ha pulsado el boton de saltar
 
-        
         ld c, _ep_jump_state(iy)
 
 mpp_jump_check_wall:
 
-        ld a, _ep_wall_dir(iy)
-        ld b, a
+        ld a, b     ;B -> _ep_wall_dir(iy)
         cp #0x00
         jr z, mpp_jump_check_end
-            ld a, c
-            cp #JT_ON_WALL
-            jr c, mpp_jump_check_end
-                bit 4, _eph_attributes(iy)
-                jr nz, mpp_jump_check_end
+    
+            bit 4, _eph_attributes(iy)
+            jr nz, mpp_jump_check_end
 
-                    ld a, _eph_x(iy)
-                    push af
+                ld a, _eph_x(iy)
+                push af
 
-                    ld a, b
-                    cp #0x00
-                    jp m, mpp_jump_check_wall_left
-                                                    ;;WALL LEFT
-                        inc _eph_x(iy)    
-                        ld a, #0x01   
+                ld a, b
+                cp #0x00
+                jp m, mpp_jump_check_wall_left
+                                                ;;WALL RIGHT
+                    inc _eph_x(iy)    
+                    ld a, #0x01   
 
-                        jr mpp_jump_check_wall_left_end
+                    jr mpp_jump_check_wall_left_end
 
 mpp_jump_check_wall_left:                           ;;WALL LEFT
-                        dec _eph_x(iy)
-                        ld a, #0xFF
+                    dec _eph_x(iy)
+                    ld a, #0xFF
 
 
 mpp_jump_check_wall_left_end:
-                        push bc
-                        push de
-                        call _sp_get_collision_points_x
-                        call _sp_check_map_collisions
-                        pop de
-                        pop bc
-                        ld b, a
+                    push bc
+                    push de
+                    call _sp_get_collision_points_x
+                    call _sp_check_map_collisions
+                    pop de
+                    pop bc
+                    ld b, a
 
 
-                    pop af
-                    ld _eph_x(iy), a
-                    ld a, b
-                    ld e, c
-                    ld c, #JT_ON_GROUND
-                    cp #0x00
-                    jr nz, mpp_jump_check_end
+                pop af
+                ld _eph_x(iy), a
+                ; B -> Tile con el que se colisiona
+                ; C -> Offset de la Jump Table
 
-                        
-                        ld c, e
-                        ld _ep_wall_dir(iy), #0x00
+
+                ld a, b
+                ld e, c
+                ld c, #JT_ON_GROUND
+                cp #0x00
+                jr nz, mpp_jump_check_wall_up
+
+                    ld c, e
+                    ld _ep_wall_dir(iy), #0x00
+                    jr mpp_jump_check_end
+
+mpp_jump_check_wall_up:
+
+    ld a, e
+    cp #JT_ON_WALL
+    jr nc, mpp_jump_check_end
+        
+        ld c, e
 
 mpp_jump_check_end:
 
@@ -524,6 +558,7 @@ mpp_collision_x_dangerous:                          ;;PELIGROSOS X
 mpp_collision_x_solid:                              ;;SOLIDOS X
         cp #0x02
         jr nz, mpp_no_map_collision_x
+            sla b
             sla b
             sla b
             ld _ep_wall_dir(iy), b
