@@ -553,7 +553,7 @@ mpp_no_map_collision_y:
 
     ; MANEJAR COLISIONES CON LAS ENTIDADES
     ld ix, #enemy_vector
-    ld a, #me_num_enemy
+    ld a, (me_num_enemy)
     ld de, #_ee_size
     call _sp_check_entity_vector_collision
     ret z
