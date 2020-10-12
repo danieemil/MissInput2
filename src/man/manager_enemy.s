@@ -198,9 +198,12 @@ _me_remove_enemy:
     ;; DE -> Puntero al elemento a borrar del array
     ;; BC -> Tamaño un elemento del vector
 
+    
     and a      ;; Carry flag -> 0
     sbc hl, de ;; Si se elimina el último elemento no es necesario hacer ldir
     ret z
+
+    ld hl, (me_next_enemy_l)
 
     ldir
 
