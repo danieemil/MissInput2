@@ -18,18 +18,10 @@
 ;;==================================================================
 
 
-
-
-;TRANSFORMAR INPUT
-    ld a, d                                 ;;Obtenemos la direccion del jugador
-    cp #0x00
-    jr z, mpp_no_orientation
-    cp #0xFF
-    jr nz, mpp_change_orientation_right
-        res 5, _eph_attributes(iy)
-        jr mpp_no_orientation
-mpp_change_orientation_right:
-        set 5, _eph_attributes(iy)
-mpp_no_orientation:
-    sla d
-    ld _eph_vx(iy), d                       ;;Aplicamos la velocidad Horizontal
+;; Setear a 0x00 todos los datos apuntando a HL
+ld hl, #Origen
+ld (hl), #0x00
+ld de, #origen
+inc de
+ld bc, #tamaño-1
+ldir
