@@ -40,9 +40,13 @@ _sr_redraw_tiles:
     ;;BC -> Esquina Superior Izquierda en 
     ;;HL -> Esquina Inferior Derecha
 
+    srl b  
     srl b
     srl b
-    srl b
+
+    dec b   ;; El tilemap es tres tiles menor que la pantalla, por eso se le resta 3 a la Y
+    dec b
+    dec b
 
     srl c
     srl c
@@ -51,6 +55,10 @@ _sr_redraw_tiles:
     srl d
     srl d
     srl d
+
+    dec d   ;; El tilemap es tres tiles menor que la pantalla, por eso se le resta 3 a la Y
+    dec d
+    dec d
 
     srl e
     srl e
@@ -70,9 +78,16 @@ _sr_redraw_tiles:
     push bc
     push de
     
+    inc b   ;; El tilemap es tres tiles menor que la pantalla, por eso se le resta 3 a la Y
+    inc b
+    inc b
+
     sla b   ;;obtenemos la posicion inicial del tile arriba a la izquierda
     sla b
     sla b
+
+
+
     sla c
     sla c
 
@@ -91,7 +106,7 @@ _sr_redraw_tiles:
     ld a, b
     ld b, #0x00
 
-    ld hl, #MAPA_DIR
+    ld hl, #TILEMAP_DECRUNCH
     add hl, bc
     ld bc, #TILEMAP_W
 

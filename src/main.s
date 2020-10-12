@@ -60,7 +60,7 @@ _main::
    ld (mg_game_state), a
 
    ;;DE -> Final del destino en memoria del mapa
-   ld hl, #0x3000
+   ld hl, #TILEMAP_DECRUNCH
    ld de, #_map_pruebas_size-1
    add hl, de
    ld d, h
@@ -75,8 +75,8 @@ _main::
    ld hl, #_tileset_spr_00
    call cpct_etm_setDrawTilemap4x8_ag_asm
 
-   ld hl, #0xC000
-   ld de, #0x3000
+   ld hl, #TILEMAP_VMEM_START
+   ld de, #TILEMAP_DECRUNCH
    call cpct_etm_drawTilemap4x8_ag_asm
 
 

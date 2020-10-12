@@ -32,6 +32,10 @@
 ;;==================================================================
 _sp_fix_y::
 
+    inc e ;; El tilemap es tres tiles menor que la pantalla, por eso se le suma 3 a la Y   
+    inc e
+    inc e
+    
     ld a, b
     ld b, #0x00
     cp #0x00
@@ -136,6 +140,10 @@ _sp_check_map_collisions::
     srl c
     srl c
     srl c
+
+    dec c;; El tilemap es tres tiles menor que la pantalla, por eso se le resta 3 a la Y
+    dec c
+    dec c
     ;B/4 -> Sacamos la posicion en el tilemap
     ;C/8 -> Sacamos la posicion en el tilemap
     ;DEBUG
@@ -150,6 +158,11 @@ _sp_check_map_collisions::
     srl e
     srl e
     srl e
+
+    dec e;; El tilemap es tres tiles menor que la pantalla, por eso se le resta 3 a la Y
+    dec e
+    dec e
+
     push de
     ;D/4 -> Sacamos la posicion en el tilemap
     ;E/8 -> Sacamos la posicion en el tilemap
@@ -167,7 +180,7 @@ _sp_check_map_collisions::
     sub c
     ld e, a
 
-    ld hl, #MAPA_DIR
+    ld hl, #TILEMAP_DECRUNCH
     ld a, c 
     ld c, b
     ld b, #0x00

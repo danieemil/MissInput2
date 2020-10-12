@@ -34,19 +34,17 @@
 .globl _prueba02_spr_0
 TILE_SIZE = 4 * 8
 
-;;MAPS
-MAPA_DIR = 0x3000
-.include "bins/map_pruebas.h.s"
-
-
 
 ;;AMSTRAD CONSTS
 SCREEN_W = 80
 SCREEN_H = 200
 
 ;;TILEMAP CONSTS
+.include "bins/map_pruebas.h.s"
+TILEMAP_VMEM_START = 0xC000+(80*3)
+TILEMAP_DECRUNCH = 0x3000
 TILEMAP_W = 20
-TILEMAP_H = 25
+TILEMAP_H = 22
 TILE_W    = 4
 TILE_H    = 8
 
