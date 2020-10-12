@@ -55,7 +55,8 @@ _main::
 
    call _mg_game_init
 
-   ld a, #GS_SINGLEPLAYER
+
+   ld a, #GS_MULTIPLAYER
    ld (mg_game_state), a
 
    ;;DE -> Final del destino en memoria del mapa
@@ -79,5 +80,5 @@ _main::
    call cpct_etm_drawTilemap4x8_ag_asm
 
 
-   call _mg_game_loop_singleplayer_init
-   call _mg_game_loop_singleplayer
+   call _mg_game_loop_init
+   call _mg_game_loop

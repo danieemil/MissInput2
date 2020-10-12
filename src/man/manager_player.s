@@ -10,9 +10,9 @@ DefineEntityPlayer player_2, #0x13, #0x90, #0x02, #0x08, #0x00, #0x00, #0x80,   
 
 .area _CODE
 ;;==================================================================
-;;               MANAGER PLAYER INIT SINGLEPLAYER
+;;                       INIT PLAYERS
 ;;------------------------------------------------------------------
-;; Descripcion
+;; Inicializa los jugadores con los valores por defecto
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -27,7 +27,7 @@ DefineEntityPlayer player_2, #0x13, #0x90, #0x02, #0x08, #0x00, #0x00, #0x80,   
 ;;------------------------------------------------------------------
 ;; CYCLES: []
 ;;==================================================================
-_mp_init_singleplayer:
+_mp_init_players:
     
 
 

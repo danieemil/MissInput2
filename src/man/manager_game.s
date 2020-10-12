@@ -19,7 +19,7 @@
     p2_key_j:: .dw #0x0804      ;;Default - 'P'
 
 
-    jump_table:: .db -4, -4, -2, -2, -2, -2, -2, -1, -1, -1, -1, 0, 0, 0, 1, 1, 1, 1, 2, #0x80
+    jump_table:: .db -4, -4, -2, -2, -2, -2, -2, -1, -1, -1, -1, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, #0x80
     
 
 .area _CODE
@@ -30,7 +30,7 @@
 
 
 ;;==================================================================
-;;                   GAME LOOP SINGLEPLAYER INIT
+;;                   GAME LOOP INIT
 ;;------------------------------------------------------------------
 ;; Descripcion
 ;;------------------------------------------------------------------
@@ -47,16 +47,16 @@
 ;;------------------------------------------------------------------
 ;; CYCLES: []
 ;;==================================================================
-_mg_game_loop_singleplayer_init:
+_mg_game_loop_init:
     call _sr_init_buffers
     ret
     
 
 
 ;;==================================================================
-;;                      GAME LOOP SINGLEPLAYER
+;;                           GAME LOOP
 ;;------------------------------------------------------------------
-;; Descripcion
+;; Bucle inicial en el que se ejecuta el juego (NO MENUS)
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -66,19 +66,17 @@ _mg_game_loop_singleplayer_init:
 ;;  NONE
 ;;
 ;; DESTROYS:
-;;  NONE
+;;  AF, BC, DE, HL, AF', BC', DE', HL'
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: []
 ;;==================================================================
-_mg_game_loop_singleplayer:
+_mg_game_loop:
 
     call _sr_get_key_input
     
 ;;FISICAS DEL JUGADOR-------------------
     push de
-
-    ld ix, #player_2
 
     ;Fisicas P1
     ld iy, #player_1
@@ -103,20 +101,33 @@ _mg_game_loop_singleplayer:
 
     ;Fisicas P2
     ld iy, #player_2
-    ld  de, #0x0000
+    push de
+
+    call _sr_redraw_tiles           ;;Redibujamos los tiles de fondo
+    ld b, _eph_x(iy)                ;;Establecemos la posicion actual a la pasada
+    ld _ed_pre_x(iy), b
+    ld b, _eph_y(iy)
+    ld _ed_pre_y(iy), b
+
+
+    pop de
+    ld d, e
+    ld a, (p2_key_gameplay)
+    ld e, a
     call _sy_manage_player_physics
 
 gl_end_physics:;------------------------
     
     ld iy, #player_2
     call _sr_draw_entity
+
     ld iy, #player_1
     call _sr_draw_entity
 
     call cpct_waitVSYNC_asm
     call _sr_swap_buffers
 
-    jp _mg_game_loop_singleplayer
+    jp _mg_game_loop
 
 
 

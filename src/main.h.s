@@ -1,4 +1,4 @@
-;;GLOBLS :D
+;;GLOBLS
 
 .globl cpct_disableFirmware_asm
 .globl cpct_zx7b_decrunch_s_asm
@@ -81,12 +81,15 @@ _ed_pre_y       = 6 + _eph_size
 _ed_size        = 7 + _eph_size
 
 ;;ENTITY PLAYER CONSTS
-_ep_jump_state  = 0 + _ed_size
-_ep_size        = 1 + _ed_size
+_ep_jump_state = 0 + _ed_size ;;Offset de la tabla de saltos
+_ep_wall_dir   = 1 + _ed_size ;;Indica si esta chocando con una pared y su orientacion
+
+_ep_size       = 2 + _ed_size
 
 ;;JUMP TABLE
 JT_INIT      = 0
 JT_ON_GROUND = 14
+JT_ON_WALL   = 15
 
 ;;SPRITE SIZES
 PLAYER = 48  ;; 0x30 

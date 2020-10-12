@@ -4,14 +4,16 @@
 _ep_name:
     DefineEntityDrawable _ep_name'_ed, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size
     
-    .db #0x09 ;;Offset de la tabla de saltos
+    .db #0x0E ;;Offset de la tabla de saltos
+    .db #0x00 ;;Indica si esta chocando con una pared y su orientacion
 
     _ep_name'_size = . - _ep_name ;; Saves the number of bytes that fills a DefineEntity
 .endm
 
 _ep_jump_state = 0 + _ed_size ;;Offset de la tabla de saltos
+_ep_wall_dir   = 1 + _ed_size ;;Offset de la tabla de saltos
 
-_ep_size       = 1 + _ed_size
+_ep_size       = 2 + _ed_size
 
 
 

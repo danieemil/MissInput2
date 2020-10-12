@@ -7,8 +7,8 @@
 
 ;;FUNCIONES
 
-    .globl _mg_game_loop_singleplayer
-    .globl _mg_game_loop_singleplayer_init
+    .globl _mg_game_loop
+    .globl _mg_game_loop_init
     .globl _mg_game_init
 
 

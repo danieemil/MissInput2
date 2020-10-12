@@ -4,7 +4,7 @@
 
 
 ;;FUNCIONES
-    .globl _mp_init_singleplayer
+    .globl _mp_init_players
 
 
     .globl player_1

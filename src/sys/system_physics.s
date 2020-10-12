@@ -13,7 +13,7 @@
 ;;==================================================================
 ;;                            FIX Y
 ;;------------------------------------------------------------------
-;; Comprueba las colisiones del escenario a partir de 2 puntos
+;; Rectifica la posición en Y de la entidad respecto a la colisión con el escenario
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -22,10 +22,10 @@
 ;;  IY -> Entity_Physics_ptr
 ;;
 ;; OUTPUT:
-;;   
+;;  NONE
 ;;
 ;; DESTROYS:
-;;  
+;;  AF, B, E
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -61,7 +61,7 @@ sfx_move_up:
 ;;==================================================================
 ;;                            FIX X
 ;;------------------------------------------------------------------
-;; Comprueba las colisiones del escenario a partir de 2 puntos
+;; Rectifica la posición en X de la entidad respecto a la colisión con el escenario
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -70,10 +70,10 @@ sfx_move_up:
 ;;  IY -> Entity_Physics_ptr
 ;;
 ;; OUTPUT:
-;;
+;;  NONE
 ;;
 ;; DESTROYS:
-;;
+;;  AF, B, D
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -113,19 +113,17 @@ sfx_move_left:
 ;; Comprueba las colisiones del escenario a partir de 2 puntos
 ;;------------------------------------------------------------------
 ;;
+;;
 ;; INPUT:
 ;;  BC -> Punto 1
 ;;  DE -> Punto 2
 ;;
 ;; OUTPUT:
-;;   A  -> Tile sobre el que se colisiona
-;;   BC -> Posicion X,Y del tilemap que corresponde con el punto 1
+;;  A  -> Tile sobre el que se colisiona
+;;  BC -> Posicion X,Y del tilemap que corresponde con el punto 1
 ;;
 ;; DESTROYS:
-
-            ; 0  1  2  3  4  5  6  7  8....
-    ;TILESET = F, F, F, F, S, S, S, S, S, S, S, S, S, S, S, S, S, M, M, M, M, M
-
+;;  AF, BC, DE, HL,
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -190,7 +188,7 @@ cmc_loop_point_1_end:
     ld c, e     ; -> Aplicamos la diferencia en X
     ld e, d
     ld d, a
-    add hl, de 
+    add hl, de
 
     ld a, c     ; -> Aplicamos la diferencia en Y
     ld de, #TILEMAP_W
@@ -221,18 +219,18 @@ cmc_loop_point_2_end:
 ;;==================================================================
 ;;                      GET COLLISION POINTS X
 ;;------------------------------------------------------------------
-;; Actualiza la posicion de una entidad.
+;; Devuelve los dos puntos de colisión con el escenario en función de la velocidad, [en X].
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
 ;;  IY -> Entity_physics ptr
-;;   A -> Vel.
+;;   A -> Velocidad en X.
 ;;
 ;; OUTPUT:
 ;;  NONE
 ;;
 ;; DESTROYS:
-;;  
+;;  AF, BC, DE, HL,
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -274,18 +272,18 @@ _sp_get_collision_points_x::
 ;;==================================================================
 ;;                      GET COLLISION POINTS Y
 ;;------------------------------------------------------------------
-;; Actualiza la posicion de una entidad.
+;; Devuelve los dos puntos de colisión con el escenario en función de la velocidad, [en Y].
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
 ;;  IY -> Entity_physics ptr
-;;   A -> Vel.
+;;   A -> Velocidad en Y.
 ;;
 ;; OUTPUT:
 ;;  NONE
 ;;
 ;; DESTROYS:
-;;  
+;;  AF, BC, DE, HL
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -331,17 +329,18 @@ gcpy_check_offset:
 ;;==================================================================
 ;;                         MANAGE PLAYER PHYSICS
 ;;------------------------------------------------------------------
-;; Actualiza la posicion de una entidad.
+;; Actualiza las físicas del jugador.
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
+;;  IY -> Puntero al jugador 
 ;;  DE -> D = Player(key_r + key_l),  E = Player(key_j state)
 ;;
 ;; OUTPUT:
 ;;  NONE
 ;;
 ;; DESTROYS:
-;;  
+;;  AF, BC, DE, HL, AF'
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -353,15 +352,43 @@ _sy_manage_player_physics:
     cp #0x00
     jr z, mpp_no_orientation
     cp #0xFF
-    jr nz, mpp_change_orientation_right
-        res 5, _eph_attributes(iy)
-        jr mpp_no_orientation
-mpp_change_orientation_right:
-        set 5, _eph_attributes(iy)
-mpp_no_orientation:
+    jr nz, mpp_change_orientation_right     ;;IZQUIERDA--------------------------------
 
+        ld a, _ep_wall_dir(iy)
+        cp #0x00
+        jr z, mpp_change_orientation_left_continue
+        jp m, mpp_change_orientation_left_continue
+
+            dec _ep_wall_dir(iy)
+            jr z, mpp_change_orientation_left_continue
+
+            ld d, #0x00
+            jr mpp_no_orientation
+
+mpp_change_orientation_left_continue:
+        res 5, _eph_attributes(iy)
+
+        jr mpp_no_orientation
+
+mpp_change_orientation_right:               ;;DERECHA----------------------------------
+        ld a, _ep_wall_dir(iy)
+        cp #0x00
+        jp p, mpp_change_orientation_right_continue
+
+            inc _ep_wall_dir(iy)
+            jr z, mpp_change_orientation_right_continue
+
+            ld d, #0x00
+            jr mpp_no_orientation
+
+mpp_change_orientation_right_continue:
+        set 5, _eph_attributes(iy)
+
+
+mpp_no_orientation:
     sla d
     ld _eph_vx(iy), d                       ;;Aplicamos la velocidad Horizontal
+
     
 ;;------------------------------------------SALTO------------------------------------
     xor a                                   
@@ -384,11 +411,65 @@ mpp_hold_key_j:
 
 mpp_no_key_j:                               ;;No se ha pulsado el boton de saltar
 
-        ld hl, #jump_table
-        ld b, #0x00
+        
         ld c, _ep_jump_state(iy)
-        add hl, bc
 
+mpp_jump_check_wall:
+
+        ld a, _ep_wall_dir(iy)
+        ld b, a
+        cp #0x00
+        jr z, mpp_jump_check_end
+            ld a, c
+            cp #JT_ON_WALL
+            jr c, mpp_jump_check_end
+                bit 4, _eph_attributes(iy)
+                jr nz, mpp_jump_check_end
+
+                    ld a, _eph_x(iy)
+                    push af
+
+                    ld a, b
+                    cp #0x00
+                    jp m, mpp_jump_check_wall_left
+                                                    ;;WALL LEFT
+                        inc _eph_x(iy)    
+                        ld a, #0x01   
+
+                        jr mpp_jump_check_wall_left_end
+
+mpp_jump_check_wall_left:                           ;;WALL LEFT
+                        dec _eph_x(iy)
+                        ld a, #0xFF
+
+
+mpp_jump_check_wall_left_end:
+                        push bc
+                        push de
+                        call _sp_get_collision_points_x
+                        call _sp_check_map_collisions
+                        pop de
+                        pop bc
+                        ld b, a
+
+
+                    pop af
+                    ld _eph_x(iy), a
+                    ld a, b
+                    ld e, c
+                    ld c, #JT_ON_GROUND
+                    cp #0x00
+                    jr nz, mpp_jump_check_end
+
+                        
+                        ld c, e
+                        ld _ep_wall_dir(iy), #0x00
+
+mpp_jump_check_end:
+
+        ld b, #0x00
+        ld hl, #jump_table
+        add hl, bc
         ld a, (hl)
         cp #0x80
         jr nz, mpp_jump_continue
@@ -400,9 +481,7 @@ mpp_no_key_j:                               ;;No se ha pulsado el boton de salta
 mpp_jump_continue:
         inc c
         ld _ep_jump_state(iy), c
-
         ld _eph_vy(iy), a
-
 
     ;A -> VY
     ;D -> VX
@@ -419,10 +498,23 @@ mpp_jump_continue:
         call _sp_get_collision_points_x
         call _sp_check_map_collisions
         pop bc
+                                                    ;;TRANSPARENTES X
         cp #0x00
-        jr z, mpp_no_map_collision_x
-            call _sp_fix_x
+        jr nz, mpp_collision_x_dangerous
+            jr mpp_no_map_collision_x
 
+mpp_collision_x_dangerous:                          ;;PELIGROSOS X
+        cp #0x01
+        jr nz, mpp_collision_x_solid
+            jr mpp_no_map_collision_x
+
+mpp_collision_x_solid:                              ;;SOLIDOS X
+        cp #0x02
+        jr nz, mpp_no_map_collision_x
+            sla b
+            sla b
+            ld _ep_wall_dir(iy), b
+            call _sp_fix_x  
 
 mpp_no_map_collision_x:
 
@@ -449,7 +541,8 @@ mpp_collision_y_dangerous:                          ;;PELIGROSOS Y
 
 mpp_collision_y_solid:                              ;;SOLIDOS Y
         cp #0x02
-        jr nz, mpp_collision_y_solid
+        jr nz, mpp_no_map_collision_y
+            ld _ep_wall_dir(iy), #0x00
             call _sp_fix_y                          ;Corregimos la posicion en Y
             set 4, _eph_attributes(iy)              ;Indicamos que ahora esta en el suelo
             ld _ep_jump_state(iy), #JT_ON_GROUND    ;Ponemos la jump table a la posicion de colision con el suelo
@@ -461,15 +554,13 @@ mpp_no_map_collision_y:
     ; MANEJAR COLISIONES CON LAS ENTIDADES
     call _sp_check_entity_collision
 
-
-
     ret
 
 
 ;;==================================================================
 ;;                         MOVE ENTITY X
 ;;------------------------------------------------------------------
-;; Actualiza la posicion de una entidad.
+;; Actualiza la posicion de una entidad en el eje X.
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -529,7 +620,7 @@ sme_loop_continue:
 ;;==================================================================
 ;;                         MOVE ENTITY Y
 ;;------------------------------------------------------------------
-;; Actualiza la posicion de una entidad.
+;; Actualiza la posicion de una entidad en el eje Y.
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -551,6 +642,8 @@ _sp_move_entity_y:
     add c
     ld _eph_y(iy), a
 
+    ret
+
 
 
 
@@ -558,8 +651,11 @@ _sp_move_entity_y:
 ;;==================================================================
 ;;                      CHECK TILE ID GROUP
 ;;------------------------------------------------------------------
-;; Actualiza la posicion de una entidad.
+;; Comprueba a qué grupo de colisiones pertenece en función de su id en el tileset
 ;;------------------------------------------------------------------
+;;
+;;           0  1  2  3  4  5  6  7  8....
+;; TILESET = F, F, F, F, S, S, S, S, S, S, S, S, S, S, S, S, S, M, M, M, M, M
 ;;
 ;; INPUT:
 ;;   A -> Tile ID
@@ -568,7 +664,7 @@ _sp_move_entity_y:
 ;;   A -> Tile ID Group
 ;;
 ;; DESTROYS:
-;;  
+;;  AF
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
