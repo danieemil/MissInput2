@@ -25,3 +25,25 @@ ld de, #origen
 inc de
 ld bc, #tamaño-1
 ldir
+
+
+
+
+cp #FORCE_X_R_MIN + 1
+    jr nc, mpp_force_movement
+
+        ld a, d
+        cp #0x00
+        jr z, mpp_check_a_look
+        jr nz, mpp_apply_input_x
+
+    ld a, b
+    jr .
+    cp #FORCE_X_L_MIN
+    jr nc, mpp_force_movement
+
+        
+
+        ld a, d
+        cp #0x00
+        jr nz, mpp_apply_input_x

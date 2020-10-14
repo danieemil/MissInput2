@@ -3,7 +3,7 @@
 
 .area _DATA
 
-
+aux_01: .db #0x00
 
 
 
@@ -32,6 +32,10 @@
 ;;==================================================================
 _sp_fix_y::
 
+    inc e ;; El tilemap es tres tiles menor que la pantalla, por eso se le suma 3 a la Y   
+    inc e
+    inc e
+    
     ld a, b
     ld b, #0x00
     cp #0x00
@@ -136,6 +140,10 @@ _sp_check_map_collisions::
     srl c
     srl c
     srl c
+
+    dec c;; El tilemap es tres tiles menor que la pantalla, por eso se le resta 3 a la Y
+    dec c
+    dec c
     ;B/4 -> Sacamos la posicion en el tilemap
     ;C/8 -> Sacamos la posicion en el tilemap
     ;DEBUG
@@ -150,6 +158,11 @@ _sp_check_map_collisions::
     srl e
     srl e
     srl e
+
+    dec e;; El tilemap es tres tiles menor que la pantalla, por eso se le resta 3 a la Y
+    dec e
+    dec e
+
     push de
     ;D/4 -> Sacamos la posicion en el tilemap
     ;E/8 -> Sacamos la posicion en el tilemap
@@ -167,7 +180,7 @@ _sp_check_map_collisions::
     sub c
     ld e, a
 
-    ld hl, #MAPA_DIR
+    ld hl, #TILEMAP_DECRUNCH
     ld a, c 
     ld c, b
     ld b, #0x00
@@ -347,7 +360,60 @@ gcpy_check_offset:
 ;;==================================================================
 _sy_manage_player_physics:
 
+    ld a, _ep_force_x(iy)
+    ld b, a 
+    cp #0x00
+    jr z, mpp_apply_input_x
+
+    ;FORZAR MOVIMIENTO
+    ld a, _ep_wall_dir(iy)
+    cp #0x00
+    jr nz, mpp_apply_input_x
+
+
+    bit 4, _eph_attributes(iy) ;Comprobamos suelo
+    jr z, mpp_force_movement
+
+        bit 3, _eph_attributes(iy)
+        jr z, mpp_apply_input_x
+
+            res 3, _eph_attributes(iy)
+
+mpp_force_movement:
+    ld a, b
+    cp #0x00
+    jp m, mpp_check_force_x_left
+
+        cp #FORCE_X_R_MIN
+        jr nc, mpp_apply_force_x_right
+
+            ld a, d
+            cp #0x00 
+            jr nz, mpp_apply_input_x
+
+mpp_apply_force_x_right:
+        dec _ep_force_x(iy)
+        ld d, #0x01
+        jr mpp_no_orientation
+
+
+mpp_check_force_x_left:
+        cp #FORCE_X_L_MIN
+        jr c, mpp_apply_force_x_left
+
+            ld a, d
+            cp #0x00 
+            jr nz, mpp_apply_input_x
+
+mpp_apply_force_x_left:      
+        inc _ep_force_x(iy)
+        ld d, #0xff
+        jr mpp_no_orientation
+
+
     ;TRANSFORMAR INPUT
+mpp_apply_input_x:
+    ld _ep_force_x(iy), #0x00
     ld a, d                                 ;;Obtenemos la direccion del jugador
     cp #0x00
     jr z, mpp_no_orientation
@@ -387,10 +453,17 @@ mpp_change_orientation_right_continue:
 
 mpp_no_orientation:
     sla d
+   
+
+mpp_end_x_input:
     ld _eph_vx(iy), d                       ;;Aplicamos la velocidad Horizontal
 
-    
+
+
 ;;------------------------------------------SALTO------------------------------------
+    ld a, _ep_wall_dir(iy)
+    ld b, a
+
     xor a                                   
     ld _eph_vy(iy), a
 
@@ -398,72 +471,110 @@ mpp_no_orientation:
     jr z, mpp_no_key_j 
         
         bit 4, _eph_attributes(iy)          ;;Comprobamos si esta en el suelo
-        jr z, mpp_no_key_j
+        jr z, mpp_no_floor_jump
 
         bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar
         jr nz, mpp_hold_key_j
 
             ld _ep_jump_state(iy), #JT_INIT
+            jr mpp_no_key_j
+
+
+
+
+mpp_no_floor_jump:
+        ld a, b     ;B -> _ep_wall_dir(iy)
+        cp #0x00
+        jr z, mpp_double_jump
+
+            bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar
+            jr nz, mpp_hold_key_j
+                
+                set 3, _eph_attributes(iy)
+                ld _ep_jump_state(iy), #JT_WALL_JUMP
+                ld _ep_wall_dir(iy), #0x00
+                ld _ep_force_x(iy), #FORCE_X_L
+                ld _eph_vx(iy), #0xFE
+                
+                cp #0x00
+                jp p, mpp_no_key_j
+                ld _ep_force_x(iy), #FORCE_X_R
+                ld _eph_vx(iy), #0x02
+
+                jr mpp_no_key_j
+
+mpp_double_jump:
+
 
 
 mpp_hold_key_j:
+        
+        jr mpp_no_key_j
 
 
 mpp_no_key_j:                               ;;No se ha pulsado el boton de saltar
 
-        
         ld c, _ep_jump_state(iy)
 
 mpp_jump_check_wall:
 
-        ld a, _ep_wall_dir(iy)
-        ld b, a
+        ld a, b     ;B -> _ep_wall_dir(iy)
         cp #0x00
         jr z, mpp_jump_check_end
-            ld a, c
-            cp #JT_ON_WALL
-            jr c, mpp_jump_check_end
-                bit 4, _eph_attributes(iy)
-                jr nz, mpp_jump_check_end
+    
+            bit 4, _eph_attributes(iy) ;Comprobamos suelo
+            jr nz, mpp_jump_check_end
 
-                    ld a, _eph_x(iy)
-                    push af
+                ld a, _eph_x(iy)
+                push af
 
-                    ld a, b
-                    cp #0x00
-                    jp m, mpp_jump_check_wall_left
-                                                    ;;WALL LEFT
-                        inc _eph_x(iy)    
-                        ld a, #0x01   
+                ld a, b
+                cp #0x00
+                jp m, mpp_jump_check_wall_left
+                                                ;;WALL RIGHT
+                    inc _eph_x(iy)    
+                    ld a, #0x01   
 
-                        jr mpp_jump_check_wall_left_end
+                    jr mpp_jump_check_wall_left_end
 
 mpp_jump_check_wall_left:                           ;;WALL LEFT
-                        dec _eph_x(iy)
-                        ld a, #0xFF
+                    dec _eph_x(iy)
+                    ld a, #0xFF
 
 
 mpp_jump_check_wall_left_end:
-                        push bc
-                        push de
-                        call _sp_get_collision_points_x
-                        call _sp_check_map_collisions
-                        pop de
-                        pop bc
-                        ld b, a
+                    push bc
+                    push de
+                    call _sp_get_collision_points_x
+                    call _sp_check_map_collisions
+                    pop de
+                    pop bc
+                    ld b, a
 
 
-                    pop af
-                    ld _eph_x(iy), a
-                    ld a, b
-                    ld e, c
-                    ld c, #JT_ON_GROUND
-                    cp #0x00
-                    jr nz, mpp_jump_check_end
+                pop af
+                ld _eph_x(iy), a
+                ; B -> Tile con el que se colisiona
+                ; C -> Offset de la Jump Table
 
-                        
-                        ld c, e
-                        ld _ep_wall_dir(iy), #0x00
+
+                ld a, b
+                ld e, c
+                ld c, #JT_ON_GROUND
+                cp #0x00
+                jr nz, mpp_jump_check_wall_up
+
+                    ld c, e
+                    ld _ep_wall_dir(iy), #0x00
+                    jr mpp_jump_check_end
+
+mpp_jump_check_wall_up:
+
+    ld a, e
+    cp #JT_ON_WALL
+    jr nc, mpp_jump_check_end
+        
+        ld c, e
 
 mpp_jump_check_end:
 
@@ -511,6 +622,7 @@ mpp_collision_x_dangerous:                          ;;PELIGROSOS X
 mpp_collision_x_solid:                              ;;SOLIDOS X
         cp #0x02
         jr nz, mpp_no_map_collision_x
+            sla b
             sla b
             sla b
             ld _ep_wall_dir(iy), b
