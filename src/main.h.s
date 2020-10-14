@@ -76,8 +76,22 @@ _ed_pre_x       = 5 + _eph_size
 _ed_pre_y       = 6 + _eph_size
 _ed_size        = 7 + _eph_size
 
+;;ENTITY INTERACTABLE CONSTS
+_ei_size       = _ed_size
+
+_eit_w          = 0
+_eit_h          = 1
+_eit_attributes = 2
+_eit_spr_l      = 3
+_eit_spr_h      = 4
+_eit_spr_wi     = 5
+_eit_spr_he     = 6
+_eit_spr_size   = 7
+
 ;;ENTITY ENEMY CONSTS
-_ee_size       = _ed_size
+_ee_type       = 0 + _ed_size
+_ee_disabled   = 1 + _ed_size
+_ee_size       = 2 + _ed_size
 
 _eet_w          = 0
 _eet_h          = 1
@@ -87,6 +101,7 @@ _eet_spr_h      = 4
 _eet_spr_wi     = 5
 _eet_spr_he     = 6
 _eet_spr_size   = 7
+_eet_type       = 8
 
 
 ;;ENTITY PLAYER CONSTS
@@ -101,9 +116,13 @@ _ep_size       = 2 + _ed_size
 
 ;; ENEMIES
 .globl enemy_index
-
 .globl enemy_vector
 .globl me_num_enemy
+
+;; INTERACTUABLES
+.globl interactable_index
+.globl interactable_vector
+.globl mi_num_interactable
 
 ;;JUMP TABLE
 JT_INIT      = 0

@@ -135,16 +135,25 @@ _mg_game_loop:
 
 gl_end_physics:;------------------------
     
+    ;; Dibujar jugadores
     ld iy, #player_2
     call _sr_draw_entity
 
     ld iy, #player_1
     call _sr_draw_entity
 
+    ;; Dibujar enemigos
     ld iy, #enemy_vector
     ld a, (me_num_enemy)
     ld b, #0x00
     ld c, #_ee_size
+    call _sr_draw_entity_vector
+
+    ;; Dibujar interactuables
+    ld iy, #interactable_vector
+    ld a, (mi_num_interactable)
+    ld b, #0x00
+    ld c, #_ei_size
     call _sr_draw_entity_vector
 
     call cpct_waitVSYNC_asm

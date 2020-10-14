@@ -17,13 +17,17 @@ _ep_size       = 2 + _ed_size
 
 
 
-;Flags del power-up (almacenados en la variable _type de entidad)
+;Flags del jugador (almacenados en la variable _attributes)
 ;
 ;7   M -> Mascara (1->Tiene Mascara, 0->No tiene Mascara)
 ;6   V -> V-Flip (1->Boca Abajo, 0->Normal)
 ;5   O -> Orientacion (1->Derecha, 0->Izquierda)
 ;4   G -> On Ground (1->Toca Suelo, 0->NO toca suelo)
+;3   I -> Inhabilitado (1->Ha muerto, 0->No hay muerto)
+;2   X
+;1   X
+;0   X
 
 ;
-;M V X X X X X X
+;M V O G I X X X
 ;1 0 0 0 0 0 0 0

@@ -1,5 +1,5 @@
 ;;DEPENDENCIAS
-    .include "ent/entity_player.h.s"
+    .include "man/manager_interactable.h.s"
 
 
 ;;FUNCIONES

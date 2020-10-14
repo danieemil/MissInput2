@@ -25,21 +25,18 @@ _eph_size        = 8
 
 
 
-;Flags de la entidad(almacenados en la variable _attributes de entidad)
+;Flags de la entidad con físicas (almacenados en la variable _attributes)
 ;
-;
-;7   N -> Nada
-;6   N -> Nada
-;5   I -> Inhabilitado?(1->Sí, 0->No)
-;4   C -> Detectaremos colisiones en Y?(1->No, 0->Sí) Solo se usa en las colisiones!!
-;3   T -> |
-;2   T -> +-> Tipo de power-up:
-;;              (00->Aporta doble salto)
-;;              (01->Gravedad hacia arriba)
-;;              (10->Gravedad hacia abajo)
-;;              (11->Fin del nivel)
-;1   M -> Es mortal?(1->Sí, 0->No)
-;0   C -> Se puede coger?(1->power-up, 0->no power-up)
-;
-;N N I C T T M C
+;7   M -> Drawable (Mascara)
+;6   V -> Drawable (V-Flip)
+;5   O -> Orientacion (1->Derecha, 0->Izquierda)
+;4   G -> On Ground (1->Toca Suelo, 0->NO toca suelo)
+;3   I -> Inhabilitado (1->Ha muerto, 0->No hay muerto)
+;2   X
+;1   X
+;0   X
+
+
+
+;M V O G I X X X
 ;0 0 0 0 0 0 0 0

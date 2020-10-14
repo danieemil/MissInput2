@@ -558,9 +558,11 @@ mpp_no_map_collision_y:
     call _sp_check_entity_vector_collision
     ret z
 
+    dec _ee_disabled(ix)
+
     .db #0xDD, #0x5D        ;; OPCODE ld e, ixl
     .db #0xDD, #0x54        ;; OPCODE ld d, ixh
-    call _me_remove_enemy
+    ;call _me_remove_enemy
 
     ret
 
@@ -856,9 +858,18 @@ _sp_check_entity_vector_collision:
     cevc_loop_vector:
 
         ex af, af'
-        call _sp_check_entity_collision
+        ld a, _ee_disabled(ix) ; Si la entidad está deshabilitada no se comprueban sus colisiones
         cp #0x00
-        ret nz
+        jr nz, cevc_entity_disabled
+            call _sp_check_entity_collision
+            cp #0x00
+            ret nz
+            jr cevc_next_entity
+
+        cevc_entity_disabled:
+            ;dec _ee_disabled(ix)
+
+        cevc_next_entity:
         ex af, af'
 
         add ix, de
