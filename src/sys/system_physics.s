@@ -360,9 +360,60 @@ gcpy_check_offset:
 ;;==================================================================
 _sy_manage_player_physics:
 
+    ld a, _ep_force_x(iy)
+    ld b, a 
+    cp #0x00
+    jr z, mpp_apply_input_x
+
+    ;FORZAR MOVIMIENTO
+    ld a, _ep_wall_dir(iy)
+    cp #0x00
+    jr nz, mpp_apply_input_x
+
+
+    bit 4, _eph_attributes(iy) ;Comprobamos suelo
+    jr z, mpp_force_movement
+
+        bit 3, _eph_attributes(iy)
+        jr z, mpp_apply_input_x
+
+            res 3, _eph_attributes(iy)
+
+mpp_force_movement:
+    ld a, b
+    cp #0x00
+    jp m, mpp_check_force_x_left
+
+        cp #FORCE_X_R_MIN
+        jr nc, mpp_apply_force_x_right
+
+            ld a, d
+            cp #0x00 
+            jr nz, mpp_apply_input_x
+
+mpp_apply_force_x_right:
+        dec _ep_force_x(iy)
+        ld d, #0x01
+        jr mpp_no_orientation
+
+
+mpp_check_force_x_left:
+        cp #FORCE_X_L_MIN
+        jr c, mpp_apply_force_x_left
+
+            ld a, d
+            cp #0x00 
+            jr nz, mpp_apply_input_x
+
+mpp_apply_force_x_left:      
+        inc _ep_force_x(iy)
+        ld d, #0xff
+        jr mpp_no_orientation
 
 
     ;TRANSFORMAR INPUT
+mpp_apply_input_x:
+    ld _ep_force_x(iy), #0x00
     ld a, d                                 ;;Obtenemos la direccion del jugador
     cp #0x00
     jr z, mpp_no_orientation
@@ -402,9 +453,13 @@ mpp_change_orientation_right_continue:
 
 mpp_no_orientation:
     sla d
+   
+
+mpp_end_x_input:
     ld _eph_vx(iy), d                       ;;Aplicamos la velocidad Horizontal
 
-    
+
+
 ;;------------------------------------------SALTO------------------------------------
     ld a, _ep_wall_dir(iy)
     ld b, a
@@ -435,8 +490,17 @@ mpp_no_floor_jump:
             bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar
             jr nz, mpp_hold_key_j
                 
-                ld _ep_jump_state(iy), #JT_INIT
+                set 3, _eph_attributes(iy)
+                ld _ep_jump_state(iy), #JT_WALL_JUMP
                 ld _ep_wall_dir(iy), #0x00
+                ld _ep_force_x(iy), #FORCE_X_L
+                ld _eph_vx(iy), #0xFE
+                
+                cp #0x00
+                jp p, mpp_no_key_j
+                ld _ep_force_x(iy), #FORCE_X_R
+                ld _eph_vx(iy), #0x02
+
                 jr mpp_no_key_j
 
 mpp_double_jump:
@@ -458,7 +522,7 @@ mpp_jump_check_wall:
         cp #0x00
         jr z, mpp_jump_check_end
     
-            bit 4, _eph_attributes(iy)
+            bit 4, _eph_attributes(iy) ;Comprobamos suelo
             jr nz, mpp_jump_check_end
 
                 ld a, _eph_x(iy)

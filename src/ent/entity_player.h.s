@@ -6,14 +6,16 @@ _ep_name:
     
     .db #0x0E ;;Offset de la tabla de saltos
     .db #0x00 ;;Indica si esta chocando con una pared y su orientacion
+    .db #0x00 ;;Force X
 
     _ep_name'_size = . - _ep_name ;; Saves the number of bytes that fills a DefineEntity
 .endm
 
 _ep_jump_state = 0 + _ed_size ;;Offset de la tabla de saltos
-_ep_wall_dir   = 1 + _ed_size ;;Offset de la tabla de saltos
+_ep_wall_dir   = 1 + _ed_size ;;Indica si esta chocando con una pared y su orientacion
+_ep_force_x    = 2 + _ed_size ;;Force X
 
-_ep_size       = 2 + _ed_size
+_ep_size       = 3 + _ed_size
 
 
 

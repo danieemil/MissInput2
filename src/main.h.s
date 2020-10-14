@@ -90,8 +90,8 @@ _eet_spr_size   = 7
 ;;ENTITY PLAYER CONSTS
 _ep_jump_state = 0 + _ed_size ;;Offset de la tabla de saltos
 _ep_wall_dir   = 1 + _ed_size ;;Indica si esta chocando con una pared y su orientacion
-
-_ep_size       = 2 + _ed_size
+_ep_force_x    = 2 + _ed_size ;;Force X
+_ep_size       = 3 + _ed_size
 
 ;;PLAYERS
 .globl player_1
@@ -107,6 +107,12 @@ _ep_size       = 2 + _ed_size
 JT_INIT      = 0
 JT_ON_GROUND = 14
 JT_ON_WALL   = 15
+JT_WALL_JUMP   = 0
+
+FORCE_X_R =  #0b01111111
+FORCE_X_L =  #0b10000000
+FORCE_X_R_MIN = FORCE_X_R - 2
+FORCE_X_L_MIN = FORCE_X_L + 3
 
 ;;SPRITE SIZES
 PLAYER = 48  ;; 0x30 
