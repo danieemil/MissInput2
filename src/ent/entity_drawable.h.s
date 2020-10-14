@@ -30,10 +30,13 @@ _ed_size        = 7 + _eph_size
 ;6   V -> V-Flip (1->Boca Abajo, 0->Normal)
 ;5   O -> Physics (Orientation)
 ;4   G -> Physics (On Ground)
-;3   I -> Inhabilitado
-;2   X
+;3   W -> physics (On Wall)
+;2   H -> physics (Half on ground)
 ;1   X
 ;0   X
 ;
-;M V O G I X X X
+;M V O G W H X X
 ;1 0 0 0 0 0 0 0
+
+_edf_mask = 7
+_edf_flip = 6

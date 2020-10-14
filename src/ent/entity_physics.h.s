@@ -27,16 +27,20 @@ _eph_size        = 8
 
 ;Flags de la entidad con físicas (almacenados en la variable _attributes)
 ;
-;7   M -> Drawable (Mascara)
-;6   V -> Drawable (V-Flip)
+;7   M -> Mascara (1->Tiene Mascara, 0->No tiene Mascara)
+;6   V -> V-Flip (1->Boca Abajo, 0->Normal)
 ;5   O -> Orientacion (1->Derecha, 0->Izquierda)
-;4   G -> On Ground (1->Toca Suelo, 0->NO toca suelo)
-;3   I -> Inhabilitado (1->Ha muerto, 0->No hay muerto)
-;2   X
+;4   G -> On Ground (1->Toca Suelo, 0->NO toca suelo) (Está colisionando en Y)
+;3   W -> On Wall (1->Colisiona con pared, 0->No colisiona con pared) (Está colisionando en X)
+;2   H -> Half on ground (1->Los puntos en Y tienen diferente Group ID, 0->Ambos puntos en Y tienen la misma Group ID)
 ;1   X
 ;0   X
 
+;
+;M V O G W H X X
+;1 0 0 0 0 0 0 0
 
-
-;M V O G I X X X
-;0 0 0 0 0 0 0 0
+_ephf_orientation   = 5
+_ephf_ground        = 4
+_ephf_wall          = 3
+_ephf_h_ground      = 2

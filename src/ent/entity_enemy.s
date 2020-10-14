@@ -11,7 +11,7 @@ enemy_index::
 enemy_type_01:
 ;; Datos del enemigo
 ;;       _w      _h   _attributes
-    .db #0x02, #0x08, #0b10000000
+    .db #0x02, #0x08, #0b10000010
 
 ;;      _sprite
     .dw #_prueba01_spr_0
@@ -25,7 +25,7 @@ enemy_type_01:
 enemy_type_02:
 ;; Datos del enemigo
 ;;       _w      _h   _attributes
-    .db #0x02, #0x08, #0b00000000
+    .db #0x02, #0x08, #0b10000010
 
 ;;      _sprite
     .dw #_prueba01_spr_0

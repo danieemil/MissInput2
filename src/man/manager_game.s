@@ -53,18 +53,25 @@ _mg_game_loop_init:
     
     
     xor a               ;; Tipo de enemigo
-    ld b, #0x18         ;; Posicion en X
-    ld c, #0x78         ;; Posicion en Y
-    ld d, #0x00         ;; Velocidad en X
+    ld b, #0x08         ;; Posicion en X
+    ld c, #0x70         ;; Posicion en Y
+    ld d, #0x01         ;; Velocidad en X
     ld e, #0x00         ;; Velocidad en Y
     call _me_add_enemy
 
     ld a, #01            ;; Tipo de enemigo
     ld b, #0x22         ;; Posicion en X
     ld c, #0x88         ;; Posicion en Y
-    ld d, #0x00         ;; Velocidad en X
+    ld d, #0x01         ;; Velocidad en X
     ld e, #0x00         ;; Velocidad en Y
-    call _me_add_enemy
+    ;call _me_add_enemy
+
+    ld a, #01            ;; Tipo de enemigo
+    ld b, #0x22         ;; Posicion en X
+    ld c, #0x88         ;; Posicion en Y
+    ld d, #0x01         ;; Velocidad en X
+    ld e, #0x00         ;; Velocidad en Y
+    ;call _me_add_enemy
 
     ret
     
@@ -97,7 +104,7 @@ _mg_game_loop:
 
     ;Fisicas P1
     ld iy, #player_1
-    
+
     call _sr_redraw_tiles           ;;Redibujamos los tiles de fondo
     ld b, _eph_x(iy)                ;;Establecemos la posicion actual a la pasada
     ld _ed_pre_x(iy), b
@@ -133,6 +140,44 @@ _mg_game_loop:
     ld e, a
     call _sy_manage_player_physics
 
+
+    ;; Limpieza de los enemigos
+    ld iy, #enemy_vector
+    ld a, (me_num_enemy)
+    ld b, #0x00
+    ld c, #_ee_size
+    call _sr_redraw_vector
+
+
+
+    ;; Físicas de los enemigos
+    ld iy, #enemy_vector
+    ld a, (me_num_enemy)
+    ld b, #0x00
+    ld c, #_ee_size
+
+    
+    cp #00
+    jr z, gl_end_physics
+    gl_loop_enemy_vector:
+    
+        push af
+        push bc
+        ld a, _ee_disabled(iy) ; Si la entidad está deshabilitada no se comprueban sus colisiones
+        cp #0x00
+        jr nz, gl_entity_disabled
+            call _sa_manage_enemy_ai
+            call _sp_manage_enemy_physics
+
+        gl_entity_disabled:
+
+        pop bc
+        pop af
+        add iy, bc
+        dec a
+        jr nz, gl_loop_enemy_vector
+
+
 gl_end_physics:;------------------------
     
     ;; Dibujar jugadores
@@ -156,8 +201,10 @@ gl_end_physics:;------------------------
     ld c, #_ei_size
     call _sr_draw_entity_vector
 
-    call cpct_waitVSYNC_asm
+
     call _sr_swap_buffers
+    call cpct_waitVSYNC_asm
+
 
     jp _mg_game_loop
 

@@ -19,17 +19,19 @@ _ep_size       = 3 + _ed_size
 
 
 
+
+
 ;Flags del jugador (almacenados en la variable _attributes)
 ;
 ;7   M -> Mascara (1->Tiene Mascara, 0->No tiene Mascara)
 ;6   V -> V-Flip (1->Boca Abajo, 0->Normal)
 ;5   O -> Orientacion (1->Derecha, 0->Izquierda)
 ;4   G -> On Ground (1->Toca Suelo, 0->NO toca suelo)
-;3   I -> Inhabilitado (1->Ha muerto, 0->No hay muerto)
-;2   X
-;1   X
+;3   W -> On Wall (1->Colisiona con pared, 0->No colisiona con pared) (Está colisionando en X)
+;2   H -> Half on ground (1->Los puntos en Y tienen diferente Group ID, 0->Ambos puntos en Y tienen la misma Group ID)
+;1   R -> Check Roof (1-> Buffer Roof/Ground, 0-> Ground)
 ;0   X
 
 ;
-;M V O G I X X X
+;M V O G W H R X
 ;1 0 0 0 0 0 0 0

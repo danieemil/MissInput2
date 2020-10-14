@@ -154,6 +154,9 @@ _me_add_enemy:
     ld (hl), c                  ;; _prev_y
     inc hl
 
+    ld (hl), #0x00              ;; _offset
+    inc hl
+
     ld a, _eet_type(ix)         ;; _type
     ld (hl), a
     inc hl

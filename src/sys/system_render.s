@@ -33,6 +33,8 @@ aux_02: .db #0x00
 _sr_redraw_tiles:
     ld c, _ed_pre_x(iy)
     ld b, _ed_pre_y(iy)
+
+    rt_moved:
     ld l, _ed_spr_wi(iy)
     ld h, _ed_spr_he(iy)
     add hl, bc
@@ -186,6 +188,53 @@ rt_loop_retdaw_get_tile_ptr_end:
     ret
 
 
+;;==================================================================
+;;                         REDRAW VECTOR
+;;------------------------------------------------------------------
+;; Redibuja la parte del tilemap que está alrededor de cada entidad del vector de entidades
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  IY -> Inicio del vector de entidades
+;;  A  -> Número de elementos del vector
+;;  BC -> Tamaño de cada elemento del vector
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL, BC', DE', HL'
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_redraw_vector:
+
+    cp #0x00
+    ret z
+    rv_loop_vector:
+    
+        push af
+        push bc
+
+        call _sr_redraw_tiles
+        ld b, _eph_x(iy)                ;;Establecemos la posicion actual a la pasada
+        ld _ed_pre_x(iy), b
+        ld b, _eph_y(iy)
+        ld _ed_pre_y(iy), b
+
+        pop bc
+        pop af
+        add iy, bc
+        dec a
+        jr nz, rv_loop_vector
+
+    ret
+
+
+
+
+
 
 ;;==================================================================
 ;;                         INIT BUFFERS
@@ -232,12 +281,12 @@ _sr_init_buffers:
 ;; CYCLES: [ | ]
 ;;==================================================================
 _sr_swap_buffers:
-    ld a, (mg_front_buffer)
-    ld b, a
-    ld a, (mg_back_buffer)
+    ld hl, (mg_front_buffer)   ;; Inicialmente (80C0)
+    ld a, l                 ;; Carga el front buffer en el back buffer
+    ld (mg_back_buffer) , a
+    ld a, h                 ;; Carga el back buffer en el front buffer
     ld (mg_front_buffer), a
-    ld a, b
-    ld (mg_back_buffer), a
+
 
     srl a
     srl a

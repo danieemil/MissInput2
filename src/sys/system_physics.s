@@ -60,6 +60,8 @@ sfx_move_up:
 
     ld _eph_y(iy), a
 
+    set 4, _eph_attributes(iy)  ;Indicamos que ahora esta en el suelo
+
     ret
 
 ;;==================================================================
@@ -108,6 +110,7 @@ sfx_move_left:
     ld _eph_x(iy), a
     ld _eph_offset(iy), #0x00
 
+    set 3, _eph_attributes(iy)  ;Indicamos que ahora esta en la pared
 
     ret
 
@@ -119,21 +122,26 @@ sfx_move_left:
 ;;
 ;;
 ;; INPUT:
+;;  A -> (0 -> X orientation, 1 -> Y orientation)
 ;;  BC -> Punto 1
 ;;  DE -> Punto 2
+;;  IY -> Puntero a la entidad
 ;;
 ;; OUTPUT:
 ;;  A  -> Tile sobre el que se colisiona
-;;  BC -> Posicion X,Y del tilemap que corresponde con el punto 1
+;;  DE -> Posicion X,Y del tilemap que corresponde con el punto 1
 ;;
 ;; DESTROYS:
-;;  AF, BC, DE, HL,
+;;  AF, BC, DE, HL, AF'
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
 ;;==================================================================
 _sp_check_map_collisions::
     
+
+    ex af, af'
+
     srl b
     srl b
 
@@ -222,8 +230,20 @@ cmc_loop_point_2_end:
     ld c, a
     ld a, b
     call _sp_check_tile_id_group
+    
+    ld b, a
 
     pop de
+    cp c
+    jr z ,cmc_no_half_Y        ;; Si la Group Id en Y de ambos puntos es diferente, seteamos el bit 2
+
+    ex af, af'
+    cp #0x00
+    jr z, cmc_no_half_Y
+        set 2, _eph_attributes(iy)
+
+    cmc_no_half_Y:
+    ld a, b
     cp c
     ret nc
     ld a, c
@@ -240,7 +260,8 @@ cmc_loop_point_2_end:
 ;;   A -> Velocidad en X.
 ;;
 ;; OUTPUT:
-;;  NONE
+;;  BC -> Punto 1
+;;  DE -> Punto 2
 ;;
 ;; DESTROYS:
 ;;  AF, BC, DE, HL,
@@ -374,10 +395,10 @@ _sy_manage_player_physics:
     bit 4, _eph_attributes(iy) ;Comprobamos suelo
     jr z, mpp_force_movement
 
-        bit 3, _eph_attributes(iy)
+        bit 1, _eph_attributes(iy)
         jr z, mpp_apply_input_x
 
-            res 3, _eph_attributes(iy)
+            res 1, _eph_attributes(iy)
 
 mpp_force_movement:
     ld a, b
@@ -490,7 +511,7 @@ mpp_no_floor_jump:
             bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar
             jr nz, mpp_hold_key_j
                 
-                set 3, _eph_attributes(iy)
+                set 1, _eph_attributes(iy)
                 ld _ep_jump_state(iy), #JT_WALL_JUMP
                 ld _ep_wall_dir(iy), #0x00
                 ld _ep_force_x(iy), #FORCE_X_L
@@ -546,6 +567,7 @@ mpp_jump_check_wall_left_end:
                     push bc
                     push de
                     call _sp_get_collision_points_x
+                    xor a
                     call _sp_check_map_collisions
                     pop de
                     pop bc
@@ -578,21 +600,9 @@ mpp_jump_check_wall_up:
 
 mpp_jump_check_end:
 
-        ld b, #0x00
-        ld hl, #jump_table
-        add hl, bc
-        ld a, (hl)
-        cp #0x80
-        jr nz, mpp_jump_continue
-
-            dec hl
-            dec c
-            ld a, (hl)
-
-mpp_jump_continue:
-        inc c
-        ld _ep_jump_state(iy), c
-        ld _eph_vy(iy), a
+    ld hl, #jump_table
+    call _sp_aply_jumptable
+    ld _eph_vy(iy), a
 
     ;A -> VY
     ;D -> VX
@@ -607,6 +617,7 @@ mpp_jump_continue:
         ld b, a
         push bc
         call _sp_get_collision_points_x
+        xor a
         call _sp_check_map_collisions
         pop bc
                                                     ;;TRANSPARENTES X
@@ -638,6 +649,7 @@ mpp_no_map_collision_x:
         ld b, a
         push bc
         call _sp_get_collision_points_y
+        ld a, #0x01
         call _sp_check_map_collisions
         pop bc
                                                     ;;TRANSPARENTES Y
@@ -656,7 +668,6 @@ mpp_collision_y_solid:                              ;;SOLIDOS Y
         jr nz, mpp_no_map_collision_y
             ld _ep_wall_dir(iy), #0x00
             call _sp_fix_y                          ;Corregimos la posicion en Y
-            set 4, _eph_attributes(iy)              ;Indicamos que ahora esta en el suelo
             ld _ep_jump_state(iy), #JT_ON_GROUND    ;Ponemos la jump table a la posicion de colision con el suelo
             jr mpp_no_map_collision_y
 
@@ -989,3 +1000,136 @@ _sp_check_entity_vector_collision:
         jr nz, cevc_loop_vector
 
     ret
+
+
+;;==================================================================
+;;                    APLY JUMPTABLE
+;;------------------------------------------------------------------
+;; Modifica la velocidad en Y de acuerdo a su posición en la tabla de saltos
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  IY  -> Puntero a la entidad
+;;  C   -> Offset de la jumptable
+;;  HL  -> Puntero a la jumptable
+;;
+;; OUTPUT:
+;;  A -> Velocidad en Y resultante
+;;
+;; DESTROYS:
+;;  AF, BC, HL,
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sp_aply_jumptable:
+
+        ld b, #0x00
+        add hl, bc
+        ld a, (hl)
+        cp #0x80
+        jr nz, aj_jump_continue
+
+            dec hl
+            dec c
+            ld a, (hl)
+
+    aj_jump_continue:
+        inc c
+        ld _ep_jump_state(iy), c
+        
+
+    ret
+
+
+;;==================================================================
+;;                    MANAGE ENEMY PHYSICS
+;;------------------------------------------------------------------
+;; Maneja las físicas asociadas a cada enemigo
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  
+;;  DE -> D = Enemy(key_r + key_l) E -> Enemy(key_u + key_d)
+;;  IY  -> Puntero al enemigo
+;;
+;; OUTPUT:
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL, AF'
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sp_manage_enemy_physics:
+
+
+    ld _eph_vx(iy), d
+
+    ld a, e
+    bit 1, _eph_attributes(iy)
+    jr z, mep_not_aply_jumptable
+
+        ld hl, #jump_table
+        call _sp_aply_jumptable
+
+    mep_not_aply_jumptable:
+    ld _eph_vy(iy), a
+
+
+    ld b, a
+    ld a, d
+    ld d, b
+
+    ;; A -> VX
+    ;; D -> VY
+
+    push de
+
+    cp #0x00
+    jr z, mep_no_move_x
+
+    push af
+    call _sp_move_entity_x
+    pop af
+
+    res 3, _eph_attributes(iy)
+
+    call _sp_get_collision_points_x
+    xor a
+    call _sp_check_map_collisions
+
+    cp #SOLID
+    jr nz, mep_no_move_x
+        ld b, _eph_vx(iy)
+        call _sp_fix_x
+        
+
+
+    mep_no_move_x:
+
+    pop de
+
+    ld a, d
+    cp #0x00
+    jr z, mep_no_move_y
+
+        
+        push af
+        call _sp_move_entity_y
+        pop af
+
+        call _sp_get_collision_points_y
+
+        ld a, #0x01
+        res 2, _eph_attributes(iy)
+        call _sp_check_map_collisions
+
+        cp #SOLID
+        jr nz, mep_no_move_y
+            ld b, _eph_vy(iy)
+            call _sp_fix_y
+
+    mep_no_move_y:
+
+ret
