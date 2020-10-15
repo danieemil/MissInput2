@@ -139,11 +139,13 @@ _ep_size       = 3 + _ed_size
 .globl mi_num_interactable
 
 ;;JUMP TABLE
-JT_INIT         = 0
-JT_WALL_JUMP    = 0
-JT_ON_GROUND    = 14
-JT_ON_WALL      = 15
-JT_END          = 22
+JT_INIT             = 0
+JT_WALL_JUMP        = 0
+JT_ON_GROUND        = 14
+JT_ON_WALL          = 15
+JT_END              = 22
+JT_PTOGRESSIVE_MIN  = 1
+JT_PROGRESSIVE_MAX  = 8
 
 FORCE_X_R           = #0b01111111
 FORCE_X_L           = #0b10000000
