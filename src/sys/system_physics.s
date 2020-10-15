@@ -1150,6 +1150,7 @@ _sp_manage_enemy_physics:
         res 2, _eph_attributes(iy)
         call _sp_check_map_collisions
 
+        res 4, _eph_attributes(iy)
         cp #SOLID
         jr nz, mep_no_move_y
             ld b, _eph_vy(iy)

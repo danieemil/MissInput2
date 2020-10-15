@@ -54,7 +54,7 @@ _sa_manage_enemy_ai:
 ;;  DE -> D = Enemy(key_r + key_l) E -> Enemy(key_u + key_d)
 ;;
 ;; DESTROYS:
-;;  AF, D
+;;  AF, DE
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: []
@@ -63,14 +63,15 @@ _sa_enemy_turtle_behaviour:
 
 
     ld d, _eph_vx(iy)
+    ld e, _eph_vy(iy)
 
     bit 3, _eph_attributes(iy)
-    jr nz, etb_change_dir
+    jr nz, etb_change_dir_x
         bit 2, _eph_attributes(iy)
-        jr nz, etb_change_dir
+        jr nz, etb_change_dir_x
             ret
 
-    etb_change_dir:
+    etb_change_dir_x:
         xor a
         sub d
         ld d, a
@@ -99,7 +100,23 @@ _sa_enemy_turtle_behaviour:
 ;; CYCLES: []
 ;;==================================================================
 _sa_enemy_saw_behaviour:
-    
+
+    ld d, _eph_vx(iy)
+    ld e, _eph_vy(iy)
+
+    bit 3, _eph_attributes(iy)
+    jr nz, esb_die
+        bit 4, _eph_attributes(iy)
+        jr nz, esb_die
+            ret
+
+    esb_die:
+        dec _ee_disabled(iy)        ; Desactivamos al enemigo
+        ld a, _ee_origin_x(iy)      ; Reposicionamos al enemigo en su posición de inicio
+        ld _eph_x(iy), a
+        ld a, _ee_origin_y(iy)
+        ld _eph_y(iy), a
+
     ret
 
 ;;==================================================================
@@ -122,4 +139,18 @@ _sa_enemy_saw_behaviour:
 ;;==================================================================
 _sa_enemy_rock_behaviour:
     
+    ld d, _eph_vx(iy)
+    ld e, _eph_vy(iy)
+
+    bit 3, _eph_attributes(iy)
+    jr nz, erb_die
+        ret
+
+    erb_die:
+        dec _ee_disabled(iy)        ; Desactivamos al enemigo
+        ld a, _ee_origin_x(iy)      ; Reposicionamos al enemigo en su posición de inicio
+        ld _eph_x(iy), a
+        ld a, _ee_origin_y(iy)
+        ld _eph_y(iy), a
+
     ret

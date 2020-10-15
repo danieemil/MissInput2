@@ -4,9 +4,10 @@
 _ee_name:
     DefineEntityDrawable _ee_name'_ed, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size
 
-    .db #0x00 ;;Offset de la tabla de saltos
+    .db #0x00       ;;Offset de la tabla de saltos
     .db _type
-    .db #0x00 ;; Ciclos que tiene que permanecer deshabilitado
+    .db #0x00       ;; Ciclos que tiene que permanecer deshabilitado
+    .db _x, _y      ;; Posición origen del enemigo
 
     _ee_name'_size = . - _ee_name ;; Saves the number of bytes that fills a DefineEntity
 .endm
@@ -18,7 +19,9 @@ _ee_name:
 _ee_jump_state = 0 + _ed_size ;;Offset de la tabla de saltos
 _ee_type       = 1 + _ed_size
 _ee_disabled   = 2 + _ed_size
-_ee_size       = 3 + _ed_size
+_ee_origin_x   = 3 + _ed_size
+_ee_origin_y   = 4 + _ed_size
+_ee_size       = 5 + _ed_size
 
 
 ;Flags del enemigo (almacenados en la variable _attributes)

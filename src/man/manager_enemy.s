@@ -164,6 +164,12 @@ _me_add_enemy:
     ld (hl), #0x00              ;; _disabled
     inc hl
 
+    ld (hl), b                  ;; _origin_x
+    inc hl
+
+    ld (hl), c                  ;; _origin_y
+    inc hl
+
     ld (me_next_enemy_l), hl
 
     ret

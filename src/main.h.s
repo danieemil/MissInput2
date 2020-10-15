@@ -96,10 +96,12 @@ _eit_spr_he     = 6
 _eit_spr_size   = 7
 
 ;;ENTITY ENEMY CONSTS
-_ee_jump_state      = 0 + _ed_size ;;Offset de la tabla de saltos
-_ee_type            = 1 + _ed_size
-_ee_disabled        = 2 + _ed_size
-_ee_size            = 3 + _ed_size
+_ee_jump_state  = 0 + _ed_size ;;Offset de la tabla de saltos
+_ee_type        = 1 + _ed_size
+_ee_disabled    = 2 + _ed_size
+_ee_origin_x    = 3 + _ed_size
+_ee_origin_y    = 4 + _ed_size
+_ee_size        = 5 + _ed_size
 
 _eef_gravity        = 1
 
@@ -144,7 +146,7 @@ JT_WALL_JUMP        = 0
 JT_ON_GROUND        = 14
 JT_ON_WALL          = 15
 JT_END              = 22
-JT_PTOGRESSIVE_MIN  = 1
+JT_PTOGRESSIVE_MIN  = 2
 JT_PROGRESSIVE_MAX  = 8
 
 FORCE_X_R           = #0b01111111
