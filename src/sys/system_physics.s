@@ -485,7 +485,8 @@ mpp_end_x_input:
     ld a, _ep_wall_dir(iy)
     ld b, a
 
-    xor a                                   
+    xor a             
+    ld (aux_01), a                      
     ld _eph_vy(iy), a
 
     bit 0, e                                ;;Comprobamos el boton de saltar
@@ -497,10 +498,9 @@ mpp_end_x_input:
         bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar
         jr nz, mpp_hold_key_j
 
-            ld _ep_jump_state(iy), #JT_INIT
-            jr mpp_no_key_j
-
-
+            ld c, #JT_INIT
+            ld _ep_jump_state(iy), c
+            jp mpp_jump_check_end
 
 
 mpp_no_floor_jump:
@@ -511,31 +511,49 @@ mpp_no_floor_jump:
             bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar
             jr nz, mpp_hold_key_j
                 
+
                 set 1, _eph_attributes(iy)
-                ld _ep_jump_state(iy), #JT_WALL_JUMP
+                ld c, #JT_WALL_JUMP
+                ld _ep_jump_state(iy), c
                 ld _ep_wall_dir(iy), #0x00
                 ld _ep_force_x(iy), #FORCE_X_L
                 ld _eph_vx(iy), #0xFE
                 
                 cp #0x00
-                jp p, mpp_no_key_j
+                jp p, mpp_jump_check_end
                 ld _ep_force_x(iy), #FORCE_X_R
                 ld _eph_vx(iy), #0x02
-
-                jr mpp_no_key_j
+                jr mpp_jump_check_end
 
 mpp_double_jump:
-
+        bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar
+        jr nz, mpp_hold_key_j
+        jr mpp_no_key_j
 
 
 mpp_hold_key_j:
         
-        jr mpp_no_key_j
+        ld a, #0x01
+        ld (aux_01), a
+        
 
 
 mpp_no_key_j:                               ;;No se ha pulsado el boton de saltar
 
         ld c, _ep_jump_state(iy)
+        ld a, c
+
+        cp #JT_PROGRESSIVE_MAX
+        jr nc, mpp_jump_check_wall
+        cp #JT_PTOGRESSIVE_MIN
+        jr c, mpp_jump_check_wall
+
+            ld a, (aux_01)
+            cp #0x00
+            jr nz, mpp_jump_check_wall
+
+                ld c, #JT_PROGRESSIVE_MAX
+                ld _ep_jump_state(iy), c
 
 mpp_jump_check_wall:
 
