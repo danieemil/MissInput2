@@ -55,7 +55,7 @@ _mg_game_loop_init:
     xor a               ;; Tipo de enemigo
     ld b, #0x08         ;; Posicion en X
     ld c, #0x70         ;; Posicion en Y
-    ld d, #0x01         ;; Velocidad en X
+    ld d, #0xFF         ;; Velocidad en X
     ld e, #0x00         ;; Velocidad en Y
     call _me_add_enemy
 
