@@ -29,10 +29,12 @@
 .globl _g_palette
 
 ;;SPRITES
+.globl _checkpoint_top_spr_0
 .globl _tileset_spr_00
 .globl _prueba01_spr_0
 .globl _prueba02_spr_0
 
+SPR_CHECKPOINT_SIZE = 1 * 4
 
 ;;AMSTRAD CONSTS
 SCREEN_W = 80
@@ -78,13 +80,17 @@ _ed_spr_he      = 3 + _eph_size
 _ed_spr_size    = 4 + _eph_size
 _ed_pre_x       = 5 + _eph_size
 _ed_pre_y       = 6 + _eph_size
-_ed_size        = 7 + _eph_size
+_ed_ox          = 7 + _eph_size
+_ed_oy          = 8 + _eph_size
+_ed_size        = 9 + _eph_size
 
 _edf_mask       = 7
 _edf_flip       = 6
 
 ;;ENTITY INTERACTABLE CONSTS
-_ei_size       = _ed_size
+_ei_type        = 0 + _ed_size
+
+_ei_size        = 1 + _ed_size
 
 _eit_w          = 0
 _eit_h          = 1
@@ -94,6 +100,13 @@ _eit_spr_h      = 4
 _eit_spr_wi     = 5
 _eit_spr_he     = 6
 _eit_spr_size   = 7
+_eit_spr_ox     = 8
+_eit_spr_oy     = 9
+_eit_type       = 10
+
+;;INTERACTABLE TYPES
+EI_NONE       = 0
+EI_CHECKPOINT = 1
 
 ;;ENTITY ENEMY CONSTS
 _ee_jump_state      = 0 + _ed_size ;;Offset de la tabla de saltos
@@ -112,7 +125,9 @@ _eet_spr_h      = 4
 _eet_spr_wi     = 5
 _eet_spr_he     = 6
 _eet_spr_size   = 7
-_eet_type       = 8
+_eet_spr_ox     = 8
+_eet_spr_oy     = 9
+_eet_type       = 10
 
 ET_TURTLE       = 0
 ET_SAW          = 1
@@ -157,11 +172,13 @@ PLAYER = 48  ;; 0x30
 
 
 ;;COLLISION CONSTS
-GROUP_TRANSPARENT   = 1
-GROUP_SOLID         = 16
-GROUP_DANGEROUS     = 19
+GROUP_TRANSPARENT   = 2
+GROUP_SOLID         = 18
+GROUP_DANGEROUS     = 25
 
 
 TRANSPARENT = 0     ; Prioridad +
 DANGEROUS   = 1     ; Prioridad ++
 SOLID       = 2     ; Prioridad +++
+
+

@@ -43,6 +43,8 @@ PALETTE=13 0 6 26
 #$(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette ))
 #$(eval $(call IMG2SP, CONVERT         , img.png , w, h, array, palette, tileset))
 
+
+#SPRITES CON TRANSPARENCIAS
 $(eval $(call IMG2SP, SET_MODE        , 1                  						))
 $(eval $(call IMG2SP, SET_FOLDER      , src/spr/ 								))
 $(eval $(call IMG2SP, SET_PALETTE_FW  , $(PALETTE)								))
@@ -53,6 +55,11 @@ $(eval $(call IMG2SP, SET_MASK        , interlaced               						))
 $(eval $(call IMG2SP, CONVERT         , assets/pruebasprite02.png , 12, 8, prueba01_spr	))
 $(eval $(call IMG2SP, CONVERT         , assets/pruebasprite03.png , 12, 9, prueba02_spr	))
 
+#SPRITES SIN TRASPARENCIAS
+$(eval $(call IMG2SP, SET_MASK        , none               						))
+$(eval $(call IMG2SP, CONVERT         , assets/Checkpoint_top_sprite_01.png , 4, 4, checkpoint_top_spr	))
+
+#TILES
 $(eval $(call IMG2SP, SET_IMG_FORMAT  , zgtiles            ))
 $(eval $(call IMG2SP, SET_MASK        , none               						))
 $(eval $(call IMG2SP, CONVERT         , assets/tileset.png , 16, 8, tileset_spr	))

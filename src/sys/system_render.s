@@ -319,7 +319,14 @@ _sr_draw_entity:
     ld d, a
     ld e, #0x00              ;;[10] Poner en un futuro el inicio del doble buffer
     ld b, _eph_y(iy)            ;;[19]
+    ld a, _ed_oy(iy)
+    add b
+    ld b, a
+
     ld c, _eph_x(iy)            ;;[19] -> [48]
+    ld a, _ed_ox(iy)
+    add c
+    ld c, a
 
     bit 6, _eph_attributes(iy)  ;;[20]
     jr z, sde_no_add_b          ;;[7 | 12]

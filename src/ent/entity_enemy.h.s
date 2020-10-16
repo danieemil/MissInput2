@@ -1,8 +1,8 @@
 .include "ent/entity_interactable.h.s"
 
-.macro DefineEntityEnemy _ee_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _type
+.macro DefineEntityEnemy _ee_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy, _type
 _ee_name:
-    DefineEntityDrawable _ee_name'_ed, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size
+    DefineEntityDrawable _ee_name'_ed, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy
 
     .db #0x00 ;;Offset de la tabla de saltos
     .db _type
@@ -12,7 +12,7 @@ _ee_name:
 .endm
 
 .macro DefineEnemyDefault _ee_name, _suf
-    DefineEntityEnemy _ee_name'_suf, 0x00, 0x00, 0x02, 0x08, 0x00, 0x00, 0b00000000, 0x0000, 0x03, 0x08, 0x00, 0x00
+    DefineEntityEnemy _ee_name'_suf, 0x00, 0x00, 0x02, 0x08, 0x00, 0x00, 0b00000000, 0x0000, 0x03, 0x08, 0x00, 0x00, 0x00, 0x00
 .endm
 
 _ee_jump_state = 0 + _ed_size ;;Offset de la tabla de saltos

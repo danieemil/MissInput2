@@ -5,7 +5,12 @@
     mg_back_buffer:: .db #0x80
     mg_game_state:: .db #0x00
 
-    
+    actual_level:: .db #0x00
+
+    ;CHECKPOINT DATA
+    checkpoint_x::   .db #0x00
+    checkpoint_y::   .db #0x00
+    checkpoint_level:: .db #0x00
 
     p1_key_gameplay:: .db #0x00         ;; bit0 -> Actual key_j  |  bit1 -> Previous key_j
     p2_key_gameplay:: .db #0x00
@@ -50,6 +55,7 @@
 _mg_game_loop_init:
     call _sr_init_buffers
     call _me_init_vector
+    call _mi_init_vector
     
     
     xor a               ;; Tipo de enemigo
@@ -59,16 +65,14 @@ _mg_game_loop_init:
     ld e, #0x00         ;; Velocidad en Y
     call _me_add_enemy
 
-    ld a, #01            ;; Tipo de enemigo
-    ld b, #0x22         ;; Posicion en X
-    ld c, #0x88         ;; Posicion en Y
-    ld d, #0x01         ;; Velocidad en X
-    ld e, #0x00         ;; Velocidad en Y
-    ;call _me_add_enemy
+    ld a, #00           ;; Tipo de enemigo
+    ld b, #0x24         ;; Posicion en X
+    ld c, #0x94         ;; Posicion en Y
+    call _mi_add_interactable
 
     ld a, #01            ;; Tipo de enemigo
-    ld b, #0x22         ;; Posicion en X
-    ld c, #0x88         ;; Posicion en Y
+    ld b, #0x0C         ;; Posicion en X
+    ld c, #0x24         ;; Posicion en Y
     ld d, #0x01         ;; Velocidad en X
     ld e, #0x00         ;; Velocidad en Y
     ;call _me_add_enemy
@@ -180,12 +184,12 @@ _mg_game_loop:
 
 gl_end_physics:;------------------------
     
-    ;; Dibujar jugadores
-    ld iy, #player_2
-    call _sr_draw_entity
-
-    ld iy, #player_1
-    call _sr_draw_entity
+    ;; Dibujar interactuables
+    ld iy, #interactable_vector
+    ld a, (mi_num_interactable)
+    ld b, #0x00
+    ld c, #_ei_size
+    call _sr_draw_entity_vector
 
     ;; Dibujar enemigos
     ld iy, #enemy_vector
@@ -194,12 +198,11 @@ gl_end_physics:;------------------------
     ld c, #_ee_size
     call _sr_draw_entity_vector
 
-    ;; Dibujar interactuables
-    ld iy, #interactable_vector
-    ld a, (mi_num_interactable)
-    ld b, #0x00
-    ld c, #_ei_size
-    call _sr_draw_entity_vector
+    ;; Dibujar jugadores
+    ld iy, #player_2
+    call _sr_draw_entity
+    ld iy, #player_1
+    call _sr_draw_entity
 
 
     call _sr_swap_buffers

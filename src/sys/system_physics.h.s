@@ -9,3 +9,5 @@
 
 .globl mg_game_state
 .globl jump_table
+.globl checkpoint_x
+.globl checkpoint_y

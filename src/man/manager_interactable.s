@@ -57,7 +57,6 @@ _mi_init_vector:
 ;; INPUT:
 ;;  A   -> Tipo de interactuable
 ;;  BC  -> Position X, Y
-;;  DE  -> Velocity X, Y
 ;;      
 ;; OUTPUT:
 ;;  NONE
@@ -71,7 +70,6 @@ _mi_init_vector:
 _mi_add_interactable:
     
     push bc
-    push de
 
     ld hl, #interactable_index
     sla a
@@ -94,13 +92,11 @@ _mi_add_interactable:
     
     ld hl, (mi_next_interactable_l)
 
-    pop de
     pop bc
 
     ;; IX -> Puntero a los datos característicos del tipo de interactuable
     ;; HL -> Puntero a donde hay que copiar los datos
     ;; BC -> Posición del interactuable
-    ;; DE -> Velocidad inicial del interactuable
 
     ld (hl), b                  ;; _x
     inc hl
@@ -115,10 +111,10 @@ _mi_add_interactable:
     ld (hl), a
     inc hl
 
-    ld (hl), d                  ;; _vx
+    ld (hl), #0x00              ;; _vx
     inc hl
 
-    ld (hl), e                  ;; _vy
+    ld (hl), #0x00              ;; _vy
     inc hl
 
     ld (hl), #0x00              ;; _offset
@@ -152,6 +148,18 @@ _mi_add_interactable:
     inc hl
 
     ld (hl), c                  ;; _prev_y
+    inc hl
+
+    ld a, _eit_spr_ox(ix)       ;; _ox
+    ld (hl), a
+    inc hl
+
+    ld a, _eit_spr_oy(ix)       ;; _oy
+    ld (hl), a
+    inc hl
+
+    ld a, _eit_type(ix)         ;; _type
+    ld (hl), a
     inc hl
 
     ld (mi_next_interactable_l), hl
