@@ -1,6 +1,6 @@
 .include "ent/entity_physics.h.s"
 
-.macro DefineEntityDrawable _ed_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size
+.macro DefineEntityDrawable _ed_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy
 _ed_name:
     DefineEntityPhysics _ed_name'_eph, _x, _y, _w, _h, _vx, _vy, _attributes
     
@@ -8,6 +8,7 @@ _ed_name:
     .db _spr_w, _spr_h  ;;Sprite Width/Height
     .db _spr_size         ;; Sprite size [0, 48, 96, 144]
     .db _x, _y      ;; Previous x, y
+    .db _ox, _oy
 
     _ed_name'_size = . - _ed_name ;; Saves the number of bytes that fills a DefineEntity
 .endm
@@ -19,8 +20,10 @@ _ed_spr_he      = 3 + _eph_size
 _ed_spr_size    = 4 + _eph_size
 _ed_pre_x       = 5 + _eph_size
 _ed_pre_y       = 6 + _eph_size
+_ed_ox          = 7 + _eph_size
+_ed_oy          = 8 + _eph_size
 
-_ed_size        = 7 + _eph_size
+_ed_size        = 9 + _eph_size
 
 
 

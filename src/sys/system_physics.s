@@ -474,7 +474,7 @@ mpp_change_orientation_right_continue:
 
 
 mpp_no_orientation:
-    sla d
+    ;sla d
    
 
 mpp_end_x_input:
@@ -529,7 +529,15 @@ mpp_no_floor_jump:
 mpp_double_jump:
         bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar
         jr nz, mpp_hold_key_j
-        jr mpp_no_key_j
+
+            bit 0, _eph_attributes(iy)
+            jr z, mpp_no_key_j
+
+                res 0, _eph_attributes(iy)
+                ld _ep_force_x(iy), #0x00
+                ld c, #JT_INIT
+                ld _ep_jump_state(iy), c
+                jp mpp_jump_check_end
 
 
 mpp_hold_key_j:
@@ -693,12 +701,16 @@ mpp_collision_y_solid:                              ;;SOLIDOS Y
 mpp_no_map_collision_y:
 
 
-    ; MANEJAR COLISIONES CON LAS ENTIDADES
-    ld ix, #enemy_vector
+    ; MANEJAR COLISIONES CON LOS ENEMIGOS
     ld a, (me_num_enemy)
+    cp #0x00
+    jr z, mpp_no_enemy
+    ld ix, #enemy_vector
     ld de, #_ee_size
+
     call _sp_check_entity_vector_collision
-    ret z
+    cp #0x00
+    jr z, mpp_no_enemy
 
     ld _ee_disabled(ix), #EE_DISABLED    ; Desactivamos al enemigo
 
@@ -706,7 +718,38 @@ mpp_no_map_collision_y:
     ;.db #0xDD, #0x5D        ;; OPCODE ld e, ixl
     ;.db #0xDD, #0x54        ;; OPCODE ld d, ixh
     ;call _me_remove_enemy
+mpp_no_enemy:
 
+    ; MANEJAR COLISIONES CON LOS INTERACTABLES
+    ld a, (mi_num_interactable)
+    cp #0x00
+    ret z
+    ld ix, #interactable_vector
+    ld de, #_ei_size
+
+    call _sp_check_entity_vector_collision
+    cp #0x00
+    ret z
+
+    ld a, _ei_type(ix)
+    cp #EI_CHECKPOINT
+    jr nz, mpp_end_check_interactables
+
+        ld a, _eph_x(ix)
+        ld (checkpoint_x), a
+        ld a, _eph_y(ix)
+        ld (checkpoint_y), a
+        dec a
+        ld _eph_y(ix), a
+        ld bc, #0x0004
+        ld l, _ed_spr_l(ix)
+        ld h, _ed_spr_h(ix)
+        add hl, bc
+        ld _ed_spr_l(ix), l
+        ld _ed_spr_h(ix), h
+        ld _ei_type(ix), #0x00
+
+mpp_end_check_interactables:
     ret
 
 
@@ -913,7 +956,6 @@ jr nc, cec_no_entity_collision              ;; X - X2 + W2
             sub b
             jr nc, cec_no_entity_collision  ;; Y2 - Y + H
 
-
                 ;;Offset
                 ld a, _eph_x(iy)
                 ld b, _eph_x(ix)
@@ -996,8 +1038,6 @@ cec_no_entity_collision:
 ;;==================================================================
 _sp_check_entity_vector_collision:
 
-    cp #00
-    ret z
     cevc_loop_vector:
 
         ex af, af'

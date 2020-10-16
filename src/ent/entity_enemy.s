@@ -17,8 +17,8 @@ enemy_turtle:
 ;;      _sprite
     .dw #_prueba01_spr_0
 
-;;     _spr_w  _spr_h   _spr_size
-    .db #0x03,  #0x08,    #0x30
+;;     _spr_w  _spr_h   _spr_size  _spr_ox  _spr_oy
+    .db #0x03,  #0x08,    #0x30,    #0x00,   #0x00
 
 ;;      _type
     .db #ET_TURTLE
@@ -31,8 +31,8 @@ enemy_saw:
 ;;      _sprite
     .dw #_prueba02_spr_0
 
-;;     _spr_w  _spr_h   _spr_size
-    .db #0x03, #0x09,     #0x36
+;;     _spr_w  _spr_h   _spr_size  _spr_ox  _spr_oy
+    .db #0x03,  #0x09,    #0x36,    #0x00,   #0x00
 
 ;;      _type
     .db #ET_SAW
@@ -46,8 +46,8 @@ enemy_rock:
 ;;      _sprite
     .dw #_prueba02_spr_0
 
-;;     _spr_w  _spr_h   _spr_size
-    .db #0x03, #0x09,     #0x36
+;;     _spr_w  _spr_h   _spr_size  _spr_ox  _spr_oy
+    .db #0x03, #0x09,     #0x36,    #0x00,   #0x00
 
 ;;      _type
     .db #ET_ROCK

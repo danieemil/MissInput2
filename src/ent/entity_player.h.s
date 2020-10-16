@@ -1,8 +1,8 @@
 .include "ent/entity_enemy.h.s"
 
-.macro DefineEntityPlayer _ep_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size
+.macro DefineEntityPlayer _ep_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy
 _ep_name:
-    DefineEntityDrawable _ep_name'_ed, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size
+    DefineEntityDrawable _ep_name'_ed, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy
     
     .db #0x0E ;;Offset de la tabla de saltos
     .db #0x00 ;;Indica si esta chocando con una pared y su orientacion
@@ -30,8 +30,8 @@ _ep_size       = 3 + _ed_size
 ;3   W -> On Wall (1->Colisiona con pared, 0->No colisiona con pared) (Está colisionando en X)
 ;2   H -> Half on ground (1->Los puntos en Y tienen diferente Group ID, 0->Ambos puntos en Y tienen la misma Group ID)
 ;1   R -> Check Roof (1-> Buffer Roof/Ground, 0-> Ground)
-;0   X
+;0   D -> Double Jump (1 -> Active, 0 -> Inactive)
 
 ;
-;M V O G W H R X
+;M V O G W H R D
 ;1 0 0 0 0 0 0 0
