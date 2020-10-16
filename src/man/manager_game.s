@@ -58,24 +58,37 @@ _mg_game_loop_init:
     call _mi_init_vector
     
     
+    ;; Creando un enemigo tortuga
     xor a               ;; Tipo de enemigo
     ld b, #0x08         ;; Posicion en X
+    ld c, #0x90         ;; Posicion en Y
+    ld d, #0xFF         ;; Velocidad en X
+    ld e, #0x00         ;; Velocidad en Y
+    call _me_add_enemy
+
+    ;; Creando un enemigo sierra
+    ld a, #0x01         ;; Tipo de enemigo
+    ld b, #0x05         ;; Posicion en X
     ld c, #0x70         ;; Posicion en Y
     ld d, #0x01         ;; Velocidad en X
     ld e, #0x00         ;; Velocidad en Y
     call _me_add_enemy
 
+    ;; Creando un enemigo roca
+    ld a, #0x02         ;; Tipo de enemigo
+    ld b, #0x30         ;; Posicion en X
+    ld c, #0x30         ;; Posicion en Y
+    ld d, #0xFF         ;; Velocidad en X
+    ld e, #0x00         ;; Velocidad en Y
+    call _me_add_enemy
+
+
+    ;; Creando un CHECKPOINT
     ld a, #00           ;; Tipo de enemigo
     ld b, #0x24         ;; Posicion en X
     ld c, #0x94         ;; Posicion en Y
     call _mi_add_interactable
 
-    ld a, #01            ;; Tipo de enemigo
-    ld b, #0x0C         ;; Posicion en X
-    ld c, #0x24         ;; Posicion en Y
-    ld d, #0x01         ;; Velocidad en X
-    ld e, #0x00         ;; Velocidad en Y
-    ;call _me_add_enemy
 
     ret
     

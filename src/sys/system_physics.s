@@ -4,6 +4,7 @@
 .area _DATA
 
 aux_01: .db #0x00
+aux_02: .db #0x00
 
 
 
@@ -1141,6 +1142,12 @@ _sp_manage_enemy_physics:
 
     ;; A -> VX
     ;; D -> VY
+    ex af, af'
+    ld a, _eph_x(iy)
+    ld (aux_01), a
+    ld a, _eph_offset(iy)
+    ld (aux_02), a
+    ex af, af'
 
     push de
 
@@ -1183,11 +1190,27 @@ _sp_manage_enemy_physics:
         res 2, _eph_attributes(iy)
         call _sp_check_map_collisions
 
+        res 4, _eph_attributes(iy)
         cp #SOLID
         jr nz, mep_no_move_y
             ld b, _eph_vy(iy)
             call _sp_fix_y
 
     mep_no_move_y:
+
+    ;; Solo para el enemigo tortuga -> Si está en un borde, que vuelva hacia atrás
+    ld a, _ee_type(iy)
+    cp #ET_TURTLE
+    ret nz
+
+    bit 2, _eph_attributes(iy)
+    ret z
+
+    ex af, af'
+    ld a, (aux_01)
+    ld _eph_x(iy), a
+    ld a, (aux_02)
+    ld _eph_offset(iy), a
+    ex af, af'
 
 ret
