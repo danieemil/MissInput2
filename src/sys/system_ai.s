@@ -111,8 +111,8 @@ _sa_enemy_saw_behaviour:
             ret
 
     esb_die:
-        dec _ee_disabled(iy)        ; Desactivamos al enemigo
-        ld a, _ee_origin_x(iy)      ; Reposicionamos al enemigo en su posición de inicio
+        ld _ee_disabled(iy), #EE_SAW_DISABLED   ; Desactivamos al enemigo sierra
+        ld a, _ee_origin_x(iy)                  ; Reposicionamos al enemigo en su posición de inicio
         ld _eph_x(iy), a
         ld a, _ee_origin_y(iy)
         ld _eph_y(iy), a
@@ -147,8 +147,8 @@ _sa_enemy_rock_behaviour:
         ret
 
     erb_die:
-        dec _ee_disabled(iy)        ; Desactivamos al enemigo
-        ld a, _ee_origin_x(iy)      ; Reposicionamos al enemigo en su posición de inicio
+        ld _ee_disabled(iy), #EE_ROCK_DISABLED  ; Desactivamos al enemigo rock
+        ld a, _ee_origin_x(iy)                  ; Reposicionamos al enemigo en su posición de inicio
         ld _eph_x(iy), a
         ld a, _ee_origin_y(iy)
         ld _eph_y(iy), a

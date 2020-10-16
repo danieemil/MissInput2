@@ -120,6 +120,10 @@ ET_TURTLE       = 0
 ET_SAW          = 1
 ET_ROCK         = 2
 
+EE_DISABLED         = 132
+EE_SAW_DISABLED     = 20
+EE_ROCK_DISABLED    = 100
+
 ;;ENTITY PLAYER CONSTS
 _ep_jump_state = 0 + _ed_size ;;Offset de la tabla de saltos
 _ep_wall_dir   = 1 + _ed_size ;;Indica si esta chocando con una pared y su orientacion
@@ -139,6 +143,7 @@ _ep_size       = 3 + _ed_size
 .globl interactable_index
 .globl interactable_vector
 .globl mi_num_interactable
+.globl mi_next_interactable_l
 
 ;;JUMP TABLE
 JT_INIT             = 0

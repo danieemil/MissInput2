@@ -60,11 +60,10 @@ _mg_game_loop_init:
     ld e, #0x00         ;; Velocidad en Y
     call _me_add_enemy
 
-
     ;; Creando un enemigo sierra
     ld a, #0x01         ;; Tipo de enemigo
     ld b, #0x05         ;; Posicion en X
-    ld c, #0x70         ;; Posicion en Y
+    ld c, #0x6E         ;; Posicion en Y
     ld d, #0x01         ;; Velocidad en X
     ld e, #0x00         ;; Velocidad en Y
     call _me_add_enemy

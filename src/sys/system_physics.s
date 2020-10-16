@@ -700,10 +700,11 @@ mpp_no_map_collision_y:
     call _sp_check_entity_vector_collision
     ret z
 
-    dec _ee_disabled(ix)
+    ld _ee_disabled(ix), #EE_DISABLED    ; Desactivamos al enemigo
 
-    .db #0xDD, #0x5D        ;; OPCODE ld e, ixl
-    .db #0xDD, #0x54        ;; OPCODE ld d, ixh
+
+    ;.db #0xDD, #0x5D        ;; OPCODE ld e, ixl
+    ;.db #0xDD, #0x54        ;; OPCODE ld d, ixh
     ;call _me_remove_enemy
 
     ret
@@ -920,7 +921,7 @@ jr nc, cec_no_entity_collision              ;; X - X2 + W2
                 jr c, cec_right_offset
                     ;; a -> Derecha, b -> Izquierda
                     sub b
-                    cp _eph_w(iy)
+                    cp _eph_w(ix)
                     jr nc, cec_left_edge
                         ld b, #0x00
                         jr cec_colliding
@@ -941,7 +942,7 @@ jr nc, cec_no_entity_collision              ;; X - X2 + W2
                 ld b, c
 
                 sub b
-                cp _eph_w(ix)
+                cp _eph_w(iy)
                 jr nc, cec_right_edge
                     ld b, #0x00
                     jr cec_colliding

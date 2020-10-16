@@ -32,7 +32,7 @@ _ee_size       = 5 + _ed_size
 ;4   G -> On Ground (1->Toca Suelo, 0->NO toca suelo) (Está colisionando en Y)
 ;3   W -> On Wall (1->Colisiona con pared, 0->No colisiona con pared) (Está colisionando en X)
 ;2   H -> Half on ground (1->Los puntos en Y tienen diferente Group ID, 0->Ambos puntos en Y tienen la misma Group ID)
-;1   g -> Gravedad(1->Se le aplica gravedad, 0->No se le aplica gravedad)
+;1   g -> Gravity (1->Se le aplica gravedad, 0->No se le aplica gravedad)
 ;0   X
 
 ;
