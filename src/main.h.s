@@ -88,9 +88,11 @@ _edf_mask       = 7
 _edf_flip       = 6
 
 ;;ENTITY INTERACTABLE CONSTS
-_ei_type        = 0 + _ed_size
+_ei_meh         = 0 + _ed_size
+_ei_type        = 1 + _ed_size
+_ei_disabled    = 2 + _ed_size
 
-_ei_size        = 1 + _ed_size
+_ei_size        = 3 + _ed_size
 
 _eit_w          = 0
 _eit_h          = 1
@@ -131,9 +133,10 @@ _eet_spr_ox     = 8
 _eet_spr_oy     = 9
 _eet_type       = 10
 
-ET_TURTLE       = 0
-ET_SAW          = 1
-ET_ROCK         = 2
+ET_NONE         = 0
+ET_TURTLE       = 1
+ET_SAW          = 2
+ET_ROCK         = 3
 
 EE_DISABLED         = 132
 EE_SAW_DISABLED     = 20

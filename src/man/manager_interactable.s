@@ -158,8 +158,14 @@ _mi_add_interactable:
     ld (hl), a
     inc hl
 
+    ld (hl), #0x00              ;; _unnamed
+    inc hl
+
     ld a, _eit_type(ix)         ;; _type
     ld (hl), a
+    inc hl
+
+    ld (hl), #0x00              ;; _disabled
     inc hl
 
     ld (mi_next_interactable_l), hl

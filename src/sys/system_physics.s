@@ -1041,6 +1041,11 @@ _sp_check_entity_vector_collision:
     cevc_loop_vector:
 
         ex af, af'
+
+        ld a, _ee_type(ix)
+        cp #0x00
+        jr z, cevc_next_entity
+
         ld a, _ee_disabled(ix) ; Si la entidad está deshabilitada no se comprueban sus colisiones
         cp #0x00
         jr nz, cevc_entity_disabled

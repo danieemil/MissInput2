@@ -3,7 +3,10 @@
 .macro DefineEntityInteractable _ei_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy, _type
 _ei_name:
     DefineEntityDrawable _ei_name'_ed, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy
+    
+    .db #0x00
     .db _type
+    .db #0x00
 
 
     _ei_name'_size = . - _ei_name ;; Saves the number of bytes that fills a DefineEntity
@@ -13,9 +16,11 @@ _ei_name:
     DefineEntityInteractable _ei_name'_suf, 0x00, 0x00, 0x02, 0x08, 0x00, 0x00, 0b00000000, 0x0000, 0x03, 0x08, 0x00, 0x00, 0x00, 0x00
 .endm
 
-_ei_type  = 0 + _ed_size
+_ei_meh         = 0 + _ed_size
+_ei_type        = 1 + _ed_size
+_ei_disabled    = 2 + _ed_size
 
-_ei_size  = 1 + _ed_size
+_ei_size        = 3 + _ed_size
 
 
 
