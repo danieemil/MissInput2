@@ -89,6 +89,17 @@ _mg_game_loop_init:
     ld c, #0x94         ;; Posicion en Y
     call _mi_add_interactable
 
+    ;; Creando un GRAVITY UP
+    ld a, #02           ;; Tipo de enemigo
+    ld b, #0x24         ;; Posicion en X
+    ld c, #0x34         ;; Posicion en Y
+    call _mi_add_interactable
+
+    ;; Creando un GRAVITY DOWN
+    ld a, #03           ;; Tipo de enemigo
+    ld b, #0x34         ;; Posicion en X
+    ld c, #0x34         ;; Posicion en Y
+    call _mi_add_interactable
 
     ret
     

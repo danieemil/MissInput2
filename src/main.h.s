@@ -30,6 +30,7 @@
 
 ;;SPRITES
 .globl _checkpoint_top_spr_0
+.globl _checkpoint_top_spr_1
 .globl _tileset_spr_00
 .globl _prueba01_spr_0
 .globl _prueba02_spr_0
@@ -107,8 +108,11 @@ _eit_spr_oy     = 9
 _eit_type       = 10
 
 ;;INTERACTABLE TYPES
-EI_NONE       = 0
-EI_CHECKPOINT = 1
+EI_NONE         = 0
+EI_CHECKPOINT   = 1
+EI_DOUBLE_JUMP  = 2
+EI_GRAVITY_UP   = 3
+EI_GRAVITY_DOWN = 4
 
 ;;ENTITY ENEMY CONSTS
 _ee_jump_state  = 0 + _ed_size ;;Offset de la tabla de saltos
@@ -171,6 +175,8 @@ JT_ON_WALL          = 15
 JT_END              = 22
 JT_PTOGRESSIVE_MIN  = 2
 JT_PROGRESSIVE_MAX  = 8
+JT_GRAVITY_CONTINUE = 11
+JT_GRAVITY_MARGIN   = 6
 
 FORCE_X_R           = #0b01111111
 FORCE_X_L           = #0b10000000

@@ -533,7 +533,7 @@ mpp_double_jump:
             bit 0, _eph_attributes(iy)
             jr z, mpp_no_key_j
 
-                res 0, _eph_attributes(iy)
+                res 0, _eph_attributes(iy)  ;;REiniciamos el doble salto
                 ld _ep_force_x(iy), #0x00
                 ld c, #JT_INIT
                 ld _ep_jump_state(iy), c
@@ -629,6 +629,13 @@ mpp_jump_check_end:
 
     ld hl, #jump_table
     call _sp_aply_jumptable
+
+    bit 6, _eph_attributes(iy)  ;;Comprobamos la gravedad
+    jr z, mpp_no_change_gravity
+        
+        neg
+
+mpp_no_change_gravity:
     ld _eph_vy(iy), a
 
     ;A -> VY
@@ -669,6 +676,7 @@ mpp_collision_x_solid:                              ;;SOLIDOS X
 mpp_no_map_collision_x:
 
     ;APLICAR FUERZAS Y MANEJAR COLISIONES EN Y
+    res 0, _eph_attributes(iy)  ;;Reiniciamos el doble salto
     call _sp_move_entity_y
     pop af
     cp #0x00
@@ -733,7 +741,7 @@ mpp_no_enemy:
 
     ld a, _ei_type(ix)
     cp #EI_CHECKPOINT
-    jr nz, mpp_end_check_interactables
+    jr nz, mpp_check_double_jump_item
 
         ld a, _eph_x(ix)
         ld (checkpoint_x), a
@@ -748,6 +756,33 @@ mpp_no_enemy:
         ld _ed_spr_l(ix), l
         ld _ed_spr_h(ix), h
         ld _ei_type(ix), #0x00
+        ret
+
+mpp_check_double_jump_item:
+    cp #EI_DOUBLE_JUMP
+    jr nz, mpp_check_gravity_up_item
+        
+        set 0, _eph_attributes(iy)  ;;seteamos el doble salto
+        ret
+
+mpp_check_gravity_up_item:
+    cp #EI_GRAVITY_UP
+    jr nz, mpp_check_gravity_down_item
+        bit 6, _eph_attributes(iy)
+        ret nz
+
+        set 6, _eph_attributes(iy)  ;;Invertimos la gravedad
+        jp _sp_apply_change_gravity
+
+mpp_check_gravity_down_item:
+    cp #EI_GRAVITY_DOWN
+    jr nz, mpp_end_check_interactables
+        bit 6, _eph_attributes(iy)
+        ret z
+
+        res 6, _eph_attributes(iy)  ;;Revertimos la gravedad
+        jp _sp_apply_change_gravity
+
 
 mpp_end_check_interactables:
     ret
@@ -1220,3 +1255,44 @@ _sp_manage_enemy_physics:
     ex af, af'
 
 ret
+
+
+
+
+;;==================================================================
+;;                    APPLY CHANGE GRAVITY
+;;------------------------------------------------------------------
+;; Cambia la tabla de saltos para adaptarse al cambio de gravedad
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  
+;;  IY  -> Puntero al enemigo
+;;
+;; OUTPUT:
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL, AF'
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sp_apply_change_gravity:
+
+    ld a, _ep_jump_state(iy)
+
+    cp #JT_GRAVITY_CONTINUE
+    jr nc, acg_check_fall
+
+        ld a, #JT_ON_GROUND
+        jr acg_check_end
+
+acg_check_fall:
+    cp #JT_ON_GROUND
+    ret c
+
+        ld a, #JT_GRAVITY_MARGIN
+
+acg_check_end:
+    ld _ep_jump_state(iy), a
+    ret
