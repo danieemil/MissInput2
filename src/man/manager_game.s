@@ -23,8 +23,8 @@
     p2_key_l:: .dw #0x0404      ;;Default - 'O'
     p2_key_j:: .dw #0x0804      ;;Default - 'P'
 
-
-    jump_table:: .db -3, -3, -3, -2, -2, -2, -2, -1, -1, -1, -1, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, #0x80
+;                     0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22
+    jump_table:: .db -3, -3, -3, -2, -2, -2, -2, -1, -1, -1, -1,  0,  0,  0,  1,  1,  1,  1,  2,  2,  2,  2,  3, #0x80
     
 
 .area _CODE
@@ -91,14 +91,14 @@ _mg_game_loop_init:
 
     ;; Creando un GRAVITY UP
     ld a, #02           ;; Tipo de enemigo
-    ld b, #0x24         ;; Posicion en X
-    ld c, #0x34         ;; Posicion en Y
+    ld b, #0x38         ;; Posicion en X
+    ld c, #0x7E         ;; Posicion en Y
     call _mi_add_interactable
 
     ;; Creando un GRAVITY DOWN
     ld a, #03           ;; Tipo de enemigo
-    ld b, #0x34         ;; Posicion en X
-    ld c, #0x34         ;; Posicion en Y
+    ld b, #0x38         ;; Posicion en X
+    ld c, #0x50         ;; Posicion en Y
     call _mi_add_interactable
 
     ret
