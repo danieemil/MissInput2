@@ -20,6 +20,9 @@ enemy_turtle:
 ;;     _spr_w  _spr_h   _spr_size  _spr_ox  _spr_oy
     .db #0x03,  #0x09,    #0x36,    #0x00,   #0x00
 
+;;       _anim_index
+    .dw anim_player_idle
+
 ;;      _type
     .db #ET_TURTLE
 
@@ -33,6 +36,9 @@ enemy_saw:
 
 ;;     _spr_w  _spr_h   _spr_size  _spr_ox  _spr_oy
     .db #0x03,  #0x09,    #0x36,    #0x00,   #0x00
+
+;;       _anim_index
+    .dw anim_player_idle
 
 ;;      _type
     .db #ET_SAW
@@ -48,6 +54,9 @@ enemy_rock:
 
 ;;     _spr_w  _spr_h   _spr_size  _spr_ox  _spr_oy
     .db #0x03, #0x09,     #0x36,    #0x00,   #0x00
+
+;;       _anim_index
+    .dw anim_player_idle
 
 ;;      _type
     .db #ET_ROCK

@@ -11,6 +11,8 @@ _ed_name:
     .db #0x00           ;; Previous Offset
     .db _ox, _oy        ;; Sprite Offset
     .dw _anim_index     ;; Puntero a la animación
+    .db #0x00           ;; Posición del sprite dentro de la animación
+    .db #0x00           ;; Duración de dibujado del sprite de la animación
 
     _ed_name'_size = . - _ed_name ;; Saves the number of bytes that fills a DefineEntity
 .endm
@@ -25,10 +27,13 @@ _ed_pre_y          =  6 + _eph_size
 _ed_pre_o          =  7 + _eph_size
 _ed_ox             =  8 + _eph_size
 _ed_oy             =  9 + _eph_size
-_ed_anim_ind_h     = 10 + _ed_size
-_ed_anim_ind_l     = 11 + _ed_size
+_ed_anim_ind_h     = 10 + _eph_size
+_ed_anim_ind_l     = 11 + _eph_size
+_ed_anim_pos       = 12 + _eph_size
+_ed_anim_dur       = 13 + _eph_size
 
-_ed_size        = 12 + _eph_size
+
+_ed_size        = 14 + _eph_size
 
 
 

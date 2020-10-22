@@ -1185,11 +1185,11 @@ _sp_manage_enemy_physics:
     jr z, mep_not_aply_jumptable
 
         ld hl, #jump_table
+        ld c, _ee_jump_state(iy)
         call _sp_aply_jumptable
 
     mep_not_aply_jumptable:
     ld _eph_vy(iy), a
-    jr .
 
 
     ld b, a

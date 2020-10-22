@@ -93,8 +93,11 @@ _ed_ox             =  8 + _eph_size
 _ed_oy             =  9 + _eph_size
 _ed_anim_ind_h     = 10 + _eph_size
 _ed_anim_ind_l     = 11 + _eph_size
+_ed_anim_pos       = 12 + _eph_size
+_ed_anim_dur       = 13 + _eph_size
 
-_ed_size        = 12 + _eph_size
+
+_ed_size        = 14 + _eph_size
 
 _edf_mask       = 7
 _edf_flip       = 6
@@ -116,8 +119,10 @@ _eit_spr_he       = 6
 _eit_spr_size     = 7
 _eit_spr_ox       = 8
 _eit_spr_oy       = 9
-_eit_score        = 10
-_eit_type         = 11
+_eit_anim_ind_h   = 10
+_eit_anim_ind_l   = 11
+_eit_score        = 12
+_eit_type         = 13
 
 ;;INTERACTABLE TYPES
 EI_NONE         = 0
@@ -148,7 +153,9 @@ _eet_spr_he       = 6
 _eet_spr_size     = 7
 _eet_spr_ox       = 8
 _eet_spr_oy       = 9
-_eet_type         = 10
+_eet_anim_ind_h   = 10
+_eet_anim_ind_l   = 11
+_eet_type         = 12
 
 ET_NONE         = 0
 ET_TURTLE       = 1

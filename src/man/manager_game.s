@@ -82,8 +82,6 @@ _mg_game_loop_init:
     ld e, #0x00         ;; Velocidad en Y
     call _me_add_enemy
 
-    jr .
-
 
     ;; Creando un CHECKPOINT
     ld a, #00           ;; Tipo de enemigo
