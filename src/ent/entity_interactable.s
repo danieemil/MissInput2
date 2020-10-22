@@ -3,10 +3,11 @@
 .area _DATA
 
 interactable_index::
-    .dw #interactable_checkpoint
-    .dw #interactable_double_jump
-    .dw #interactable_gravity_up
-    .dw #interactable_gravity_down
+    .dw #interactable_checkpoint        ;00
+    .dw #interactable_double_jump       ;01
+    .dw #interactable_gravity_up        ;02
+    .dw #interactable_gravity_down      ;03
+    .dw #interactable_collectable       ;04
 
 
 interactable_checkpoint:
@@ -20,8 +21,8 @@ interactable_checkpoint:
 ;;     _spr_w  _spr_h       _spr_size        _spr_ox  _spr_oy
     .db #0x01,  #0x04, #SPR_CHECKPOINT_SIZE,  #0x01,   #0x00
 
-;;      _type
-    .db #EI_CHECKPOINT
+;;      _score      _type
+    .db #0x00, #EI_CHECKPOINT
 
 
 interactable_double_jump:
@@ -35,8 +36,8 @@ interactable_double_jump:
 ;;     _spr_w  _spr_h           _spr_size         _spr_ox  _spr_oy
     .db #0x01,  #0x04,    #SPR_CHECKPOINT_SIZE,    #0x00,   #0x00
 
-;;      _type
-    .db #EI_DOUBLE_JUMP
+;;      _score      _type
+    .db #0x00, #EI_DOUBLE_JUMP
 
 
 interactable_gravity_up:
@@ -50,8 +51,8 @@ interactable_gravity_up:
 ;;     _spr_w  _spr_h           _spr_size         _spr_ox  _spr_oy
     .db #0x01,  #0x04,    #SPR_CHECKPOINT_SIZE,    #0x00,   #0x00
 
-;;      _type
-    .db #EI_GRAVITY_UP
+;;      _score      _type
+    .db #0x00, #EI_GRAVITY_UP
 
 
 interactable_gravity_down:
@@ -65,5 +66,19 @@ interactable_gravity_down:
 ;;     _spr_w  _spr_h           _spr_size         _spr_ox  _spr_oy
     .db #0x01,  #0x04,    #SPR_CHECKPOINT_SIZE,    #0x00,   #0x00
 
-;;      _type
-    .db #EI_GRAVITY_DOWN
+;;      _score      _type
+    .db #0x00, #EI_GRAVITY_DOWN
+
+interactable_collectable:
+;; Datos del interactuable
+;;       _w      _h   _attributes
+    .db #0x02, #0x08, #0b00000000
+
+;;      _sprite
+    .dw #_collectable_spr_0
+
+;;     _spr_w  _spr_h           _spr_size         _spr_ox  _spr_oy
+    .db #0x02,  #0x08,    #SPR_COLLECTABLE_SIZE,    #0x00,   #0x00
+
+;;      _score      _type
+    .db #0x50, #EI_COLLECTABLE

@@ -4,26 +4,28 @@
 _ed_name:
     DefineEntityPhysics _ed_name'_eph, _x, _y, _w, _h, _vx, _vy, _attributes
     
-    .dw _sprite     ;; Sprite ptr
+    .dw _sprite         ;; Sprite ptr
     .db _spr_w, _spr_h  ;;Sprite Width/Height
-    .db _spr_size         ;; Sprite size [0, 48, 96, 144]
-    .db _x, _y      ;; Previous x, y
-    .db _ox, _oy
+    .db _spr_size       ;; Sprite size [0, 48, 96, 144]
+    .db _x, _y          ;; Previous x, y
+    .db #0x00           ;; Previous Offset
+    .db _ox, _oy        ;; Sprite Offset
 
     _ed_name'_size = . - _ed_name ;; Saves the number of bytes that fills a DefineEntity
 .endm
 
-_ed_spr_l       = 0 + _eph_size
-_ed_spr_h       = 1 + _eph_size
-_ed_spr_wi      = 2 + _eph_size
-_ed_spr_he      = 3 + _eph_size
-_ed_spr_size    = 4 + _eph_size
-_ed_pre_x       = 5 + _eph_size
-_ed_pre_y       = 6 + _eph_size
-_ed_ox          = 7 + _eph_size
-_ed_oy          = 8 + _eph_size
+_ed_spr_l          = 0 + _eph_size
+_ed_spr_h          = 1 + _eph_size
+_ed_spr_wi         = 2 + _eph_size
+_ed_spr_he         = 3 + _eph_size
+_ed_spr_size       = 4 + _eph_size
+_ed_pre_x          = 5 + _eph_size
+_ed_pre_y          = 6 + _eph_size
+_ed_pre_o          = 7 + _eph_size
+_ed_ox             = 8 + _eph_size
+_ed_oy             = 9 + _eph_size
 
-_ed_size        = 9 + _eph_size
+_ed_size        = 10 + _eph_size
 
 
 

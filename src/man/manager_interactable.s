@@ -150,6 +150,9 @@ _mi_add_interactable:
     ld (hl), c                  ;; _prev_y
     inc hl
 
+    ld (hl), #0x00              ;; _prev_o
+    inc hl
+
     ld a, _eit_spr_ox(ix)       ;; _ox
     ld (hl), a
     inc hl
@@ -158,7 +161,8 @@ _mi_add_interactable:
     ld (hl), a
     inc hl
 
-    ld (hl), #0x00              ;; _unnamed
+    ld a, _eit_score(ix)        ;; _score
+    ld (hl), a
     inc hl
 
     ld a, _eit_type(ix)         ;; _type

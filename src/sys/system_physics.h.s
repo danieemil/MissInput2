@@ -1,4 +1,5 @@
 .include "main.h.s"
+.include "sys/system_user.h.s"
 
 
 .globl _sp_move_entity_x

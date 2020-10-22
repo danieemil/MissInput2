@@ -331,7 +331,6 @@ _main::
 
    call _mg_game_init
 
-
    ld a, #GS_MULTIPLAYER
    ld (mg_game_state), a
 
