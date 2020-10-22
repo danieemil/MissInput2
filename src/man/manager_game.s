@@ -261,6 +261,14 @@ gl_end_physics:;------------------------
 _mg_game_init:
     call cpct_disableFirmware_asm
 
+    call _init_interruptions
+
+    ld de, #_ambient_sound
+    call cpct_akp_musicInit_asm
+
+    ld a, #0x00
+    ;;call cpct_akp_setFadeVolume_asm
+
     ld c, #0x01
     call cpct_setVideoMode_asm
 
@@ -272,4 +280,5 @@ _mg_game_init:
     call cpct_setPALColour_asm
 
     call _sr_init_buffers
+    
     ret

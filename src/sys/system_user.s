@@ -36,7 +36,7 @@ _sr_get_key_input:
     ld hl, #p2_key_gameplay
     sla (hl)
 
-
+    halt
     call cpct_scanKeyboard_asm
 
     ld de, #0x0000

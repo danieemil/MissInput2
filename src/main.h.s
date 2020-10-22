@@ -1,5 +1,7 @@
 ;;GLOBLS
 
+.globl _init_interruptions
+
 .globl cpct_disableFirmware_asm
 .globl cpct_zx7b_decrunch_s_asm
 .globl cpct_scanKeyboard_asm
@@ -21,12 +23,17 @@
 .globl cpct_waitVSYNC_asm
 .globl cpct_setVideoMemoryPage_asm
 
-
 .globl cpct_etm_setDrawTilemap4x8_ag_asm
 .globl cpct_etm_drawTilemap4x8_ag_asm
 
+.globl cpct_akp_musicInit_asm
+.globl cpct_akp_musicPlay_asm
+;.globl cpct_akp_setFadeVolume_asm
+;PLY_UseFades = 1
+
 .globl _cpct_keyboardStatusBuffer
 .globl _g_palette
+.globl _ambient_sound
 
 ;;SPRITES
 .globl _checkpoint_top_spr_0
@@ -40,6 +47,9 @@ SPR_CHECKPOINT_SIZE = 1 * 4
 ;;AMSTRAD CONSTS
 SCREEN_W = 80
 SCREEN_H = 200
+
+INTERRUPT_DIR       = 0x0038
+INTERRUPT_FUNC_DIR  = 0x0039
 
 ;;TILEMAP CONSTS
 .include "bins/map_pruebas.h.s"
