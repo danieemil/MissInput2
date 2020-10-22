@@ -154,6 +154,9 @@ _me_add_enemy:
     ld (hl), c                  ;; _prev_y
     inc hl
 
+    ld (hl), #0x00              ;; _prev_o
+    inc hl
+
     ld a, _eet_spr_ox(ix)       ;; _ox
     ld (hl), a
     inc hl
@@ -162,7 +165,7 @@ _me_add_enemy:
     ld (hl), a
     inc hl
 
-    ld (hl), #0x00              ;; _offset
+    ld (hl), #0x00              ;; _offset_Jump_Table
     inc hl
 
     ld a, _eet_type(ix)         ;; _type

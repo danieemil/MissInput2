@@ -1,22 +1,23 @@
 .include "ent/entity_drawable.h.s"
 
-.macro DefineEntityInteractable _ei_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy, _type
+.macro DefineEntityInteractable _ei_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy, _score, _type
 _ei_name:
     DefineEntityDrawable _ei_name'_ed, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy
     
-    .db #0x00
+    .db _score  ;;Score
     .db _type
-    .db #0x00
+    .db #0x00   ;;Disabled
 
 
     _ei_name'_size = . - _ei_name ;; Saves the number of bytes that fills a DefineEntity
 .endm
 
 .macro DefineInteractableDefault _ei_name, _suf
-    DefineEntityInteractable _ei_name'_suf, 0x00, 0x00, 0x02, 0x08, 0x00, 0x00, 0b00000000, 0x0000, 0x03, 0x08, 0x00, 0x00, 0x00, 0x00
+;                                            x     y     w     h     vx    vy   attributes  sprite   sw    sh    ss    ox    oy   score  type
+    DefineEntityInteractable _ei_name'_suf, 0x00, 0x00, 0x02, 0x08, 0x00, 0x00, 0b00000000, 0x0000, 0x03, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00
 .endm
 
-_ei_meh         = 0 + _ed_size
+_ei_score       = 0 + _ed_size
 _ei_type        = 1 + _ed_size
 _ei_disabled    = 2 + _ed_size
 

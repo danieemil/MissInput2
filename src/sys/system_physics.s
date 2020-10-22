@@ -474,7 +474,7 @@ mpp_change_orientation_right_continue:
 
 
 mpp_no_orientation:
-    ;sla d
+    sla d
    
 
 mpp_end_x_input:
@@ -776,13 +776,27 @@ mpp_check_gravity_up_item:
 
 mpp_check_gravity_down_item:
     cp #EI_GRAVITY_DOWN
-    jr nz, mpp_end_check_interactables
+    jr nz, mpp_check_collectable_item
         bit 6, _eph_attributes(iy)
         ret z
 
         res 6, _eph_attributes(iy)  ;;Revertimos la gravedad
         jp _sp_apply_change_gravity
 
+mpp_check_collectable_item:
+    cp #EI_COLLECTABLE
+    jr nz, mpp_end_check_interactables
+
+        ld bc, #SPR_COLLECTABLE_SIZE
+        ld l, _ed_spr_l(ix)
+        ld h, _ed_spr_h(ix)
+        add hl, bc
+        ld _ed_spr_l(ix), l
+        ld _ed_spr_h(ix), h
+        ld _ei_type(ix), #0x00
+        ld e, _ei_score(ix)
+        ld d, #0x00
+        call _sr_add_score
 
 mpp_end_check_interactables:
     ret
@@ -1136,7 +1150,7 @@ _sp_aply_jumptable:
 
     aj_jump_continue:
         inc c
-        ld _ep_jump_state(iy), c
+        ld _ee_jump_state(iy), c
         
 
     ret

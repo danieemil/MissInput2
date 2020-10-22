@@ -12,13 +12,13 @@ enemy_index::
 enemy_turtle:
 ;; Datos del enemigo
 ;;       _w      _h   _attributes
-    .db #0x02, #0x08, #0b10000010
+    .db #0x02, #0x09, #0b10000010 ;#0b10000010
 
 ;;      _sprite
-    .dw #_prueba01_spr_0
+    .dw #_player_spr_00
 
 ;;     _spr_w  _spr_h   _spr_size  _spr_ox  _spr_oy
-    .db #0x03,  #0x08,    #0x30,    #0x00,   #0x00
+    .db #0x03,  #0x09,    #0x36,    #0x00,   #0x00
 
 ;;      _type
     .db #ET_TURTLE
@@ -29,7 +29,7 @@ enemy_saw:
     .db #0x02, #0x09, #0b10000000
 
 ;;      _sprite
-    .dw #_prueba02_spr_0
+    .dw #_player_spr_00
 
 ;;     _spr_w  _spr_h   _spr_size  _spr_ox  _spr_oy
     .db #0x03,  #0x09,    #0x36,    #0x00,   #0x00

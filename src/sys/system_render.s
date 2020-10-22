@@ -34,6 +34,14 @@ _sr_redraw_tiles:
     ld c, _ed_pre_x(iy)
     ld b, _ed_pre_y(iy)
 
+    ld a, _ed_ox(iy)
+    add c
+    ld c, a
+
+    ld a, _ed_oy(iy)
+    add b
+    ld b, a
+
     rt_moved:
     ld l, _ed_spr_wi(iy)
     ld h, _ed_spr_he(iy)
@@ -217,11 +225,13 @@ _sr_redraw_vector:
         push af
         push bc
 
-        call _sr_redraw_tiles
+        call _sr_redraw_tiles_fast
         ld b, _eph_x(iy)                ;;Establecemos la posicion actual a la pasada
         ld _ed_pre_x(iy), b
         ld b, _eph_y(iy)
         ld _ed_pre_y(iy), b
+        ld b, _eph_offset(iy)
+        ld _ed_pre_o(iy), b
 
         pop bc
         pop af
@@ -411,6 +421,7 @@ _sr_draw_entity_vector:
     dev_vector_loop:
         ex af, af'
         push bc
+
         ld a, _ee_disabled(iy)
         cp #0x00
         jr nz, dev_entity_disabled
@@ -427,5 +438,59 @@ _sr_draw_entity_vector:
         add iy, bc
         dec a
         jr nz, dev_vector_loop
+
+    ret
+
+
+
+;;==================================================================
+;;                       REDRAW ENTITY FAST
+;;------------------------------------------------------------------
+;; Redibuja el fondo de los sprites con un cuadrado del color de fondo
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  IY  -> Puntero al entity_drawable
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_redraw_tiles_fast:
+
+    ld c, _ed_pre_x(iy)
+    ld b, _ed_pre_y(iy)
+
+    ld a, _ed_ox(iy)
+    add c
+    ld c, a
+
+    ld a, _ed_oy(iy)
+    add b
+    ld b, a
+
+    ld a, (mg_back_buffer)
+    ld d, a
+    ld e, #0x00
+    call cpct_getScreenPtr_asm
+
+    ex de, hl
+    
+    ld b, _ed_spr_he(iy)
+    ld c, _ed_spr_wi(iy)
+    ld a, _ed_pre_o(iy)
+    cp #0x00
+    jr nz, rtf_draw_full_sprite
+      
+      dec c
+
+rtf_draw_full_sprite:
+    ld a, #0xF0
+    call cpct_drawSolidBox_asm
 
     ret

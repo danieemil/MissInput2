@@ -13,7 +13,8 @@ _ee_name:
 .endm
 
 .macro DefineEnemyDefault _ee_name, _suf
-    DefineEntityEnemy _ee_name'_suf, 0x00, 0x00, 0x02, 0x08, 0x00, 0x00, 0b00000000, 0x0000, 0x03, 0x08, 0x00, 0x00, 0x00, 0x00
+;                                      x    y     w     h     vx    vy     attr      spr     sw     sh    ss    ox    oy   type
+    DefineEntityEnemy _ee_name'_suf, 0x00, 0x00, 0x02, 0x08, 0x00, 0x00, 0b00000000, 0x0000, 0x03, 0x08, 0x00, 0x00, 0x00, 0x00 
 .endm
 
 _ee_jump_state = 0 + _ed_size ;;Offset de la tabla de saltos

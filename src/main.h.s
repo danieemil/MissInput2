@@ -1,3 +1,6 @@
+.include "data.h.s"
+
+
 ;;GLOBLS
 
 .globl cpct_disableFirmware_asm
@@ -12,6 +15,7 @@
 .globl cpct_drawSpriteMasked_asm
 .globl cpct_drawSpriteVFlipMasked_asm
 .globl cpct_drawTileZigZagGrayCode4x8_af_asm
+.globl cpct_drawSolidBox_asm
 
 
 .globl cpct_setPalette_asm
@@ -28,14 +32,7 @@
 .globl _cpct_keyboardStatusBuffer
 .globl _g_palette
 
-;;SPRITES
-.globl _checkpoint_top_spr_0
-.globl _checkpoint_top_spr_1
-.globl _tileset_spr_00
-.globl _prueba01_spr_0
-.globl _prueba02_spr_0
 
-SPR_CHECKPOINT_SIZE = 1 * 4
 
 ;;AMSTRAD CONSTS
 SCREEN_W = 80
@@ -74,38 +71,41 @@ _ephf_wall          = 3
 _ephf_h_ground      = 2
 
 ;;ENTITY DRAWABLE CONSTS
-_ed_spr_l       = 0 + _eph_size
-_ed_spr_h       = 1 + _eph_size
-_ed_spr_wi      = 2 + _eph_size
-_ed_spr_he      = 3 + _eph_size
-_ed_spr_size    = 4 + _eph_size
-_ed_pre_x       = 5 + _eph_size
-_ed_pre_y       = 6 + _eph_size
-_ed_ox          = 7 + _eph_size
-_ed_oy          = 8 + _eph_size
-_ed_size        = 9 + _eph_size
+_ed_spr_l          = 0 + _eph_size
+_ed_spr_h          = 1 + _eph_size
+_ed_spr_wi         = 2 + _eph_size
+_ed_spr_he         = 3 + _eph_size
+_ed_spr_size       = 4 + _eph_size
+_ed_pre_x          = 5 + _eph_size
+_ed_pre_y          = 6 + _eph_size
+_ed_pre_o          = 7 + _eph_size
+_ed_ox             = 8 + _eph_size
+_ed_oy             = 9 + _eph_size
+
+_ed_size        = 10 + _eph_size
 
 _edf_mask       = 7
 _edf_flip       = 6
 
 ;;ENTITY INTERACTABLE CONSTS
-_ei_meh         = 0 + _ed_size
+_ei_score       = 0 + _ed_size
 _ei_type        = 1 + _ed_size
 _ei_disabled    = 2 + _ed_size
 
 _ei_size        = 3 + _ed_size
 
-_eit_w          = 0
-_eit_h          = 1
-_eit_attributes = 2
-_eit_spr_l      = 3
-_eit_spr_h      = 4
-_eit_spr_wi     = 5
-_eit_spr_he     = 6
-_eit_spr_size   = 7
-_eit_spr_ox     = 8
-_eit_spr_oy     = 9
-_eit_type       = 10
+_eit_w            = 0
+_eit_h            = 1
+_eit_attributes   = 2
+_eit_spr_l        = 3
+_eit_spr_h        = 4
+_eit_spr_wi       = 5
+_eit_spr_he       = 6
+_eit_spr_size     = 7
+_eit_spr_ox       = 8
+_eit_spr_oy       = 9
+_eit_score        = 10
+_eit_type         = 11
 
 ;;INTERACTABLE TYPES
 EI_NONE         = 0
@@ -113,29 +113,30 @@ EI_CHECKPOINT   = 1
 EI_DOUBLE_JUMP  = 2
 EI_GRAVITY_UP   = 3
 EI_GRAVITY_DOWN = 4
+EI_COLLECTABLE  = 5
 
 ;;ENTITY ENEMY CONSTS
-_ee_jump_state  = 0 + _ed_size ;;Offset de la tabla de saltos
-_ee_type        = 1 + _ed_size
-_ee_disabled    = 2 + _ed_size
-_ee_origin_x    = 3 + _ed_size
-_ee_origin_y    = 4 + _ed_size
-_ee_size        = 5 + _ed_size
+_ee_jump_state = 0 + _ed_size ;;Offset de la tabla de saltos
+_ee_type       = 1 + _ed_size
+_ee_disabled   = 2 + _ed_size
+_ee_origin_x   = 3 + _ed_size
+_ee_origin_y   = 4 + _ed_size
+_ee_size       = 5 + _ed_size
 
 _eef_gravity        = 1
 
 ;; ENEMY TYPE CONSTS
-_eet_w          = 0
-_eet_h          = 1
-_eet_attributes = 2
-_eet_spr_l      = 3
-_eet_spr_h      = 4
-_eet_spr_wi     = 5
-_eet_spr_he     = 6
-_eet_spr_size   = 7
-_eet_spr_ox     = 8
-_eet_spr_oy     = 9
-_eet_type       = 10
+_eet_w            = 0
+_eet_h            = 1
+_eet_attributes   = 2
+_eet_spr_l        = 3
+_eet_spr_h        = 4
+_eet_spr_wi       = 5
+_eet_spr_he       = 6
+_eet_spr_size     = 7
+_eet_spr_ox       = 8
+_eet_spr_oy       = 9
+_eet_type         = 10
 
 ET_NONE         = 0
 ET_TURTLE       = 1
@@ -150,7 +151,11 @@ EE_ROCK_DISABLED    = 100
 _ep_jump_state = 0 + _ed_size ;;Offset de la tabla de saltos
 _ep_wall_dir   = 1 + _ed_size ;;Indica si esta chocando con una pared y su orientacion
 _ep_force_x    = 2 + _ed_size ;;Force X
-_ep_size       = 3 + _ed_size
+_ep_score_cdm  = 3 + _ed_size ;;Score [Centenas de Millar, Decenas de Millar]
+_ep_score_mc   = 4 + _ed_size ;;Score [Millares, Centenas]
+_ep_score_du   = 5 + _ed_size ;;Score [Decenas, Unidades]
+
+_ep_size       = 6 + _ed_size
 
 ;;PLAYERS
 .globl player_1
@@ -198,3 +203,8 @@ DANGEROUS   = 1     ; Prioridad ++
 SOLID       = 2     ; Prioridad +++
 
 
+;;SCORES
+PRIMERO = 100
+SEGUNDO = 75
+TERCERO = 50
+CUARTO  = 25

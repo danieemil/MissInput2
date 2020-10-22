@@ -13,6 +13,7 @@
 
 ;;FUNCIONES
 .globl _sr_get_key_input
+.globl _sr_add_score
 
 
 

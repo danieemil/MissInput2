@@ -61,7 +61,7 @@ _mg_game_loop_init:
     ;; Creando un enemigo tortuga
     xor a               ;; Tipo de enemigo
     ld b, #0x08         ;; Posicion en X
-    ld c, #0x90         ;; Posicion en Y
+    ld c, #0x8E         ;; Posicion en Y
     ld d, #0xFF         ;; Velocidad en X
     ld e, #0x00         ;; Velocidad en Y
     call _me_add_enemy
@@ -98,6 +98,12 @@ _mg_game_loop_init:
     ;; Creando un GRAVITY DOWN
     ld a, #03           ;; Tipo de enemigo
     ld b, #0x38         ;; Posicion en X
+    ld c, #0x50         ;; Posicion en Y
+    call _mi_add_interactable
+
+    ;; Creando un COLLECTABLE
+    ld a, #04           ;; Tipo de enemigo
+    ld b, #0x18         ;; Posicion en X
     ld c, #0x50         ;; Posicion en Y
     call _mi_add_interactable
 
@@ -138,6 +144,8 @@ _mg_game_loop:
     ld _ed_pre_x(iy), b
     ld b, _eph_y(iy)
     ld _ed_pre_y(iy), b
+    ld b, _eph_offset(iy)
+    ld _ed_pre_o(iy), b
 
     pop de
     push de
@@ -160,6 +168,8 @@ _mg_game_loop:
     ld _ed_pre_x(iy), b
     ld b, _eph_y(iy)
     ld _ed_pre_y(iy), b
+    ld b, _eph_offset(iy)
+    ld _ed_pre_o(iy), b
 
 
     pop de

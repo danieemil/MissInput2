@@ -7,6 +7,49 @@
 
 
 ;;==================================================================
+;;                           ADD SCORE
+;;------------------------------------------------------------------
+;; Anade puntuacion al jugador y la guarda en decimal
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  IY -> Entity Player ptr
+;;   E -> Score [Decenas, Unidades] EN DECIMAL
+;;   D -> Score [Millares, Centenas] EN DECIMAL
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;   AF
+;;
+;;------------------------------------------------------------------
+;; CYCLES: []
+;;==================================================================
+_sr_add_score:
+
+    ld a, _ep_score_du(iy)
+    add e
+    daa
+    ld _ep_score_du(iy), a
+
+    ld a, _ep_score_mc(iy)
+    adc d
+    daa
+    ld _ep_score_mc(iy), a
+    ret nc
+
+    ld a, _ep_score_cdm(iy)
+    inc a
+    add #0x00
+    daa 
+    ld _ep_score_cdm(iy), a
+
+    ret
+
+
+
+;;==================================================================
 ;;                        GET KEY INPUT
 ;;------------------------------------------------------------------
 ;; Gestiona el input en función de las teclas que se han pulsado
