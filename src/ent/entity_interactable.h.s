@@ -1,8 +1,8 @@
 .include "ent/entity_drawable.h.s"
 
-.macro DefineEntityInteractable _ei_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy, _score, _type
+.macro DefineEntityInteractable _ei_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy, _anim_index _score, _type
 _ei_name:
-    DefineEntityDrawable _ei_name'_ed, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy
+    DefineEntityDrawable _ei_name'_ed, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy, _anim_index
     
     .db _score  ;;Score
     .db _type
@@ -13,8 +13,8 @@ _ei_name:
 .endm
 
 .macro DefineInteractableDefault _ei_name, _suf
-;                                            x     y     w     h     vx    vy   attributes  sprite   sw    sh    ss    ox    oy   score  type
-    DefineEntityInteractable _ei_name'_suf, 0x00, 0x00, 0x02, 0x08, 0x00, 0x00, 0b00000000, 0x0000, 0x03, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00
+;                                            x     y     w     h     vx    vy   attributes  sprite   sw    sh    ss    ox    oy   animi   score  type
+    DefineEntityInteractable _ei_name'_suf, 0x00, 0x00, 0x02, 0x08, 0x00, 0x00, 0b00000000, 0x0000, 0x03, 0x08, 0x00, 0x00, 0x00, 0x0000, 0x00, 0x00
 .endm
 
 _ei_score       = 0 + _ed_size

@@ -165,6 +165,15 @@ _me_add_enemy:
     ld (hl), a
     inc hl
 
+    ld a, #0x00                 ;; _anim_index_h
+    ld (hl), a
+    inc hl
+
+    ld a, #0x00                 ;; _anim_index_l
+    ld (hl), a
+    inc hl
+
+
     ld (hl), #0x00              ;; _offset_Jump_Table
     inc hl
 

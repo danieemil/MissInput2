@@ -1,6 +1,6 @@
 .include "ent/entity_physics.h.s"
 
-.macro DefineEntityDrawable _ed_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy
+.macro DefineEntityDrawable _ed_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy, _anim_index
 _ed_name:
     DefineEntityPhysics _ed_name'_eph, _x, _y, _w, _h, _vx, _vy, _attributes
     
@@ -10,22 +10,25 @@ _ed_name:
     .db _x, _y          ;; Previous x, y
     .db #0x00           ;; Previous Offset
     .db _ox, _oy        ;; Sprite Offset
+    .dw _anim_index     ;; Puntero a la animación
 
     _ed_name'_size = . - _ed_name ;; Saves the number of bytes that fills a DefineEntity
 .endm
 
-_ed_spr_l          = 0 + _eph_size
-_ed_spr_h          = 1 + _eph_size
-_ed_spr_wi         = 2 + _eph_size
-_ed_spr_he         = 3 + _eph_size
-_ed_spr_size       = 4 + _eph_size
-_ed_pre_x          = 5 + _eph_size
-_ed_pre_y          = 6 + _eph_size
-_ed_pre_o          = 7 + _eph_size
-_ed_ox             = 8 + _eph_size
-_ed_oy             = 9 + _eph_size
+_ed_spr_l          =  0 + _eph_size
+_ed_spr_h          =  1 + _eph_size
+_ed_spr_wi         =  2 + _eph_size
+_ed_spr_he         =  3 + _eph_size
+_ed_spr_size       =  4 + _eph_size
+_ed_pre_x          =  5 + _eph_size
+_ed_pre_y          =  6 + _eph_size
+_ed_pre_o          =  7 + _eph_size
+_ed_ox             =  8 + _eph_size
+_ed_oy             =  9 + _eph_size
+_ed_anim_ind_h     = 10 + _ed_size
+_ed_anim_ind_l     = 11 + _ed_size
 
-_ed_size        = 10 + _eph_size
+_ed_size        = 12 + _eph_size
 
 
 

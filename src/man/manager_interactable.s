@@ -161,6 +161,14 @@ _mi_add_interactable:
     ld (hl), a
     inc hl
 
+    ld a, #0x00                 ;; _anim_index_h
+    ld (hl), a
+    inc hl
+
+    ld a, #0x00                 ;; _anim_index_l
+    ld (hl), a
+    inc hl
+
     ld a, _eit_score(ix)        ;; _score
     ld (hl), a
     inc hl

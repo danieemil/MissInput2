@@ -1189,6 +1189,7 @@ _sp_manage_enemy_physics:
 
     mep_not_aply_jumptable:
     ld _eph_vy(iy), a
+    jr .
 
 
     ld b, a

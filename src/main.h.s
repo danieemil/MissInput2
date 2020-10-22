@@ -81,18 +81,20 @@ _ephf_wall          = 3
 _ephf_h_ground      = 2
 
 ;;ENTITY DRAWABLE CONSTS
-_ed_spr_l          = 0 + _eph_size
-_ed_spr_h          = 1 + _eph_size
-_ed_spr_wi         = 2 + _eph_size
-_ed_spr_he         = 3 + _eph_size
-_ed_spr_size       = 4 + _eph_size
-_ed_pre_x          = 5 + _eph_size
-_ed_pre_y          = 6 + _eph_size
-_ed_pre_o          = 7 + _eph_size
-_ed_ox             = 8 + _eph_size
-_ed_oy             = 9 + _eph_size
+_ed_spr_l          =  0 + _eph_size
+_ed_spr_h          =  1 + _eph_size
+_ed_spr_wi         =  2 + _eph_size
+_ed_spr_he         =  3 + _eph_size
+_ed_spr_size       =  4 + _eph_size
+_ed_pre_x          =  5 + _eph_size
+_ed_pre_y          =  6 + _eph_size
+_ed_pre_o          =  7 + _eph_size
+_ed_ox             =  8 + _eph_size
+_ed_oy             =  9 + _eph_size
+_ed_anim_ind_h     = 10 + _eph_size
+_ed_anim_ind_l     = 11 + _eph_size
 
-_ed_size        = 10 + _eph_size
+_ed_size        = 12 + _eph_size
 
 _edf_mask       = 7
 _edf_flip       = 6
