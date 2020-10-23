@@ -179,14 +179,20 @@ _mg_game_loop:
     call _sy_manage_player_physics
 
 
+    ;; Dibujar interactuables
+    ld iy, #interactable_vector
+    ld a, (mi_num_interactable)
+    ld b, #0x00
+    ld c, #_ei_size
+    call _sr_draw_entity_vector
+
+
     ;; Limpieza de los enemigos
     ld iy, #enemy_vector
     ld a, (me_num_enemy)
     ld b, #0x00
     ld c, #_ee_size
     call _sr_redraw_vector
-
-
 
     ;; Físicas de los enemigos
     ld iy, #enemy_vector
@@ -218,12 +224,7 @@ _mg_game_loop:
 
 gl_end_physics:;------------------------
     
-    ;; Dibujar interactuables
-    ld iy, #interactable_vector
-    ld a, (mi_num_interactable)
-    ld b, #0x00
-    ld c, #_ei_size
-    call _sr_draw_entity_vector
+    
 
     ;; Dibujar enemigos
     ld iy, #enemy_vector
@@ -232,10 +233,16 @@ gl_end_physics:;------------------------
     ld c, #_ee_size
     call _sr_draw_entity_vector
 
+
+    
+
     ;; Dibujar jugadores
     ld iy, #player_2
     call _sr_draw_entity
+    ;;Animaciones del jugador
     ld iy, #player_1
+    ld de, #anim_player_idle
+    call _sr_apply_animation
     call _sr_draw_entity
 
 
