@@ -494,3 +494,148 @@ rtf_draw_full_sprite:
     call cpct_drawSolidBox_asm
 
     ret
+
+
+;;==================================================================
+;;                       MANAGE PLAYER ANIMATIONS
+;;------------------------------------------------------------------
+;; Controla la animacion de la entidad y la cambia de ser necesario
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  IY  -> Puntero al entity_drawable
+;;
+;; OUTPUT:
+;;  DE  -> Animacion que corresponderia al jugador 
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_manage_player_animations:
+
+    jp ma_end_choose_animation
+
+    bit 5, _eph_attributes(iy)              ;;Comprobamos Izquierda/Derecha
+    jr z, ma_right
+
+ma_left:                                    ;;----IZQUIERDA-----------------------------------------
+        bit 4, _eph_attributes(iy)          ;;Comprobamos si esta en el suelo
+        jr z, ma_left_no_ground
+
+            ld a, _eph_vx(iy)               ;;Comprobamos si se esta moviendo
+            jr nz, ma_left_ground_movement
+
+                ;ld de, #anim_player_idle_l  ;;Cargamos la animacion de suelo sin moverse izquierda
+                ret
+
+ma_left_ground_movement:
+                ;ld de, #anim_player_run_l  ;;Cargamos la animacion de suelo corriendo izquierda
+                ret
+
+ma_left_no_ground:
+
+                jr ma_end_choose_animation
+
+ma_right:                                   ;;----DERECHA-------------------------------------------
+        bit 4, _eph_attributes(iy)          ;;Comprobamos si esta en el suelo
+        jr z, ma_right_no_ground
+
+ma_right_no_ground:
+
+
+
+ma_end_choose_animation:
+
+    ret
+
+
+;;==================================================================
+;;                       APPLY ANIMATIONS
+;;------------------------------------------------------------------
+;; Comprueba la animacion actual del jugador y la cambia o la actualiza
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  IY  -> Puntero al entity_drawable
+;;  DE  -> Animacion a la que se quiere actualizar
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_apply_animation:
+
+    ld a, _ed_anim_ind_h(iy)        ;;Comprobamos si la animacion actual y la que pasan es la misma
+    xor d
+    ld b, a
+    ld a, _ed_anim_ind_l(iy)
+    xor e
+    or b
+    jr z, aa_continue_animation
+
+        ld _ed_anim_ind_h(iy), d
+        ld _ed_anim_ind_l(iy), e
+        ld c, #0xFF
+        ld _ed_anim_pos(iy), c
+        ld _ed_anim_dur(iy), b
+        jr aa_continue_animation_no_load
+
+aa_continue_animation:
+
+    ld c, _ed_anim_pos(iy)
+    ld b, _ed_anim_dur(iy)
+
+aa_continue_animation_no_load:
+    ;;DE -> animacion
+    ;;C  -> anim_pos
+    ;;B  -> anim_dur
+
+    ld a, b
+    cp #0x00
+    jr z, aa_change_animation_sprite 
+
+        dec a
+        ld _ed_anim_dur(iy), a
+        ret
+
+aa_change_animation_sprite:
+
+        inc c
+        push bc
+        sla c
+        sla c
+        ld b, #0x00
+
+        ld h, d
+        ld l, e
+        add hl, bc
+        pop bc
+        ld a, (hl)
+        cp #0xFF
+        jr nz, aa_change_animation_sprite_continue
+
+            ex de, hl
+            ld c, #0x00
+
+aa_change_animation_sprite_continue:
+        ;;C  -> Posicion
+        ld e, (hl)  ;;DE -> Sprite
+        inc hl
+        ld d, (hl)
+        inc hl
+        ld b, (hl)  ;;B  -> Duracion 
+
+        ld _ed_spr_l(iy), e
+        ld _ed_spr_h(iy), d
+        ld _ed_anim_pos(iy), c
+        ld _ed_anim_dur(iy), b
+
+    ret

@@ -9,3 +9,5 @@
 .globl _sr_init_buffers
 .globl _sr_redraw_tiles
 .globl _sr_redraw_vector
+
+.globl _sr_apply_animation
