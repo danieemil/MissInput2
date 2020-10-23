@@ -424,12 +424,9 @@ _sr_draw_entity_vector:
 
         ld a, _ee_disabled(iy)
         cp #0x00
-        jr nz, dev_entity_disabled
+        jr nz, dev_next_entity
             call _sr_draw_entity
             jr dev_next_entity
-
-        dev_entity_disabled:
-            dec _ee_disabled(iy)
 
         dev_next_entity:
         pop bc

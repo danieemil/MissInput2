@@ -3,8 +3,6 @@
 
 ;;GLOBLS
 
-.globl _init_interruptions
-
 .globl cpct_disableFirmware_asm
 .globl cpct_zx7b_decrunch_s_asm
 .globl cpct_scanKeyboard_asm
@@ -32,8 +30,6 @@
 
 .globl cpct_akp_musicInit_asm
 .globl cpct_akp_musicPlay_asm
-;.globl cpct_akp_setFadeVolume_asm
-;PLY_UseFades = 1
 
 .globl _cpct_keyboardStatusBuffer
 .globl _g_palette
@@ -44,9 +40,6 @@
 ;;AMSTRAD CONSTS
 SCREEN_W = 80
 SCREEN_H = 200
-
-INTERRUPT_DIR       = 0x0038
-INTERRUPT_FUNC_DIR  = 0x0039
 
 ;;TILEMAP CONSTS
 .include "bins/map_pruebas.h.s"
@@ -191,6 +184,9 @@ _ep_size       = 6 + _ed_size
 .globl interactable_vector
 .globl mi_num_interactable
 .globl mi_next_interactable_l
+
+.globl checkpoint_x
+.globl checkpoint_y
 
 ;;JUMP TABLE
 JT_INIT             = 0

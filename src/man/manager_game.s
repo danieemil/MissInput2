@@ -8,8 +8,8 @@
     actual_level:: .db #0x00
 
     ;CHECKPOINT DATA
-    checkpoint_x::   .db #0x00
-    checkpoint_y::   .db #0x00
+    checkpoint_x::   .db #0x10
+    checkpoint_y::   .db #0x30
     checkpoint_level:: .db #0x00
 
     p1_key_gameplay:: .db #0x00         ;; bit0 -> Actual key_j  |  bit1 -> Previous key_j
@@ -26,6 +26,13 @@
 ;                     0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22
     jump_table:: .db -3, -3, -3, -2, -2, -2, -2, -1, -1, -1, -1,  0,  0,  0,  1,  1,  1,  1,  2,  2,  2,  2,  3, #0x80
     
+
+    ;; Temporizador
+
+    seconds_dc::    .db #0x00      ;Décimas y centésimas de segundo (0 - 100)
+    seconds::       .db #0x00      ;Segundos (0 - 60)
+    minutes::       .dw #0x0000    ;Minutos (0 - 65536) 65536 minutos = 1092 horas :////
+
 
 .area _CODE
 
@@ -209,34 +216,46 @@ _mg_game_loop:
     call _sr_draw_entity_vector
 
 
-    ;; Limpieza de los enemigos
-    ld iy, #enemy_vector
-    ld a, (me_num_enemy)
-    ld b, #0x00
-    ld c, #_ee_size
-    call _sr_redraw_vector
 
-    ;; Físicas de los enemigos
+    ;; Gestión de los enemigos
     ld iy, #enemy_vector
     ld a, (me_num_enemy)
     ld b, #0x00
     ld c, #_ee_size
 
-    
     cp #00
     jr z, gl_end_physics
     gl_loop_enemy_vector:
     
         push af
         push bc
+
+        call _sr_redraw_tiles_fast
+        ld b, _eph_x(iy)                ;;Establecemos la posicion actual a la pasada
+        ld _ed_pre_x(iy), b
+        ld b, _eph_y(iy)
+        ld _ed_pre_y(iy), b
+        ld b, _eph_offset(iy)
+        ld _ed_pre_o(iy), b
+
         ld a, _ee_disabled(iy) ; Si la entidad está deshabilitada no se comprueban sus colisiones
         cp #0x00
         jr nz, gl_entity_disabled
+            
+            ;; Loop de ejecución de cada enemigo activo
             call _sa_manage_enemy_ai
             call _sp_manage_enemy_physics
+            
+            ld a, _ee_disabled(iy)
+            cp #0x00
+            jr nz, gl_entity_disabled
+                call _sr_draw_entity
+            jr gl_next_entity
 
         gl_entity_disabled:
-
+            dec _ee_disabled(iy)
+        
+        gl_next_entity:
         pop bc
         pop af
         add iy, bc
@@ -245,18 +264,7 @@ _mg_game_loop:
 
 
 gl_end_physics:;------------------------
-    
-    
 
-    ;; Dibujar enemigos
-    ld iy, #enemy_vector
-    ld a, (me_num_enemy)
-    ld b, #0x00
-    ld c, #_ee_size
-    call _sr_draw_entity_vector
-
-
-    
 
     ;; Dibujar jugadores
     ld iy, #player_2
@@ -300,7 +308,7 @@ gl_end_physics:;------------------------
 _mg_game_init:
     call cpct_disableFirmware_asm
 
-    call _init_interruptions
+    call _si_init_interruptions
 
     ld c, #0x01
     call cpct_setVideoMode_asm
