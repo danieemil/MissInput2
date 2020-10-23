@@ -189,7 +189,7 @@ _sp_check_map_collisions::
     sub c
     ld e, a
 
-    ld hl, #TILEMAP_DECRUNCH
+    ld hl, #TILEMAP_START
     ld a, c 
     ld c, b
     ld b, #0x00

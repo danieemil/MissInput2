@@ -116,7 +116,7 @@ _sr_redraw_tiles:
     ld a, b
     ld b, #0x00
 
-    ld hl, #TILEMAP_DECRUNCH
+    ld hl, #TILEMAP_START
     add hl, bc
     ld bc, #TILEMAP_W
 

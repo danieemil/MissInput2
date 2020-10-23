@@ -334,26 +334,5 @@ _main::
    ld a, #GS_MULTIPLAYER
    ld (mg_game_state), a
 
-   ;;DE -> Final del destino en memoria del mapa
-   ld hl, #TILEMAP_DECRUNCH
-   ld de, #_map_pruebas_size-1
-   add hl, de
-   ld d, h
-   ld e, l
-   ;;HL -> Final del archivo comprimido
-   ld hl, #_map_pruebas_end
-   call cpct_zx7b_decrunch_s_asm
-
-   ld b, #25 ;;Height
-   ld c, #20 ;;Width
-   ld de, #20
-   ld hl, #_tileset_spr_00
-   call cpct_etm_setDrawTilemap4x8_ag_asm
-
-   ld hl, #TILEMAP_VMEM_START
-   ld de, #TILEMAP_DECRUNCH
-   call cpct_etm_drawTilemap4x8_ag_asm
-
-
    call _mg_game_loop_init
    call _mg_game_loop

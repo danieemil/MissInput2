@@ -53,11 +53,17 @@
 ;; CYCLES: []
 ;;==================================================================
 _mg_game_loop_init:
-    call _sr_init_buffers
+
+    ld de, #_ambient_sound
+    call cpct_akp_musicInit_asm
+
     call _me_init_vector
     call _mi_init_vector
     
-    
+    ;; Llamamos a level factory para que genere el nivel(map_pruebas)
+    ld de, #_map_pruebas_end
+    call _sl_generate_level
+
     ;; Creando un enemigo tortuga
     xor a               ;; Tipo de enemigo
     ld b, #0x08         ;; Posicion en X
@@ -106,6 +112,22 @@ _mg_game_loop_init:
     ld b, #0x18         ;; Posicion en X
     ld c, #0x50         ;; Posicion en Y
     call _mi_add_interactable
+
+
+    ;; Seleccionar tileset
+    ld b, #25 ;;Height
+    ld c, #20 ;;Width
+    ld de, #20
+    ld hl, #_tileset_spr_00
+    call cpct_etm_setDrawTilemap4x8_ag_asm
+
+    ;; Dibujar tilemap en el backbuffer
+    ld hl, #TILEMAP_VMEM_START
+    ld de, #TILEMAP_START
+    call cpct_etm_drawTilemap4x8_ag_asm
+
+    ;; Copiar tilemap en el frontbuffer
+    call _sr_init_buffers
 
     ret
     
@@ -272,12 +294,6 @@ _mg_game_init:
     call cpct_disableFirmware_asm
 
     call _init_interruptions
-
-    ld de, #_ambient_sound
-    call cpct_akp_musicInit_asm
-
-    ld a, #0x00
-    ;;call cpct_akp_setFadeVolume_asm
 
     ld c, #0x01
     call cpct_setVideoMode_asm
