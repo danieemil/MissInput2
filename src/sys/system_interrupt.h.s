@@ -1,9 +1,12 @@
 ;;DEPENDENCIAS
 .include "main.h.s"
 
+.globl timer_state
 .globl minutes
 .globl seconds
 .globl seconds_dc
+
+.globl playing_music
 
 ;;FUNCIONES
 .globl _si_reset_timer

@@ -10,10 +10,10 @@
 
 ;;FUNCIONES
 
-    .globl _mg_game_loop
-    .globl _mg_game_loop_init
     .globl _mg_game_init
+    .globl _mg_game_loop
 
+    .globl timer_state
     .globl minutes
     .globl seconds
     .globl seconds_dc

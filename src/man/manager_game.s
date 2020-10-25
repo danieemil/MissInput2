@@ -28,10 +28,14 @@
     
 
     ;; Temporizador
+    timer_state::   .db #0x00       ;0 -> Temporizador pausado, 1 -> Temporizador contando
+    seconds_dc::    .db #0x00       ;Décimas y centésimas de segundo (0 - 100)
+    seconds::       .db #0x00       ;Segundos (0 - 60)
+    minutes::       .dw #0x0000     ;Minutos (0 - 65536) 65536 minutos = 1092 horas :////
 
-    seconds_dc::    .db #0x00      ;Décimas y centésimas de segundo (0 - 100)
-    seconds::       .db #0x00      ;Segundos (0 - 60)
-    minutes::       .dw #0x0000    ;Minutos (0 - 65536) 65536 minutos = 1092 horas :////
+
+    ;; Música
+    playing_music:: .db #0x00       ;0 -> Música parada, 1 -> Música reproduciéndose
 
 
 .area _CODE
@@ -59,10 +63,12 @@
 ;;------------------------------------------------------------------
 ;; CYCLES: []
 ;;==================================================================
-_mg_game_loop_init:
+_mg_game_init:
 
     ld de, #_ambient_sound
     call cpct_akp_musicInit_asm
+    ld a, #0x01
+    ld (playing_music), a
 
     call _me_init_vector
     call _mi_init_vector
@@ -160,7 +166,7 @@ _mg_game_loop_init:
 ;;==================================================================
 _mg_game_loop:
 
-    call _sr_get_key_input
+    call _su_get_key_input
     
 ;;FISICAS DEL JUGADOR-------------------
     push de
@@ -281,45 +287,3 @@ gl_end_physics:;------------------------
 
 
     jp _mg_game_loop
-
-
-
-
-
-
-;;==================================================================
-;;                            GAME INIT
-;;------------------------------------------------------------------
-;; Descripcion
-;;------------------------------------------------------------------
-;;
-;; INPUT:
-;;  NONE
-;;
-;; OUTPUT:
-;;  NONE
-;;
-;; DESTROYS:
-;;  NONE
-;;
-;;------------------------------------------------------------------
-;; CYCLES: []
-;;==================================================================
-_mg_game_init:
-    call cpct_disableFirmware_asm
-
-    call _si_init_interruptions
-
-    ld c, #0x01
-    call cpct_setVideoMode_asm
-
-    ld hl, #_g_palette
-    ld de, #0x0004
-    call cpct_setPalette_asm
-
-    ld hl, #0x0B10
-    call cpct_setPALColour_asm
-
-    call _sr_init_buffers
-    
-    ret

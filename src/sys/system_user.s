@@ -26,7 +26,7 @@
 ;;------------------------------------------------------------------
 ;; CYCLES: []
 ;;==================================================================
-_sr_add_score:
+_su_add_score:
 
     ld a, _ep_score_du(iy)
     add e
@@ -69,7 +69,7 @@ _sr_add_score:
 ;;------------------------------------------------------------------
 ;; CYCLES: []
 ;;==================================================================
-_sr_get_key_input:
+_su_get_key_input:
     
     ex af, af'
 
@@ -152,4 +152,105 @@ gki_check_p2_j:
 
 gki_exit:
     exx
+    ret
+
+
+
+
+;;==================================================================
+;;                        GET MENU KEY INPUT
+;;------------------------------------------------------------------
+;; Gestiona el input en función de las teclas que se han pulsado para los menús
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  NONE
+;;
+;; OUTPUT:
+;;  A -> Número que se ha pulsado (0x00 si no se ha pulsado nada)
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: []
+;;==================================================================
+_su_get_menu_key_input:
+
+    ;; Escanear teclado
+    halt
+    call cpct_scanKeyboard_asm
+
+    xor a
+    call cpct_isAnyKeyPressed_f_asm
+    cp #0x00
+    ret z
+
+    ;;Comprobar teclas pulsadas (las que nos interesan)
+    gmki_check_1:
+    ld hl, #Key_1
+    call cpct_isKeyPressed_asm
+    jr z, gmki_check_2
+        ld a, #0x01
+        ret
+    
+    gmki_check_2:
+    ld hl, #Key_2
+    call cpct_isKeyPressed_asm
+    jr z, gmki_check_3
+        ld a, #0x02
+        ret
+        
+    gmki_check_3:
+    ld hl, #Key_3
+    call cpct_isKeyPressed_asm
+    jr z, gmki_check_4
+        ld a, #0x03
+        ret
+    
+    gmki_check_4:
+    ld hl, #Key_4
+    call cpct_isKeyPressed_asm
+    jr z, gmki_check_5
+        ld a, #0x04
+        ret
+    
+    gmki_check_5:
+    ld hl, #Key_5
+    call cpct_isKeyPressed_asm
+    jr z, gmki_check_6
+        ld a, #0x05
+        ret
+    
+    gmki_check_6:
+    ld hl, #Key_6
+    call cpct_isKeyPressed_asm
+    jr z, gmki_check_7
+        ld a, #0x06
+        ret
+    
+    gmki_check_7:
+    ld hl, #Key_7
+    call cpct_isKeyPressed_asm
+    jr z, gmki_check_8
+        ld a, #0x07
+        ret
+    
+    gmki_check_8:
+    ld hl, #Key_8
+    call cpct_isKeyPressed_asm
+    jr z, gmki_check_9
+        ld a, #0x09
+        ret
+
+    gmki_check_9:
+    ld hl, #Key_9
+    call cpct_isKeyPressed_asm
+    jr z, gmki_no_input 
+        ld a, #0x09
+        ret
+    
+    gmki_no_input:
+    xor a
+
     ret

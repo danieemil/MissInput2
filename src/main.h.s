@@ -31,6 +31,8 @@
 .globl cpct_akp_musicInit_asm
 .globl cpct_akp_musicPlay_asm
 
+.globl cpct_waitHalts_asm
+
 .globl _cpct_keyboardStatusBuffer
 .globl _g_palette
 .globl _ambient_sound
@@ -54,7 +56,6 @@ TILE_W              = 4
 TILE_H              = 8
 
 ;;GAME STATES
-GS_MAIN_MENU        = 0
 GS_SINGLEPLAYER     = 1
 GS_MULTIPLAYER      = 2
 
@@ -167,8 +168,9 @@ _ep_force_x    = 2 + _ed_size ;;Force X
 _ep_score_cdm  = 3 + _ed_size ;;Score [Centenas de Millar, Decenas de Millar]
 _ep_score_mc   = 4 + _ed_size ;;Score [Millares, Centenas]
 _ep_score_du   = 5 + _ed_size ;;Score [Decenas, Unidades]
+_ep_deaths     = 6 + _ed_size ;;Deaths
 
-_ep_size       = 6 + _ed_size
+_ep_size       = 7 + _ed_size
 
 ;;PLAYERS
 .globl player_1

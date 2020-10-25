@@ -41,6 +41,9 @@
 $(eval $(call ADD2PACK,map_pruebas,src/maps/map-pruebas-02.bin))
 $(eval $(call PACKZX7B,map_pruebas,src/bins/))
 
+$(eval $(call ADD2PACK,main_menu_screen,src/bins/title_screen.bin))
+$(eval $(call PACKZX7B,main_menu_screen,src/bins/))
+
 
 
 ############################################################################

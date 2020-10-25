@@ -636,3 +636,37 @@ aa_change_animation_sprite_continue:
         ld _ed_anim_dur(iy), b
 
     ret
+
+
+
+
+
+
+;;==================================================================
+;;                DECOMPRESS IMAGE ON VIDEO MEMORY
+;;------------------------------------------------------------------
+;; Descomprime una imagen que ocupa toda la pantalla en memoria de
+;; video
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  DE  -> Puntero al final de la imagen comprimida
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_decompress_image_on_video_memory:
+
+    ld a, (#mg_front_buffer)
+    ld h, a
+    ld l, #0x00
+    ld bc, #0x4000 - 1
+    add hl, bc
+    ex de, hl
+    jp cpct_zx7b_decrunch_s_asm

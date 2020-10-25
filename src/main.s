@@ -20,7 +20,7 @@
 
 ;.include "cpctelera.h.s"
 .include "main.h.s"
-.include "man/manager_game.h.s"
+.include "man/manager_menu.h.s"
 
 ;;
 ;; Start of _DATA area 
@@ -50,10 +50,27 @@
 _main::
    ld sp, #0x8000
 
-   call _mg_game_init
+   call cpct_disableFirmware_asm
+
+   call _si_init_interruptions
+
+   ld c, #0x01
+   call cpct_setVideoMode_asm
+   
+   ld hl, #_g_palette
+   ld de, #0x0004
+   call cpct_setPalette_asm
+   
+   ld hl, #0x0B10
+   call cpct_setPALColour_asm
+   
+   call _sr_init_buffers
 
    ld a, #GS_MULTIPLAYER
    ld (mg_game_state), a
 
-   call _mg_game_loop_init
-   call _mg_game_loop
+   call _mm_main_menu_init
+   call _mm_main_menu_loop
+
+   ;;call _mg_game_init
+   ;;call _mg_game_loop

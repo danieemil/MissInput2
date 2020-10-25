@@ -35,18 +35,6 @@ _si_increment_timer:
     
     ld (hl), #0x00
 
-    ;; QUITAR
-    push iy
-    ;; Teletransporta el jugador 2 al jugador 1
-    ld iy, #player_1
-    ld a, _eph_x(iy)
-    ld iy, #player_2
-    ld _eph_x(iy), a
-    ld iy, #player_1
-    ld a, _eph_y(iy)
-    ld iy, #player_2
-    ld _eph_y(iy), a
-    pop iy
 
     ;; Aumentar un segundo
     inc hl
@@ -56,22 +44,6 @@ _si_increment_timer:
     ret c
 
     ld (hl), #0x00
-
-    ;; QUITAR
-    push iy
-    ;; Teletransporta a los jugadores al checkpoint más cercano
-    ld iy, #player_1
-    ld a, (checkpoint_x)
-    ld _eph_x(iy), a
-    ld a, (checkpoint_y)
-    ld _eph_y(iy), a
-
-    ld iy, #player_2
-    ld a, (checkpoint_x)
-    ld _eph_x(iy), a
-    ld a, (checkpoint_y)
-    ld _eph_y(iy), a
-    pop iy
     
 
     ;; PD: Para aumentar los minutos correctamente hay que tener en cuenta
@@ -147,14 +119,20 @@ ret
 ;;==================================================================
 _si_init_interruptions:
 
-   ld a, #0xC3              ; JP OPCODE
-   ld (INTERRUPT_DIR), a
-   ld hl, #_si_first_interruption
-   ld (INTERRUPT_FUNC_DIR), hl
-   ld a, #0xC9              ; RET OPCODE
-   ld (INTERRUPT_DIR + 3), a
+    ;; Sincronizarse con el raster
+    call cpct_waitVSYNC_asm
+    halt
+    halt
+    call cpct_waitVSYNC_asm
 
-   ret
+    ld a, #0xC3              ; JP OPCODE
+    ld (INTERRUPT_DIR), a
+    ld hl, #_si_first_interruption
+    ld (INTERRUPT_FUNC_DIR), hl
+    ld a, #0xC9              ; RET OPCODE
+    ld (INTERRUPT_DIR + 3), a
+
+    ret
 
 
 
@@ -182,8 +160,14 @@ _si_first_interruption:
     push af
     push hl
 
-    call _si_increment_timer
+    ld a, (timer_state)
+    cp #0x00
+    dec a
+    jr nz, fi_continue
 
+        call _si_increment_timer
+
+    fi_continue:
     ld hl, #_si_second_interruption
     ld (INTERRUPT_FUNC_DIR), hl
 
@@ -281,7 +265,15 @@ _si_fourth_interruption:
     push af
     push hl
 
-    call _si_increment_timer
+
+    ld a, (timer_state)
+    cp #0x00
+    dec a
+    jr nz, foi_continue
+
+        call _si_increment_timer
+
+    foi_continue:
 
     ld hl, #_si_fifth_interruption
     ld (INTERRUPT_FUNC_DIR), hl
@@ -361,8 +353,13 @@ _si_sixth_interruption:
 
 
     ;; Código super destructor de registros
-    call cpct_akp_musicPlay_asm
+    ld a, (playing_music)
+    cp #0x00
+    jr z, si_not_playing_music
 
+        call cpct_akp_musicPlay_asm
+
+    si_not_playing_music:
     ld hl, #_si_first_interruption
     ld (INTERRUPT_FUNC_DIR), hl
 
