@@ -655,17 +655,17 @@ mpp_no_change_gravity:
         call _sp_check_map_collisions
         pop bc
                                                     ;;TRANSPARENTES X
-        cp #0x00
+        cp #TRANSPARENT
         jr nz, mpp_collision_x_dangerous
             jr mpp_no_map_collision_x
 
 mpp_collision_x_dangerous:                          ;;PELIGROSOS X
-        cp #0x01
+        cp #DANGEROUS
         jr nz, mpp_collision_x_solid
             jr mpp_no_map_collision_x
 
 mpp_collision_x_solid:                              ;;SOLIDOS X
-        cp #0x02
+        cp #SOLID
         jr nz, mpp_no_map_collision_x
             sla b
             sla b
@@ -688,18 +688,18 @@ mpp_no_map_collision_x:
         call _sp_check_map_collisions
         pop bc
                                                     ;;TRANSPARENTES Y
-        cp #0x00
+        cp #TRANSPARENT
         jr nz, mpp_collision_y_dangerous
             res 4, _eph_attributes(iy)
             jr mpp_no_map_collision_y
 
 mpp_collision_y_dangerous:                          ;;PELIGROSOS Y
-        cp #0x01
+        cp #DANGEROUS
         jr nz, mpp_collision_y_solid
             jr mpp_no_map_collision_y
 
 mpp_collision_y_solid:                              ;;SOLIDOS Y
-        cp #0x02
+        cp #SOLID
         jr nz, mpp_no_map_collision_y
             ld _ep_wall_dir(iy), #0x00
             call _sp_fix_y                          ;Corregimos la posicion en Y
@@ -936,11 +936,22 @@ ctig_check_group_solid:
 
 ctig_check_group_dangerous:
     cp #GROUP_DANGEROUS
-    ;jr nc, ctig_check_group_
+    jr nc, ctig_check_group_gravity_up
 
         ld a, #DANGEROUS
         ret
-    ret
+
+ctig_check_group_gravity_up:
+    cp #GROUP_GDOWN
+    jr nc, ctig_check_group_gravity_down
+
+        ld a, #GRAVITY_DOWN
+        ret
+
+ctig_check_group_gravity_down:
+
+        ld a, #GRAVITY_UP
+        ret
 
 
 ;;==================================================================

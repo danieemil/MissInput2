@@ -39,8 +39,7 @@ _sl_generate_level:
     ;; HL -> End tilemap comprimido
     ;; DE -> End tilemap descomprimido
     call cpct_zx7b_decrunch_s_asm
-
-
+    ret
 ;; Segundo comprobamos la id de cada tile del tilemap
 ;; En el caso de que sea el id de una entidad,
 ;; añadimos la entidad en esa posición del tilemap

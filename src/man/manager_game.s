@@ -74,57 +74,57 @@ _mg_game_init:
     call _mi_init_vector
     
     ;; Llamamos a level factory para que genere el nivel(map_pruebas)
-    ld de, #_map_pruebas_end
+    ld de, #_map_00_end
     call _sl_generate_level
 
-    ;; Creando un enemigo tortuga
-    xor a               ;; Tipo de enemigo
-    ld b, #0x08         ;; Posicion en X
-    ld c, #0x8F         ;; Posicion en Y
-    ld d, #0xFF         ;; Velocidad en X
-    ld e, #0x00         ;; Velocidad en Y
-    call _me_add_enemy
+    ; ;; Creando un enemigo tortuga
+    ; xor a               ;; Tipo de enemigo
+    ; ld b, #0x08         ;; Posicion en X
+    ; ld c, #0x8F         ;; Posicion en Y
+    ; ld d, #0xFF         ;; Velocidad en X
+    ; ld e, #0x00         ;; Velocidad en Y
+    ; call _me_add_enemy
 
-    ;; Creando un enemigo sierra
-    ld a, #0x01         ;; Tipo de enemigo
-    ld b, #0x05         ;; Posicion en X
-    ld c, #0x6E         ;; Posicion en Y
-    ld d, #0x01         ;; Velocidad en X
-    ld e, #0x00         ;; Velocidad en Y
-    call _me_add_enemy
+    ; ;; Creando un enemigo sierra
+    ; ld a, #0x01         ;; Tipo de enemigo
+    ; ld b, #0x05         ;; Posicion en X
+    ; ld c, #0x6E         ;; Posicion en Y
+    ; ld d, #0x01         ;; Velocidad en X
+    ; ld e, #0x00         ;; Velocidad en Y
+    ; call _me_add_enemy
 
-    ;; Creando un enemigo roca
-    ld a, #0x02         ;; Tipo de enemigo
-    ld b, #0x30         ;; Posicion en X
-    ld c, #0x30         ;; Posicion en Y
-    ld d, #0xFF         ;; Velocidad en X
-    ld e, #0x00         ;; Velocidad en Y
-    call _me_add_enemy
+    ; ;; Creando un enemigo roca
+    ; ld a, #0x02         ;; Tipo de enemigo
+    ; ld b, #0x30         ;; Posicion en X
+    ; ld c, #0x30         ;; Posicion en Y
+    ; ld d, #0xFF         ;; Velocidad en X
+    ; ld e, #0x00         ;; Velocidad en Y
+    ; call _me_add_enemy
 
 
-    ;; Creando un CHECKPOINT
-    ld a, #00           ;; Tipo de enemigo
-    ld b, #0x24         ;; Posicion en X
-    ld c, #0x94         ;; Posicion en Y
-    call _mi_add_interactable
+    ; ;; Creando un CHECKPOINT
+    ; ld a, #00           ;; Tipo de enemigo
+    ; ld b, #0x24         ;; Posicion en X
+    ; ld c, #0x94         ;; Posicion en Y
+    ; call _mi_add_interactable
 
-    ;; Creando un GRAVITY UP
-    ld a, #02           ;; Tipo de enemigo
-    ld b, #0x38         ;; Posicion en X
-    ld c, #0x7E         ;; Posicion en Y
-    call _mi_add_interactable
+    ; ;; Creando un GRAVITY UP
+    ; ld a, #02           ;; Tipo de enemigo
+    ; ld b, #0x38         ;; Posicion en X
+    ; ld c, #0x7E         ;; Posicion en Y
+    ; call _mi_add_interactable
 
-    ;; Creando un GRAVITY DOWN
-    ld a, #03           ;; Tipo de enemigo
-    ld b, #0x38         ;; Posicion en X
-    ld c, #0x50         ;; Posicion en Y
-    call _mi_add_interactable
+    ; ;; Creando un GRAVITY DOWN
+    ; ld a, #03           ;; Tipo de enemigo
+    ; ld b, #0x38         ;; Posicion en X
+    ; ld c, #0x50         ;; Posicion en Y
+    ; call _mi_add_interactable
 
-    ;; Creando un COLLECTABLE
-    ld a, #04           ;; Tipo de enemigo
-    ld b, #0x18         ;; Posicion en X
-    ld c, #0x50         ;; Posicion en Y
-    call _mi_add_interactable
+    ; ;; Creando un COLLECTABLE
+    ; ld a, #04           ;; Tipo de enemigo
+    ; ld b, #0x18         ;; Posicion en X
+    ; ld c, #0x50         ;; Posicion en Y
+    ; call _mi_add_interactable
 
 
     ;; Seleccionar tileset

@@ -44,7 +44,7 @@ SCREEN_W = 80
 SCREEN_H = 200
 
 ;;TILEMAP CONSTS
-.include "bins/map_pruebas.h.s"
+.include "bins/map_00.h.s"
 
 TILEMAP_VMEM_START  = 0xC000+(80*3)
 TILEMAP_START    = 0x3000
@@ -211,10 +211,12 @@ PLAYER = 48  ;; 0x30
 
 
 ;;COLLISION CONSTS
-GROUP_TRANSPARENT   = 2
-GROUP_SOLID         = 18
-GROUP_DANGEROUS     = 25
-GROUP_ENTITIES      = 25
+GROUP_TRANSPARENT   = 5
+GROUP_SOLID         = 38
+GROUP_DANGEROUS     = 46
+GROUP_GDOWN         = 47
+GROUP_GUP           = 48
+GROUP_ENTITIES      = 48
 
 ;;ENEMY CONSTS
 GROUP_TURTLE        = 27
@@ -227,9 +229,11 @@ GROUP_INTERACTABLE  = 42
 
 
 
-TRANSPARENT = 0     ; Prioridad +
-DANGEROUS   = 1     ; Prioridad ++
-SOLID       = 2     ; Prioridad +++
+TRANSPARENT  = 0     ; Prioridad +
+GRAVITY_DOWN = 1     ; Prioridad ++
+GRAVITY_UP   = 2     ; Prioridad +++
+DANGEROUS    = 3     ; Prioridad ++++
+SOLID        = 4     ; Prioridad +++++
 
 
 ;;SCORES
