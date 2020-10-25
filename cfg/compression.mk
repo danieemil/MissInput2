@@ -38,8 +38,8 @@
 #$(eval $(call ADD2PACK,mygraphics,gfx/background.bin))
 #$(eval $(call PACKZX7B,mygraphics,src/))
 
-$(eval $(call ADD2PACK,map_pruebas,src/maps/map-pruebas-02.bin))
-$(eval $(call PACKZX7B,map_pruebas,src/bins/))
+$(eval $(call ADD2PACK,map_00,src/maps/Mapa_00.bin))
+$(eval $(call PACKZX7B,map_00,src/bins/))
 
 
 

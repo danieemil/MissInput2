@@ -53,17 +53,17 @@ $(eval $(call IMG2SP, SET_IMG_FORMAT  , sprites									))
 $(eval $(call IMG2SP, SET_OUTPUT      , c                						))
 $(eval $(call IMG2SP, SET_MASK        , interlaced               						))
 $(eval $(call IMG2SP, CONVERT         , assets/PlayerSprites.png , 12, 9, player_spr	))
-$(eval $(call IMG2SP, CONVERT         , assets/pruebasprite03.png , 12, 9, prueba02_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/old/pruebasprite03.png , 12, 9, prueba02_spr	))
 
 #SPRITES SIN TRASPARENCIAS
 $(eval $(call IMG2SP, SET_MASK        , none               						))
-$(eval $(call IMG2SP, CONVERT         , assets/Checkpoint_top_sprite_01.png , 4, 4, checkpoint_top_spr	))
-$(eval $(call IMG2SP, CONVERT         , assets/pruebaCollectable.png , 8, 8, collectable_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/old/Checkpoint_top_sprite_01.png , 4, 4, checkpoint_top_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/old/pruebaCollectable.png , 8, 8, collectable_spr	))
 
 #TILES
 $(eval $(call IMG2SP, SET_IMG_FORMAT  , zgtiles            ))
 $(eval $(call IMG2SP, SET_MASK        , none               						))
-$(eval $(call IMG2SP, CONVERT         , assets/tileset.png , 16, 8, tileset_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/Tileset_01.png , 16, 8, tileset_spr	))
 
 
 ##
