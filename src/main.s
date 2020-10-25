@@ -20,7 +20,7 @@
 
 ;.include "cpctelera.h.s"
 .include "main.h.s"
-.include "man/manager_game.h.s"
+.include "man/manager_menu.h.s"
 
 ;;
 ;; Start of _DATA area 
@@ -34,285 +34,6 @@
 ;; Start of _CODE area
 ;; 
 .area _CODE
-
-_first_interruption:
-   
-   push iy
-   push ix
-
-   push af
-   push bc
-   push de
-   push hl
-
-   ex af, af'
-   exx
-
-   push af
-   push bc
-   push de
-   push hl
-
-
-   ;; Código super destructor de registros
-
-
-   ld hl, #_second_interruption
-   ld (INTERRUPT_FUNC_DIR), hl
-
-   pop hl
-   pop de
-   pop bc
-   pop af
-
-   exx
-   ex af, af'
-
-   pop hl
-   pop de
-   pop bc
-   pop af
-
-   pop ix
-   pop iy
-
-   ei
-   reti
-
-_second_interruption:
-
-   
-   push iy
-   push ix
-
-   push af
-   push bc
-   push de
-   push hl
-
-   ex af, af'
-   exx
-
-   push af
-   push bc
-   push de
-   push hl
-
-
-   ;; Código super destructor de registros
-
-
-   ld hl, #_third_interruption
-   ld (INTERRUPT_FUNC_DIR), hl
-
-   pop hl
-   pop de
-   pop bc
-   pop af
-
-   exx
-   ex af, af'
-
-   pop hl
-   pop de
-   pop bc
-   pop af
-
-   pop ix
-   pop iy
-
-   ei
-   reti
-
-_third_interruption:
-
-   push iy
-   push ix
-
-   push af
-   push bc
-   push de
-   push hl
-
-   ex af, af'
-   exx
-
-   push af
-   push bc
-   push de
-   push hl
-
-
-   ;; Código super destructor de registros
-
-
-   ld hl, #_fourth_interruption
-   ld (INTERRUPT_FUNC_DIR), hl
-
-   pop hl
-   pop de
-   pop bc
-   pop af
-
-   exx
-   ex af, af'
-
-   pop hl
-   pop de
-   pop bc
-   pop af
-
-   pop ix
-   pop iy
-
-   ei
-   reti
-
-_fourth_interruption:
-
-   push iy
-   push ix
-
-   push af
-   push bc
-   push de
-   push hl
-
-   ex af, af'
-   exx
-
-   push af
-   push bc
-   push de
-   push hl
-
-
-   ;; Código super destructor de registros
-
-
-   ld hl, #_fifth_interruption
-   ld (INTERRUPT_FUNC_DIR), hl
-
-   pop hl
-   pop de
-   pop bc
-   pop af
-
-   exx
-   ex af, af'
-
-   pop hl
-   pop de
-   pop bc
-   pop af
-
-   pop ix
-   pop iy
-   
-   ei
-   reti
-
-_fifth_interruption:
-
-   push iy
-   push ix
-
-   push af
-   push bc
-   push de
-   push hl
-
-   ex af, af'
-   exx
-
-   push af
-   push bc
-   push de
-   push hl
-
-
-   ;; Código super destructor de registros
-
-
-   ld hl, #_sixth_interruption
-   ld (INTERRUPT_FUNC_DIR), hl
-
-   pop hl
-   pop de
-   pop bc
-   pop af
-
-   exx
-   ex af, af'
-
-   pop hl
-   pop de
-   pop bc
-   pop af
-
-   pop ix
-   pop iy
-   
-   ei
-   reti
-
-_sixth_interruption:
-
-   push iy
-   push ix
-
-   push af
-   push bc
-   push de
-   push hl
-
-   ex af, af'
-   exx
-
-   push af
-   push bc
-   push de
-   push hl
-
-
-   ;; Código super destructor de registros
-   call cpct_akp_musicPlay_asm
-
-   ld hl, #_first_interruption
-   ld (INTERRUPT_FUNC_DIR), hl
-
-   pop hl
-   pop de
-   pop bc
-   pop af
-
-   exx
-   ex af, af'
-
-   pop hl
-   pop de
-   pop bc
-   pop af
-
-   pop ix
-   pop iy
-   
-   ei
-   reti
-
-
-_init_interruptions:
-
-   ld a, #0xC3              ; JP OPCODE
-   ld (INTERRUPT_DIR), a
-   ld hl, #_first_interruption
-   ld (INTERRUPT_FUNC_DIR), hl
-   ld a, #0xC9              ; RET OPCODE
-   ld (INTERRUPT_DIR + 3), a
-
-   ret
-
-
 
 
 ;; 
@@ -329,31 +50,27 @@ _init_interruptions:
 _main::
    ld sp, #0x8000
 
-   call _mg_game_init
+   call cpct_disableFirmware_asm
+
+   call _si_init_interruptions
+
+   ld c, #0x01
+   call cpct_setVideoMode_asm
+   
+   ld hl, #_g_palette
+   ld de, #0x0004
+   call cpct_setPalette_asm
+   
+   ld hl, #0x0B10
+   call cpct_setPALColour_asm
+   
+   call _sr_init_buffers
 
    ld a, #GS_MULTIPLAYER
    ld (mg_game_state), a
 
-   ;;DE -> Final del destino en memoria del mapa
-   ld hl, #TILEMAP_DECRUNCH
-   ld de, #_map_pruebas_size-1
-   add hl, de
-   ld d, h
-   ld e, l
-   ;;HL -> Final del archivo comprimido
-   ld hl, #_map_pruebas_end
-   call cpct_zx7b_decrunch_s_asm
+   call _mm_main_menu_init
+   call _mm_main_menu_loop
 
-   ld b, #25 ;;Height
-   ld c, #20 ;;Width
-   ld de, #20
-   ld hl, #_tileset_spr_00
-   call cpct_etm_setDrawTilemap4x8_ag_asm
-
-   ld hl, #TILEMAP_VMEM_START
-   ld de, #TILEMAP_DECRUNCH
-   call cpct_etm_drawTilemap4x8_ag_asm
-
-
-   call _mg_game_loop_init
-   call _mg_game_loop
+   ;;call _mg_game_init
+   ;;call _mg_game_loop

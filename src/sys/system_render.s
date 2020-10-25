@@ -116,7 +116,7 @@ _sr_redraw_tiles:
     ld a, b
     ld b, #0x00
 
-    ld hl, #TILEMAP_DECRUNCH
+    ld hl, #TILEMAP_START
     add hl, bc
     ld bc, #TILEMAP_W
 
@@ -424,12 +424,9 @@ _sr_draw_entity_vector:
 
         ld a, _ee_disabled(iy)
         cp #0x00
-        jr nz, dev_entity_disabled
+        jr nz, dev_next_entity
             call _sr_draw_entity
             jr dev_next_entity
-
-        dev_entity_disabled:
-            dec _ee_disabled(iy)
 
         dev_next_entity:
         pop bc
@@ -639,3 +636,37 @@ aa_change_animation_sprite_continue:
         ld _ed_anim_dur(iy), b
 
     ret
+
+
+
+
+
+
+;;==================================================================
+;;                DECOMPRESS IMAGE ON VIDEO MEMORY
+;;------------------------------------------------------------------
+;; Descomprime una imagen que ocupa toda la pantalla en memoria de
+;; video
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  DE  -> Puntero al final de la imagen comprimida
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_decompress_image_on_video_memory:
+
+    ld a, (#mg_front_buffer)
+    ld h, a
+    ld l, #0x00
+    ld bc, #0x4000 - 1
+    add hl, bc
+    ex de, hl
+    jp cpct_zx7b_decrunch_s_asm

@@ -3,8 +3,6 @@
 
 ;;GLOBLS
 
-.globl _init_interruptions
-
 .globl cpct_disableFirmware_asm
 .globl cpct_zx7b_decrunch_s_asm
 .globl cpct_scanKeyboard_asm
@@ -32,8 +30,8 @@
 
 .globl cpct_akp_musicInit_asm
 .globl cpct_akp_musicPlay_asm
-;.globl cpct_akp_setFadeVolume_asm
-;PLY_UseFades = 1
+
+.globl cpct_waitHalts_asm
 
 .globl _cpct_keyboardStatusBuffer
 .globl _g_palette
@@ -45,14 +43,12 @@
 SCREEN_W = 80
 SCREEN_H = 200
 
-INTERRUPT_DIR       = 0x0038
-INTERRUPT_FUNC_DIR  = 0x0039
-
 ;;TILEMAP CONSTS
 .include "bins/map_pruebas.h.s"
 
 TILEMAP_VMEM_START  = 0xC000+(80*3)
-TILEMAP_DECRUNCH    = 0x3000
+TILEMAP_START    = 0x3000
+TILEMAP_SIZE        = TILEMAP_W * TILEMAP_H
 TILEMAP_W           = 20
 TILEMAP_H           = 22
 TILE_SIZE           = 4 * 8
@@ -60,7 +56,6 @@ TILE_W              = 4
 TILE_H              = 8
 
 ;;GAME STATES
-GS_MAIN_MENU        = 0
 GS_SINGLEPLAYER     = 1
 GS_MULTIPLAYER      = 2
 
@@ -173,8 +168,9 @@ _ep_force_x    = 2 + _ed_size ;;Force X
 _ep_score_cdm  = 3 + _ed_size ;;Score [Centenas de Millar, Decenas de Millar]
 _ep_score_mc   = 4 + _ed_size ;;Score [Millares, Centenas]
 _ep_score_du   = 5 + _ed_size ;;Score [Decenas, Unidades]
+_ep_deaths     = 6 + _ed_size ;;Deaths
 
-_ep_size       = 6 + _ed_size
+_ep_size       = 7 + _ed_size
 
 ;;PLAYERS
 .globl player_1
@@ -190,6 +186,9 @@ _ep_size       = 6 + _ed_size
 .globl interactable_vector
 .globl mi_num_interactable
 .globl mi_next_interactable_l
+
+.globl checkpoint_x
+.globl checkpoint_y
 
 ;;JUMP TABLE
 JT_INIT             = 0
@@ -215,6 +214,17 @@ PLAYER = 48  ;; 0x30
 GROUP_TRANSPARENT   = 2
 GROUP_SOLID         = 18
 GROUP_DANGEROUS     = 25
+GROUP_ENTITIES      = 25
+
+;;ENEMY CONSTS
+GROUP_TURTLE        = 27
+GROUP_SAW           = 35
+GROUP_ROCK          = 37
+GROUP_ENEMIES       = 37
+
+;;INTERACTABLE CONSTS
+GROUP_INTERACTABLE  = 42
+
 
 
 TRANSPARENT = 0     ; Prioridad +

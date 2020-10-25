@@ -189,7 +189,7 @@ _sp_check_map_collisions::
     sub c
     ld e, a
 
-    ld hl, #TILEMAP_DECRUNCH
+    ld hl, #TILEMAP_START
     ld a, c 
     ld c, b
     ld b, #0x00
@@ -720,7 +720,12 @@ mpp_no_map_collision_y:
     cp #0x00
     jr z, mpp_no_enemy
 
-    ld _ee_disabled(ix), #EE_DISABLED    ; Desactivamos al enemigo
+        ;; El jugador muere
+        ld a, (checkpoint_x)
+        ld _eph_x(iy), a
+        ld a, (checkpoint_y)
+        ld _eph_y(iy), a
+        inc _ep_deaths(iy)
 
 
     ;.db #0xDD, #0x5D        ;; OPCODE ld e, ixl
@@ -796,7 +801,7 @@ mpp_check_collectable_item:
         ld _ei_type(ix), #0x00
         ld e, _ei_score(ix)
         ld d, #0x00
-        call _sr_add_score
+        call _su_add_score
 
 mpp_end_check_interactables:
     ret
