@@ -60,6 +60,7 @@ $(eval $(call IMG2SP, CONVERT         , assets/EnemySprites.png , 12, 8, enemy_s
 $(eval $(call IMG2SP, SET_MASK        , none               						))
 $(eval $(call IMG2SP, CONVERT         , assets/old/Checkpoint_top_sprite_01.png , 4, 4, checkpoint_top_spr	))
 $(eval $(call IMG2SP, CONVERT         , assets/old/pruebaCollectable.png , 8, 8, collectable_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/DoorSprites.png , 8, 11, door_spr	))
 
 
 #TILES

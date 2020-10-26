@@ -5,7 +5,6 @@
 .globl _collectable_spr_1
 .globl _tileset_spr_00
 
-.globl _player_2_spr_00
 .globl _player_spr_00
 .globl _player_spr_01
 .globl _player_spr_04
@@ -15,12 +14,20 @@
 .globl _player_spr_12
 .globl _player_spr_13
 
+.globl _player_2_spr_00
+
 .globl _enemy_spr_00
 .globl _enemy_spr_04
 .globl _enemy_spr_08
 .globl _enemy_spr_12
 .globl _enemy_spr_16
 .globl _enemy_spr_20
+
+.globl _door_spr_0
+.globl _door_spr_1
+.globl _door_spr_2
+.globl _door_spr_3
+.globl _door_spr_4
 
 
 ;;SPRITE SIZE
