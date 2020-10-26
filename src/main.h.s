@@ -127,6 +127,7 @@ EI_DOUBLE_JUMP  = 2
 EI_GRAVITY_UP   = 3
 EI_GRAVITY_DOWN = 4
 EI_COLLECTABLE  = 5
+EI_DOOR         = 6
 
 ;;ENTITY ENEMY CONSTS
 _ee_jump_state = 0 + _ed_size ;;Offset de la tabla de saltos
@@ -163,15 +164,16 @@ EE_SAW_DISABLED     = 20
 EE_ROCK_DISABLED    = 100
 
 ;;ENTITY PLAYER CONSTS
-_ep_jump_state = 0 + _ed_size ;;Offset de la tabla de saltos
-_ep_wall_dir   = 1 + _ed_size ;;Indica si esta chocando con una pared y su orientacion
-_ep_force_x    = 2 + _ed_size ;;Force X
-_ep_score_cdm  = 3 + _ed_size ;;Score [Centenas de Millar, Decenas de Millar]
-_ep_score_mc   = 4 + _ed_size ;;Score [Millares, Centenas]
-_ep_score_du   = 5 + _ed_size ;;Score [Decenas, Unidades]
-_ep_deaths     = 6 + _ed_size ;;Deaths
+_ep_jump_state  = 0 + _ed_size ;;Offset de la tabla de saltos
+_ep_wall_dir    = 1 + _ed_size ;;Indica si esta chocando con una pared y su orientacion
+_ep_force_x     = 2 + _ed_size ;;Force X
+_ep_score_cdm   = 3 + _ed_size ;;Score [Centenas de Millar, Decenas de Millar]
+_ep_score_mc    = 4 + _ed_size ;;Score [Millares, Centenas]
+_ep_score_du    = 5 + _ed_size ;;Score [Decenas, Unidades]
+_ep_deaths      = 6 + _ed_size ;;Deaths
+_ep_player_attr = 7 + _ed_size ;;Player Attributes
 
-_ep_size       = 7 + _ed_size
+_ep_size        = 8 + _ed_size
 
 ;;PLAYERS
 .globl player_1

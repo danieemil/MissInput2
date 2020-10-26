@@ -13,6 +13,8 @@
 .globl _player_spr_09
 .globl _player_spr_12
 .globl _player_spr_13
+.globl _player_spr_14
+.globl _player_spr_15
 
 .globl _player_2_spr_00
 
@@ -34,6 +36,7 @@
 SPR_PLAYER_SIZE = 2 * 3 * 8
 SPR_CHECKPOINT_SIZE = 1 * 4
 SPR_COLLECTABLE_SIZE = 2 * 8
+SPR_DOOR_SIZE = 2 * 11
 
 
 
@@ -47,6 +50,7 @@ SPR_COLLECTABLE_SIZE = 2 * 8
 .globl anim_player_wall_L
 .globl anim_player_jump_R
 .globl anim_player_jump_L
+.globl anim_player_door
 
 
 ;ENEMY ANIMATIONS

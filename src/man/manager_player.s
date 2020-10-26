@@ -145,4 +145,7 @@ _mp_init_player:
     ;ld (hl), #0x00              ;; _deaths
     inc hl
 
+    ld (hl), #0x00               ;; _player_attr
+    inc hl
+
     ret

@@ -513,6 +513,10 @@ rtf_draw_full_sprite:
 ;;==================================================================
 _sr_manage_player_animations:
 
+    ld de, #anim_player_door
+    bit 6, _ep_player_attr(iy)
+    ret nz
+
     bit 5, _eph_attributes(iy)              ;;Comprobamos Izquierda/Derecha
     jr nz, ma_right
 
@@ -649,7 +653,8 @@ aa_change_animation_sprite:
         add hl, bc
         pop bc
         ld a, (hl)
-        
+        cp #0xFE
+        jr z, aa_change_animation_sprite_infinite
         cp #0xFF
         jr nz, aa_change_animation_sprite_continue
 
@@ -673,6 +678,11 @@ aa_change_animation_sprite_continue:
         ld _ed_anim_pos(iy), c
         ld _ed_anim_dur(iy), b
 
+    ret
+
+aa_change_animation_sprite_infinite:
+    pop hl
+    ld _ed_anim_dur(iy), #0xFF
     ret
 
 

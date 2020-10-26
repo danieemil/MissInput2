@@ -11,19 +11,21 @@ _ep_name:
     .db #0x00   ;;Score [Millares, Centenas]
     .db #0x00   ;;Score [Decenas, Unidades]
     .db #0x00   ;;Deaths
+    .db #0x00   ;;Player Attributes
 
     _ep_name'_size = . - _ep_name ;; Saves the number of bytes that fills a DefineEntity
 .endm
 
-_ep_jump_state = 0 + _ed_size ;;Offset de la tabla de saltos
-_ep_wall_dir   = 1 + _ed_size ;;Indica si esta chocando con una pared y su orientacion
-_ep_force_x    = 2 + _ed_size ;;Force X
-_ep_score_cdm  = 3 + _ed_size ;;Score [Centenas de Millar, Decenas de Millar]
-_ep_score_mc   = 4 + _ed_size ;;Score [Millares, Centenas]
-_ep_score_du   = 5 + _ed_size ;;Score [Decenas, Unidades]
-_ep_deaths     = 6 + _ed_size ;;Deaths
+_ep_jump_state  = 0 + _ed_size ;;Offset de la tabla de saltos
+_ep_wall_dir    = 1 + _ed_size ;;Indica si esta chocando con una pared y su orientacion
+_ep_force_x     = 2 + _ed_size ;;Force X
+_ep_score_cdm   = 3 + _ed_size ;;Score [Centenas de Millar, Decenas de Millar]
+_ep_score_mc    = 4 + _ed_size ;;Score [Millares, Centenas]
+_ep_score_du    = 5 + _ed_size ;;Score [Decenas, Unidades]
+_ep_deaths      = 6 + _ed_size ;;Deaths
+_ep_player_attr = 7 + _ed_size ;;Player Attributes
 
-_ep_size       = 7 + _ed_size
+_ep_size        = 8 + _ed_size
 
 
 
@@ -39,6 +41,23 @@ _ep_size       = 7 + _ed_size
 ;2   H -> Half on ground (1->Los puntos en Y tienen diferente Group ID, 0->Ambos puntos en Y tienen la misma Group ID)
 ;1   R -> Check Roof (1-> Buffer Roof/Ground, 0-> Ground)
 ;0   D -> Double Jump (1 -> Active, 0 -> Inactive)
+
+;
+;M V O G W H R D
+;1 0 0 0 0 0 0 0
+
+
+
+;Flags del jugador (almacenados en la variable _player_attr)
+;
+;7   J -> Allow Jump (1->NO Jump, 0->Can jump)
+;6   D -> In Door (1 -> Esta en la puerta, 0 -> NO esta en la puerta) 
+;5   . -> 
+;4   . -> 
+;3   . -> 
+;2   . -> 
+;1   . -> 
+;0   . -> 
 
 ;
 ;M V O G W H R D

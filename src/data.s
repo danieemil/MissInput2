@@ -84,6 +84,22 @@ anim_player_run_L:
     
     .dw #0xFFFF             ;REPEAT_ed_anim_pos
 
+anim_player_door:
+
+    .dw _player_spr_00      ;Sprite
+    .db #0x20               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_spr_14      ;Sprite
+    .db #0x10               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_spr_15      ;Sprite
+    .db #0x10              ;Duracion
+    .db #0x00               ;Padding
+
+    .dw #0xFEFE             ;REPEAT_ed_anim_pos
+
 
 ;;ENEMY ANIMATIONS-----------------------------
 anim_enemy_R:

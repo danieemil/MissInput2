@@ -12,7 +12,7 @@
     checkpoint_y::   .db #0x30
     checkpoint_level:: .db #0x00
 
-    p1_key_gameplay:: .db #0x00         ;; bit0 -> Actual key_j  |  bit1 -> Previous key_j
+    p1_key_gameplay:: .db #0x00         ;; bit0 -> Actual key_j  |  bit1 -> Previous key_j  |  bit 3 -> No Jump
     p2_key_gameplay:: .db #0x00
 
     p1_key_r:: .dw #0x0407      ;;Default - 'E'

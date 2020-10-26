@@ -485,6 +485,7 @@ mpp_end_x_input:
 
 
 ;;------------------------------------------SALTO------------------------------------
+
     ld a, _ep_wall_dir(iy)
     ld b, a
 
@@ -492,6 +493,8 @@ mpp_end_x_input:
     ld (aux_01), a                      
     ld _eph_vy(iy), a
 
+    bit 7, _ep_player_attr(iy)
+    jr nz, mpp_no_key_j
     bit 0, e                                ;;Comprobamos el boton de saltar
     jr z, mpp_no_key_j 
         
@@ -795,7 +798,7 @@ mpp_check_gravity_down_item:
 
 mpp_check_collectable_item:
     cp #EI_COLLECTABLE
-    jr nz, mpp_end_check_interactables
+    jr nz, mpp_check_door_item
 
         ld bc, #SPR_COLLECTABLE_SIZE
         ld l, _ed_spr_l(ix)
@@ -807,6 +810,40 @@ mpp_check_collectable_item:
         ld e, _ei_score(ix)
         ld d, #0x00
         call _su_add_score
+
+mpp_check_door_item:
+    cp #EI_DOOR
+    jr nz, mpp_end_check_interactables
+        set 1, _eph_attributes(iy)
+        set 7, _ep_player_attr(iy)
+        ld a, _eph_x(iy)
+        ld b, _eph_x(ix)
+        sub b
+        jr z, mpp_check_door_item_check_end
+        jr nc, mpp_check_door_item_player_right
+mpp_check_door_item_player_left:
+
+            ld _ep_force_x(iy), #FORCE_X_R
+            ret
+
+mpp_check_door_item_player_right:
+
+            ld _ep_force_x(iy), #FORCE_X_L
+            ret
+
+mpp_check_door_item_check_end:
+
+        ld a, _eph_offset(iy)
+        cp #0x00
+        jr z, mpp_check_door_item_end_end
+        ld _ep_force_x(iy), #FORCE_X_L
+        ret
+
+mpp_check_door_item_end_end:
+        res 1, _eph_attributes(iy)
+        set 6, _ep_player_attr(iy)
+        ld _ep_force_x(iy), #0x00
+        ret
 
 mpp_end_check_interactables:
     ret

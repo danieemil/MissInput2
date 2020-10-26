@@ -73,7 +73,7 @@ _su_add_score:
 _su_get_key_input:
 
     ld hl, #p1_key_gameplay     ;;Ponemos el actual_key en el previous_key
-    sla (hl)                    
+    sla (hl)                
 
     ld hl, #p2_key_gameplay
     sla (hl)

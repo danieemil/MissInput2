@@ -8,6 +8,7 @@ interactable_index::
     .dw #interactable_gravity_up        ;02
     .dw #interactable_gravity_down      ;03
     .dw #interactable_collectable       ;04
+    .dw #interactable_door              ;05
 
 
 interactable_checkpoint:
@@ -97,3 +98,21 @@ interactable_collectable:
 
 ;;      _score      _type
     .db #0x50, #EI_COLLECTABLE
+
+
+interactable_door:
+;; Datos del interactuable
+;;       _w      _h   _attributes
+    .db #0x02, #0x0B, #0b00000000
+
+;;      _sprite
+    .dw #_door_spr_4
+
+;;     _spr_w  _spr_h      _spr_size         _spr_ox  _spr_oy
+    .db #0x02,  #0x0B,    #SPR_DOOR_SIZE,    #0x00,   #0x00
+
+;;       _anim_index
+    .dw anim_player_idle_L
+
+;;      _score  _type
+    .db #0x00, #EI_DOOR

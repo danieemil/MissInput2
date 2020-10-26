@@ -219,9 +219,13 @@ _sl_generate_level:
                 gl_check_interactable_door:
                 cp #ID_DOOR
                 jr nz, gl_check_interactable_double_jump_l
+                    dec c
+                    dec c
+                    dec c
+                    inc b
                     ld (hl), #0x03
-                    ;ld a, #EI_DOOR
-                    jp gl_next_tile
+                    ld a, #EI_DOOR
+                    jp gl_generate_interactable
 
                 gl_check_interactable_double_jump_l:
                 cp #ID_DOUBLE_JUMP_L
