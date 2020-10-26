@@ -6,6 +6,9 @@
     .include "sys/system_ai.h.s"
     .include "sys/system_level.h.s"
     .include "sys/system_interrupt.h.s"
+
+    .globl _mm_pause_menu_init
+    .globl _mm_pause_menu_loop
     
 
 ;;FUNCIONES

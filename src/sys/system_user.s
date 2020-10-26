@@ -62,16 +62,15 @@ _su_add_score:
 ;;  DE ->  D = P1(key_r + key_l),  E = P2(key_r + key_l)
 ;;  p1_key_gameplay -> Estado actual y previo de la tecla de salto del jugador 1
 ;;  p2_key_gameplay -> Estado actual y previo de la tecla de salto del jugador 2
+;;  A  -> Si se ha pulsado el botón de pausa o no
 ;;
 ;; DESTROYS:
-;;  AF, BC, DE, HL, AF', BC', DE', HL'
+;;  AF, BC, DE, HL, BC', DE', HL'
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: []
 ;;==================================================================
 _su_get_key_input:
-    
-    ex af, af'
 
     ld hl, #p1_key_gameplay     ;;Ponemos el actual_key en el previous_key
     sla (hl)                    
@@ -145,12 +144,23 @@ gki_check_p2_l:
 gki_check_p2_j:
     ld hl, (p2_key_j)
     call cpct_isKeyPressed_asm
-    jr z, gki_exit
+    jr z, gki_check_pause
 
         ld hl, #p2_key_gameplay
         set 0, (hl)
+        jr gki_exit
+
+
+gki_check_pause:
+    ld hl, #Key_Esc
+    call cpct_isKeyPressed_asm
+    jr z, gki_exit
+        ld a, #0x01
+        jr gki_pause_exit
 
 gki_exit:
+    xor a
+gki_pause_exit:
     exx
     ret
 
@@ -246,11 +256,42 @@ _su_get_menu_key_input:
     gmki_check_9:
     ld hl, #Key_9
     call cpct_isKeyPressed_asm
-    jr z, gmki_no_input 
+    jr z, gmki_check_default 
         ld a, #0x09
+        ret
+
+    gmki_check_default:
+    ld hl, #Key_Space
+    call cpct_isKeyPressed_asm
+    jr z, gmki_check_back
+        ld a, #0x0A
+        ret
+
+    gmki_check_back:
+    ld hl, #Key_Esc
+    call cpct_isKeyPressed_asm
+    jr z, gmki_no_input
+        ld a, #0x0B
         ret
     
     gmki_no_input:
     xor a
 
     ret
+
+
+;; DRAW PIXEL MASKED
+;; INPUT:
+;;  DE -> Memoria de video
+;;  HL -> Dirección al sprite (First byte = Máscara, Second byte = Color)    
+
+    ;ld    a ,(de)   ;; [2] Get next background byte into A
+    ;and (hl)        ;; [2] Erase background part that is to be overwritten (Mask step 1)
+    ;inc  hl         ;; [2] HL += 1 => Point HL to Sprite Colour information
+    ;or  (hl)        ;; [2] Add up background and sprite information in one byte (Mask step 2)
+    ;ld  (de), a     ;; [2] Save modified background + sprite data information into memory
+    ;inc  de         ;; [2] Next bytes (sprite and memory)
+    ;inc  hl         ;; [2] 
+
+;A = FONDO AND MASCARA
+;R = A OR COLOR

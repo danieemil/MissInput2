@@ -21,6 +21,10 @@
 .globl Key_8
 .globl Key_9
 
+.globl Key_Space    ;; Seleccionar la opción por defecto
+.globl Key_Esc      ;; Volver al menú anterior
+
+
 ;;FUNCIONES
 .globl _su_get_key_input
 .globl _su_add_score

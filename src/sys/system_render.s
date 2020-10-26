@@ -670,3 +670,35 @@ _sr_decompress_image_on_video_memory:
     add hl, bc
     ex de, hl
     jp cpct_zx7b_decrunch_s_asm
+
+
+
+;;==================================================================
+;;                COPY BACKBUFFER TO FRONTBUFFER
+;;------------------------------------------------------------------
+;; Copia el backbuffer en el frontbuffer
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  NONE
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_copy_back_to_front:
+    ld a, (mg_back_buffer)
+    ld h, a
+    ld l, #0x00
+    ld a, (mg_front_buffer)
+    ld d, a
+    ld e, #0x00
+    ld bc, #0x4000
+    ldir
+
+    ret

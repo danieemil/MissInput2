@@ -124,7 +124,7 @@ _me_add_enemy:
     ld (hl), #0x00              ;; _offset
     inc hl
 
-    ld a, _eet_attributes(ix)   ;; _atributes
+    ld a, _eet_attributes(ix)   ;; _attributes
     ld (hl), a
     inc hl
 
@@ -165,11 +165,11 @@ _me_add_enemy:
     ld (hl), a
     inc hl
 
-    ld a, _eet_anim_ind_h(ix)   ;; _anim_index_h
+    ld a, _eet_anim_ind_l(ix)   ;; _anim_index_l
     ld (hl), a
     inc hl
 
-    ld a, _eet_anim_ind_l(ix)   ;; _anim_index_l
+    ld a, _eet_anim_ind_h(ix)   ;; _anim_index_h
     ld (hl), a
     inc hl
 
