@@ -723,6 +723,9 @@ mpp_no_map_collision_y:
     jr z, mpp_no_enemy
 
         ;; El jugador muere
+        push iy
+        pop hl
+        call _mp_init_player
         ld a, (checkpoint_x)
         ld _eph_x(iy), a
         ld a, (checkpoint_y)

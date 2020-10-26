@@ -12,3 +12,5 @@
 .globl jump_table
 .globl checkpoint_x
 .globl checkpoint_y
+
+.globl _mp_init_player

@@ -69,63 +69,12 @@ _mg_game_init:
     call cpct_akp_musicInit_asm
     ld a, #0x01
     ld (playing_music), a
-
-    call _me_init_vector
-    call _mi_init_vector
+    ld (timer_state), a
     
     ;; Llamamos a level factory para que genere el nivel(map_pruebas)
     ld de, #_map_00_end
     call _sl_generate_level
-
-    ; ;; Creando un enemigo tortuga
-    ; xor a               ;; Tipo de enemigo
-    ; ld b, #0x08         ;; Posicion en X
-    ; ld c, #0x8F         ;; Posicion en Y
-    ; ld d, #0xFF         ;; Velocidad en X
-    ; ld e, #0x00         ;; Velocidad en Y
-    ; call _me_add_enemy
-
-    ; ;; Creando un enemigo sierra
-    ; ld a, #0x01         ;; Tipo de enemigo
-    ; ld b, #0x05         ;; Posicion en X
-    ; ld c, #0x6E         ;; Posicion en Y
-    ; ld d, #0x01         ;; Velocidad en X
-    ; ld e, #0x00         ;; Velocidad en Y
-    ; call _me_add_enemy
-
-    ; ;; Creando un enemigo roca
-    ; ld a, #0x02         ;; Tipo de enemigo
-    ; ld b, #0x30         ;; Posicion en X
-    ; ld c, #0x30         ;; Posicion en Y
-    ; ld d, #0xFF         ;; Velocidad en X
-    ; ld e, #0x00         ;; Velocidad en Y
-    ; call _me_add_enemy
-
-
-    ; ;; Creando un CHECKPOINT
-    ; ld a, #00           ;; Tipo de enemigo
-    ; ld b, #0x24         ;; Posicion en X
-    ; ld c, #0x94         ;; Posicion en Y
-    ; call _mi_add_interactable
-
-    ; ;; Creando un GRAVITY UP
-    ; ld a, #02           ;; Tipo de enemigo
-    ; ld b, #0x38         ;; Posicion en X
-    ; ld c, #0x7E         ;; Posicion en Y
-    ; call _mi_add_interactable
-
-    ; ;; Creando un GRAVITY DOWN
-    ; ld a, #03           ;; Tipo de enemigo
-    ; ld b, #0x38         ;; Posicion en X
-    ; ld c, #0x50         ;; Posicion en Y
-    ; call _mi_add_interactable
-
-    ; ;; Creando un COLLECTABLE
-    ; ld a, #04           ;; Tipo de enemigo
-    ; ld b, #0x18         ;; Posicion en X
-    ; ld c, #0x50         ;; Posicion en Y
-    ; call _mi_add_interactable
-
+    
 
     ;; Seleccionar tileset
     ld b, #25 ;;Height
@@ -135,12 +84,16 @@ _mg_game_init:
     call cpct_etm_setDrawTilemap4x8_ag_asm
 
     ;; Dibujar tilemap en el backbuffer
-    ld hl, #TILEMAP_VMEM_START
+    ld a, (mg_back_buffer)
+    ld h, a
+    ld l, #0x00
+    ld bc, #HUD_SIZE
+    add hl, bc
     ld de, #TILEMAP_START
     call cpct_etm_drawTilemap4x8_ag_asm
 
     ;; Copiar tilemap en el frontbuffer
-    call _sr_init_buffers
+    call _sr_copy_back_to_front
 
     ret
     
@@ -167,7 +120,17 @@ _mg_game_init:
 _mg_game_loop:
 
     call _su_get_key_input
-    
+    dec a
+    jr nz, gl_game_not_paused
+
+        ld a, #0x00
+        ld (playing_music), a
+        ld (timer_state), a
+        call _sr_swap_buffers
+        call _mm_pause_menu_init
+        jp _mm_pause_menu_loop
+
+    gl_game_not_paused:
 ;;FISICAS DEL JUGADOR-------------------
     push de
 

@@ -9,4 +9,7 @@
 .globl _mm_main_menu_init
 .globl _mm_main_menu_loop
 
+.globl _mm_pause_menu_init
+.globl _mm_pause_menu_loop
+
 ;;CONSTANTES

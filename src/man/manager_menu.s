@@ -35,8 +35,6 @@
 ;;==================================================================
 _mm_main_menu_init:
 
-
-    
     ;; Cargamos la imagen en el frontbuffer
     ld de, #_main_menu_screen_end
     call _sr_decompress_image_on_video_memory
@@ -46,7 +44,6 @@ _mm_main_menu_init:
     call cpct_waitHalts_asm
 
     ret
-
 
 
 
@@ -105,10 +102,16 @@ _mm_main_menu_loop:
 
     mml_check_credits:
     cp #0x04
-    jr nz, mml_end_loop
+    jr nz, mml_check_default_option
 
         call _mm_credits_menu_init
         jp _mm_credits_menu_loop
+    
+    mml_check_default_option:
+    cp #0x0A
+    jr z, mml_default_option
+
+
 
     mml_end_loop:
 
@@ -196,7 +199,7 @@ _mm_controls_menu_loop:
 
 
     cml_check_back:
-    cp #0x04
+    cp #0x0B
     jr nz, crml_loop
 
         call _mm_main_menu_init
@@ -290,3 +293,106 @@ _mm_credits_menu_loop:
 
 
 
+;;==================================================================
+;;                       PAUSE MENU INIT
+;;------------------------------------------------------------------
+;; Inicializa los elementos del menú de pausa
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  NONE
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  NONE
+;;
+;;------------------------------------------------------------------
+;; CYCLES: []
+;;==================================================================
+_mm_pause_menu_init:
+
+    ;; Cargamos la imagen en el frontbuffer
+    ld de, #_main_menu_screen_end
+    call _sr_decompress_image_on_video_memory
+
+    ;; Para que no se vuelva a pulsar otra opción por error
+    ld b, #0x50
+    call cpct_waitHalts_asm
+
+    ret
+
+
+
+;;==================================================================
+;;                       PAUSE MENU LOOP
+;;------------------------------------------------------------------
+;; Bucle de ejecución del menú de pausa
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  NONE
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: []
+;;==================================================================
+_mm_pause_menu_loop:
+
+
+    pml_loop:
+
+    call _su_get_menu_key_input
+    jr z, pml_end_loop
+
+    pml_check_resume:
+    cp #0x01
+    jr z, pml_game_loop
+    cp #0x0A
+    jr z, pml_game_loop
+    cp #0x0B
+    jr z, pml_game_loop
+
+        jr pml_check_main_menu
+
+        pml_game_loop:
+        
+        ;; Borrar lo que hay en el frontbuffer copiando el contenido del backbuffer
+        call _sr_copy_back_to_front
+
+        ;; Para que no se vuelva a pulsar otra opción por error
+        ld b, #0x50
+        call cpct_waitHalts_asm
+
+        ld a, #0x01
+        ld (playing_music), a
+        ld (timer_state), a
+
+        jp _mg_game_loop
+
+
+    pml_check_main_menu:
+    cp #0x02
+    jr nz, pml_end_loop
+
+        call _mm_main_menu_init
+        jp _mm_main_menu_loop
+
+
+    pml_end_loop:
+
+    ;; Gestión de sprites por si no es solo una imagen que ocupa la pantalla entera
+
+
+    call cpct_waitVSYNC_asm
+
+
+    jr pml_loop
+
+    ret

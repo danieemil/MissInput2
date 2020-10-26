@@ -161,11 +161,11 @@ _mi_add_interactable:
     ld (hl), a
     inc hl
     
-    ld a, _eit_anim_ind_h(ix)   ;; _anim_index_h
+    ld a, _eit_anim_ind_l(ix)   ;; _anim_index_l
     ld (hl), a
     inc hl
 
-    ld a, _eit_anim_ind_l(ix)   ;; _anim_index_l
+    ld a, _eit_anim_ind_h(ix)   ;; _anim_index_h
     ld (hl), a
     inc hl
 
