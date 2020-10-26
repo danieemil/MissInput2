@@ -513,38 +513,68 @@ rtf_draw_full_sprite:
 ;;==================================================================
 _sr_manage_player_animations:
 
-    jp ma_end_choose_animation
-
     bit 5, _eph_attributes(iy)              ;;Comprobamos Izquierda/Derecha
-    jr z, ma_right
+    jr nz, ma_right
 
 ma_left:                                    ;;----IZQUIERDA-----------------------------------------
         bit 4, _eph_attributes(iy)          ;;Comprobamos si esta en el suelo
         jr z, ma_left_no_ground
 
             ld a, _eph_vx(iy)               ;;Comprobamos si se esta moviendo
+            cp #0x00
             jr nz, ma_left_ground_movement
 
-                ;ld de, #anim_player_idle_l  ;;Cargamos la animacion de suelo sin moverse izquierda
+                ld de, #anim_player_idle_L  ;;Cargamos la animacion de suelo sin moverse izquierda
                 ret
 
 ma_left_ground_movement:
-                ;ld de, #anim_player_run_l  ;;Cargamos la animacion de suelo corriendo izquierda
+                ld de, #anim_player_run_L  ;;Cargamos la animacion de suelo corriendo izquierda
                 ret
 
 ma_left_no_ground:
 
-                jr ma_end_choose_animation
+            ld a, _ep_wall_dir(iy)
+            cp #0x00
+            jr nz, ma_left_no_ground_wall
+
+                ld de, #anim_player_jump_L
+                ret
+
+ma_left_no_ground_wall:
+
+                ld de, #anim_player_wall_L
+                ret
 
 ma_right:                                   ;;----DERECHA-------------------------------------------
         bit 4, _eph_attributes(iy)          ;;Comprobamos si esta en el suelo
         jr z, ma_right_no_ground
 
+            ld a, _eph_vx(iy)               ;;Comprobamos si se esta moviendo
+            cp #0x00
+            jr nz, ma_right_ground_movement
+
+                ld de, #anim_player_idle_R  ;;Cargamos la animacion de suelo sin moverse izquierda
+                ret
+
+ma_right_ground_movement:
+
+                ld de, #anim_player_run_R  ;;Cargamos la animacion de suelo corriendo izquierda
+                ret
+
 ma_right_no_ground:
 
+            ld a, _ep_wall_dir(iy)
+            cp #0x00
+            jr nz, ma_right_no_ground_wall
 
+                ld de, #anim_player_jump_R
+                ret
 
-ma_end_choose_animation:
+ma_right_no_ground_wall:
+
+                ld de, #anim_player_wall_R
+                ret
+
 
     ret
 
@@ -558,6 +588,7 @@ ma_end_choose_animation:
 ;; INPUT:
 ;;  IY  -> Puntero al entity_drawable
 ;;  DE  -> Animacion a la que se quiere actualizar
+;;  HL  -> Offset del puntero Sprite Respecto al puntero de la animacion
 ;;
 ;; OUTPUT:
 ;;  NONE
@@ -606,16 +637,19 @@ aa_continue_animation_no_load:
 aa_change_animation_sprite:
 
         inc c
+        push hl
         push bc
         sla c
         sla c
         ld b, #0x00
+
 
         ld h, d
         ld l, e
         add hl, bc
         pop bc
         ld a, (hl)
+        
         cp #0xFF
         jr nz, aa_change_animation_sprite_continue
 
@@ -629,6 +663,10 @@ aa_change_animation_sprite_continue:
         ld d, (hl)
         inc hl
         ld b, (hl)  ;;B  -> Duracion 
+
+        pop hl
+        add hl, de
+        ex de, hl
 
         ld _ed_spr_l(iy), e
         ld _ed_spr_h(iy), d

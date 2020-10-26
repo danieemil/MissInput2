@@ -52,6 +52,8 @@ _main::
 
    call cpct_disableFirmware_asm
 
+
+   
    call _si_init_interruptions
 
    ld c, #0x01
@@ -66,7 +68,8 @@ _main::
    
    call _sr_init_buffers
 
-   ld a, #GS_MULTIPLAYER
+   ;ld a, #GS_MULTIPLAYER
+   ld a, #GS_SINGLEPLAYER
    ld (mg_game_state), a
 
    call _mm_main_menu_init

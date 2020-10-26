@@ -22,7 +22,7 @@ interactable_checkpoint:
     .db #0x01,  #0x04, #SPR_CHECKPOINT_SIZE,  #0x01,   #0x00
 
 ;;       _anim_index
-    .dw anim_player_idle
+    .dw anim_player_idle_L
 
 ;;      _score      _type
     .db #0x00, #EI_CHECKPOINT
@@ -40,7 +40,7 @@ interactable_double_jump:
     .db #0x01,  #0x04,    #SPR_CHECKPOINT_SIZE,    #0x00,   #0x00
 
 ;;       _anim_index
-    .dw anim_player_idle
+    .dw anim_player_idle_L
 
 ;;      _score      _type
     .db #0x00, #EI_DOUBLE_JUMP
@@ -58,7 +58,7 @@ interactable_gravity_up:
     .db #0x01,  #0x04,    #SPR_CHECKPOINT_SIZE,    #0x00,   #0x00
 
 ;;       _anim_index
-    .dw anim_player_idle
+    .dw anim_player_idle_L
 
 ;;      _score      _type
     .db #0x00, #EI_GRAVITY_UP
@@ -76,7 +76,7 @@ interactable_gravity_down:
     .db #0x01,  #0x04,    #SPR_CHECKPOINT_SIZE,    #0x00,   #0x00
 
 ;;       _anim_index
-    .dw anim_player_idle
+    .dw anim_player_idle_L
 
 ;;      _score      _type
     .db #0x00, #EI_GRAVITY_DOWN
@@ -93,7 +93,7 @@ interactable_collectable:
     .db #0x02,  #0x08,    #SPR_COLLECTABLE_SIZE,    #0x00,   #0x00
 
 ;;       _anim_index
-    .dw anim_player_idle
+    .dw anim_player_idle_L
 
 ;;      _score      _type
     .db #0x50, #EI_COLLECTABLE

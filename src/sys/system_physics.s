@@ -416,6 +416,7 @@ mpp_force_movement:
 mpp_apply_force_x_right:
         dec _ep_force_x(iy)
         ld d, #0x01
+        set 5, _eph_attributes(iy)
         jr mpp_no_orientation
 
 
@@ -430,6 +431,7 @@ mpp_check_force_x_left:
 mpp_apply_force_x_left:      
         inc _ep_force_x(iy)
         ld d, #0xff
+        res 5, _eph_attributes(iy)
         jr mpp_no_orientation
 
 

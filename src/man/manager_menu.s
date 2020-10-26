@@ -79,7 +79,7 @@ _mm_main_menu_loop:
     mml_check_single_player:
     cp #0x01
     jr nz, mml_check_multipayer
-        ld a, #GS_MULTIPLAYER
+        ld a, #GS_SINGLEPLAYER
         ld (mg_game_state), a
 
         call _mg_game_init

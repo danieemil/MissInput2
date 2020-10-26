@@ -11,5 +11,5 @@
 .globl _sr_redraw_tiles_fast
 .globl _sr_redraw_vector
 .globl _sr_decompress_image_on_video_memory
-
+.globl _sr_manage_player_animations
 .globl _sr_apply_animation

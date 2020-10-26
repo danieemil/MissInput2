@@ -192,7 +192,7 @@ _mg_game_loop:
     pop de
     ld a, (mg_game_state)
     cp #GS_MULTIPLAYER              ;;Comprobamos si esta en modo multijugador
-    jr nz, gl_end_physics
+    jr nz, gl_no_p2_physics
 
     ;Fisicas P2
     ld iy, #player_2
@@ -213,6 +213,7 @@ _mg_game_loop:
     ld e, a
     call _sy_manage_player_physics
 
+gl_no_p2_physics:
 
     ;; Dibujar interactuables
     ld iy, #interactable_vector
@@ -271,13 +272,23 @@ _mg_game_loop:
 
 gl_end_physics:;------------------------
 
+    ;;Animaciones del jugador 2
+    ld a, (mg_game_state)
+    cp #GS_MULTIPLAYER              ;;Comprobamos si esta en modo multijugador
+    jr nz, gl_no_p2_render
 
-    ;; Dibujar jugadores
     ld iy, #player_2
+    call _sr_manage_player_animations
+    ld hl, #0x0438
+    call _sr_apply_animation
     call _sr_draw_entity
-    ;;Animaciones del jugador
+
+gl_no_p2_render:
+
+    ;;Animaciones del jugador 1
     ld iy, #player_1
-    ld de, #anim_player_idle
+    call _sr_manage_player_animations
+    ld hl, #0x0000
     call _sr_apply_animation
     call _sr_draw_entity
 
