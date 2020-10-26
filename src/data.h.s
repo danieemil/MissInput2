@@ -40,3 +40,9 @@ SPR_COLLECTABLE_SIZE = 2 * 8
 .globl anim_player_wall_L
 .globl anim_player_jump_R
 .globl anim_player_jump_L
+
+
+;ENEMY ANIMATIONS
+.globl anim_enemy_R
+.globl anim_enemy_L
+.globl anim_enemy_S

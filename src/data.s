@@ -83,3 +83,39 @@ anim_player_run_L:
     .db #0x00
     
     .dw #0xFFFF             ;REPEAT_ed_anim_pos
+
+
+;;ENEMY ANIMATIONS-----------------------------
+anim_enemy_R:
+    .dw _enemy_spr_00      ;Sprite
+    .db #0x0A               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _enemy_spr_04      ;Sprite
+    .db #0x0A               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw #0xFFFF             ;REPEAT_ed_anim_pos
+
+anim_enemy_L:
+    .dw _enemy_spr_08      ;Sprite
+    .db #0x0A               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _enemy_spr_12      ;Sprite
+    .db #0x0A               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw #0xFFFF             ;REPEAT_ed_anim_pos
+
+
+anim_enemy_S:
+    .dw _enemy_spr_00      ;Sprite
+    .db #0x02               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _enemy_spr_04      ;Sprite
+    .db #0x02               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw #0xFFFF             ;REPEAT_ed_anim_pos

@@ -73,9 +73,11 @@ _mm_main_menu_loop:
     call _su_get_menu_key_input
     jr z, mml_end_loop
 
+    
     mml_check_single_player:
     cp #0x01
     jr nz, mml_check_multipayer
+mml_default_option:
         ld a, #GS_SINGLEPLAYER
         ld (mg_game_state), a
 

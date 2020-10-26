@@ -219,6 +219,27 @@ gl_no_p2_physics:
             ld a, _ee_disabled(iy)
             cp #0x00
             jr nz, gl_entity_disabled
+                ld de, #anim_enemy_S
+                ld hl, #0x0300
+
+                ld a, _ee_type(iy)
+                cp #ET_SAW
+                jr z, gl_continue_enemy_animation
+                
+                ld de, #anim_enemy_R
+                cp #ET_ROCK
+                jr z, gl_continue_enemy_animation
+
+                    ld hl, #0x0000
+                    
+                    ld a, _eph_vx(iy)
+                    cp #0x00
+                    jp p, gl_continue_enemy_animation
+
+                        ld de, #anim_enemy_L
+                
+gl_continue_enemy_animation:          
+                call _sr_apply_animation
                 call _sr_draw_entity
             jr gl_next_entity
 
