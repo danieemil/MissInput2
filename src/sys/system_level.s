@@ -42,7 +42,7 @@ _sl_generate_level:
 
     call _me_init_vector
     call _mi_init_vector
-
+    call _mp_init_players
 
 ;; Segundo comprobamos la id de cada tile del tilemap
 ;; En el caso de que sea el id de una entidad,
@@ -282,8 +282,9 @@ _sl_generate_level:
                         ld (hl), b
                         inc hl
                         ld (hl), c
+                    
+                    
                     gl_init_players:
-                    call _mp_init_players
                     ld iy, #player_1
                     ld _eph_x(iy), b
                     ld _ed_pre_x(iy), b

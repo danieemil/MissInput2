@@ -39,7 +39,7 @@ mi_next_interactable_h: .db #00
 ;;==================================================================
 _mi_init_vector:
     
-    ld hl, (mi_num_interactable)
+    ld hl, #mi_num_interactable
     ld (hl), #0x00
 
     ld hl, #interactable_vector
