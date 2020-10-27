@@ -224,6 +224,8 @@ _sl_generate_level:
                     dec c
                     inc b
                     ld (hl), #0x03
+                    ld a, (mi_num_interactable)
+                    ld (door_id), a
                     ld a, #EI_DOOR
                     jp gl_generate_interactable
 
@@ -348,3 +350,80 @@ ret
 
 
 
+
+
+
+;;==================================================================
+;;                            MANAGE END LEVEL
+;;------------------------------------------------------------------
+;; A
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  NONE
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;   AF
+;;
+;;------------------------------------------------------------------
+;; CYCLES: []
+;;==================================================================
+_sl_manage_end_level:
+    
+    ld iy, #interactable_vector
+    ld de, #_ei_size
+    ld a, (door_id)
+    cp #0x00
+    jr z, mel_loop_find_door_end
+mel_loop_find_door:
+        add iy, de
+        dec a
+        jr nz, mel_loop_find_door
+mel_loop_find_door_end:
+
+
+    bit 0, _eph_attributes(iy)
+    jr nz, mel_door_opened
+    ld hl, #0x0000
+    ld de, #anim_interactable_door
+    call _sr_apply_animation
+    ;a -> End?
+    cp #0x00
+    ret z
+
+        set 0, _eph_attributes(iy)
+
+mel_door_opened:
+
+    ld iy, #player_1
+    bit 6, _ep_player_attr(iy)
+    jr z, mel_door_opened_check_p2
+
+        set 5, _ep_player_attr(iy)
+        res 6, _ep_player_attr(iy)
+        ld hl, (level_score)
+        ex de, hl
+        call _su_add_score
+
+mel_door_opened_check_p2:
+    ld iy, #player_2
+    bit 6, _ep_player_attr(iy)
+    jr z, mel_door_opened_end
+
+        set 5, _ep_player_attr(iy)
+        res 6, _ep_player_attr(iy)
+        ld hl, (level_score)
+        ex de, hl
+        call _su_add_score
+
+mel_door_opened_end:
+
+    ld h, #0x00
+    ld a, (default_score)
+    ld l, a
+    ld (level_score), hl
+    
+    ret

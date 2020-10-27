@@ -106,7 +106,7 @@ interactable_door:
     .db #0x02, #0x0B, #0b00000000
 
 ;;      _sprite
-    .dw #_door_spr_4
+    .dw #_door_spr_0
 
 ;;     _spr_w  _spr_h      _spr_size         _spr_ox  _spr_oy
     .db #0x02,  #0x0B,    #SPR_DOOR_SIZE,    #0x00,   #0x00

@@ -514,7 +514,7 @@ rtf_draw_full_sprite:
 _sr_manage_player_animations:
 
     ld de, #anim_player_door
-    bit 6, _ep_player_attr(iy)
+    bit 5, _ep_player_attr(iy)
     ret nz
 
     bit 5, _eph_attributes(iy)              ;;Comprobamos Izquierda/Derecha
@@ -595,7 +595,7 @@ ma_right_no_ground_wall:
 ;;  HL  -> Offset del puntero Sprite Respecto al puntero de la animacion
 ;;
 ;; OUTPUT:
-;;  NONE
+;;  A -> Si ha llegado al final de la animacion (0 NO, 1 Si)
 ;;
 ;; DESTROYS:
 ;;  AF, BC, DE, HL
@@ -636,6 +636,7 @@ aa_continue_animation_no_load:
 
         dec a
         ld _ed_anim_dur(iy), a
+        xor a
         ret
 
 aa_change_animation_sprite:
@@ -677,12 +678,14 @@ aa_change_animation_sprite_continue:
         ld _ed_spr_h(iy), d
         ld _ed_anim_pos(iy), c
         ld _ed_anim_dur(iy), b
+        xor a
 
     ret
 
 aa_change_animation_sprite_infinite:
     pop hl
     ld _ed_anim_dur(iy), #0xFF
+    ld a, #0x01
     ret
 
 

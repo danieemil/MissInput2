@@ -57,3 +57,7 @@ SPR_DOOR_SIZE = 2 * 11
 .globl anim_enemy_R
 .globl anim_enemy_L
 .globl anim_enemy_S
+
+
+;INTERACTABLE ANIMATIONS
+.globl anim_interactable_door

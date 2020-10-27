@@ -135,3 +135,31 @@ anim_enemy_S:
     .db #0x00               ;Padding
 
     .dw #0xFFFF             ;REPEAT_ed_anim_pos
+
+
+;;INTERACTABLE ANIMATIONS-----------------------------
+anim_interactable_door:
+    .dw _door_spr_0         ;Sprite
+    .db #0x0A               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _door_spr_1         ;Sprite
+    .db #0x50               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _door_spr_2         ;Sprite
+    .db #0x50               ;Duracion
+    .db #0x00               ;Padding
+
+
+    .dw _door_spr_3         ;Sprite
+    .db #0x50               ;Duracion
+    .db #0x00               ;Padding
+
+
+    .dw _door_spr_4         ;Sprite
+    .db #0x50               ;Duracion
+    .db #0x00               ;Padding
+
+
+    .dw #0xFEFE             ;REPEAT_ed_anim_pos

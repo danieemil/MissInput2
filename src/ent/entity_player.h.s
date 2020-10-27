@@ -51,8 +51,8 @@ _ep_size        = 8 + _ed_size
 ;Flags del jugador (almacenados en la variable _player_attr)
 ;
 ;7   J -> Allow Jump (1->NO Jump, 0->Can jump)
-;6   D -> In Door (1 -> Esta en la puerta, 0 -> NO esta en la puerta) 
-;5   . -> 
+;6   D -> In Door (1 -> Esta en la puerta, 0 -> NO esta en la puerta)
+;5   E -> End Level (1 -> Animacion entrar puerta)
 ;4   . -> 
 ;3   . -> 
 ;2   . -> 

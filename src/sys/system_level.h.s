@@ -4,6 +4,10 @@
 .globl checkpoint_x
 .globl checkpoint_y
 .globl checkpoint_level
+.globl door_id
+.globl mi_num_interactable
+.globl level_score
+.globl default_score
 
 .globl _me_init_vector
 .globl _me_add_enemy
@@ -13,8 +17,13 @@
 
 .globl _mp_init_players
 
+.globl _sr_apply_animation
+
+.globl _su_add_score
+
 ;;FUNCIONES
 .globl _sl_generate_level
+.globl _sl_manage_end_level
 
 ;;CONSTANTES
 

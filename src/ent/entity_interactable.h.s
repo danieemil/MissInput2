@@ -25,28 +25,13 @@ _ei_size        = 3 + _ed_size
 
 
 
-;Flags del interactuable (almacenados en la variable _attributes)
+;Flags de la entidad con físicas (almacenados en la variable _attributes)
 ;
 ;7   M -> Mascara (1->Tiene Mascara, 0->No tiene Mascara)
 ;6   V -> V-Flip (1->Boca Abajo, 0->Normal)
-;5   X -> 
-;4   X ->
-;3   I -> Inhabilitado (1->Está inhabilitado, 0->Está habilitado)
-;2   C -> Collided (1->Ha colisionado, 0->No ha colisionado)[Físicas entre entidades solo]
-;1   R -> Removable (1->Se puede coger, 0->No se puede coger)[Se elimina o no al colisionar]
-;0   X
-
-;_interactable_attributtes (Describe los tipos de interactuables): 
-;   - 000(0) -> 
-;   - 001(1) ->
-;   - 010(2) ->
-;   - 011(3) ->
-;   - 100(4) ->
-;   - 101(5) ->
-;   - 110(6) ->
-;   - 111(7) ->
-
-
-;
-;M V X X I T T T
-;1 0 0 0 0 0 0 0
+;5   O -> Orientacion (1->Derecha, 0->Izquierda)
+;4   G -> On Ground (1->Toca Suelo, 0->NO toca suelo) (Está colisionando en Y)
+;3   W -> On Wall (1->Colisiona con pared, 0->No colisiona con pared) (Está colisionando en X)
+;2   H -> Half on ground (1->Los puntos en Y tienen diferente Group ID, 0->Ambos puntos en Y tienen la misma Group ID)
+;1   X
+;0   o -> Open (1->Open, 0->Closed)

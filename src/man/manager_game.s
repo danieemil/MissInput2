@@ -7,10 +7,18 @@
 
     actual_level:: .db #0x00
 
+    deaths:: .db #0x00
+    level_score:: .dw #0x0100
+    default_score:: .db#0x75
+
     ;CHECKPOINT DATA
     checkpoint_x::   .db #0x10
     checkpoint_y::   .db #0x30
     checkpoint_level:: .db #0x00
+
+    ;INTERACTABLE DATA
+    door_id:: .db #0x00
+    colectable_id:: .db #0x00
 
     p1_key_gameplay:: .db #0x00         ;; bit0 -> Actual key_j  |  bit1 -> Previous key_j  |  bit 3 -> No Jump
     p2_key_gameplay:: .db #0x00
@@ -148,9 +156,19 @@ _mg_game_loop:
     pop de
     push de
 
+    
     ld  a, (p1_key_gameplay)
     ld  e, a
+
+    ld a, _ep_player_attr(iy)
+    and #0b01100000
+    jr z, gl_no_p1_in_door
+
+        ld de, #0x0000
+
+    gl_no_p1_in_door:
     call _sy_manage_player_physics  ;;Aplicamos las fisicas al jugador 1
+
 
     pop de
     ld a, (mg_game_state)
@@ -174,9 +192,28 @@ _mg_game_loop:
     ld d, e
     ld a, (p2_key_gameplay)
     ld e, a
+
+    ld a, _ep_player_attr(iy)
+    and #0b01100000
+    jr z, gl_no_p2_in_door
+
+        ld de, #0x0000
+
+    gl_no_p2_in_door:
     call _sy_manage_player_physics
 
 gl_no_p2_physics:
+
+    ;;GESTION DEL FIN DEL NIVEL
+    bit 6, _ep_player_attr(iy)
+    jr nz, gl_end_level
+    ld iy, #player_1
+    bit 6, _ep_player_attr(iy)
+    jr z, gl_end_level_continue
+gl_end_level:
+    call _sl_manage_end_level
+
+gl_end_level_continue:
 
     ;; Dibujar interactuables
     ld iy, #interactable_vector
