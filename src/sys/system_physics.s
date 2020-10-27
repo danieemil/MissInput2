@@ -814,6 +814,10 @@ mpp_check_collectable_item:
 mpp_check_door_item:
     cp #EI_DOOR
     jr nz, mpp_end_check_interactables
+
+        bit 5, _ep_player_attr(iy)
+        ret nz
+
         set 1, _eph_attributes(iy)
         set 7, _ep_player_attr(iy)
         ld a, _eph_x(iy)
@@ -839,7 +843,9 @@ mpp_check_door_item_check_end:
         ld _ep_force_x(iy), #FORCE_X_L
         ret
 
-mpp_check_door_item_end_end:
+mpp_check_door_item_end_end:res 1, _eph_attributes(iy)
+        set 6, _ep_player_attr(iy)
+        ld _ep_force_x(iy), #0x00
         res 1, _eph_attributes(iy)
         set 6, _ep_player_attr(iy)
         ld _ep_force_x(iy), #0x00

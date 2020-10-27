@@ -6,10 +6,11 @@
     mg_game_state:: .db #0x00
 
     actual_level:: .db #0x00
+    actual_level_attr:: .db #0x00
+    transition:: .db #0xFF
 
-    deaths:: .db #0x00
+    tries:: .db #0x04
     level_score:: .dw #0x0100
-    default_score:: .db#0x75
 
     ;CHECKPOINT DATA
     checkpoint_x::   .db #0x10
@@ -18,7 +19,7 @@
 
     ;INTERACTABLE DATA
     door_id:: .db #0x00
-    colectable_id:: .db #0x00
+    collectable_id:: .db #0x00
 
     p1_key_gameplay:: .db #0x00         ;; bit0 -> Actual key_j  |  bit1 -> Previous key_j  |  bit 3 -> No Jump
     p2_key_gameplay:: .db #0x00
@@ -54,7 +55,7 @@
 
 
 ;;==================================================================
-;;                   GAME LOOP INIT
+;;                   GAME INIT
 ;;------------------------------------------------------------------
 ;; Descripcion
 ;;------------------------------------------------------------------
@@ -80,7 +81,32 @@ _mg_game_init:
     ld (timer_state), a
     
     ;; Llamamos a level factory para que genere el nivel(map_pruebas)
-    ld de, #_map_00_end
+    ld a, (actual_level)
+    ld c, a
+    sla c
+    sla c
+    ld b, #0x00
+    ld hl, #level_index
+    add hl, bc
+
+    ld e, (hl)
+    inc hl
+    ld d, (hl)
+    inc hl
+    ld a, (hl)
+    ld (actual_level_attr), a
+    inc hl
+    ld c, (hl)
+    ;DE -> Tilemap_end_ptr
+    ;C  -> Otros (Por ahora paleta o algo :/)
+
+    ld a, #0xFF
+    ld (transition), a
+    ld a, #0x04
+    ld (tries), a
+    ld hl, #0x0100
+    ld (level_score), hl
+
     call _sl_generate_level
     
 
@@ -204,7 +230,8 @@ _mg_game_loop:
 
 gl_no_p2_physics:
 
-    ;;GESTION DEL FIN DEL NIVEL
+    ;;GESTION DEL FIN DEL NIVEL---------------------------------------
+    ld iy, #player_2
     bit 6, _ep_player_attr(iy)
     jr nz, gl_end_level
     ld iy, #player_1
@@ -214,6 +241,21 @@ gl_end_level:
     call _sl_manage_end_level
 
 gl_end_level_continue:
+
+    ld a, (transition)
+    cp #0xFF
+    jr z, gl_no_transition
+
+        call _sl_transition_level
+        cp #0x00
+        jr nz, gl_no_transition
+
+            ;CAMBIO DE NIVEL
+            call _mg_game_init
+            jp _mg_game_loop
+
+
+gl_no_transition:
 
     ;; Dibujar interactuables
     ld iy, #interactable_vector

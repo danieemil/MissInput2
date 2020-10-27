@@ -19,6 +19,42 @@ mi_next_interactable_h: .db #00
 
 .area _CODE
 
+
+;;==================================================================
+;;                       SEARCH INTERACTABLE VECTOR
+;;------------------------------------------------------------------
+;; Inicializa los datos del vector de interactuables
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  A -> Posicion del elemento
+;;
+;; OUTPUT:
+;;  ix -> puntero al interactable
+;;
+;; DESTROYS:
+;;  HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_mi_search_vector:
+
+    ld ix, #interactable_vector
+
+    cp #0x00
+    ret z
+
+    ld bc, #_ei_size
+sv_loop:
+
+    add ix, bc
+    dec a
+    jr nz, sv_loop
+
+    ret
+
+
 ;;==================================================================
 ;;                       INIT INTERACTABLE VECTOR
 ;;------------------------------------------------------------------

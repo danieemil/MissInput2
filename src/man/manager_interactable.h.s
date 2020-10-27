@@ -6,6 +6,7 @@
     .globl _mi_init_vector
     .globl _mi_add_interactable
     .globl _mi_remove_interactable
+    .globl _mi_search_vector
 
 ;;CONSTANTES
 

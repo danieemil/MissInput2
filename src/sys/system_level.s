@@ -40,6 +40,9 @@ _sl_generate_level:
     ;; DE -> End tilemap descomprimido
     call cpct_zx7b_decrunch_s_asm
 
+
+
+
     call _me_init_vector
     call _mi_init_vector
     call _mp_init_players
@@ -234,7 +237,7 @@ _sl_generate_level:
                 jr nz, gl_check_interactable_double_jump_r
                     ld (hl), #0x00
                     ld a, #EI_DOUBLE_JUMP
-                    jr gl_generate_interactable
+                    jp gl_generate_interactable
 
                 gl_check_interactable_double_jump_r:
                 cp #ID_DOUBLE_JUMP_R
@@ -314,6 +317,8 @@ _sl_generate_level:
                 cp #ID_COLLECTABLE
                 jp nz, gl_next_tile
                     ld (hl), #0x00
+                    ld a, (mi_num_interactable)
+                    ld (collectable_id), a
                     ld a, #EI_COLLECTABLE
 
         gl_generate_interactable:
@@ -344,6 +349,20 @@ _sl_generate_level:
         jp nz, gl_tilemap_loop
         or e
         jp nz, gl_tilemap_loop
+
+        ld a, (actual_level_attr)
+        bit 6, a
+        ret z
+
+        ld a, (collectable_id)
+
+        call _mi_search_vector
+
+        ld _ei_type(ix), #EI_NONE
+        ld hl, #_collectable_spr_1
+        ld _ed_spr_l(ix), l
+        ld _ed_spr_h(ix), h
+
 
 ret
 
@@ -422,8 +441,96 @@ mel_door_opened_check_p2:
 mel_door_opened_end:
 
     ld h, #0x00
-    ld a, (default_score)
+    ld a, l
+    ld d, #0x25
+    sub d
+    daa
     ld l, a
     ld (level_score), hl
     
+    ld a, (mg_game_state)
+    cp #GS_SINGLEPLAYER
+    jr nz, mel_check_multiplayer
+
+        ld a, #0x45
+        ld (transition), a
+        ret
+
+
+mel_check_multiplayer:
+    ld iy, #player_1
+    bit 5, _ep_player_attr(iy)
+    ret z
+    ld iy, #player_2
+    bit 5, _ep_player_attr(iy)
+    ret z
+
+        ld a, #0x45
+        ld (transition), a
+
+    ret
+
+
+;;==================================================================
+;;                        TRANSITION LEVEL
+;;------------------------------------------------------------------
+;; A
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  NONE
+;;
+;; OUTPUT:
+;;  A -> Indica si se puede cambiar de nivel (0 -> Si, >=1 -> NO)
+;; BC -> Puntero al siguiente mapa
+;; DESTROYS:
+;;   AF
+;;
+;;------------------------------------------------------------------
+;; CYCLES: []
+;;==================================================================
+_sl_transition_level:
+
+    ld a, (transition)
+    dec a
+    ld (transition), a
+    cp #0x00
+    ret nz
+
+
+    ;;SETEAR VARIABLES PARA EL SIGUIENTE NIVEL
+    ld a, (actual_level)
+    ld c, a
+    
+    inc a
+    ld (actual_level), a
+    
+    sla c
+    sla c
+    ld b, #0x00
+    ld hl, #level_index
+    add hl, bc
+
+    inc hl
+    inc hl
+    ld d, (hl)
+    ;D  -> Actual Level Attributes
+
+    set 7, d
+
+    ld a, (collectable_id)
+
+    call _mi_search_vector
+
+    ld a, _ei_type(ix)
+    cp #EI_NONE
+    jr nz, tl_no_collected_collectable
+
+        set 6, d
+
+tl_no_collected_collectable:
+
+    ld (hl), d
+
+    xor a
     ret
