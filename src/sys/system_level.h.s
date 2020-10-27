@@ -5,15 +5,21 @@
 .globl checkpoint_y
 .globl checkpoint_level
 .globl door_id
+.globl collectable_id
 .globl mi_num_interactable
 .globl level_score
-.globl default_score
+.globl transition
+.globl actual_level
+.globl actual_level_attr
+
+.globl mg_game_state
 
 .globl _me_init_vector
 .globl _me_add_enemy
 
 .globl _mi_init_vector
 .globl _mi_add_interactable
+.globl _mi_search_vector
 
 .globl _mp_init_players
 
@@ -24,6 +30,7 @@
 ;;FUNCIONES
 .globl _sl_generate_level
 .globl _sl_manage_end_level
+.globl _sl_transition_level
 
 ;;CONSTANTES
 

@@ -51,8 +51,6 @@ _main::
    ld sp, #0x8000
 
    call cpct_disableFirmware_asm
-
-
    
    call _si_init_interruptions
 

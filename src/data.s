@@ -2,7 +2,30 @@
 
 .area _DATA
 
-;;PLAYER ANIMATIONS-----------------------------
+;;LEVEL DATA -----------------------------------
+level_index:
+    ;;LEVEL 00
+    .dw _map_00_end ;;Tilemap del Nivel
+    .db #0x40       ;;Level Attr
+    .db #0x00       ;;Palette
+
+    ;;LEVEL 01
+    .dw _map_00_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
+    .db #0x00       ;;Palette
+
+;;Level Attr [C c 0 0 0 0 0 0]
+; C -> Completed (1 -> Nivel Completado, 0 -> Nivel NO Completado)
+; c -> Collecable (1 -> Collectable Cogido, 0 -> Collectable NO Cogido)
+; - ->
+; - ->
+; - ->
+; - ->
+; - ->
+; - ->
+
+
+;;PLAYER ANIMATIONS ----------------------------
 anim_player_idle_R:
     .dw _player_spr_00      ;Sprite
     .db #0xFF               ;Duracion
@@ -144,21 +167,21 @@ anim_interactable_door:
     .db #0x00               ;Padding
 
     .dw _door_spr_1         ;Sprite
-    .db #0x50               ;Duracion
+    .db #0x20               ;Duracion
     .db #0x00               ;Padding
 
     .dw _door_spr_2         ;Sprite
-    .db #0x50               ;Duracion
+    .db #0x20               ;Duracion
     .db #0x00               ;Padding
 
 
     .dw _door_spr_3         ;Sprite
-    .db #0x50               ;Duracion
+    .db #0x20               ;Duracion
     .db #0x00               ;Padding
 
 
     .dw _door_spr_4         ;Sprite
-    .db #0x50               ;Duracion
+    .db #0x05               ;Duracion
     .db #0x00               ;Padding
 
 

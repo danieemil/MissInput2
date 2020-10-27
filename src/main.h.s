@@ -44,8 +44,6 @@ SCREEN_W = 80
 SCREEN_H = 200
 
 ;;TILEMAP CONSTS
-.include "bins/map_00.h.s"
-
 HUD_SIZE            = 80*3
 TILEMAP_VMEM_START  = 0xC000+HUD_SIZE
 TILEMAP_START    = 0x3000

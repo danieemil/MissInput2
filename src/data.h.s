@@ -1,3 +1,10 @@
+;;MAPS
+.include "bins/map_00.h.s"
+
+.globl level_index
+
+
+
 ;;SPRITES
 .globl _checkpoint_top_spr_0
 .globl _checkpoint_top_spr_1
