@@ -11,7 +11,7 @@ _ep_name:
     .db #0x00   ;;Score [Millares, Centenas]
     .db #0x00   ;;Score [Decenas, Unidades]
     .db #0x00   ;;Deaths
-    .db #0x00   ;;Player Attributes
+    .db #0xa0   ;;Player Attributes
 
     _ep_name'_size = . - _ep_name ;; Saves the number of bytes that fills a DefineEntity
 .endm

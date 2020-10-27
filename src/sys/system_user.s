@@ -280,18 +280,60 @@ _su_get_menu_key_input:
     ret
 
 
-;; DRAW PIXEL MASKED
+;;==================================================================
+;;                           RESET GAME DATA
+;;------------------------------------------------------------------
+;; Reinicia los datos que no se reinician entre niveles
+;;------------------------------------------------------------------
+;;
 ;; INPUT:
-;;  DE -> Memoria de video
-;;  HL -> Dirección al sprite (First byte = Máscara, Second byte = Color)    
+;;  NONE
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;   AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: []
+;;==================================================================
+_su_reset_data:
 
-    ;ld    a ,(de)   ;; [2] Get next background byte into A
-    ;and (hl)        ;; [2] Erase background part that is to be overwritten (Mask step 1)
-    ;inc  hl         ;; [2] HL += 1 => Point HL to Sprite Colour information
-    ;or  (hl)        ;; [2] Add up background and sprite information in one byte (Mask step 2)
-    ;ld  (de), a     ;; [2] Save modified background + sprite data information into memory
-    ;inc  de         ;; [2] Next bytes (sprite and memory)
-    ;inc  hl         ;; [2] 
+    
+    ld iy, #player_1
+    ld b, #0x02
+    xor a
+    rd_players_loop:
+    ld _ep_score_cdm(iy), a
+    ld _ep_score_du(iy), a
+    ld _ep_score_mc(iy), a
+    ld _ep_deaths(iy), a
+    ld iy, #player_2
+    dec b
+    jr nz, rd_players_loop
+    
+    ld (actual_level), a
+    
+    ld (timer_state), a
+    ld (seconds_dc), a
+    ld (seconds), a
+    ld (minutes), a
 
-;A = FONDO AND MASCARA
-;R = A OR COLOR
+    
+    ld hl, #level_index
+    ld b, #NUM_LEVELS
+    rd_levels_loop:
+        inc hl
+        inc hl
+        ld (hl), a
+        inc hl
+        inc hl
+
+    dec b
+    jr nz, rd_levels_loop
+
+    dec a
+    ld (checkpoint_level), a
+
+    ret

@@ -29,9 +29,7 @@ _mp_init_players:
     ld hl, #player_1
 
     call _mp_init_player
-    jr z, _mp_init_player
-
-    ret
+    jr _mp_init_player
 
 
 
@@ -79,10 +77,10 @@ _mp_init_player:
     ld (hl), #PLAYER_EPH_ATTR   ;; _attributes
     inc hl
 
-    ld (hl), #<_player_spr_00    ;; _sprite_l
+    ld (hl), #0x00              ;; _sprite_l
     inc hl
 
-    ld (hl), #>_player_spr_00    ;; _sprite_h
+    ld (hl), #0x00              ;; _sprite_h
     inc hl
 
     ld (hl), #PLAYER_ED_W       ;; _sprite_wi
@@ -109,10 +107,10 @@ _mp_init_player:
     ld (hl), #0x00              ;; _oy
     inc hl
 
-    ld (hl), #<anim_player_jump_R;; _anim_index_l
+    ld (hl), #>anim_player_jump_R;; _anim_index_l
     inc hl
 
-    ld (hl), #>anim_player_jump_R;; _anim_index_h
+    ld (hl), #<anim_player_jump_R;; _anim_index_h
     inc hl
 
     ld (hl), #0x00              ;; _anim_pos

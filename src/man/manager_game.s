@@ -15,7 +15,7 @@
     ;CHECKPOINT DATA
     checkpoint_x::   .db #0x10
     checkpoint_y::   .db #0x30
-    checkpoint_level:: .db #0x00
+    checkpoint_level:: .db #0xFF
 
     ;INTERACTABLE DATA
     door_id:: .db #0x00

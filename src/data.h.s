@@ -3,7 +3,7 @@
 
 .globl level_index
 
-
+NUM_LEVELS = 2
 
 ;;SPRITES
 .globl _checkpoint_top_spr_0
