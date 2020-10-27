@@ -19,19 +19,16 @@ DefineEntityPlayer player_2, #0x13, #0x40, #0x02, #0x09, #0x00, #0x00, #0b101100
 ;;  NONE
 ;;
 ;; DESTROYS:
-;;  AF, HL
+;;  HL
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: []
 ;;==================================================================
 _mp_init_players:
-    
-    ld a, #0x00
 
     ld hl, #player_1
 
     call _mp_init_player
-    dec a
     jr z, _mp_init_player
 
     ret
@@ -112,10 +109,10 @@ _mp_init_player:
     ld (hl), #0x00              ;; _oy
     inc hl
 
-    ld (hl), #0x00              ;; _anim_index_l
+    ld (hl), #<anim_player_jump_R;; _anim_index_l
     inc hl
 
-    ld (hl), #0x00              ;; _anim_index_h
+    ld (hl), #>anim_player_jump_R;; _anim_index_h
     inc hl
 
     ld (hl), #0x00              ;; _anim_pos
