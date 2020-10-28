@@ -41,5 +41,6 @@
 .globl _su_add_score
 .globl _su_get_menu_key_input
 .globl _su_reset_data
+.globl _su_get_key_pressed
 
 ;;CONSTANTES

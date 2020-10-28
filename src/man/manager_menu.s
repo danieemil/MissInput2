@@ -82,7 +82,7 @@ mml_default_option:
         ld (mg_game_state), a
 
         call _mg_game_init
-        call _mg_game_loop
+        jp _mg_game_loop
 
 
     mml_check_multipayer:
@@ -93,7 +93,7 @@ mml_default_option:
         ld (mg_game_state), a
 
         call _mg_game_init
-        call _mg_game_loop
+        jp _mg_game_loop
 
     mml_check_controls:
     cp #0x03

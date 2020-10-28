@@ -1,17 +1,17 @@
 .include "ent/entity_enemy.h.s"
 
-.macro DefineEntityPlayer _ep_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy, _anim_index
+.macro DefineEntityPlayer _ep_name, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy, _anim_index, _player_attr
 _ep_name:
     DefineEntityDrawable _ep_name'_ed, _x, _y, _w, _h, _vx, _vy, _attributes, _sprite, _spr_w, _spr_h, _spr_size, _ox, _oy, _anim_index
     
-    .db #0x0E   ;;Offset de la tabla de saltos
-    .db #0x00   ;;Indica si esta chocando con una pared y su orientacion
-    .db #0x00   ;;Force X
-    .db #0x00   ;;Score [Centenas de Millar, Decenas de Millar]
-    .db #0x00   ;;Score [Millares, Centenas]
-    .db #0x00   ;;Score [Decenas, Unidades]
-    .db #0x00   ;;Deaths
-    .db #0xa0   ;;Player Attributes
+    .db #0x0E           ;;Offset de la tabla de saltos
+    .db #0x00           ;;Indica si esta chocando con una pared y su orientacion
+    .db #0x00           ;;Force X
+    .db #0x00           ;;Score [Centenas de Millar, Decenas de Millar]
+    .db #0x00           ;;Score [Millares, Centenas]
+    .db #0x00           ;;Score [Decenas, Unidades]
+    .db #0x00           ;;Deaths
+    .db _player_attr    ;;Player Attributes
 
     _ep_name'_size = . - _ep_name ;; Saves the number of bytes that fills a DefineEntity
 .endm
@@ -53,12 +53,12 @@ _ep_size        = 8 + _ed_size
 ;7   J -> Allow Jump (1->NO Jump, 0->Can jump)
 ;6   D -> In Door (1 -> Esta en la puerta, 0 -> NO esta en la puerta)
 ;5   E -> End Level (1 -> Animacion entrar puerta)
-;4   . -> 
+;4   d -> Player dead (1 -> El jugador ha muerto)
 ;3   . -> 
 ;2   . -> 
 ;1   . -> 
-;0   . -> 
+;0   P -> Indica qué jugador es (1 -> Jugador 2, 0 -> Jugador 1)
 
 ;
-;M V O G W H R D
+;J D E d . . . P
 ;1 0 0 0 0 0 0 0

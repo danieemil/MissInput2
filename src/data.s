@@ -14,6 +14,11 @@ level_index:
     .db #0x00       ;;Level Attr
     .db #0x00       ;;Palette
 
+    ;;LEVEL 01
+    .dw _map_00_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
+    .db #0x00       ;;Palette
+
 ;;Level Attr [C c 0 0 0 0 0 0]
 ; C -> Completed (1 -> Nivel Completado, 0 -> Nivel NO Completado)
 ; c -> Collecable (1 -> Collectable Cogido, 0 -> Collectable NO Cogido)

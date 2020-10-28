@@ -337,3 +337,63 @@ _su_reset_data:
     ld (checkpoint_level), a
 
     ret
+
+
+
+
+
+;;==================================================================
+;;                        GET KEY PRESSED
+;;------------------------------------------------------------------
+;; Devuelve el valor de la primera tecla pulsada
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  NONE
+;;
+;; OUTPUT:
+;;  DE -> Valor de la tecla pulsada (la primera que encuentra al recorrer el buffer)
+;;  F(Carry) -> Si el carry flag está seteado es que ha pulsado alguna tecla
+;;
+;; DESTROYS:
+;;   AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: []
+;;==================================================================
+_su_get_key_pressed:
+
+    ;; Escanear teclado
+    halt
+    call cpct_scanKeyboard_asm
+
+    xor a
+    call cpct_isAnyKeyPressed_f_asm
+    cp #0x00
+    ret z
+
+
+    ld hl, #_cpct_keyboardStatusBuffer
+    ;; Iterar sobre el keyboard status buffer para sacar la tecla pulsada
+    cka_keyboard_loop:
+    ld e, #0x00
+    lines_loop:
+        ld a, (hl)
+        ld d, #0x01
+
+        bits_loop:
+            srl a
+            ret c
+            sla d
+        jr nc, bits_loop
+
+    inc hl
+    inc e
+    cp #0x0A
+    jr nz, lines_loop
+
+    ;; Resetear la carry flag
+    xor a
+    
+
+    ret

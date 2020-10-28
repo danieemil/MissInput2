@@ -667,7 +667,7 @@ mpp_no_change_gravity:
 mpp_collision_x_dangerous:                          ;;PELIGROSOS X
         cp #DANGEROUS
         jr nz, mpp_collision_x_solid
-            jr mpp_no_map_collision_x
+            jp _sp_player_death
 
 mpp_collision_x_solid:                              ;;SOLIDOS X
         cp #SOLID
@@ -701,7 +701,7 @@ mpp_no_map_collision_x:
 mpp_collision_y_dangerous:                          ;;PELIGROSOS Y
         cp #DANGEROUS
         jr nz, mpp_collision_y_solid
-            jr mpp_no_map_collision_y
+            jp _sp_player_death
 
 mpp_collision_y_solid:                              ;;SOLIDOS Y
         cp #SOLID
@@ -725,15 +725,8 @@ mpp_no_map_collision_y:
     cp #0x00
     jr z, mpp_no_enemy
 
-        ;; El jugador muere
-        push iy
-        pop hl
-        call _mp_init_player
-        ld a, (checkpoint_x)
-        ld _eph_x(iy), a
-        ld a, (checkpoint_y)
-        ld _eph_y(iy), a
-        inc _ep_deaths(iy)
+        jp _sp_player_death
+
 
 
     ;.db #0xDD, #0x5D        ;; OPCODE ld e, ixl
@@ -769,6 +762,13 @@ mpp_no_enemy:
         ld _ed_spr_l(ix), l
         ld _ed_spr_h(ix), h
         ld _ei_type(ix), #0x00
+
+        ld a, #0x04
+        ld (tries), a
+
+        ld a, (actual_level)
+        ld (checkpoint_level), a
+
         ret
 
 mpp_check_double_jump_item:
@@ -1375,3 +1375,84 @@ acg_check_fall:
 acg_check_end:
     ld _ep_jump_state(iy), a
     ret
+
+
+
+
+;;==================================================================
+;;                    APPLY PLAYER DEATH
+;;------------------------------------------------------------------
+;; Mata al jugador teniendo en cuenta el estado actual del juego
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  
+;;  IY  -> Puntero al jugador
+;;
+;; OUTPUT:
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sp_player_death:
+;; El jugador muere
+    push iy
+    pop hl
+    ld ix, #player_1
+    ld a, _ep_player_attr(iy)
+    and #0b00000001
+    jr nz, pd_is_player_2
+        ld ix, #player_2
+
+    pd_is_player_2:
+
+    call _mp_init_player
+
+    ld a, (checkpoint_x)
+    ld _eph_x(iy), a
+    ld a, (checkpoint_y)
+    ld _eph_y(iy), a
+    inc _ep_deaths(iy)
+    ;set X, _ep__ep_player_attr(iy) -> Animación de morir
+
+
+    ld a, (tries)
+    cp #0x04
+    ret z
+
+    cp #0xFF
+    jr nz, pd_staying_alive
+        set 4, _ep_player_attr(iy)      ; Quedarse muerto
+
+        ld a, (mg_game_state)
+        cp #GS_SINGLEPLAYER
+        jr z, pd_checkpoint_level
+
+        bit 4, _ep_player_attr(ix)      ; Si está muerto del todo
+        ret z
+
+        pd_checkpoint_level:
+        ld a, (checkpoint_level)
+        ld (actual_level), a
+
+        call _mg_game_init
+        jp _mg_game_loop
+
+
+    pd_staying_alive:
+    ld a, (tries)
+    dec a
+    ld (tries), a
+    ret nz
+
+    ld a, (actual_level)
+    inc a
+    ld (actual_level), a
+
+    call _mg_game_init
+    jp _mg_game_loop
+
+

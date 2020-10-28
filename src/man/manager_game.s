@@ -14,8 +14,8 @@
 
     ;CHECKPOINT DATA
     checkpoint_x::   .db #0x10
-    checkpoint_y::   .db #0x30
-    checkpoint_level:: .db #0xFF
+    checkpoint_y::   .db #0xA7
+    checkpoint_level:: .db #0x00
 
     ;INTERACTABLE DATA
     door_id:: .db #0x00
@@ -102,10 +102,19 @@ _mg_game_init:
 
     ld a, #0xFF
     ld (transition), a
-    ld a, #0x04
     ld (tries), a
     ld hl, #0x0100
     ld (level_score), hl
+
+    ld a, (actual_level)
+    ld b, a
+    ld a, (checkpoint_level)
+    sub b
+    jr nz, gi_calavera
+        ld a, #0x04
+        ld (tries), a
+
+    gi_calavera:
 
     call _sl_generate_level
     
@@ -186,7 +195,13 @@ _mg_game_loop:
     ld  a, (p1_key_gameplay)
     ld  e, a
 
+
+
     ld a, _ep_player_attr(iy)
+    ld b, a
+    and #0b00010000
+    jr nz, gl_check_p2_physics
+    ld a, b
     and #0b01100000
     jr z, gl_no_p1_in_door
 
@@ -196,11 +211,14 @@ _mg_game_loop:
     call _sy_manage_player_physics  ;;Aplicamos las fisicas al jugador 1
 
 
+    gl_check_p2_physics:
+
     pop de
     ld a, (mg_game_state)
     cp #GS_MULTIPLAYER              ;;Comprobamos si esta en modo multijugador
     jr nz, gl_no_p2_physics
 
+    
     ;Fisicas P2
     ld iy, #player_2
     push de
@@ -220,6 +238,10 @@ _mg_game_loop:
     ld e, a
 
     ld a, _ep_player_attr(iy)
+    ld b, a
+    and #0b00011000
+    jr nz, gl_no_p2_physics
+    ld a, b
     and #0b01100000
     jr z, gl_no_p2_in_door
 
@@ -335,6 +357,17 @@ gl_continue_enemy_animation:
 
 gl_end_physics:;------------------------
 
+    ld iy, #player_2
+    bit 4, _ep_player_attr(iy)
+    jr z, gl_check_p2_render
+        ld iy, #player_1
+        bit 4, _ep_player_attr(iy)
+        jr z, gl_no_p2_render
+        jr gl_no_p1_render
+
+
+
+gl_check_p2_render:
     ;;Animaciones del jugador 2
     ld a, (mg_game_state)
     cp #GS_MULTIPLAYER              ;;Comprobamos si esta en modo multijugador
@@ -348,13 +381,17 @@ gl_end_physics:;------------------------
 
 gl_no_p2_render:
 
-    ;;Animaciones del jugador 1
     ld iy, #player_1
+    bit 4, _ep_player_attr(iy)
+    jr nz, gl_no_p1_render
+    ;;Animaciones del jugador 1
+    
     call _sr_manage_player_animations
     ld hl, #0x0000
     call _sr_apply_animation
     call _sr_draw_entity
 
+gl_no_p1_render:
 
     call _sr_swap_buffers
     call cpct_waitVSYNC_asm
