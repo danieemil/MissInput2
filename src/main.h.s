@@ -44,12 +44,12 @@ SCREEN_W = 80
 SCREEN_H = 200
 
 ;;TILEMAP CONSTS
-HUD_SIZE            = 80*3
+HUD_SIZE            = 80*2
 TILEMAP_VMEM_START  = 0xC000+HUD_SIZE
 TILEMAP_START       = 0x3000
 TILEMAP_SIZE        = TILEMAP_W * TILEMAP_H
 TILEMAP_W           = 20
-TILEMAP_H           = 22
+TILEMAP_H           = 23
 TILE_SIZE           = 4 * 8
 TILE_W              = 4
 TILE_H              = 8

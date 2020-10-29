@@ -1,6 +1,8 @@
 ;;DEPENDENCIAS
 .include "main.h.s"
 
+.globl _sr_update_hud_player_data
+
 .globl actual_level
 
 .globl checkpoint_level

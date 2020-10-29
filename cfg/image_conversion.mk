@@ -62,6 +62,7 @@ $(eval $(call IMG2SP, CONVERT         , assets/old/Checkpoint_top_sprite_01.png 
 $(eval $(call IMG2SP, CONVERT         , assets/old/pruebaCollectable.png , 8, 8, collectable_spr	))
 $(eval $(call IMG2SP, CONVERT         , assets/DoorSprites.png , 8, 11, door_spr	))
 $(eval $(call IMG2SP, CONVERT         , assets/HUDSprites.png , 4, 5, hud_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/HUDSkullSprites.png , 8, 7, hud_skull_spr	))
 
 
 

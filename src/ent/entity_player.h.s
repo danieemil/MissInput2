@@ -10,8 +10,8 @@ _ep_name:
     .db #0x00           ;;Score [Centenas de Millar, Decenas de Millar]
     .db #0x00           ;;Score [Millares, Centenas]
     .db #0x00           ;;Score [Decenas, Unidades]
-    .db #0x99           ;;Deaths [Millares, Centenas]
-    .db #0x50           ;;Deaths [Decenas, Unidades]
+    .db #0x00           ;;Deaths [Millares, Centenas]
+    .db #0x00           ;;Deaths [Decenas, Unidades]
     .db _player_attr    ;;Player Attributes
 
     _ep_name'_size = . - _ep_name ;; Saves the number of bytes that fills a DefineEntity

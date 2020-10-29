@@ -30,20 +30,28 @@ _su_add_score:
 
     ld a, _ep_score_du(iy)
     add e
+    add #0x00
     daa
     ld _ep_score_du(iy), a
 
     ld a, _ep_score_mc(iy)
     adc d
+    add #0x00
     daa
     ld _ep_score_mc(iy), a
-    ret nc
+    jr nc, as_add_score_end
 
     ld a, _ep_score_cdm(iy)
     inc a
     add #0x00
     daa 
     ld _ep_score_cdm(iy), a
+
+
+as_add_score_end:
+
+    ld a, #0x01
+    call _sr_update_hud_player_data
 
     ret
 

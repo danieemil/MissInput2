@@ -26,6 +26,8 @@
 
 .globl _sr_apply_animation
 .globl _sr_draw_HUD
+.globl _sr_fill_backbuffer
+.globl _sr_update_hud_skull
 
 .globl _su_add_score
 

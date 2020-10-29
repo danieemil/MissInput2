@@ -27,7 +27,7 @@
 ;;==================================================================
 _sl_generate_level:
 
-
+    
 ;; Primero descomprimimos el mapa en memoria
 
     ;;DE -> Final del destino en memoria del mapa
@@ -68,8 +68,7 @@ _sl_generate_level:
 
 
         ;; Sacar la posición del tile en coordenadas X e Y
-        inc c
-        inc c
+        inc c   ;; El tilemap es tres tiles menor que la pantalla, por eso se le suma 3 a la Y   
         inc c
 
         sla b
@@ -421,6 +420,10 @@ mel_loop_find_door_end:
     ret z
 
         set 0, _eph_attributes(iy)
+        ld a, #0x03
+        ld (tries), a
+    
+        call _sr_update_hud_skull
 
 mel_door_opened:
 
@@ -447,16 +450,10 @@ mel_door_opened_check_p2:
 
 mel_door_opened_end:
 
-    ld h, #0x00
-    ld a, l
-    ld d, #0x25
-    sub d
-    daa
-    ld l, a
+    ld hl, #0x0075
     ld (level_score), hl
 
-    ld a, #0x03
-    ld (tries), a
+    
     
     ld a, (mg_game_state)
     cp #GS_SINGLEPLAYER
