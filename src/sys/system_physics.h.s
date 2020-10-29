@@ -21,3 +21,4 @@
 .globl _mg_game_loop
 
 .globl tries
+.globl transition

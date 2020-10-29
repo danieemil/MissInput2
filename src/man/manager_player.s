@@ -54,10 +54,13 @@ _mp_init_players:
 ;;==================================================================
 
 _mp_init_player:
-    ld (hl), #0x00              ;; _x
+
+    xor a
+
+    ld (hl), a                  ;; _x
     inc hl
 
-    ld (hl), #0x00              ;; _y
+    ld (hl), a                  ;; _y
     inc hl
 
     ld (hl), #PLAYER_EPH_W      ;; _w
@@ -66,22 +69,22 @@ _mp_init_player:
     ld (hl), #PLAYER_EPH_H      ;; _h
     inc hl
 
-    ld (hl), #0x00              ;; _vx
+    ld (hl), a                  ;; _vx
     inc hl
 
-    ld (hl), #0x00              ;; _vy
+    ld (hl), a                  ;; _vy
     inc hl
 
-    ld (hl), #0x00              ;; _offset
+    ld (hl), a                  ;; _offset
     inc hl
 
     ld (hl), #PLAYER_EPH_ATTR   ;; _attributes
     inc hl
 
-    ld (hl), #0x00              ;; _sprite_l
+    ld (hl), a                  ;; _sprite_l
     inc hl
 
-    ld (hl), #0x00              ;; _sprite_h
+    ld (hl), a                  ;; _sprite_h
     inc hl
 
     ld (hl), #PLAYER_ED_W       ;; _sprite_wi
@@ -93,56 +96,56 @@ _mp_init_player:
     ld (hl), #PLAYER_ED_SPR_SIZE;; _sprite_size
     inc hl
 
-    ;ld (hl), #0x00              ;; _prev_x
+    ;ld (hl), a                 ;; _prev_x
     inc hl
     
-    ;ld (hl), #0x00              ;; _prev_y
+    ;ld (hl), a                 ;; _prev_y
     inc hl
 
-    ;ld (hl), #0x00              ;; _prev_o
+    ;ld (hl), a                 ;; _prev_o
     inc hl
 
-    ld (hl), #0x00              ;; _ox
+    ld (hl), a                  ;; _ox
     inc hl
 
-    ld (hl), #0x00              ;; _oy
+    ld (hl), a                  ;; _oy
     inc hl
 
-    ld (hl), #>anim_player_jump_R;; _anim_index_l
+    ld (hl), #>anim_player_jump_R;; _anim_index_h
     inc hl
 
-    ld (hl), #<anim_player_jump_R;; _anim_index_h
+    ld (hl), #<anim_player_jump_R;; _anim_index_l  porque Enrique lo hizo así
     inc hl
 
-    ld (hl), #0x00              ;; _anim_pos
+    ld (hl), a                  ;; _anim_pos
     inc hl
 
-    ld (hl), #0x00              ;; _anim_dur
+    ld (hl), a                  ;; _anim_dur
     inc hl
 
     ld (hl), #JT_ON_GROUND      ;; _offset_Jump_Table
     inc hl
 
-    ld (hl), #0x00              ;; _offset_wall
+    ld (hl), a                  ;; _offset_wall
     inc hl
 
-    ld (hl), #0x00              ;; _forced_x
+    ld (hl), a                  ;; _forced_x
     inc hl
 
-    ;ld (hl), #0x00              ;; _score_cm_dm
+    ;ld (hl), a                 ;; _score_cm_dm
     inc hl
 
-    ;ld (hl), #0x00              ;; _score_m_c
+    ;ld (hl), a                 ;; _score_m_c
     inc hl
 
-    ;ld (hl), #0x00              ;; _score_d_u
+    ;ld (hl), a                 ;; _score_d_u
     inc hl
 
-    ;ld (hl), #0x00              ;; _deaths
+    ;ld (hl), a                 ;; _deaths
     inc hl
 
     ld a, (hl)
-    and #0b00001001
+    and #0b00010001
 
     ld (hl), a               ;; _player_attr
     inc hl

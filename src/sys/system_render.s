@@ -616,6 +616,7 @@ _sr_apply_animation:
         ld _ed_anim_ind_h(iy), d
         ld _ed_anim_ind_l(iy), e
         ld c, #0xFF
+        ld b, #0x00
         ld _ed_anim_pos(iy), c
         ld _ed_anim_dur(iy), b
         jr aa_continue_animation_no_load

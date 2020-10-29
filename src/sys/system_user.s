@@ -300,7 +300,6 @@ _su_get_menu_key_input:
 ;;==================================================================
 _su_reset_data:
 
-    
     ld iy, #player_1
     ld b, #0x02
     xor a
@@ -333,8 +332,13 @@ _su_reset_data:
     dec b
     jr nz, rd_levels_loop
 
-    dec a
     ld (checkpoint_level), a
+
+    ld a, #0x10
+    ld (checkpoint_x), a
+    ld a, #0xA7
+    ld (checkpoint_y), a
+    
 
     ret
 

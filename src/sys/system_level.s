@@ -51,7 +51,7 @@ _sl_generate_level:
 ;; En el caso de que sea el id de una entidad,
 ;; añadimos la entidad en esa posición del tilemap
 
-    
+
     ld hl, #TILEMAP_START
     ld de, #TILEMAP_SIZE
     ld bc, #0x0000
@@ -464,10 +464,12 @@ mel_door_opened_end:
 
 mel_check_multiplayer:
     ld iy, #player_1
-    bit 5, _ep_player_attr(iy)
+    ld a, _ep_player_attr(iy)
+    and #0b00110000
     ret z
     ld iy, #player_2
-    bit 5, _ep_player_attr(iy)
+    ld a, _ep_player_attr(iy)
+    and #0b00110000
     ret z
 
         ld a, #0x45

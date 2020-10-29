@@ -1432,12 +1432,27 @@ _sp_player_death:
         jr z, pd_checkpoint_level
 
         bit 4, _ep_player_attr(ix)      ; Si está muerto del todo
-        ret z
+        jr nz, pd_checkpoint_level
+
+            bit 5, _ep_player_attr(ix)
+            ret z
+
+            ld a, #0x45
+            ld (transition), a
+
+            ret
 
         pd_checkpoint_level:
+
+        ;; Revivir a los jugadores
+        res 4, _ep_player_attr(iy)
+        res 4, _ep_player_attr(ix)
+
+        ;; Volver al último checkpoint
         ld a, (checkpoint_level)
         ld (actual_level), a
 
+        pd_init_level:
         call _mg_game_init
         jp _mg_game_loop
 
