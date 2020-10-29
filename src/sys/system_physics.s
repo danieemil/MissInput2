@@ -769,6 +769,28 @@ mpp_no_enemy:
         ld a, (actual_level)
         ld (checkpoint_level), a
 
+        ;; Si el otro jugador estaba muerto le revivimos
+        ld ix, #player_2
+        bit 0, _ep_player_attr(iy)
+        jr z, mpp_is_player_1
+            ld ix, #player_1
+
+        mpp_is_player_1:
+        res 4, _ep_player_attr(ix)
+        push ix
+        pop hl
+        call _mp_init_player
+
+        ;; Posicionar al jugador revivido en el checkpoint
+        ld a, (checkpoint_x)
+        ld _eph_x(ix), a
+        ld _ed_pre_x(ix), a
+        ld a, (checkpoint_y)
+        ld _eph_y(ix), a
+        ld _ed_pre_y(ix), a
+
+
+
         ret
 
 mpp_check_double_jump_item:
@@ -1453,6 +1475,15 @@ _sp_player_death:
         ld (actual_level), a
 
         pd_init_level:
+
+        ;; Pantalla de transición entre niveles
+        ld b, #0x0F
+        call _sr_fill_backbuffer
+        call _sr_copy_back_to_front
+
+        ld b, #0xF0
+        call cpct_waitHalts_asm
+
         call _mg_game_init
         jp _mg_game_loop
 
@@ -1466,6 +1497,14 @@ _sp_player_death:
     ld a, (actual_level)
     inc a
     ld (actual_level), a
+
+    ;; Pantalla de transición entre niveles
+    ld b, #0x00
+    call _sr_fill_backbuffer
+    call _sr_copy_back_to_front
+        
+    ld b, #0xF0
+    call cpct_waitHalts_asm
 
     call _mg_game_init
     jp _mg_game_loop

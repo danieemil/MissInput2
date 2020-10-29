@@ -273,6 +273,15 @@ gl_end_level_continue:
         jr nz, gl_no_transition
 
             ;CAMBIO DE NIVEL
+
+            ;; Pantalla de transición entre niveles
+            ld b, #0x00
+            call _sr_fill_backbuffer
+            call _sr_copy_back_to_front
+            
+            ld b, #0xA0
+            call cpct_waitHalts_asm
+
             call _mg_game_init
             jp _mg_game_loop
 

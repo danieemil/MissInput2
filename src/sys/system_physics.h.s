@@ -1,6 +1,8 @@
 .include "main.h.s"
 .include "sys/system_user.h.s"
 
+.globl _sr_copy_back_to_front
+.globl _sr_fill_backbuffer
 
 .globl _sp_move_entity_x
 .globl _sp_move_entity_y
