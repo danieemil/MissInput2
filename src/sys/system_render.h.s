@@ -14,5 +14,6 @@
 .globl _sr_manage_player_animations
 .globl _sr_copy_back_to_front
 .globl _sr_draw_HUD
+.globl _sr_update_hud_player_data
 
 .globl _sr_apply_animation

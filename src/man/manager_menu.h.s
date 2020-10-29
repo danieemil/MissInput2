@@ -5,6 +5,8 @@
 
     .globl _sr_decompress_image_on_video_memory
 
+    .globl _su_reset_data
+
 ;;FUNCIONES
 .globl _mm_main_menu_init
 .globl _mm_main_menu_loop

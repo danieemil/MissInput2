@@ -51,7 +51,7 @@ _sl_generate_level:
 ;; En el caso de que sea el id de una entidad,
 ;; añadimos la entidad en esa posición del tilemap
 
-    
+
     ld hl, #TILEMAP_START
     ld de, #TILEMAP_SIZE
     ld bc, #0x0000
@@ -285,15 +285,17 @@ _sl_generate_level:
                 jp nz, gl_check_interactable_collectable
                     ld (hl), #0x00
                     ld a, (checkpoint_level)
-                    cp #0x00
+                    ld d, a
+                    ld a, (actual_level)
+                    sub d
                     jr nz, gl_init_players
                         ld hl, #checkpoint_x
-                        ld (hl), b
+                        ld b, (hl)
                         inc hl
-                        ld (hl), c
-                    
+                        ld c, (hl)                    
                     
                     gl_init_players:
+
                     ld iy, #player_1
                     ld _eph_x(iy), b
                     ld _ed_pre_x(iy), b
@@ -446,6 +448,9 @@ mel_door_opened_end:
     daa
     ld l, a
     ld (level_score), hl
+
+    ld a, #0x03
+    ld (tries), a
     
     ld a, (mg_game_state)
     cp #GS_SINGLEPLAYER
@@ -458,10 +463,12 @@ mel_door_opened_end:
 
 mel_check_multiplayer:
     ld iy, #player_1
-    bit 5, _ep_player_attr(iy)
+    ld a, _ep_player_attr(iy)
+    and #0b00110000
     ret z
     ld iy, #player_2
-    bit 5, _ep_player_attr(iy)
+    ld a, _ep_player_attr(iy)
+    and #0b00110000
     ret z
 
         ld a, #0x45

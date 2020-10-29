@@ -14,6 +14,11 @@ level_index:
     .db #0x00       ;;Level Attr
     .db #0x00       ;;Palette
 
+    ;;LEVEL 01
+    .dw _map_00_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
+    .db #0x00       ;;Palette
+
 ;;Level Attr [C c 0 0 0 0 0 0]
 ; C -> Completed (1 -> Nivel Completado, 0 -> Nivel NO Completado)
 ; c -> Collecable (1 -> Collectable Cogido, 0 -> Collectable NO Cogido)
@@ -23,6 +28,24 @@ level_index:
 ; - ->
 ; - ->
 ; - ->
+
+
+
+_hud_number_index:
+    .dw _hud_spr_00
+    .dw _hud_spr_01
+    .dw _hud_spr_02
+    .dw _hud_spr_03
+    .dw _hud_spr_04
+    .dw _hud_spr_05
+    .dw _hud_spr_06
+    .dw _hud_spr_07
+    .dw _hud_spr_08
+    .dw _hud_spr_09
+
+
+
+
 
 
 ;;PLAYER ANIMATIONS ----------------------------

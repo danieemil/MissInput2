@@ -11,6 +11,7 @@
 .globl transition
 .globl actual_level
 .globl actual_level_attr
+.globl tries
 
 .globl mg_game_state
 

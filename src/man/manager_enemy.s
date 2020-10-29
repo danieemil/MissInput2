@@ -104,6 +104,7 @@ _me_add_enemy:
 
     ld (hl), b                  ;; _x
     inc hl
+    
     ld (hl), c                  ;; _y
     inc hl
 

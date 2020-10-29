@@ -1,6 +1,15 @@
 ;;DEPENDENCIAS
 .include "main.h.s"
 
+.globl actual_level
+
+.globl checkpoint_level
+
+.globl timer_state
+.globl seconds_dc
+.globl seconds
+.globl minutes
+
 .globl p1_key_gameplay
 .globl p2_key_gameplay
 
@@ -25,10 +34,13 @@
 .globl Key_Esc      ;; Volver al menú anterior
 
 
+
+
 ;;FUNCIONES
 .globl _su_get_key_input
 .globl _su_add_score
 .globl _su_get_menu_key_input
-
+.globl _su_reset_data
+.globl _su_get_key_pressed
 
 ;;CONSTANTES

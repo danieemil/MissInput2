@@ -616,6 +616,7 @@ _sr_apply_animation:
         ld _ed_anim_ind_h(iy), d
         ld _ed_anim_ind_l(iy), e
         ld c, #0xFF
+        ld b, #0x00
         ld _ed_anim_pos(iy), c
         ld _ed_anim_dur(iy), b
         jr aa_continue_animation_no_load
@@ -756,9 +757,9 @@ _sr_copy_back_to_front:
 
 
 ;;==================================================================
-;;                COPY BACKBUFFER TO FRONTBUFFER
+;;                           DRAW HUD
 ;;------------------------------------------------------------------
-;; Copia el backbuffer en el frontbuffer
+;; Dibuja el HUD
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -957,4 +958,146 @@ dh_draw_hud_line_loop:
     call cpct_drawSprite_asm        ;Icono P2 2
     pop de
 
+    ld iy, #player_1
+    ld a, #0x00
+    call _sr_update_hud_player_data
+
+    ret
+
+
+
+
+;;==================================================================
+;;                       UPDATE HUD PLAYER DATA
+;;------------------------------------------------------------------
+;; Dibuja el HUD
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  IY -> player_ptr
+;;   A -> Info to update (0 -> muertes, 1 -> puntuacion)
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL, AF'
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_update_hud_player_data:
+
+    ex af, af'
+    bit 0, _ep_player_attr(iy)
+    jr z, uhpd_player_1_data
+
+        ld de, #HUD_P2_SCORE
+        ld bc, #HUD_P2_DEATHS
+        jr uhpd_player_data_selected
+
+uhpd_player_1_data:
+
+        ld de, #HUD_P1_SCORE
+        ld bc, #HUD_P1_DEATHS
+
+uhpd_player_data_selected:
+
+    ex af, af'
+    cp #0x00
+    jr z, uhpd_update_deaths
+
+        ret
+
+uhpd_update_deaths:
+
+    ld d, b
+    ld e, c
+
+    ld a, #0x02
+
+uhpd_draw_deaths_loop:
+    ex af, af'
+    push de
+    
+        ld a, _ep_deaths_mc(iy)
+        push de
+        call _sr_draw_number_2d
+        pop de
+
+        inc de
+        inc de
+        ld a, _ep_deaths_du(iy)
+        call _sr_draw_number_2d
+    
+    pop de
+    ld a, #0x40
+    add d
+    ld d, a
+
+    ex af, af'
+    dec a
+    jr nz, uhpd_draw_deaths_loop
+    
+    ret
+
+;;==================================================================
+;;                        DRAW NUMBER 2D
+;;------------------------------------------------------------------
+;; Dibuja dos digitos de un numero formateado con BCD
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  DE -> Vmem ptr
+;;   A -> Numero a dibujar
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_draw_number_2d:
+
+    
+    push af
+    and #0b11110000
+    srl a
+    srl a
+    srl a
+    ld c, a
+    ld b, #0x00
+    ;;C -> Digito Izquierda * 2
+    ld hl, #_hud_number_index
+    add hl, bc
+    ld c, (hl)
+    inc hl 
+    ld b, (hl)
+    ld h ,b
+    ld l ,c
+    ld bc, #0x0501
+    push de
+    call cpct_drawSprite_asm
+    pop de
+
+    inc de
+    pop af
+    and #0b00001111
+    sla a
+    ld c, a
+    ld b, #0x00
+    ;;C -> Digito Derecha * 2
+    ld hl, #_hud_number_index
+    add hl, bc
+    ld c, (hl)
+    inc hl 
+    ld b, (hl)
+    ld h ,b
+    ld l ,c
+    ld bc, #0x0501
+    call cpct_drawSprite_asm
+    
     ret

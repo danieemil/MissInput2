@@ -46,7 +46,7 @@ SCREEN_H = 200
 ;;TILEMAP CONSTS
 HUD_SIZE            = 80*3
 TILEMAP_VMEM_START  = 0xC000+HUD_SIZE
-TILEMAP_START    = 0x3000
+TILEMAP_START       = 0x3000
 TILEMAP_SIZE        = TILEMAP_W * TILEMAP_H
 TILEMAP_W           = 20
 TILEMAP_H           = 22
@@ -168,10 +168,11 @@ _ep_force_x     = 2 + _ed_size ;;Force X
 _ep_score_cdm   = 3 + _ed_size ;;Score [Centenas de Millar, Decenas de Millar]
 _ep_score_mc    = 4 + _ed_size ;;Score [Millares, Centenas]
 _ep_score_du    = 5 + _ed_size ;;Score [Decenas, Unidades]
-_ep_deaths      = 6 + _ed_size ;;Deaths
-_ep_player_attr = 7 + _ed_size ;;Player Attributes
+_ep_deaths_mc   = 6 + _ed_size ;;Deaths [Millares, Centenas]
+_ep_deaths_du   = 7 + _ed_size ;;Deaths [Decenas, Unidades]
+_ep_player_attr = 8 + _ed_size ;;Player Attributes
 
-_ep_size        = 8 + _ed_size
+_ep_size        = 9 + _ed_size
 
 ;;PLAYERS
 .globl player_1

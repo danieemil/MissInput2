@@ -6,27 +6,16 @@
 
 ;HUD COSAS
 ;                         ptr
-HUD_P1_BOX              = 0x0000
-HUD_P1_ICON_1           = 0x2801
-HUD_P1_ICON_2           = 0x2802
-HUD_P1_SKULL_ICON_1     = 0x2805
-HUD_P1_SKULL_ICON_2     = 0x2806
-HUD_P1_SEPARATION       = 0x1812
+HUD_P1_DEATHS   = 0xA807
+HUD_P2_DEATHS   = 0xA847
 
-HUD_P1_BOX              = 0x0000
-HUD_P1_ICON             = 0x0000
-HUD_P1_SKULL_ICON       = 0x0000
-HUD_P1_DEATHS           = 0x0000 
-HUD_P1_SEPARATION       = 0x0000
-HUD_P1_SCORE            = 0x0000
-
-HUD_SULL_SEPARATION_L   = 0x0000
-HUD_SULL_SEPARATION_R   = 0x0000
-HUD_SULL_1              = 0x0000
-HUD_SULL_2              = 0x0000
-HUD_SULL_3              = 0x0000
+HUD_P1_SCORE    = 0xA80E
+HUD_P2_SCORE    = 0xA83B
 
 
+
+
+NUM_LEVELS = 2
 
 ;;SPRITES
 .globl _checkpoint_top_spr_0
@@ -77,6 +66,8 @@ HUD_SULL_3              = 0x0000
 .globl _hud_spr_02
 .globl _hud_spr_01
 .globl _hud_spr_00
+
+.globl _hud_number_index
 
 ;;SPRITE SIZE
 SPR_PLAYER_SIZE = 2 * 3 * 8
