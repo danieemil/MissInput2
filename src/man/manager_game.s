@@ -18,8 +18,8 @@
     checkpoint_level:: .db #0x00
 
     ;INTERACTABLE DATA
-    door_id:: .db #0x00
-    collectable_id:: .db #0x00
+    door_id:: .db #0xFF
+    collectable_id:: .db #0xFF
 
     p1_key_gameplay:: .db #0x00         ;; bit0 -> Actual key_j  |  bit1 -> Previous key_j  |  bit 3 -> No Jump
     p2_key_gameplay:: .db #0x00

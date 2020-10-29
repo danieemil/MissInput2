@@ -776,6 +776,9 @@ mpp_no_enemy:
             ld ix, #player_1
 
         mpp_is_player_1:
+        bit 4, _ep_player_attr(ix)
+        ret z
+         
         res 4, _ep_player_attr(ix)
         push ix
         pop hl
