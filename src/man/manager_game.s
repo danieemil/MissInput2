@@ -126,8 +126,11 @@ _mg_game_init:
     ld de, #TILEMAP_START
     call cpct_etm_drawTilemap4x8_ag_asm
 
+    call _sr_draw_HUD
+
     ;; Copiar tilemap en el frontbuffer
     call _sr_copy_back_to_front
+    
 
     ret
     

@@ -363,7 +363,6 @@ _sl_generate_level:
         ld _ed_spr_l(ix), l
         ld _ed_spr_h(ix), h
 
-
 ret
 
 
