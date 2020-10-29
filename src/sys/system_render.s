@@ -788,3 +788,349 @@ _sr_fill_backbuffer:
     ldir
 
     ret
+
+
+;;==================================================================
+;;                           DRAW HUD
+;;------------------------------------------------------------------
+;; Dibuja el HUD
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  NONE
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_draw_HUD:
+
+;IZQUIERDA ------------------------------------------------------------
+
+;Dibujamos la linea de separacion entre el juego y el HUD    
+    ld a, (mg_back_buffer)
+    add #0x38
+    ld h, a
+    ld b, #0x50
+    ld l, b
+    ld a, #0xFF
+dh_draw_hud_line_loop:
+
+        ld (hl), a
+        inc hl
+
+    dec b
+    jr nz, dh_draw_hud_line_loop
+
+
+;Dibujamos los iconos de P1 y P2
+
+    ld a, (mg_back_buffer)
+    ld d, a
+    ld e, #0x00
+    ld bc, #0x0F04
+    ld a, #0xFF
+    
+    push de
+    call cpct_drawSolidBox_asm      ;Dibujamos el fondo blanco
+    pop de
+
+    ld hl, #0x2801
+    add hl, de
+    ld de, #_hud_spr_12
+    ex de, hl
+    ld bc, #0x0501
+    push de
+    call cpct_drawSprite_asm        ;Icono de P1 1
+    pop de
+
+    inc de
+    ld hl, #_hud_spr_13
+    ld bc, #0x0501
+    push de
+    call cpct_drawSprite_asm        ;Icono de P1 2
+    pop de
+
+    inc de
+    inc de
+    inc de
+    ld hl, #_hud_spr_10
+    ld bc, #0x0501
+    push de
+    call cpct_drawSprite_asm        ;Icono Muertes 1
+    pop de
+
+    inc de
+    ld hl, #_hud_spr_11
+    ld bc, #0x0501
+    push de
+    call cpct_drawSprite_asm        ;Icono Muertes 2
+    pop de
+
+    ld a, #0x06
+    add e
+    ld e, a
+    ld a, #0x10
+    sub d
+    neg
+    ld d, a
+    ld bc, #0x0901
+    ld a, #0xF4
+    push de
+    call cpct_drawSolidBox_asm      ;Separacion Muertes/Puntuacion 1
+    pop de
+
+
+    ld a, #0x08
+    add e
+    ld e, a
+    ld a, #0x10
+    add d
+    ld d, a
+    ld hl, #_hud_spr_00
+    ld bc, #0x0501
+    push de
+    call cpct_drawSprite_asm        ;Ultimo digito de puntiacion 1
+    pop de
+
+
+
+    ld a,#0x0E
+    add e
+    ld e, a
+    ld a, (mg_back_buffer)
+    ld d, a
+    ld bc, #0x0F01
+    ld a, #0xF5
+    push de
+    call cpct_drawSolidBox_asm      ;Separacion Puntuacion/Calaveras 1
+    pop  de
+
+    ld a, #0x0B
+    add e
+    ld e, a
+    ld bc, #0x0F01
+    ld a, #0xFA
+    push de
+    call cpct_drawSolidBox_asm      ;Separacion Puntuacion/Calaveras 2
+    pop  de
+
+    ld a, #0x14
+    add e
+    ld e, a
+    ld a, #0x28
+    add d
+    ld d, a
+    ld hl, #_hud_spr_00
+    ld bc, #0x0501
+    push de
+    call cpct_drawSprite_asm        ;Ultimo digito de puntiacion 2
+    pop de
+
+
+    inc de
+    inc de
+    ld a, #0x10
+    sub d
+    neg
+    ld d, a
+    ld bc, #0x0901
+    ld a, #0xF4
+    push de
+    call cpct_drawSolidBox_asm      ;Separacion Muertes/Puntuacion 2
+    pop  de
+
+    inc de
+    inc de
+    ld a, #0x10
+    add d
+    ld d, a
+    ld hl, #_hud_spr_10
+    ld bc, #0x0501
+    push de
+    call cpct_drawSprite_asm        ;Icono Muertes P2 1
+    pop de
+
+    inc de
+    ld hl, #_hud_spr_11
+    ld bc, #0x0501
+    push de
+    call cpct_drawSprite_asm        ;Icono Muertes P2 2
+    pop de
+
+    ld a, #0x06
+    add e
+    ld e, a
+    ld a, (mg_back_buffer)
+    ld d, a
+    ld bc, #0x0F04
+    ld a, #0xFF
+    push de
+    call cpct_drawSolidBox_asm      ;Dibujamos el fondo blanco 2
+    pop  de
+
+    inc de
+    ld a, #0x28
+    add d
+    ld d, a
+    ld hl, #_hud_spr_14
+    ld bc, #0x0501
+    push de
+    call cpct_drawSprite_asm        ;Icono P2 1 
+    pop de
+
+    inc de
+    ld hl, #_hud_spr_15
+    ld bc, #0x0501
+    push de
+    call cpct_drawSprite_asm        ;Icono P2 2
+    pop de
+
+    ld iy, #player_1
+    ld a, #0x00
+    call _sr_update_hud_player_data
+
+    ret
+
+
+
+
+;;==================================================================
+;;                       UPDATE HUD PLAYER DATA
+;;------------------------------------------------------------------
+;; Dibuja el HUD
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  IY -> player_ptr
+;;   A -> Info to update (0 -> muertes, 1 -> puntuacion)
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL, AF'
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_update_hud_player_data:
+
+    ex af, af'
+    bit 0, _ep_player_attr(iy)
+    jr z, uhpd_player_1_data
+
+        ld de, #HUD_P2_SCORE
+        ld bc, #HUD_P2_DEATHS
+        jr uhpd_player_data_selected
+
+uhpd_player_1_data:
+
+        ld de, #HUD_P1_SCORE
+        ld bc, #HUD_P1_DEATHS
+
+uhpd_player_data_selected:
+
+    ex af, af'
+    cp #0x00
+    jr z, uhpd_update_deaths
+
+        ret
+
+uhpd_update_deaths:
+
+    ld d, b
+    ld e, c
+
+    ld a, #0x02
+
+uhpd_draw_deaths_loop:
+    ex af, af'
+    push de
+    
+        ld a, _ep_deaths_mc(iy)
+        push de
+        call _sr_draw_number_2d
+        pop de
+
+        inc de
+        inc de
+        ld a, _ep_deaths_du(iy)
+        call _sr_draw_number_2d
+    
+    pop de
+    ld a, #0x40
+    add d
+    ld d, a
+
+    ex af, af'
+    dec a
+    jr nz, uhpd_draw_deaths_loop
+    
+    ret
+
+;;==================================================================
+;;                        DRAW NUMBER 2D
+;;------------------------------------------------------------------
+;; Dibuja dos digitos de un numero formateado con BCD
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  DE -> Vmem ptr
+;;   A -> Numero a dibujar
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_draw_number_2d:
+
+    
+    push af
+    and #0b11110000
+    srl a
+    srl a
+    srl a
+    ld c, a
+    ld b, #0x00
+    ;;C -> Digito Izquierda * 2
+    ld hl, #_hud_number_index
+    add hl, bc
+    ld c, (hl)
+    inc hl 
+    ld b, (hl)
+    ld h ,b
+    ld l ,c
+    ld bc, #0x0501
+    push de
+    call cpct_drawSprite_asm
+    pop de
+
+    inc de
+    pop af
+    and #0b00001111
+    sla a
+    ld c, a
+    ld b, #0x00
+    ;;C -> Digito Derecha * 2
+    ld hl, #_hud_number_index
+    add hl, bc
+    ld c, (hl)
+    inc hl 
+    ld b, (hl)
+    ld h ,b
+    ld l ,c
+    ld bc, #0x0501
+    call cpct_drawSprite_asm
+    
+    ret

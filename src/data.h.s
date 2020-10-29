@@ -3,6 +3,18 @@
 
 .globl level_index
 
+
+;HUD COSAS
+;                         ptr
+HUD_P1_DEATHS   = 0xA807
+HUD_P2_DEATHS   = 0xA847
+
+HUD_P1_SCORE    = 0xA80E
+HUD_P2_SCORE    = 0xA83B
+
+
+
+
 NUM_LEVELS = 2
 
 ;;SPRITES
@@ -38,6 +50,24 @@ NUM_LEVELS = 2
 .globl _door_spr_3
 .globl _door_spr_4
 
+.globl _hud_spr_15
+.globl _hud_spr_14
+.globl _hud_spr_13
+.globl _hud_spr_12
+.globl _hud_spr_11
+.globl _hud_spr_10
+.globl _hud_spr_09
+.globl _hud_spr_08
+.globl _hud_spr_07
+.globl _hud_spr_06
+.globl _hud_spr_05
+.globl _hud_spr_04
+.globl _hud_spr_03
+.globl _hud_spr_02
+.globl _hud_spr_01
+.globl _hud_spr_00
+
+.globl _hud_number_index
 
 ;;SPRITE SIZE
 SPR_PLAYER_SIZE = 2 * 3 * 8

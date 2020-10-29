@@ -307,7 +307,8 @@ _su_reset_data:
     ld _ep_score_cdm(iy), a
     ld _ep_score_du(iy), a
     ld _ep_score_mc(iy), a
-    ld _ep_deaths(iy), a
+    ld _ep_deaths_mc(iy), a
+    ld _ep_deaths_du(iy), a
     ld iy, #player_2
     dec b
     jr nz, rd_players_loop

@@ -10,7 +10,8 @@ _ep_name:
     .db #0x00           ;;Score [Centenas de Millar, Decenas de Millar]
     .db #0x00           ;;Score [Millares, Centenas]
     .db #0x00           ;;Score [Decenas, Unidades]
-    .db #0x00           ;;Deaths
+    .db #0x99           ;;Deaths [Millares, Centenas]
+    .db #0x50           ;;Deaths [Decenas, Unidades]
     .db _player_attr    ;;Player Attributes
 
     _ep_name'_size = . - _ep_name ;; Saves the number of bytes that fills a DefineEntity
@@ -22,10 +23,11 @@ _ep_force_x     = 2 + _ed_size ;;Force X
 _ep_score_cdm   = 3 + _ed_size ;;Score [Centenas de Millar, Decenas de Millar]
 _ep_score_mc    = 4 + _ed_size ;;Score [Millares, Centenas]
 _ep_score_du    = 5 + _ed_size ;;Score [Decenas, Unidades]
-_ep_deaths      = 6 + _ed_size ;;Deaths
-_ep_player_attr = 7 + _ed_size ;;Player Attributes
+_ep_deaths_mc   = 6 + _ed_size ;;Deaths [Millares, Centenas]
+_ep_deaths_du   = 7 + _ed_size ;;Deaths [Decenas, Unidades]
+_ep_player_attr = 8 + _ed_size ;;Player Attributes
 
-_ep_size        = 8 + _ed_size
+_ep_size        = 9 + _ed_size
 
 
 

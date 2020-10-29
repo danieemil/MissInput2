@@ -9,6 +9,7 @@
 .globl _sy_manage_player_physics
 .globl _sp_manage_enemy_physics
 
+.globl _sr_update_hud_player_data
 
 .globl mg_game_state
 .globl jump_table

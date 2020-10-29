@@ -1437,8 +1437,33 @@ _sp_player_death:
     ld _eph_x(iy), a
     ld a, (checkpoint_y)
     ld _eph_y(iy), a
-    inc _ep_deaths(iy)
-    ;set X, _ep__ep_player_attr(iy) -> Animación de morir
+
+
+    ;INCREMENTAR MUERTES
+    ld a, _ep_deaths_du(iy)
+    ld b, #0x01
+    add b
+    daa
+    ld _ep_deaths_du(iy), a
+    jr nc, pd_no_death_carry
+        ld a, _ep_deaths_mc(iy)
+        cp #0x99
+        jr nz, pd_no_max_deaths
+
+            ld _ep_deaths_du(iy), #0x99
+            jr pd_no_death_carry
+
+pd_no_max_deaths:
+
+        add b
+        daa
+        ld _ep_deaths_mc(iy), a
+
+pd_no_death_carry:
+
+    ld a, #0x00
+    call _sr_update_hud_player_data
+
 
 
     ld a, (tries)

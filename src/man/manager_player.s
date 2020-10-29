@@ -141,7 +141,10 @@ _mp_init_player:
     ;ld (hl), a                 ;; _score_d_u
     inc hl
 
-    ;ld (hl), a                 ;; _deaths
+    ;ld (hl), a                 ;; _deaths [Millares, Centenas]
+    inc hl
+
+    ;ld (hl), a                 ;; _deaths [Decenas, Unidades]
     inc hl
 
     ld a, (hl)

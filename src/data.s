@@ -30,6 +30,24 @@ level_index:
 ; - ->
 
 
+
+_hud_number_index:
+    .dw _hud_spr_00
+    .dw _hud_spr_01
+    .dw _hud_spr_02
+    .dw _hud_spr_03
+    .dw _hud_spr_04
+    .dw _hud_spr_05
+    .dw _hud_spr_06
+    .dw _hud_spr_07
+    .dw _hud_spr_08
+    .dw _hud_spr_09
+
+
+
+
+
+
 ;;PLAYER ANIMATIONS ----------------------------
 anim_player_idle_R:
     .dw _player_spr_00      ;Sprite

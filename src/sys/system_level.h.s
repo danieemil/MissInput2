@@ -25,6 +25,7 @@
 .globl _mp_init_players
 
 .globl _sr_apply_animation
+.globl _sr_draw_HUD
 
 .globl _su_add_score
 
