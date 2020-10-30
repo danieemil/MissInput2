@@ -35,7 +35,6 @@ _sp_fix_y::
 
     inc e ;; El tilemap es tres tiles menor que la pantalla, por eso se le suma 3 a la Y   
     inc e
-    inc e
     
     ld a, b
     ld b, #0x00
@@ -152,7 +151,6 @@ _sp_check_map_collisions::
 
     dec c;; El tilemap es tres tiles menor que la pantalla, por eso se le resta 3 a la Y
     dec c
-    dec c
     ;B/4 -> Sacamos la posicion en el tilemap
     ;C/8 -> Sacamos la posicion en el tilemap
     ;DEBUG
@@ -169,7 +167,6 @@ _sp_check_map_collisions::
     srl e
 
     dec e;; El tilemap es tres tiles menor que la pantalla, por eso se le resta 3 a la Y
-    dec e
     dec e
 
     push de
@@ -766,6 +763,8 @@ mpp_no_enemy:
         ld a, #0x04
         ld (tries), a
 
+        call _sr_update_hud_skull
+
         ld a, (actual_level)
         ld (checkpoint_level), a
 
@@ -776,6 +775,9 @@ mpp_no_enemy:
             ld ix, #player_1
 
         mpp_is_player_1:
+        bit 4, _ep_player_attr(ix)
+        ret z
+
         res 4, _ep_player_attr(ix)
         push ix
         pop hl
@@ -789,7 +791,7 @@ mpp_no_enemy:
         ld _eph_y(ix), a
         ld _ed_pre_y(ix), a
 
-
+        
 
         ret
 
@@ -1464,7 +1466,15 @@ pd_no_death_carry:
     ld a, #0x00
     call _sr_update_hud_player_data
 
+    ld hl, (level_score)
+    xor a
+    ld a, l
+    sub #0x25
+    daa
+    ld l, a
+    ld (level_score), hl
 
+    
 
     ld a, (tries)
     cp #0x04
@@ -1517,6 +1527,9 @@ pd_no_death_carry:
     ld a, (tries)
     dec a
     ld (tries), a
+    push af
+    call _sr_update_hud_skull
+    pop af
     ret nz
 
     ld a, (actual_level)

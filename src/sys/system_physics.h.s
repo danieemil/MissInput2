@@ -10,6 +10,7 @@
 .globl _sp_manage_enemy_physics
 
 .globl _sr_update_hud_player_data
+.globl _sr_update_hud_skull
 
 .globl mg_game_state
 .globl jump_table
@@ -17,6 +18,7 @@
 .globl checkpoint_x
 .globl checkpoint_y
 .globl checkpoint_level
+.globl level_score
 
 .globl _mp_init_player
 

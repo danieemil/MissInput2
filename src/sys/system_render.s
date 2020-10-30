@@ -56,7 +56,6 @@ _sr_redraw_tiles:
 
     dec b   ;; El tilemap es tres tiles menor que la pantalla, por eso se le resta 3 a la Y
     dec b
-    dec b
 
     srl c
     srl c
@@ -67,7 +66,6 @@ _sr_redraw_tiles:
     srl d
 
     dec d   ;; El tilemap es tres tiles menor que la pantalla, por eso se le resta 3 a la Y
-    dec d
     dec d
 
     srl e
@@ -89,7 +87,6 @@ _sr_redraw_tiles:
     push de
     
     inc b   ;; El tilemap es tres tiles menor que la pantalla, por eso se le resta 3 a la Y
-    inc b
     inc b
 
     sla b   ;;obtenemos la posicion inicial del tile arriba a la izquierda
@@ -239,36 +236,6 @@ _sr_redraw_vector:
         dec a
         jr nz, rv_loop_vector
 
-    ret
-
-
-
-
-
-
-;;==================================================================
-;;                         INIT BUFFERS
-;;------------------------------------------------------------------
-;; Inicializa los buffers copiando el contenido de la memoria de video en 0x8000
-;;------------------------------------------------------------------
-;;
-;; INPUT:
-;;  NONE
-;;
-;; OUTPUT:
-;;  NONE
-;;
-;; DESTROYS:
-;;  F, BC, DE, HL
-;;
-;;------------------------------------------------------------------
-;; CYCLES: [ | ]
-;;==================================================================
-_sr_init_buffers:
-    ld hl, #0xC000
-    ld de, #0x8000
-    ld bc, #0x4000
-    ldir
     ret
 
 
@@ -812,6 +779,8 @@ _sr_draw_HUD:
 
 ;IZQUIERDA ------------------------------------------------------------
 
+    
+
 ;Dibujamos la linea de separacion entre el juego y el HUD    
     ld a, (mg_back_buffer)
     add #0x38
@@ -920,6 +889,8 @@ dh_draw_hud_line_loop:
     call cpct_drawSolidBox_asm      ;Separacion Puntuacion/Calaveras 2
     pop  de
 
+
+
     ld a, #0x14
     add e
     ld e, a
@@ -991,12 +962,148 @@ dh_draw_hud_line_loop:
     call cpct_drawSprite_asm        ;Icono P2 2
     pop de
 
+    
+
+
     ld iy, #player_1
     ld a, #0x00
     call _sr_update_hud_player_data
+    ld a, #0x01
+    call _sr_update_hud_player_data
+
+
+    ld iy, #player_2
+    ld a, #0x00
+    call _sr_update_hud_player_data
+    ld a, #0x02
+    call _sr_update_hud_player_data
+
+    call _sr_update_hud_skull
 
     ret
 
+
+;;==================================================================
+;;                       UPDATE HUD SKULL
+;;------------------------------------------------------------------
+;; Dibuja el HUD
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  IY -> player_ptr
+;;   A -> Info to update (0 -> muertes, 1 -> puntuacion)
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL, AF'
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_update_hud_skull:
+
+    ld a, (tries)
+    ld de, #HUD_SKULL_1 
+    ;CALAVERA 1
+    cp #0xFF
+    jr z, uhs_skull_1_transparent
+    cp #0x04
+    jr z, uhs_skull_1_transparent
+
+        ld hl, #_hud_skull_spr_1
+        jr uhs_skull_1_draw
+
+uhs_skull_1_transparent:
+
+        ld hl, #_hud_skull_spr_0
+
+uhs_skull_1_draw:
+
+    ld bc, #0x0702
+    push hl
+    push de
+    call cpct_drawSprite_asm
+    pop de
+    pop hl
+    ld a, #0x40
+    add d
+    ld d, a
+    ld bc, #0x0702
+    call cpct_drawSprite_asm
+
+
+    ld a, (tries)
+    ld de, #HUD_SKULL_2 
+    ;CALAVERA 2
+    cp #0xFF
+    jr z, uhs_skull_2_red
+    cp #0x02
+    jr c, uhs_skull_2_transparent
+    cp #0x04
+    jr z, uhs_skull_2_transparent
+
+        ld hl, #_hud_skull_spr_1
+        jr uhs_skull_2_draw
+
+uhs_skull_2_transparent:
+
+        ld hl, #_hud_skull_spr_0
+        jr uhs_skull_2_draw
+
+uhs_skull_2_red:
+
+        ld hl, #_hud_skull_spr_2
+
+uhs_skull_2_draw:
+
+    ld bc, #0x0702
+    push hl
+    push de
+    call cpct_drawSprite_asm
+    pop de
+    pop hl
+    ld a, #0x40
+    add d
+    ld d, a
+    ld bc, #0x0702
+    call cpct_drawSprite_asm
+
+    ld a, (tries)
+    ld de, #HUD_SKULL_3
+    ;CALAVERA 3
+    cp #0xFF
+    jr z, uhs_skull_3_transparent
+    cp #0x04
+    jr z, uhs_skull_3_transparent
+    cp #0x03
+    jr c, uhs_skull_3_transparent
+
+        ld hl, #_hud_skull_spr_1
+        jr uhs_skull_3_draw
+
+uhs_skull_3_transparent:
+
+        ld hl, #_hud_skull_spr_0
+
+uhs_skull_3_draw:
+
+    ld bc, #0x0702
+    push hl
+    push de
+    call cpct_drawSprite_asm
+    pop de
+    pop hl
+    ld a, #0x40
+    add d
+    ld d, a
+    ld bc, #0x0702
+    call cpct_drawSprite_asm
+
+
+
+    ret
 
 
 
@@ -1040,7 +1147,39 @@ uhpd_player_data_selected:
     cp #0x00
     jr z, uhpd_update_deaths
 
-        ret
+uhpd_update_score:
+
+    ld a, #0x02
+uhpd_draw_score_loop:
+    ex af, af'
+    push de
+
+        ld a, _ep_score_cdm(iy)
+        push de
+        call _sr_draw_number_2d
+        pop de
+
+        inc de
+        inc de
+        ld a, _ep_score_mc(iy)
+        push de
+        call _sr_draw_number_2d
+        pop de
+
+        inc de
+        inc de
+        ld a, _ep_score_du(iy)
+        call _sr_draw_number_2d
+
+    pop de
+    ld a, #0x40
+    add d
+    ld d, a
+        
+    ex af, af'
+    dec a
+    jr nz, uhpd_draw_score_loop
+    ret
 
 uhpd_update_deaths:
 

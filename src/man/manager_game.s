@@ -117,14 +117,17 @@ _mg_game_init:
     gi_calavera:
 
     call _sl_generate_level
-    
 
+    ld b, #0xF0
+    call _sr_fill_backbuffer
+    
     ;; Seleccionar tileset
-    ld b, #25 ;;Height
+    ld b, #23 ;;Height
     ld c, #20 ;;Width
     ld de, #20
     ld hl, #_tileset_spr_00
     call cpct_etm_setDrawTilemap4x8_ag_asm
+
 
     ;; Dibujar tilemap en el backbuffer
     ld a, (mg_back_buffer)
@@ -135,7 +138,10 @@ _mg_game_init:
     ld de, #TILEMAP_START
     call cpct_etm_drawTilemap4x8_ag_asm
 
+
     call _sr_draw_HUD
+    
+    
 
     ;; Copiar tilemap en el frontbuffer
     call _sr_copy_back_to_front

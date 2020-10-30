@@ -12,6 +12,9 @@ HUD_P2_DEATHS   = 0xA847
 HUD_P1_SCORE    = 0xA80E
 HUD_P2_SCORE    = 0xA83B
 
+HUD_SKULL_1     = 0xA024
+HUD_SKULL_2     = 0xA027
+HUD_SKULL_3     = 0xA02A
 
 
 
@@ -66,6 +69,10 @@ NUM_LEVELS = 2
 .globl _hud_spr_02
 .globl _hud_spr_01
 .globl _hud_spr_00
+
+.globl _hud_skull_spr_2
+.globl _hud_skull_spr_1
+.globl _hud_skull_spr_0
 
 .globl _hud_number_index
 

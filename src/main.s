@@ -63,8 +63,6 @@ _main::
    
    ld hl, #0x0B10
    call cpct_setPALColour_asm
-   
-   call _sr_init_buffers
 
    ;ld a, #GS_MULTIPLAYER
    ld a, #GS_SINGLEPLAYER
