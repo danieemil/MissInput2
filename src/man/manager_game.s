@@ -9,6 +9,8 @@
     actual_level_attr:: .db #0x00
     transition:: .db #0xFF
 
+    god_mode:: .db #0x00
+
     tries:: .db #0x04
     level_score:: .dw #0x0100
 
@@ -24,13 +26,15 @@
     p1_key_gameplay:: .db #0x00         ;; bit0 -> Actual key_j  |  bit1 -> Previous key_j  |  bit 3 -> No Jump
     p2_key_gameplay:: .db #0x00
 
-    p1_key_r:: .dw #0x0407      ;;Default - 'E'
-    p1_key_l:: .dw #0x0807      ;;Default - 'W'
-    p1_key_j:: .dw #0x0808      ;;Default - 'Q'
+    mg_p1_keys:
+    p1_key_r:: .dw #P1_KEY_R      ;;Default - 'E'
+    p1_key_l:: .dw #P1_KEY_L      ;;Default - 'W'
+    p1_key_j:: .dw #P1_KEY_J      ;;Default - 'Q'
 
-    p2_key_r:: .dw #0x0803      ;;Default - 'I'
-    p2_key_l:: .dw #0x0404      ;;Default - 'O'
-    p2_key_j:: .dw #0x0804      ;;Default - 'P'
+    mg_p2_keys:
+    p2_key_r:: .dw #P2_KEY_R      ;;Default - 'I'
+    p2_key_l:: .dw #P2_KEY_L      ;;Default - 'O'
+    p2_key_j:: .dw #P2_KEY_J      ;;Default - 'P'
 
 ;                     0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22
     jump_table:: .db -3, -3, -3, -2, -2, -2, -2, -1, -1, -1, -1,  0,  0,  0,  1,  1,  1,  1,  2,  2,  2,  2,  3, #0x80

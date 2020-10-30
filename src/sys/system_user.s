@@ -408,5 +408,49 @@ _su_get_key_pressed:
     ;; Resetear la carry flag
     xor a
     
-
     ret
+
+
+;;==================================================================
+;;                        SET PLAYER KEYS
+;;------------------------------------------------------------------
+;; Setea las teclas del jugador a las que se van pulsando
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  HL -> Puntero a la primera tecla del jugador
+;;
+;; OUTPUT:
+;;
+;; DESTROYS:
+;;   HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: []
+;;==================================================================
+_su_set_player_keys:
+
+    ld a, #0x03
+    spk_keys_loop:
+        push af
+        push hl
+
+        spk_key_loop:
+            call _su_get_key_pressed
+        jr nc, spk_key_loop
+        
+        ;; Para que no se vuelva a pulsar otra tecla por error
+        ld b, #0x50
+        call cpct_waitHalts_asm
+
+        pop hl
+        ld (hl), e
+        inc hl
+        ld (hl), d
+        inc hl
+
+        pop af
+        dec a
+    jr nz, spk_key_loop
+
+ret

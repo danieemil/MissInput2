@@ -664,6 +664,7 @@ mpp_no_change_gravity:
 mpp_collision_x_dangerous:                          ;;PELIGROSOS X
         cp #DANGEROUS
         jr nz, mpp_collision_x_solid
+            pop af
             jp _sp_player_death
 
 mpp_collision_x_solid:                              ;;SOLIDOS X
@@ -751,27 +752,6 @@ mpp_collision_y_gup:
             call _sp_apply_change_gravity
 
 mpp_no_map_collision_y:
-
-
-    ; MANEJAR COLISIONES CON LOS ENEMIGOS
-    ld a, (me_num_enemy)
-    cp #0x00
-    jr z, mpp_no_enemy
-    ld ix, #enemy_vector
-    ld de, #_ee_size
-
-    call _sp_check_entity_vector_collision
-    cp #0x00
-    jr z, mpp_no_enemy
-
-        jp _sp_player_death
-
-
-
-    ;.db #0xDD, #0x5D        ;; OPCODE ld e, ixl
-    ;.db #0xDD, #0x54        ;; OPCODE ld d, ixh
-    ;call _me_remove_enemy
-mpp_no_enemy:
 
     ; MANEJAR COLISIONES CON LOS INTERACTABLES
     ld a, (mi_num_interactable)
@@ -1073,8 +1053,17 @@ ctig_check_group_solid:
 ctig_check_group_dangerous:
     cp #GROUP_DANGEROUS
     jr nc, ctig_check_group_gravity_up
+    
+        ;; Comprobar si el GOD MODE está activado
+        ld a, (god_mode)
+        cp #0x00
+        jr z, ctig_not_god
 
-        ld a, #DANGEROUS
+            ld a, #SOLID
+            ret
+
+        ctig_not_god:
+            ld a, #DANGEROUS
         ret
 
 ctig_check_group_gravity_up:
@@ -1409,10 +1398,10 @@ _sp_manage_enemy_physics:
     ;; Solo para el enemigo tortuga -> Si está en un borde, que vuelva hacia atrás
     ld a, _ee_type(iy)
     cp #ET_TURTLE
-    ret nz
+    jr nz, mep_check_player_1_collision
 
     bit 2, _eph_attributes(iy)
-    ret z
+    jr z, mep_check_player_1_collision
 
     ex af, af'
     ld a, (aux_01)
@@ -1420,6 +1409,34 @@ _sp_manage_enemy_physics:
     ld a, (aux_02)
     ld _eph_offset(iy), a
     ex af, af'
+
+    mep_check_player_1_collision:
+    ;; Se supone que el siguiente cacho de código hace que las colisiones entre enemigos y
+    ;; jugadores sean más precisas
+
+    ;; Comprobar si el GOD MODE está activado
+    ld a, (god_mode)
+    cp #0x00
+    jr nz, mep_no_player_collision
+
+    ld ix, #player_1
+    call _sp_check_entity_collision
+    cp #0x00
+    jr z, mep_check_player_2_collision
+        push ix
+        pop iy
+        jp _sp_player_death
+
+    mep_check_player_2_collision:
+    ld ix, #player_2
+    call _sp_check_entity_collision
+    cp #0x00
+    jr z, mep_no_player_collision
+        push ix
+        pop iy
+        jp _sp_player_death
+
+    mep_no_player_collision:
 
 ret
 
@@ -1486,6 +1503,7 @@ acg_check_end:
 ;; CYCLES: [ | ]
 ;;==================================================================
 _sp_player_death:
+
 ;; El jugador muere
     push iy
     pop hl
@@ -1529,14 +1547,6 @@ pd_no_death_carry:
 
     ld a, #0x00
     call _sr_update_hud_player_data
-
-    ld hl, (level_score)
-    xor a
-    ld a, l
-    sub #0x25
-    daa
-    ld l, a
-    ld (level_score), hl
 
     
 
@@ -1588,6 +1598,17 @@ pd_no_death_carry:
 
 
     pd_staying_alive:
+
+
+    ld hl, (level_score)
+    xor a
+    ld a, l
+    sub #0x25
+    daa
+    ld l, a
+    ld (level_score), hl
+
+
     ld a, (tries)
     dec a
     ld (tries), a

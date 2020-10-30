@@ -44,5 +44,6 @@
 .globl _su_get_menu_key_input
 .globl _su_reset_data
 .globl _su_get_key_pressed
+.globl _su_set_player_keys
 
 ;;CONSTANTES

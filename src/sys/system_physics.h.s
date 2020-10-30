@@ -27,3 +27,5 @@
 
 .globl tries
 .globl transition
+
+.globl god_mode

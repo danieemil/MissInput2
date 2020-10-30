@@ -16,6 +16,9 @@
     .globl _mg_game_init
     .globl _mg_game_loop
 
+    .globl mg_p1_keys
+    .globl mg_p2_keys
+
     .globl timer_state
     .globl minutes
     .globl seconds

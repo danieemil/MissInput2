@@ -243,3 +243,14 @@ PRIMERO = 100
 SEGUNDO = 75
 TERCERO = 50
 CUARTO  = 25
+
+
+;; DEFAULT KEYS
+
+P1_KEY_R = #0x0407      ;;Default - 'E'
+P1_KEY_L = #0x0807      ;;Default - 'W'
+P1_KEY_J = #0x0808      ;;Default - 'Q'
+
+P2_KEY_R = #0x0803      ;;Default - 'I'
+P2_KEY_L = #0x0404      ;;Default - 'O'
+P2_KEY_J = #0x0804      ;;Default - 'P'

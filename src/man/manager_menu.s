@@ -87,7 +87,7 @@ mml_default_option:
 
     mml_check_multipayer:
     cp #0x02
-    jr nz, mml_check_controls
+    jr nz, mml_check_options
 
         ld a, #GS_MULTIPLAYER
         ld (mg_game_state), a
@@ -95,20 +95,14 @@ mml_default_option:
         call _mg_game_init
         jp _mg_game_loop
 
-    mml_check_controls:
+    mml_check_options:
     cp #0x03
-    jr nz, mml_check_credits
-
-        call _mm_controls_menu_init
-        jp _mm_controls_menu_loop
-
-    mml_check_credits:
-    cp #0x04
     jr nz, mml_check_default_option
 
-        call _mm_credits_menu_init
-        jp _mm_credits_menu_loop
+        call _mm_options_menu_init
+        jp _mm_options_menu_loop
     
+
     mml_check_default_option:
     cp #0x0A
     jr z, mml_default_option
@@ -129,9 +123,8 @@ mml_default_option:
 
 
 
-
 ;;==================================================================
-;;                       CONTROLS MENU INIT
+;;                       OPTIONS MENU INIT
 ;;------------------------------------------------------------------
 ;; Inicializa los elementos del menú de controles
 ;;------------------------------------------------------------------
@@ -148,7 +141,7 @@ mml_default_option:
 ;;------------------------------------------------------------------
 ;; CYCLES: []
 ;;==================================================================
-_mm_controls_menu_init:
+_mm_options_menu_init:
 
     ;; Para que no se vuelva a pulsar otra opción por error
     ld b, #0x50
@@ -159,9 +152,9 @@ _mm_controls_menu_init:
 
 
 ;;==================================================================
-;;                     CONTROLS MENU LOOP
+;;                     OPTIONS MENU LOOP
 ;;------------------------------------------------------------------
-;; Bucle de ejecución del menú de controles
+;; Bucle de ejecución del menú de opciones
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -176,120 +169,98 @@ _mm_controls_menu_init:
 ;;------------------------------------------------------------------
 ;; CYCLES: []
 ;;==================================================================
-_mm_controls_menu_loop:
+_mm_options_menu_loop:
 
 
-    cml_loop:
-
-    call _su_get_menu_key_input
-    jr z, cml_loop
-
-    cml_check_first:
-    cp #0x01
-    jr nz, cml_check_second
-
-
-    cml_check_second:
-    cp #0x02
-    jr nz, cml_check_third
-
-
-    cml_check_third:
-    cp #0x03
-    jr nz, cml_check_back
-
-
-
-    cml_check_back:
-    cp #0x0B
-    jr nz, crml_loop
-
-        call _mm_main_menu_init
-        jp _mm_main_menu_loop
-
-    jr cml_loop
-
-    ret
-
-
-
-;;==================================================================
-;;                      CREDITS MENU INIT
-;;------------------------------------------------------------------
-;; Inicializa los elementos del menú de créditos
-;;------------------------------------------------------------------
-;;
-;; INPUT:
-;;  NONE
-;;
-;; OUTPUT:
-;;  NONE
-;;
-;; DESTROYS:
-;;  NONE
-;;
-;;------------------------------------------------------------------
-;; CYCLES: []
-;;==================================================================
-_mm_credits_menu_init:
-
-    ;; Para que no se vuelva a pulsar otra opción por error
-    ld b, #0x50
-    call cpct_waitHalts_asm
-
-    ret
-
-
-
-;;==================================================================
-;;                     CREDITS MENU LOOP
-;;------------------------------------------------------------------
-;; Bucle de ejecución del menú de créditos
-;;------------------------------------------------------------------
-;;
-;; INPUT:
-;;  NONE
-;;
-;; OUTPUT:
-;;  NONE
-;;
-;; DESTROYS:
-;;  AF, BC, DE, HL
-;;
-;;------------------------------------------------------------------
-;; CYCLES: []
-;;==================================================================
-_mm_credits_menu_loop:
-
-
-    crml_loop:
+    oml_loop:
 
     call _su_get_menu_key_input
-    jr z, crml_loop
+    jr z, oml_loop
 
-    crml_check_first:
+    oml_check_controls_player_1:
     cp #0x01
-    jr nz, crml_check_second
+    jr nz, oml_check_controls_player_2
+        ;; Para que no se pulse la misma tecla por error
+        ld b, #0x50
+        call cpct_waitHalts_asm
 
+        ld hl, #mg_p1_keys
+        call _su_set_player_keys
+        jr oml_loop
 
-    crml_check_second:
+    oml_check_controls_player_2:
     cp #0x02
-    jr nz, crml_check_third
+    jr nz, oml_check_god_mode
+        ;; Para que no se pulse la misma tecla por error
+        ld b, #0x50
+        call cpct_waitHalts_asm
 
+        ld hl, #mg_p2_keys
+        call _su_set_player_keys
+        jr oml_loop
 
-    crml_check_third:
+    oml_check_god_mode:
     cp #0x03
-    jr nz, crml_check_back
+    jr nz, oml_check_default_keys
+        ;; Para que no se pulse la misma tecla por error
+        oml_toggle_god_mode:
 
+        call _sr_swap_buffers
 
-    crml_check_back:
+        ld b, #0x50
+        call cpct_waitHalts_asm
+        
+        call _sr_swap_buffers
+
+        ld a, (god_mode)
+        xor #0x01
+        ld (god_mode), a
+        
+        
+        jr oml_loop
+
+    oml_check_default_keys:
     cp #0x04
-    jr nz, crml_loop
+    jr nz, oml_check_back
+        ld hl, #mg_p1_keys
+        ld (hl), #<P1_KEY_R
+        inc hl
+        ld (hl), #>P1_KEY_R
+        inc hl
+        ld (hl), #<P1_KEY_L
+        inc hl
+        ld (hl), #>P1_KEY_L
+        inc hl
+        ld (hl), #<P1_KEY_J
+        inc hl
+        ld (hl), #>P1_KEY_J
+        inc hl
+
+        ld hl, #mg_p2_keys
+        ld (hl), #<P2_KEY_R
+        inc hl
+        ld (hl), #>P2_KEY_R
+        inc hl
+        ld (hl), #<P2_KEY_L
+        inc hl
+        ld (hl), #>P2_KEY_L
+        inc hl
+        ld (hl), #<P2_KEY_J
+        inc hl
+        ld (hl), #>P2_KEY_J
+        inc hl
+
+        jr oml_loop
+
+
+    oml_check_back:
+    cp #0x0B
+    jr nz, oml_loop
 
         call _mm_main_menu_init
         jp _mm_main_menu_loop
 
-    jr crml_loop
+    jr oml_loop
 
     ret
 
