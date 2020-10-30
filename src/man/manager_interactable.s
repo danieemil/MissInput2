@@ -30,10 +30,11 @@ mi_next_interactable_h: .db #00
 ;;  A -> Posicion del elemento
 ;;
 ;; OUTPUT:
-;;  ix -> puntero al interactable
+;;  IX -> puntero al interactable
+;;  A -> 0: Se ha encontrado en el vector
 ;;
 ;; DESTROYS:
-;;  HL
+;;  AF, BC, HL, IX
 ;;
 ;;------------------------------------------------------------------
 ;; CYCLES: [ | ]
@@ -42,6 +43,10 @@ _mi_search_vector:
 
     ld ix, #interactable_vector
 
+    ld hl, #mi_num_interactable
+
+    cp (hl)
+    jr nc, sv_interactable_not_found
     cp #0x00
     ret z
 
@@ -52,6 +57,11 @@ sv_loop:
     dec a
     jr nz, sv_loop
 
+    ret
+
+sv_interactable_not_found:
+    xor a
+    dec a
     ret
 
 

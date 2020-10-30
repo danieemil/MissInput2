@@ -47,6 +47,10 @@ _sl_generate_level:
     call _mi_init_vector
     call _mp_init_players
 
+    ld a, #0xFF
+    ld (collectable_id), a
+    ld (door_id), a
+
 ;; Segundo comprobamos la id de cada tile del tilemap
 ;; En el caso de que sea el id de una entidad,
 ;; añadimos la entidad en esa posición del tilemap
@@ -358,6 +362,8 @@ _sl_generate_level:
         ld a, (collectable_id)
 
         call _mi_search_vector
+        cp #0x00
+        ret nz
 
         ld _ei_type(ix), #EI_NONE
         ld hl, #_collectable_spr_1
@@ -524,6 +530,9 @@ _sl_transition_level:
     ld a, (collectable_id)
 
     call _mi_search_vector
+    cp #0x00
+    ret nz
+
 
     ld a, _ei_type(ix)
     cp #EI_NONE
