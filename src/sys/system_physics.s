@@ -760,11 +760,6 @@ mpp_no_enemy:
         ld _ed_spr_h(ix), h
         ld _ei_type(ix), #0x00
 
-        ld a, #0x04
-        ld (tries), a
-
-        call _sr_update_hud_skull
-
         ld a, (actual_level)
         ld (checkpoint_level), a
 
@@ -775,9 +770,21 @@ mpp_no_enemy:
             ld ix, #player_1
 
         mpp_is_player_1:
+
+        ld a, #0x04
+
+        bit 5, _ep_player_attr(ix)
+        jr z, mpp_door_not_opened
+            dec a
+
+        mpp_door_not_opened:
+        ld (tries), a
+
+        call _sr_update_hud_skull
+
         bit 4, _ep_player_attr(ix)
         ret z
-        
+
         res 4, _ep_player_attr(ix)
         push ix
         pop hl
@@ -835,6 +842,20 @@ mpp_check_collectable_item:
         ld d, #0x00
         call _su_add_score
 
+        ld hl, #level_index
+        ld b, #0x00
+        ld a, (actual_level)
+        ld c, a
+        sla c
+        sla c
+        add hl, bc
+        inc hl
+        inc hl
+        ;; HL -> Puntero a atributos del nivel actual
+        set 6, (hl)
+
+        ret
+
 mpp_check_door_item:
     cp #EI_DOOR
     jr nz, mpp_end_check_interactables
@@ -867,7 +888,8 @@ mpp_check_door_item_check_end:
         ld _ep_force_x(iy), #FORCE_X_L
         ret
 
-mpp_check_door_item_end_end:res 1, _eph_attributes(iy)
+mpp_check_door_item_end_end:
+        res 1, _eph_attributes(iy)
         set 6, _ep_player_attr(iy)
         ld _ep_force_x(iy), #0x00
         res 1, _eph_attributes(iy)

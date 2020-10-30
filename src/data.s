@@ -6,7 +6,7 @@
 level_index:
     ;;LEVEL 00
     .dw _map_00_end ;;Tilemap del Nivel
-    .db #0x40       ;;Level Attr
+    .db #0x00       ;;Level Attr
     .db #0x00       ;;Palette
 
     ;;LEVEL 01

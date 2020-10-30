@@ -420,6 +420,10 @@ mel_loop_find_door_end:
     ret z
 
         set 0, _eph_attributes(iy)
+
+        ld a, (tries)
+        cp #0xFF
+        jr z, mel_door_opened
         ld a, #0x03
         ld (tries), a
     
@@ -522,27 +526,7 @@ _sl_transition_level:
 
     inc hl
     inc hl
-    ld d, (hl)
-    ;D  -> Actual Level Attributes
-
-    set 7, d
-
-    ld a, (collectable_id)
-
-    call _mi_search_vector
-    cp #0x00
-    ret nz
-
-
-    ld a, _ei_type(ix)
-    cp #EI_NONE
-    jr nz, tl_no_collected_collectable
-
-        set 6, d
-
-tl_no_collected_collectable:
-
-    ld (hl), d
+    set 7, (hl) ;; Marcar nivel como completado
 
     xor a
     ret
