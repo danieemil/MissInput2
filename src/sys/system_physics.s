@@ -612,8 +612,8 @@ mpp_jump_check_wall_left_end:
                 ld a, b
                 ld e, c
                 ld c, #JT_ON_GROUND
-                cp #0x00
-                jr nz, mpp_jump_check_wall_up
+                cp #SOLID
+                jr z, mpp_jump_check_wall_up
 
                     ld c, e
                     ld _ep_wall_dir(iy), #0x00
@@ -668,12 +668,34 @@ mpp_collision_x_dangerous:                          ;;PELIGROSOS X
 
 mpp_collision_x_solid:                              ;;SOLIDOS X
         cp #SOLID
-        jr nz, mpp_no_map_collision_x
+        jr nz, mpp_collision_x_gdown
             sla b
             sla b
             sla b
             ld _ep_wall_dir(iy), b
             call _sp_fix_x  
+            jr mpp_no_map_collision_x
+
+mpp_collision_x_gdown:
+        cp #GRAVITY_DOWN
+        jr nz, mpp_collision_x_gup
+            bit 6, _eph_attributes(iy)
+            jr z, mpp_no_map_collision_x
+
+            res 6, _eph_attributes(iy)  ;;Revertimos la gravedad
+            call _sp_apply_change_gravity
+            jr mpp_no_map_collision_x
+
+
+mpp_collision_x_gup:
+        cp #GRAVITY_UP
+        jr nz, mpp_no_map_collision_x
+            bit 6, _eph_attributes(iy)
+            jr nz, mpp_no_map_collision_x
+
+            set 6, _eph_attributes(iy)  ;;Invertimos la gravedad
+            call _sp_apply_change_gravity
+
 
 mpp_no_map_collision_x:
 
@@ -702,11 +724,31 @@ mpp_collision_y_dangerous:                          ;;PELIGROSOS Y
 
 mpp_collision_y_solid:                              ;;SOLIDOS Y
         cp #SOLID
-        jr nz, mpp_no_map_collision_y
+        jr nz, mpp_collision_y_gdown
             ld _ep_wall_dir(iy), #0x00
             call _sp_fix_y                          ;Corregimos la posicion en Y
             ld _ep_jump_state(iy), #JT_ON_GROUND    ;Ponemos la jump table a la posicion de colision con el suelo
             jr mpp_no_map_collision_y
+
+mpp_collision_y_gdown:
+        cp #GRAVITY_DOWN
+        jr nz, mpp_collision_y_gup
+            bit 6, _eph_attributes(iy)
+            jr z, mpp_no_map_collision_y
+
+            res 6, _eph_attributes(iy)  ;;Revertimos la gravedad
+            call _sp_apply_change_gravity
+            jr mpp_no_map_collision_y
+
+
+mpp_collision_y_gup:
+        cp #GRAVITY_UP
+        jr nz, mpp_no_map_collision_y
+            bit 6, _eph_attributes(iy)
+            jr nz, mpp_no_map_collision_y
+
+            set 6, _eph_attributes(iy)  ;;Invertimos la gravedad
+            call _sp_apply_change_gravity
 
 mpp_no_map_collision_y:
 
