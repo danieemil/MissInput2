@@ -25,7 +25,7 @@ NUM_LEVELS = 2
 .globl _checkpoint_top_spr_1
 .globl _collectable_spr_0
 .globl _collectable_spr_1
-.globl _tileset_spr_00
+
 
 .globl _player_spr_00
 .globl _player_spr_01

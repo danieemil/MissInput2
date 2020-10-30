@@ -148,7 +148,7 @@ rt_loop_redraw_tile_cols:
             ld a, (hl)
             push hl
 
-            ld hl, #_tileset_spr_00
+            ld hl, #TILESET_START
             ld bc, #TILE_SIZE
             cp #0x00
             jr z, rt_loop_retdaw_get_tile_ptr_end

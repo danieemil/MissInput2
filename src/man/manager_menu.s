@@ -35,13 +35,41 @@
 ;;==================================================================
 _mm_main_menu_init:
 
-    ;; Cargamos la imagen en el frontbuffer
-    ld de, #_main_menu_screen_end
-    call _sr_decompress_image_on_video_memory
+    ld b, #0xF0
+    call _sr_fill_backbuffer
+
+    call _sr_swap_buffers
 
     ;; Para que no se vuelva a pulsar otra opción por error
     ld b, #0x50
     call cpct_waitHalts_asm
+
+
+    ;; Descomprimimos el tileset
+    ld hl, #_menu_tileset_end
+    ld de, #TILESET_START + TILESET_SIZE - 1
+    call cpct_zx7b_decrunch_s_asm
+
+    ;; Descomprimimos el mapa
+    ld hl, #_main_menu_map_end
+    ld de, #TILEMAP_START + TILEMAP_MENU_SIZE - 1
+    call cpct_zx7b_decrunch_s_asm
+
+    ;; Cargamos y seleccionamos el tileset
+    ld b, #25 ;;Height
+    ld c, #20 ;;Width
+    ld de, #20
+    ld hl, #TILESET_START
+    call cpct_etm_setDrawTilemap4x8_ag_asm
+
+
+    ;; Dibujar tilemap en el frontbuffer
+    ld a, (mg_front_buffer)
+    ld h, a
+    ld l, #0x00
+    ld de, #TILEMAP_START
+    call cpct_etm_drawTilemap4x8_ag_asm
+
 
     ret
 
@@ -81,6 +109,20 @@ mml_default_option:
         ld a, #GS_SINGLEPLAYER
         ld (mg_game_state), a
 
+        ;; Transición
+        ld b, #0xF0
+        call _sr_fill_backbuffer
+
+        call _sr_swap_buffers
+
+        ld hl, #_tileset_end
+        ld de, #TILESET_START + TILESET_SIZE - 1
+        call cpct_zx7b_decrunch_s_asm
+
+        ;; Para que no se vuelva a pulsar otra opción por error
+        ld b, #0x50
+        call cpct_waitHalts_asm
+
         call _mg_game_init
         jp _mg_game_loop
 
@@ -91,6 +133,20 @@ mml_default_option:
 
         ld a, #GS_MULTIPLAYER
         ld (mg_game_state), a
+
+        ;; Transición
+        ld b, #0xF0
+        call _sr_fill_backbuffer
+
+        call _sr_swap_buffers
+
+        ld hl, #_tileset_end
+        ld de, #TILESET_START + TILESET_SIZE - 1
+        call cpct_zx7b_decrunch_s_asm
+
+        ;; Para que no se vuelva a pulsar otra opción por error
+        ld b, #0x50
+        call cpct_waitHalts_asm
 
         call _mg_game_init
         jp _mg_game_loop
@@ -143,9 +199,29 @@ mml_default_option:
 ;;==================================================================
 _mm_options_menu_init:
 
+
+    ld b, #0xF0
+    call _sr_fill_backbuffer
+
+    call _sr_swap_buffers
+
     ;; Para que no se vuelva a pulsar otra opción por error
     ld b, #0x50
     call cpct_waitHalts_asm
+
+
+    ;; Descomprimimos el mapa
+    ld hl, #_options_menu_map_end
+    ld de, #TILEMAP_START + TILEMAP_MENU_SIZE - 1
+    call cpct_zx7b_decrunch_s_asm
+
+
+    ;; Dibujar tilemap en el frontbuffer
+    ld a, (mg_front_buffer)
+    ld h, a
+    ld l, #0x00
+    ld de, #TILEMAP_START
+    call cpct_etm_drawTilemap4x8_ag_asm
 
     ret
 

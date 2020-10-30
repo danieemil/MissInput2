@@ -2,6 +2,10 @@
     .include "man/manager_game.h.s"
 
     .globl _main_menu_screen_end
+    .globl _main_menu_map_end
+    .globl _options_menu_map_end
+    .globl _menu_tileset_end
+    .globl _tileset_end
 
     .globl _sr_swap_buffers
     .globl _sr_copy_back_to_front
@@ -13,6 +17,9 @@
 
     .globl mg_p1_keys
     .globl mg_p2_keys
+
+    .globl mg_front_buffer
+    .globl mg_back_buffer
 
     .globl god_mode
 

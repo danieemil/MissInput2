@@ -129,7 +129,7 @@ _mg_game_init:
     ld b, #23 ;;Height
     ld c, #20 ;;Width
     ld de, #20
-    ld hl, #_tileset_spr_00
+    ld hl, #TILESET_START
     call cpct_etm_setDrawTilemap4x8_ag_asm
 
 
