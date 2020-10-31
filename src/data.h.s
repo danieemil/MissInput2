@@ -111,14 +111,18 @@ NUM_LEVELS = 2
 .globl mm_multiplayer
 .globl mm_options
 
-.globl om_controlls
-.globl om_p1controlls
-.globl om_p2controlls
+.globl om_controls
+.globl om_p1controls
+.globl om_p2controls
 .globl om_accessibility
 .globl om_godmode
 .globl om_palette
 .globl om_restore
 .globl om_back
+.globl om_changecontrols
+.globl om_rightkey
+.globl om_leftkey
+.globl om_jumpkey
 
 .globl pm_pause
 .globl pm_return
@@ -131,18 +135,23 @@ MM_MULTIPLAYER_POS  = 0x0CB0 + 0x0020
 MM_OPTIONS_POS      = 0x0D50 + 0x0020
 
 ;;                          Y        X
-OM_CONTROLLS            = 0x0AD0 + 0x0018
-OM_P1CONTROLLS_POS      = 0x0B70 + 0x0014
-OM_P2CONTROLLS_POS      = 0x0C10 + 0x0014
-OM_ACCESSIBILITY_POS    = 0x0AD0 + 0x002E
+OM_CONTROLS_POS        = 0x0AD0 + 0x0018
+OM_P1CONTROLS_POS      = 0x0B70 + 0x0014
+OM_P2CONTROLS_POS      = 0x0C10 + 0x0014
+OM_ACCESSIBILITY_POS    = 0x0AD0 + 0x002E - 1
 OM_GODMODE_POS          = 0x0B70 + 0x002C
 OM_PALETTE_POS          = 0x0C10 + 0x002C
 OM_RESTORE_POS          = 0x0D50 + 0x0020
 OM_BACK_POS             = 0x0E90 + 0x0024
 
+OM_CHANGECONTROLS_POS   = 0x0B70 + 0x0026 - 13
+OM_RIGHTKEY_POS         = 0x0C10 + 0x002D - 9
+OM_LEFTKEY_POS          = 0x0C10 + 0x002D - 9
+OM_JUMPKEY_POS          = 0x0C10 + 0x002D - 9
+
 ;;                   Y        X
-PM_PAUSE_POS    = 0x0B70 + 0x0026
-PM_RETURN_POS   = 0x0C10 + 0x001C
+PM_PAUSE_POS    = 0x0B70 + 0x0026 - 2
+PM_RETURN_POS   = 0x0C10 + 0x001C - 1
 PM_MAINMENU_POS = 0x0C10 + 0x002D
 
 

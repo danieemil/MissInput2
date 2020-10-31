@@ -4,6 +4,9 @@
 .globl _sr_update_hud_player_data
 
 .globl actual_level
+.globl mg_front_buffer
+
+.globl _sr_draw_string
 
 .globl checkpoint_level
 

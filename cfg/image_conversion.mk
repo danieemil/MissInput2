@@ -78,9 +78,11 @@ $(eval $(call IMG2SP, SET_FOLDER      , src/bins/ 								))
 $(eval $(call IMG2SP, SET_OUTPUT      , bin                						)) # Para poder comprimir la imagen
 $(eval $(call IMG2SP, CONVERT         , assets/MenuTileset.png , 16, 8, menu_tileset_spr	))
 $(eval $(call IMG2SP, CONVERT         , assets/Tileset_01.png , 16, 8, tileset_spr	))
-$(eval $(call IMG2SP, SET_IMG_FORMAT  , screen            ))
-$(eval $(call IMG2SP, SET_MASK        , none               						))
-$(eval $(call IMG2SP, CONVERT         , assets/main_menu_screen.png , 320, 200, main_menu_screen	))
+
+
+#$(eval $(call IMG2SP, SET_IMG_FORMAT  , screen            ))
+#$(eval $(call IMG2SP, SET_MASK        , none               						))
+#$(eval $(call IMG2SP, CONVERT         , assets/main_menu_screen.png , 320, 200, main_menu_screen	))
 
 
 ##

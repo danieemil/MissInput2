@@ -430,6 +430,15 @@ _su_get_key_pressed:
 ;;==================================================================
 _su_set_player_keys:
 
+    push hl
+
+    ld a, (mg_front_buffer)
+    ld hl, #OM_RIGHTKEY_POS
+    ld de, #om_rightkey
+    call _sr_draw_string
+
+    pop hl
+
     ld a, #0x03
     spk_keys_loop:
         push af
@@ -451,6 +460,6 @@ _su_set_player_keys:
 
         pop af
         dec a
-    jr nz, spk_key_loop
+    jr nz, spk_keys_loop
 
 ret

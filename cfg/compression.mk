@@ -41,8 +41,8 @@
 
 
 #MENUS
-$(eval $(call ADD2PACK,main_menu_screen,src/bins/main_menu_screen.bin))
-$(eval $(call PACKZX7B,main_menu_screen,src/bins/))
+#$(eval $(call ADD2PACK,main_menu_screen,src/bins/main_menu_screen.bin))
+#$(eval $(call PACKZX7B,main_menu_screen,src/bins/))
 
 $(eval $(call ADD2PACK,menu_tileset,src/bins/MenuTileset.bin))
 $(eval $(call PACKZX7B,menu_tileset,src/bins/))

@@ -220,14 +220,14 @@ mml_default_option:
 _mm_options_menu_init:
 
 
-    ld b, #0xF0
-    call _sr_fill_backbuffer
+    ;ld b, #0xF0
+    ;call _sr_fill_backbuffer
 
-    call _sr_swap_buffers
+    ;call _sr_swap_buffers
 
     ;; Para que no se vuelva a pulsar otra opción por error
-    ld b, #0x50
-    call cpct_waitHalts_asm
+    ;ld b, #0x50
+    ;call cpct_waitHalts_asm
 
 
     ;; Descomprimimos el mapa
@@ -242,6 +242,52 @@ _mm_options_menu_init:
     ld l, #0x00
     ld de, #TILEMAP_START
     call cpct_etm_drawTilemap4x8_ag_asm
+
+    ld a, (mg_front_buffer)
+    ld hl, #OM_CONTROLS_POS
+    ld de, #om_controls
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld hl, #OM_P1CONTROLS_POS
+    ld de, #om_p1controls
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld hl, #OM_P2CONTROLS_POS
+    ld de, #om_p2controls
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld hl, #OM_ACCESSIBILITY_POS
+    ld de, #om_accessibility
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld hl, #OM_GODMODE_POS
+    ld de, #om_godmode
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld hl, #OM_PALETTE_POS
+    ld de, #om_palette
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld hl, #OM_RESTORE_POS
+    ld de, #om_restore
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld hl, #OM_BACK_POS
+    ld de, #om_back
+    call _sr_draw_string
+
+
+
+
+
+
 
     ret
 
@@ -267,7 +313,6 @@ _mm_options_menu_init:
 ;;==================================================================
 _mm_options_menu_loop:
 
-
     oml_loop:
 
     call _su_get_menu_key_input
@@ -277,23 +322,47 @@ _mm_options_menu_loop:
     cp #0x01
     jr nz, oml_check_controls_player_2
         ;; Para que no se pulse la misma tecla por error
+
+        ld a, (mg_front_buffer)
+        call _sr_draw_submenu_box
+
+        ld a, (mg_front_buffer)
+        ld hl, #OM_CHANGECONTROLS_POS
+        ld de, #om_changecontrols
+        call _sr_draw_string
+
         ld b, #0x50
         call cpct_waitHalts_asm
 
         ld hl, #mg_p1_keys
         call _su_set_player_keys
+
+        call _mm_options_menu_init
         jr oml_loop
+
 
     oml_check_controls_player_2:
     cp #0x02
     jr nz, oml_check_god_mode
         ;; Para que no se pulse la misma tecla por error
+
+        ld a, (mg_front_buffer)
+        call _sr_draw_submenu_box
+
+        ld a, (mg_front_buffer)
+        ld hl, #OM_CHANGECONTROLS_POS
+        ld de, #om_changecontrols
+        call _sr_draw_string
+
         ld b, #0x50
         call cpct_waitHalts_asm
 
         ld hl, #mg_p2_keys
         call _su_set_player_keys
+
+        call _mm_options_menu_init
         jr oml_loop
+
 
     oml_check_god_mode:
     cp #0x03
@@ -361,7 +430,7 @@ _mm_options_menu_loop:
         ;; Reiniciar la paleta
 
 
-        jr oml_loop
+        jp oml_loop
 
     oml_check_main_menu:
     cp #0x06

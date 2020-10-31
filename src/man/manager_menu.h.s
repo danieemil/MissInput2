@@ -1,7 +1,7 @@
 ;;DEPENDENCIAS
     .include "man/manager_game.h.s"
 
-    .globl _main_menu_screen_end
+    ;.globl _main_menu_screen_end
     .globl _main_menu_map_end
     .globl _options_menu_map_end
     .globl _menu_tileset_end

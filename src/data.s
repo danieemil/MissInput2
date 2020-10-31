@@ -30,23 +30,27 @@ level_index:
 ; - ->
 
 ;;ALL TEXTS
-mm_singleplayer: .asciz "1[SINGLEPLAYER/"
-mm_multiplayer: .asciz "2[MULTIPLAYER/"
-mm_options: .asciz "3[OPTIONS/"
+mm_singleplayer: .asciz "1[@SINGLEPLAYER/"
+mm_multiplayer: .asciz "2[@MULTIPLAYER/"
+mm_options: .asciz "3[@OPTIONS/"
 
-om_controlls: .asciz "CONTROLLS/"
-om_p1controlls: .asciz "1[P1@CONTROLLS/"
-om_p2controlls: .asciz "2[P2@CONTROLLS/"
+om_controls: .asciz "CONTROLS/"
+om_p1controls: .asciz "1[@P1@CONTROLS/"
+om_p2controls: .asciz "2[@P2@CONTROLS/"
 om_accessibility: .asciz "ACCESSIBILITY/"
-om_godmode: .asciz "3[GOD@MODE/"
-om_palette: .asciz "4[PALETTE/"
-om_restore: .asciz "5[RESTORE@DEFAULT/"
-om_back: .asciz "6[BACK/"
+om_godmode: .asciz "3[@GOD@MODE[/"
+om_palette: .asciz "4[@PALETTE/"
+om_restore: .asciz "5[@RESTORE@DEFAULT/"
+om_back: .asciz "6[@BACK/"
+om_changecontrols: .asciz "PRESS@A@KEY@TO@CHANGE@CONTROLS/"
+om_rightkey: .asciz "[@RIGHT@[/"
+om_leftkey: .asciz "[@LEFT@[@/"
+om_jumpkey: .asciz "[@JUMP@[@/"
 
 
-pm_pause: .asciz "PAUSE/"
-pm_return: .asciz "1[RESUME/"
-pm_mainmenu: .asciz "2[MAIN@MENU/"
+pm_pause: .asciz "[@PAUSE@[/"
+pm_return: .asciz "1[@RESUME/"
+pm_mainmenu: .asciz "2[@MAIN@MENU/"
 
 
 
