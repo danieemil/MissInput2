@@ -1341,3 +1341,73 @@ ds_continue_draw:
     pop hl
     inc hl
     jr _sr_draw_string
+
+
+
+;;==================================================================
+;;                         DRAW SUBMENU BOX
+;;------------------------------------------------------------------
+;; Redibuja la parte del tilemap que está alrededor de la entidad
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  A  -> Buffer donde se va a dibujar
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL, BC', DE', HL'
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_draw_submenu_box:
+
+    ld b, a
+    ld c, #0x00
+
+    push bc
+
+    ld hl, #SUBMENU_BOX_1_POS
+    add hl, bc
+    ex de, hl
+    ld bc, #0x2840
+    ld a, #0xF0
+    call cpct_drawSolidBox_asm
+
+    pop bc
+    push bc
+
+    ld hl, #SUBMENU_BOX_2_POS
+    add hl, bc
+    ex de, hl
+    ld bc, #0x2810
+    ld a, #0xF0
+    call cpct_drawSolidBox_asm
+
+    pop bc
+
+    ld hl, #SUBMENU_BOX_LINE_TOP
+    add hl, bc
+    ex de, hl
+
+    ld hl, #SUBMENU_BOX_LINE_BOTTOM
+    add hl, bc
+
+    ld c, #0x50
+dsb_draw_lines_loop:
+
+        ld a, #0xFF
+        ld (hl), a
+        ld (de), a
+
+        inc de
+        inc hl
+
+        dec c
+        jr nz, dsb_draw_lines_loop
+
+    ret
+
+
