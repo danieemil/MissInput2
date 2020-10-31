@@ -2,6 +2,7 @@
 .include "main.h.s"
 
 .globl timer_state
+.globl hours
 .globl minutes
 .globl seconds
 .globl seconds_dc

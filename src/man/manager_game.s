@@ -46,7 +46,8 @@
     timer_state::   .db #0x00       ;0 -> Temporizador pausado, 1 -> Temporizador contando
     seconds_dc::    .db #0x00       ;Décimas y centésimas de segundo (0 - 100)
     seconds::       .db #0x00       ;Segundos (0 - 60)
-    minutes::       .dw #0x0000     ;Minutos (0 - 65536) 65536 minutos = 1092 horas :////
+    minutes::       .db #0x00       ;Minutos (0 - 60)
+    hours::         .db #0x00       ;Horas(0 - 100)
 
 
     ;; Música
