@@ -64,6 +64,7 @@ $(eval $(call IMG2SP, CONVERT         , assets/DoorSprites.png , 8, 11, door_spr
 $(eval $(call IMG2SP, CONVERT         , assets/HUDSprites.png , 4, 5, hud_spr	))
 $(eval $(call IMG2SP, CONVERT         , assets/HUDSkullSprites.png , 8, 7, hud_skull_spr	))
 $(eval $(call IMG2SP, CONVERT         , assets/LetterSprites.png , 4, 5, letter_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/OffOnSprites.png , 4, 5, offon_spr	))
 
 
 

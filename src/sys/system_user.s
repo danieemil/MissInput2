@@ -383,6 +383,7 @@ _su_get_key_pressed:
     xor a
     call cpct_isAnyKeyPressed_f_asm
     cp #0x00
+    ccf
     ret z
 
 
@@ -393,10 +394,11 @@ _su_get_key_pressed:
     lines_loop:
         ld a, (hl)
         ld d, #0x01
+        
 
         bits_loop:
             srl a
-            ret c
+            ret nc
             sla d
         jr nc, bits_loop
 
@@ -430,27 +432,48 @@ _su_get_key_pressed:
 ;;==================================================================
 _su_set_player_keys:
 
-    push hl
-
-    ld a, (mg_front_buffer)
-    ld hl, #OM_RIGHTKEY_POS
-    ld de, #om_rightkey
-    call _sr_draw_string
-
-    pop hl
-
     ld a, #0x03
     spk_keys_loop:
         push af
         push hl
 
+        
+        ld de, #om_rightkey
+        cp #0x03
+        jr z, spk_draw_action
+        
+        spk_check_left_action:
+        cp #0x02
+        jr nz, spk_check_jump_action
+            ld de, #om_leftkey
+            jr spk_draw_action
+
+        spk_check_jump_action:
+        ld de, #om_jumpkey
+
+        spk_draw_action:
+        ld a, (mg_front_buffer)
+        ld hl, #OM_RIGHTKEY_POS
+        call _sr_draw_string
+
         spk_key_loop:
             call _su_get_key_pressed
-        jr nc, spk_key_loop
-        
+        jr c, spk_key_loop
+
         ;; Para que no se vuelva a pulsar otra tecla por error
         ld b, #0x50
         call cpct_waitHalts_asm
+
+        ;; Comprobar si no es una tecla no permitida
+        xor a
+        ld hl, #Key_Esc
+        sbc hl, de
+        jr z, spk_key_loop
+
+        xor a
+        ld hl, #Key_M
+        sbc hl, de
+        jr z, spk_key_loop
 
         pop hl
         ld (hl), e

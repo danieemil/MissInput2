@@ -25,6 +25,8 @@
     .globl mg_back_buffer
 
     .globl god_mode
+
+    .globl palette
     
 
 ;;FUNCIONES

@@ -38,7 +38,9 @@
 
 ;                     0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22
     jump_table:: .db -3, -3, -3, -2, -2, -2, -2, -1, -1, -1, -1,  0,  0,  0,  1,  1,  1,  1,  2,  2,  2,  2,  3, #0x80
-    
+
+;                           0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22
+    enemy_jump_table:: .db -3, -3, -3, -2, -2, -2, -2, -1, -1, -1, -1,  0,  0,  0,  1,  1,  1,  1,  1,  1,  2,  2,  2, #0x80
 
     ;; Temporizador
     timer_state::   .db #0x00       ;0 -> Temporizador pausado, 1 -> Temporizador contando
@@ -49,6 +51,9 @@
 
     ;; Música
     playing_music:: .db #0x00       ;0 -> Música parada, 1 -> Música reproduciéndose
+
+    ;; Paleto
+    palette:: .db #0x00
 
 
 .area _CODE

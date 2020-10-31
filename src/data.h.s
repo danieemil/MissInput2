@@ -3,6 +3,8 @@
 
 .globl level_index
 
+.globl palette_index
+
 
 ;HUD COSAS
 ;                         ptr
@@ -103,6 +105,10 @@ NUM_LEVELS = 2
 .globl _letter_spr_01
 .globl _letter_spr_00
 
+.globl _offon_spr_2
+.globl _offon_spr_1
+.globl _offon_spr_0
+
 .globl _hud_number_index
 .globl _hud_letter_index
 
@@ -123,6 +129,8 @@ NUM_LEVELS = 2
 .globl om_rightkey
 .globl om_leftkey
 .globl om_jumpkey
+.globl om_off
+.globl om_on
 
 .globl pm_pause
 .globl pm_return
@@ -143,6 +151,8 @@ OM_GODMODE_POS          = 0x0B70 + 0x002C
 OM_PALETTE_POS          = 0x0C10 + 0x002C
 OM_RESTORE_POS          = 0x0D50 + 0x0020
 OM_BACK_POS             = 0x0E90 + 0x0024
+OM_OFF_POS              = 0x0B70 + 0x002C + 13
+OM_ON_POS               = 0x0B70 + 0x002C + 13
 
 OM_CHANGECONTROLS_POS   = 0x0B70 + 0x0026 - 13
 OM_RIGHTKEY_POS         = 0x0C10 + 0x002D - 9
@@ -163,7 +173,7 @@ SUBMENU_BOX_LINE_BOTTOM = 0x2460
 
 ;;STRING CONSTS
 END_STRING = 47
-START_CHARACTERS = 64
+START_CHARACTERS = 61
 START_NUMBERS = 48
 
 

@@ -29,6 +29,16 @@ level_index:
 ; - ->
 ; - ->
 
+palette_index:
+    .db #0x40, #0x54, #0x4c, #0x4b      ;; Paleta por defecto
+    .db #0x40, #0x4b, #0x54, #0x4c      ;; Miss Input 2 psicodélico
+    .db #0xFF
+
+
+
+
+
+
 ;;ALL TEXTS
 mm_singleplayer: .asciz "1[@SINGLEPLAYER/"
 mm_multiplayer: .asciz "2[@MULTIPLAYER/"
@@ -38,7 +48,7 @@ om_controls: .asciz "CONTROLS/"
 om_p1controls: .asciz "1[@P1@CONTROLS/"
 om_p2controls: .asciz "2[@P2@CONTROLS/"
 om_accessibility: .asciz "ACCESSIBILITY/"
-om_godmode: .asciz "3[@GOD@MODE[/"
+om_godmode: .asciz "3[@GOD@MODE/"
 om_palette: .asciz "4[@PALETTE/"
 om_restore: .asciz "5[@RESTORE@DEFAULT/"
 om_back: .asciz "6[@BACK/"
@@ -46,6 +56,8 @@ om_changecontrols: .asciz "PRESS@A@KEY@TO@CHANGE@CONTROLS/"
 om_rightkey: .asciz "[@RIGHT@[/"
 om_leftkey: .asciz "[@LEFT@[@/"
 om_jumpkey: .asciz "[@JUMP@[@/"
+om_off: .asciz "=??/"
+om_on: .asciz "=>@/"
 
 
 pm_pause: .asciz "[@PAUSE@[/"
@@ -70,6 +82,9 @@ _hud_number_index:
 
 
 _hud_letter_index:
+    .dw _offon_spr_0
+    .dw _offon_spr_1
+    .dw _offon_spr_2
     .dw _letter_spr_00
     .dw _letter_spr_01
     .dw _letter_spr_02

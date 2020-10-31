@@ -37,6 +37,7 @@
 
 .globl Key_Space    ;; Seleccionar la opción por defecto
 .globl Key_Esc      ;; Volver al menú anterior
+.globl Key_M        ;; Mutear/Desmutear música Y EFECTOS DE SONIDO
 
 
 

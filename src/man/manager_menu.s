@@ -268,6 +268,8 @@ _mm_options_menu_init:
     ld de, #om_godmode
     call _sr_draw_string
 
+    call _mm_draw_god_mode
+
     ld a, (mg_front_buffer)
     ld hl, #OM_PALETTE_POS
     ld de, #om_palette
@@ -370,26 +372,46 @@ _mm_options_menu_loop:
         ;; Para que no se pulse la misma tecla por error
         oml_toggle_god_mode:
 
-        call _sr_swap_buffers
-
-        ld b, #0x50
-        call cpct_waitHalts_asm
-        
-        call _sr_swap_buffers
-
         ld a, (god_mode)
         xor #0x01
         ld (god_mode), a
+
+        call _mm_draw_god_mode
+
+        ld b, #0x50
+        call cpct_waitHalts_asm
         
         jr oml_loop
 
     oml_check_palette:
     cp #0x04
     jr nz, oml_check_default_keys
+
+        ld hl, #palette_index
+        ld a, (palette)
+        inc a
+        ld (palette), a
+        sla a
+        sla a
+        ld b, #0x00
+        ld c, a
+        add hl, bc
+
+        ld a, (hl)
+        cp #0xFF
+        jr nz, oml_change_palette
+            xor a
+            ld (palette), a
+            ld hl, #palette_index
+
+        oml_change_palette:
+        ld de, #0x0004
+        call cpct_setPalette_asm
+
         ld b, #0x50
         call cpct_waitHalts_asm
 
-        jr oml_loop
+        jp oml_loop
 
     oml_check_default_keys:
     cp #0x05
@@ -427,7 +449,14 @@ _mm_options_menu_loop:
         xor a
         ld (god_mode), a
 
+        call _mm_draw_god_mode
+
         ;; Reiniciar la paleta
+        xor a
+        ld (palette), a
+        ld hl, #palette_index
+        ld de, #0x0004
+        call cpct_setPalette_asm
 
 
         jp oml_loop
@@ -469,10 +498,6 @@ _mm_options_menu_loop:
 ;; CYCLES: []
 ;;==================================================================
 _mm_pause_menu_init:
-
-    ;; Cargamos la imagen en el frontbuffer
-    ;ld de, #_main_menu_screen_end
-    ;call _sr_decompress_image_on_video_memory
 
     ;; Para que no se vuelva a pulsar otra opción por error
     
@@ -548,13 +573,6 @@ _mm_pause_menu_loop:
         call _sr_swap_buffers
 
 
-        ;; Seleccionar tileset
-        ;ld b, #23 ;;Height
-        ;ld c, #20 ;;Width
-        ;ld de, #20
-        ;ld hl, #_tileset_spr_00
-        ;call cpct_etm_setDrawTilemap4x8_ag_asm
-
         ;; Dibujar tilemap en el backbuffer
         ld a, (mg_back_buffer)
         ld h, a
@@ -597,5 +615,45 @@ _mm_pause_menu_loop:
 
 
     jr pml_loop
+
+    ret
+
+
+
+
+;;==================================================================
+;;                        DRAW GOD MODE
+;;------------------------------------------------------------------
+;; Dibuja el estado de GOD MODE para el menú de opciones
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  NONE
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: []
+;;==================================================================
+_mm_draw_god_mode:
+
+    ld hl, #OM_OFF_POS
+    ld de, #om_off
+
+    ld a, (god_mode)
+    cp #0x00
+    jr z, dgm_not_god
+
+        ld hl, #OM_ON_POS
+        ld de, #om_on
+
+    dgm_not_god:
+
+    ld a, (mg_front_buffer)
+    call _sr_draw_string
 
     ret

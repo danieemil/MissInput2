@@ -14,6 +14,7 @@
 
 .globl mg_game_state
 .globl jump_table
+.globl enemy_jump_table
 .globl actual_level
 .globl checkpoint_x
 .globl checkpoint_y
@@ -29,3 +30,7 @@
 .globl transition
 
 .globl god_mode
+
+
+;; CONSTANTS
+PLAYER_VEL_X = 2

@@ -473,10 +473,28 @@ mpp_change_orientation_right_continue:
 
 
 mpp_no_orientation:
-    sla d
    
 
 mpp_end_x_input:
+
+
+    ld a, #PLAYER_VEL_X
+    sub #0x01
+    jr z, mpp_vel_x
+    jr c, mpp_vel_x
+    
+    ld b, a
+
+    ld a, d
+    mpp_vel_x_loop:
+        add d
+        dec b
+    jr nz, mpp_vel_x_loop
+
+    ld d, a
+
+    mpp_vel_x:
+
     ld _eph_vx(iy), d                       ;;Aplicamos la velocidad Horizontal
 
 
@@ -1319,7 +1337,6 @@ _sp_aply_jumptable:
 ;;==================================================================
 _sp_manage_enemy_physics:
 
-
     ld _eph_vx(iy), d
 
     ld a, e
@@ -1393,6 +1410,7 @@ _sp_manage_enemy_physics:
         jr nz, mep_no_move_y
             ld b, _eph_vy(iy)
             call _sp_fix_y
+            ld _ee_jump_state(iy), #JT_ON_GROUND    ;Ponemos la jump table a la posicion de colision con el suelo
 
     mep_no_move_y:
 
