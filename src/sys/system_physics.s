@@ -886,6 +886,7 @@ mpp_check_door_item:
         ret nz
 
         set 1, _eph_attributes(iy)
+        res 6, _eph_attributes(iy)
         set 7, _ep_player_attr(iy)
         ld a, _eph_x(iy)
         ld b, _eph_x(ix)

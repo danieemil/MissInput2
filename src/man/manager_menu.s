@@ -39,6 +39,35 @@ _mm_main_menu_init:
     ld de, #_main_menu_screen_end
     call _sr_decompress_image_on_video_memory
 
+
+    ld a, (mg_front_buffer)
+    ld b, a
+    ld c, #0x00
+    ld hl, #MM_SINGLEPLAYER_POS
+    add hl, bc
+    ld de, #mm_singleplayer
+    ex de, hl
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld b, a
+    ld c, #0x00
+    ld hl, #MM_MULTIPLAYER_POS
+    add hl, bc
+    ld de, #mm_multiplayer
+    ex de, hl
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld b, a
+    ld c, #0x00
+    ld hl, #MM_OPTIONS_POS
+    add hl, bc
+    ld de, #mm_options
+    ex de, hl
+    call _sr_draw_string
+
+
     ;; Para que no se vuelva a pulsar otra opción por error
     ld b, #0x50
     call cpct_waitHalts_asm

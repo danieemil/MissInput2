@@ -1273,3 +1273,71 @@ _sr_draw_number_2d:
     call cpct_drawSprite_asm
     
     ret
+
+
+
+;;==================================================================
+;;                         DRAW STRING
+;;------------------------------------------------------------------
+;; Redibuja la parte del tilemap que está alrededor de la entidad
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  HL -> Puntero al String
+;;  DE -> Puntero a la memoria de video
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL, BC', DE', HL'
+;;
+;;------------------------------------------------------------------
+;; CYCLES: [ | ]
+;;==================================================================
+_sr_draw_string:
+
+    ld a, (hl)
+    cp #END_STRING
+    ret z
+    
+    push hl
+    cp #START_CHARACTERS
+    jr c, ds_draw_number
+ds_draw_character:
+
+        sub #START_CHARACTERS
+        ld hl, #_hud_letter_index 
+        jr ds_continue_draw
+
+ds_draw_number:
+
+        sub #START_NUMBERS
+        ld hl, #_hud_number_index
+
+ds_continue_draw:
+
+    sla a
+    ld b, #0x00
+    ld c, a
+    add hl, bc
+    ld c, (hl)
+    inc hl
+    ld b, (hl)
+    ld h, b
+    ld l, c
+
+    ld bc, #0x0501
+
+    ;HL -> Puntero al sprite
+    ;DE -> Puntero a Vmem
+    ;BC -> Tamano del sprite
+
+    push de
+    call cpct_drawSprite_asm
+    pop de
+    inc de
+
+    pop hl
+    inc hl
+    jr _sr_draw_string

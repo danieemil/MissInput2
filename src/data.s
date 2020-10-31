@@ -29,6 +29,27 @@ level_index:
 ; - ->
 ; - ->
 
+;;ALL TEXTS
+mm_singleplayer: .asciz "1[SINGLEPLAYER/"
+mm_multiplayer: .asciz "2[MULTIPLAYER/"
+mm_options: .asciz "3[OPTIONS/"
+
+om_controlls: .asciz "CONTROLLS/"
+om_p1controlls: .asciz "1[P1@CONTROLLS/"
+om_p2controlls: .asciz "2[P2@CONTROLLS/"
+om_accessibility: .asciz "ACCESSIBILITY/"
+om_godmode: .asciz "3[GOD@MODE/"
+om_palette: .asciz "4[PALETTE/"
+om_restore: .asciz "5[RESTORE@DEFAULT/"
+om_back: .asciz "6[BACK/"
+
+
+pm_pause: .asciz "PAUSE/"
+pm_return: .asciz "ESC[RETURN/"
+pm_mainmenu: .asciz "6[MAIN@MENU/"
+
+
+
 
 
 _hud_number_index:
@@ -44,7 +65,35 @@ _hud_number_index:
     .dw _hud_spr_09
 
 
-
+_hud_letter_index:
+    .dw _letter_spr_00
+    .dw _letter_spr_01
+    .dw _letter_spr_02
+    .dw _letter_spr_03
+    .dw _letter_spr_04
+    .dw _letter_spr_05
+    .dw _letter_spr_06
+    .dw _letter_spr_07
+    .dw _letter_spr_08
+    .dw _letter_spr_09
+    .dw _letter_spr_10
+    .dw _letter_spr_11
+    .dw _letter_spr_12
+    .dw _letter_spr_13
+    .dw _letter_spr_14
+    .dw _letter_spr_15
+    .dw _letter_spr_16
+    .dw _letter_spr_17
+    .dw _letter_spr_18
+    .dw _letter_spr_19
+    .dw _letter_spr_20
+    .dw _letter_spr_21
+    .dw _letter_spr_22
+    .dw _letter_spr_23
+    .dw _letter_spr_24
+    .dw _letter_spr_25
+    .dw _letter_spr_26
+    .dw _letter_spr_27
 
 
 

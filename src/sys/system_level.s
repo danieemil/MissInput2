@@ -426,7 +426,6 @@ mel_loop_find_door_end:
         jr z, mel_door_opened
         ld a, #0x03
         ld (tries), a
-    
         call _sr_update_hud_skull
 
 mel_door_opened:
