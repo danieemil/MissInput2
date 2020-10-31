@@ -45,8 +45,8 @@ om_back: .asciz "6[BACK/"
 
 
 pm_pause: .asciz "PAUSE/"
-pm_return: .asciz "ESC[RETURN/"
-pm_mainmenu: .asciz "6[MAIN@MENU/"
+pm_return: .asciz "1[RESUME/"
+pm_mainmenu: .asciz "2[MAIN@MENU/"
 
 
 

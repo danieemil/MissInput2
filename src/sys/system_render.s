@@ -1283,8 +1283,9 @@ _sr_draw_number_2d:
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
-;;  HL -> Puntero al String
-;;  DE -> Puntero a la memoria de video
+;;   A -> Buffer donde dibujar
+;;  HL -> Posicion relativa al Buffer
+;;  DE -> Puntero al sprite
 ;;
 ;; OUTPUT:
 ;;  NONE
@@ -1297,6 +1298,12 @@ _sr_draw_number_2d:
 ;;==================================================================
 _sr_draw_string:
 
+    ld b, a
+    ld c, #0x00
+    add hl, bc
+    ex de, hl
+
+_sr_draw_string_loop:
     ld a, (hl)
     cp #END_STRING
     ret z
@@ -1340,7 +1347,7 @@ ds_continue_draw:
 
     pop hl
     inc hl
-    jr _sr_draw_string
+    jr _sr_draw_string_loop
 
 
 

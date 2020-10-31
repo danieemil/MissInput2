@@ -41,30 +41,18 @@ _mm_main_menu_init:
 
 
     ld a, (mg_front_buffer)
-    ld b, a
-    ld c, #0x00
     ld hl, #MM_SINGLEPLAYER_POS
-    add hl, bc
     ld de, #mm_singleplayer
-    ex de, hl
     call _sr_draw_string
 
     ld a, (mg_front_buffer)
-    ld b, a
-    ld c, #0x00
     ld hl, #MM_MULTIPLAYER_POS
-    add hl, bc
     ld de, #mm_multiplayer
-    ex de, hl
     call _sr_draw_string
 
     ld a, (mg_front_buffer)
-    ld b, a
-    ld c, #0x00
     ld hl, #MM_OPTIONS_POS
-    add hl, bc
     ld de, #mm_options
-    ex de, hl
     call _sr_draw_string
 
     ;ld a, (mg_front_buffer)
@@ -319,10 +307,33 @@ _mm_options_menu_loop:
 _mm_pause_menu_init:
 
     ;; Cargamos la imagen en el frontbuffer
-    ld de, #_main_menu_screen_end
-    call _sr_decompress_image_on_video_memory
+    ;ld de, #_main_menu_screen_end
+    ;call _sr_decompress_image_on_video_memory
 
     ;; Para que no se vuelva a pulsar otra opción por error
+    
+    call _sr_copy_back_to_front
+
+    ld a, (mg_front_buffer)
+    call _sr_draw_submenu_box
+
+    ld a, (mg_front_buffer)
+    ld hl, #PM_PAUSE_POS
+    ld de, #pm_pause
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld hl, #PM_RETURN_POS   
+    ld de, #pm_return
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld hl, #PM_MAINMENU_POS   
+    ld de, #pm_mainmenu
+    call _sr_draw_string
+
+
+    
     ld b, #0x50
     call cpct_waitHalts_asm
 
@@ -369,7 +380,26 @@ _mm_pause_menu_loop:
         pml_game_loop:
         
         ;; Borrar lo que hay en el frontbuffer copiando el contenido del backbuffer
-        call _sr_copy_back_to_front
+        ;
+        call _sr_swap_buffers
+
+
+        ;; Seleccionar tileset
+        ;ld b, #23 ;;Height
+        ;ld c, #20 ;;Width
+        ;ld de, #20
+        ;ld hl, #_tileset_spr_00
+        ;call cpct_etm_setDrawTilemap4x8_ag_asm
+
+        ;; Dibujar tilemap en el backbuffer
+        ld a, (mg_back_buffer)
+        ld h, a
+        ld l, #0x00
+        ld bc, #HUD_SIZE
+        add hl, bc
+        ld de, #TILEMAP_START
+        call cpct_etm_drawTilemap4x8_ag_asm
+
 
         ;; Para que no se vuelva a pulsar otra opción por error
         ld b, #0x50
@@ -380,14 +410,17 @@ _mm_pause_menu_loop:
         ld (timer_state), a
 
         jp _mg_game_loop
-
+        ;ret
 
     pml_check_main_menu:
     cp #0x02
     jr nz, pml_end_loop
 
+        call _sr_swap_buffers
+
         call _su_reset_data
         call _mm_main_menu_init
+        ;pop hl  ;vacia la pila para no hacer ret (Si explota algo ya sabes)
         jp _mm_main_menu_loop
 
 
