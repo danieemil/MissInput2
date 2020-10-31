@@ -70,6 +70,35 @@ _mm_main_menu_init:
     ld de, #TILEMAP_START
     call cpct_etm_drawTilemap4x8_ag_asm
 
+    ;; Dibujar opciones del menú principal
+    ld a, (mg_front_buffer)
+    ld b, a
+    ld c, #0x00
+    ld hl, #MM_SINGLEPLAYER_POS
+    add hl, bc
+    ld de, #mm_singleplayer
+    ex de, hl
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld b, a
+    ld c, #0x00
+    ld hl, #MM_MULTIPLAYER_POS
+    add hl, bc
+    ld de, #mm_multiplayer
+    ex de, hl
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld b, a
+    ld c, #0x00
+    ld hl, #MM_OPTIONS_POS
+    add hl, bc
+    ld de, #mm_options
+    ex de, hl
+    call _sr_draw_string
+
+
 
     ret
 
@@ -277,7 +306,7 @@ _mm_options_menu_loop:
 
     oml_check_god_mode:
     cp #0x03
-    jr nz, oml_check_default_keys
+    jr nz, oml_check_palette
         ;; Para que no se pulse la misma tecla por error
         oml_toggle_god_mode:
 
@@ -292,12 +321,20 @@ _mm_options_menu_loop:
         xor #0x01
         ld (god_mode), a
         
-        
+        jr oml_loop
+
+    oml_check_palette:
+    cp #0x04
+    jr nz, oml_check_default_keys
+        ld b, #0x50
+        call cpct_waitHalts_asm
+
         jr oml_loop
 
     oml_check_default_keys:
-    cp #0x04
-    jr nz, oml_check_back
+    cp #0x05
+    jr nz, oml_check_main_menu
+        ;; Reiniciar las teclas de los jugadores
         ld hl, #mg_p1_keys
         ld (hl), #<P1_KEY_R
         inc hl
@@ -326,17 +363,28 @@ _mm_options_menu_loop:
         ld (hl), #>P2_KEY_J
         inc hl
 
+        ;; Reiniciar el god mode
+        xor a
+        ld (god_mode), a
+
+        ;; Reiniciar la paleta
+
+
         jr oml_loop
 
-
-    oml_check_back:
-    cp #0x0B
-    jr nz, oml_loop
-
+    oml_check_main_menu:
+    cp #0x06
+    jr nz, oml_check_back
+        oml_go_back:
         call _mm_main_menu_init
         jp _mm_main_menu_loop
 
-    jr oml_loop
+    oml_check_back:
+    cp #0x0B
+    jp nz, oml_loop
+        jr oml_go_back
+
+    jp oml_loop
 
     ret
 

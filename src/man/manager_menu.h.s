@@ -11,17 +11,20 @@
     .globl _sr_copy_back_to_front
     .globl _sr_fill_backbuffer
     .globl _sr_decompress_image_on_video_memory
+    .globl _sr_draw_string
 
     .globl _su_reset_data
     .globl _su_set_player_keys
 
     .globl mg_p1_keys
     .globl mg_p2_keys
+    .globl mg_front_buffer
 
     .globl mg_front_buffer
     .globl mg_back_buffer
 
     .globl god_mode
+    
 
 ;;FUNCIONES
 .globl _mm_main_menu_init
