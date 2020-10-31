@@ -98,6 +98,9 @@ _mm_main_menu_init:
     ex de, hl
     call _sr_draw_string
 
+    ;ld a, (mg_front_buffer)
+    ;call _sr_draw_submenu_box
+
 
 
     ret

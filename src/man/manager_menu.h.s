@@ -19,6 +19,7 @@
     .globl mg_p1_keys
     .globl mg_p2_keys
     .globl mg_front_buffer
+    .globl _sr_draw_submenu_box
 
     .globl mg_front_buffer
     .globl mg_back_buffer
