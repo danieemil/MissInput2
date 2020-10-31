@@ -423,10 +423,7 @@ mel_loop_find_door_end:
 
         ld a, (tries)
         cp #0xFF
-        jr z, mel_door_opened
-        ld a, #0x03
-        ld (tries), a
-        call _sr_update_hud_skull
+        jr z, mel_door_opened            
 
 mel_door_opened:
 
@@ -471,14 +468,21 @@ mel_check_multiplayer:
     ld iy, #player_1
     ld a, _ep_player_attr(iy)
     and #0b00110000
-    ret z
+    jr z, mel_no_transition
     ld iy, #player_2
     ld a, _ep_player_attr(iy)
     and #0b00110000
-    ret z
+    jr z, mel_no_transition
 
         ld a, #0x45
         ld (transition), a
+        ret
+
+    mel_no_transition:
+        ld a, #0x03
+        ld (tries), a
+        call _sr_update_hud_skull
+
 
     ret
 

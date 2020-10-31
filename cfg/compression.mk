@@ -38,16 +38,28 @@
 #$(eval $(call ADD2PACK,mygraphics,gfx/background.bin))
 #$(eval $(call PACKZX7B,mygraphics,src/))
 
-$(eval $(call ADD2PACK,map_00,src/maps/Mapa_00.bin))
-$(eval $(call PACKZX7B,map_00,src/bins/))
 
+
+#MENUS
 $(eval $(call ADD2PACK,main_menu_screen,src/bins/main_menu_screen.bin))
 $(eval $(call PACKZX7B,main_menu_screen,src/bins/))
 
-#$(eval $(call ADD2PACK,tileset,src/spr/Tileset_01.bin))
-#$(eval $(call PACKZX7B,tileset,src/bins/))
+$(eval $(call ADD2PACK,menu_tileset,src/bins/MenuTileset.bin))
+$(eval $(call PACKZX7B,menu_tileset,src/bins/))
+
+$(eval $(call ADD2PACK,main_menu_map,src/maps/Main_Menu_Map.bin))
+$(eval $(call PACKZX7B,main_menu_map,src/bins/))
+
+$(eval $(call ADD2PACK,options_menu_map,src/maps/Options_Menu_Map.bin))
+$(eval $(call PACKZX7B,options_menu_map,src/bins/))
 
 
+#GAME
+$(eval $(call ADD2PACK,tileset,src/bins/Tileset_01.bin))
+$(eval $(call PACKZX7B,tileset,src/bins/))
+
+$(eval $(call ADD2PACK,map_00,src/maps/Mapa_00.bin))
+$(eval $(call PACKZX7B,map_00,src/bins/))
 
 
 

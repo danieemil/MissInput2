@@ -129,7 +129,7 @@ _mg_game_init:
     ld b, #23 ;;Height
     ld c, #20 ;;Width
     ld de, #20
-    ld hl, #_tileset_spr_00
+    ld hl, #TILESET_START
     call cpct_etm_setDrawTilemap4x8_ag_asm
 
 
@@ -337,8 +337,10 @@ gl_no_transition:
             
             ;; Loop de ejecución de cada enemigo activo
             call _sa_manage_enemy_ai
+            push iy
             call _sp_manage_enemy_physics
-            
+            pop iy
+
             ld a, _ee_disabled(iy)
             cp #0x00
             jr nz, gl_entity_disabled
