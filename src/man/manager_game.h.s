@@ -20,6 +20,7 @@
     .globl mg_p2_keys
 
     .globl timer_state
+    .globl hours
     .globl minutes
     .globl seconds
     .globl seconds_dc

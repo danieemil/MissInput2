@@ -101,7 +101,7 @@ _sl_generate_level:
                     gl_check_enemy_saw_right_down:
                     cp #SAW_RIGHT_DOWN
                     jr nz, gl_check_enemy_saw_down
-                        ld de, #0x0101
+                        ld de, #0x0202
 
                         jr gl_generate_enemy_saw
 
@@ -123,7 +123,7 @@ _sl_generate_level:
                     gl_check_enemy_saw_right_up:
                     cp #SAW_RIGHT_UP
                     jp nz, gl_check_enemy_saw_left_down
-                        ld de, #0x01FF
+                        ld de, #0x02FE
 
                         jr gl_generate_enemy_saw
 
@@ -132,7 +132,7 @@ _sl_generate_level:
                     inc b
                     cp #SAW_LEFT_DOWN
                     jr nz, gl_check_enemy_saw_left
-                        ld de, #0xFF01
+                        ld de, #0xFE02
 
                         jr gl_generate_enemy_saw
 
@@ -146,7 +146,7 @@ _sl_generate_level:
                     gl_check_enemy_saw_left_up:
                     cp #SAW_LEFT_UP
                     jp nz, gl_next_tile
-                        ld de, #0xFFFF
+                        ld de, #0xFEFE
 
 
                     gl_generate_enemy_saw:

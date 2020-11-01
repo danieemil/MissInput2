@@ -27,40 +27,34 @@
 _si_increment_timer:
 
     ;; Aumentar una centésima de segundo (que equivale a tres interrupciones)
-    ld hl, #seconds_dc
-    inc (hl)
-    ld a, (hl)
-    cp #SEC_DC_TO_SEC
-    ret c
-    
-    ld (hl), #0x00
-
-
-    ;; Aumentar un segundo
-    inc hl
-    inc (hl)
-    ld a, (hl)
-    cp #SEC_TO_MIN
-    ret c
-
-    ld (hl), #0x00
-    
-
-    ;; PD: Para aumentar los minutos correctamente hay que tener en cuenta
-    ;;     que el valor está en "little endian".
-
-    ;; Aumentar un minuto
-    inc hl
-    inc hl
-    inc (hl)
+    ld a, (seconds_dc)
+    add #0x01
+    daa
+    ld (seconds_dc), a
     ret nc
 
-    ;; Aumentar unidad equivalente a 256 minutos
-    dec hl
-    inc (hl)
-    ret nc
+    ld a, (seconds)
+    add #0x01
+    daa
+    ld (seconds), a
+    sub #0x60
+    ret nz
+    
+    ld (seconds), a
 
-    ;; En serio has estado 1091 horas jugando...? Bestial ;/
+    ld a, (minutes)
+    add #0x01
+    daa
+    ld (minutes), a
+    sub #0x60
+    ret nz
+
+    ld (minutes), a
+
+    ld a, (hours)
+    add #0x01
+    daa
+    ld (hours), a
     
     ret
 
@@ -85,16 +79,16 @@ _si_increment_timer:
 ;;==================================================================
 _si_reset_timer:
     ld hl, #seconds_dc
-    ld (hl), #0x00
+    ld (hl), #0x00      ;; Centésimas de segundo
 
     inc hl
-    ld (hl), #0x00
+    ld (hl), #0x00      ;; Segundos
 
     inc hl
-    ld (hl), #0x00
+    ld (hl), #0x00      ;; Minutos
 
     inc hl
-    ld (hl), #0x00
+    ld (hl), #0x00      ;; Horas
 
 ret
 
