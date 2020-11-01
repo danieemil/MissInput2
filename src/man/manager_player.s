@@ -153,4 +153,7 @@ _mp_init_player:
     ld (hl), a               ;; _player_attr
     inc hl
 
+    ld (hl), #0xFF           ;;_ep_anim_counter
+    inc hl
+
     ret

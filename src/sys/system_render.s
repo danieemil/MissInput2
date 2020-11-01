@@ -471,6 +471,7 @@ rtf_draw_full_sprite:
 ;;
 ;; OUTPUT:
 ;;  DE  -> Animacion que corresponderia al jugador 
+;;   A  -> 0 P2 se dibuja normal, 1-> P2 no incrementa al dibujar 
 ;;
 ;; DESTROYS:
 ;;  AF, BC, DE, HL
@@ -481,8 +482,20 @@ rtf_draw_full_sprite:
 _sr_manage_player_animations:
 
     ld de, #anim_player_door
+    ld a, #0x01
     bit 5, _ep_player_attr(iy)
     ret nz
+
+    ld de, #anim_player_death
+    ld a, #0x02
+    bit 3, _ep_player_attr(iy)
+    ret nz
+
+    ld de, #anim_player_respawn
+    ld a, #0x03
+    bit 2, _ep_player_attr(iy)
+    ret nz
+    
 
     bit 5, _eph_attributes(iy)              ;;Comprobamos Izquierda/Derecha
     jr nz, ma_right
@@ -496,10 +509,12 @@ ma_left:                                    ;;----IZQUIERDA---------------------
             jr nz, ma_left_ground_movement
 
                 ld de, #anim_player_idle_L  ;;Cargamos la animacion de suelo sin moverse izquierda
+                xor a
                 ret
 
 ma_left_ground_movement:
                 ld de, #anim_player_run_L  ;;Cargamos la animacion de suelo corriendo izquierda
+                xor a                
                 ret
 
 ma_left_no_ground:
@@ -509,11 +524,13 @@ ma_left_no_ground:
             jr nz, ma_left_no_ground_wall
 
                 ld de, #anim_player_jump_L
+                xor a
                 ret
 
 ma_left_no_ground_wall:
 
                 ld de, #anim_player_wall_L
+                xor a                
                 ret
 
 ma_right:                                   ;;----DERECHA-------------------------------------------
@@ -525,11 +542,13 @@ ma_right:                                   ;;----DERECHA-----------------------
             jr nz, ma_right_ground_movement
 
                 ld de, #anim_player_idle_R  ;;Cargamos la animacion de suelo sin moverse izquierda
+                xor a                
                 ret
 
 ma_right_ground_movement:
 
                 ld de, #anim_player_run_R  ;;Cargamos la animacion de suelo corriendo izquierda
+                xor a  
                 ret
 
 ma_right_no_ground:
@@ -539,11 +558,13 @@ ma_right_no_ground:
             jr nz, ma_right_no_ground_wall
 
                 ld de, #anim_player_jump_R
+                xor a  
                 ret
 
 ma_right_no_ground_wall:
 
                 ld de, #anim_player_wall_R
+                xor a  
                 ret
 
 

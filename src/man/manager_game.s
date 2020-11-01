@@ -36,6 +36,9 @@
     p2_key_l:: .dw #P2_KEY_L      ;;Default - 'O'
     p2_key_j:: .dw #P2_KEY_J      ;;Default - 'P'
 
+    p1_counter: .db #0xFF
+    p2_counter: .db #0xFF
+
 ;                     0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22
     jump_table:: .db -3, -3, -3, -2, -2, -2, -2, -1, -1, -1, -1,  0,  0,  0,  1,  1,  1,  1,  2,  2,  2,  2,  3, #0x80
     
@@ -208,12 +211,44 @@ _mg_game_loop:
     ld  a, (p1_key_gameplay)
     ld  e, a
 
+    bit 2, _ep_player_attr(iy)
+    jr z, gl_check_p1_death
 
+        ld a, _ep_anim_counter(iy)
+        cp #0xFF
+        jr z, gl_check_p1_death
+        cp #0x00
+        jr nz, gl_continue_respawn_anim_p1
 
+            res 2, _ep_player_attr(iy)
+
+gl_continue_respawn_anim_p1:
+        dec a
+        ld _ep_anim_counter(iy), a
+        jr gl_check_p2
+
+gl_check_p1_death:
+    bit 3, _ep_player_attr(iy)
+    jr z, gl_check_p1_physics
+
+        ld a, _ep_anim_counter(iy)
+        cp #0xFF
+        jr z, gl_check_p1_physics
+
+        dec a
+        ld _ep_anim_counter(iy), a
+        
+        cp #0x00
+        call z, _sp_player_death
+
+        jr gl_check_p2
+        
+
+gl_check_p1_physics:
     ld a, _ep_player_attr(iy)
     ld b, a
     and #0b00010000
-    jr nz, gl_check_p2_physics
+    jr nz, gl_check_p2
     ld a, b
     and #0b01100000
     jr z, gl_no_p1_in_door
@@ -224,7 +259,11 @@ _mg_game_loop:
     call _sy_manage_player_physics  ;;Aplicamos las fisicas al jugador 1
 
 
-    gl_check_p2_physics:
+
+
+;;PLAYER 2============================================================================
+
+    gl_check_p2:
 
     pop de
     ld a, (mg_game_state)
@@ -250,6 +289,42 @@ _mg_game_loop:
     ld a, (p2_key_gameplay)
     ld e, a
 
+
+    bit 2, _ep_player_attr(iy)
+    jr z, gl_check_p2_death
+
+        ld a, _ep_anim_counter(iy)
+        cp #0xFF
+        jr z, gl_check_p2_death
+        cp #0x00
+        jr nz, gl_continue_respawn_anim_p2
+
+            res 2, _ep_player_attr(iy)
+
+gl_continue_respawn_anim_p2:
+        dec a
+        ld _ep_anim_counter(iy), a
+        jr gl_no_p2_physics
+
+gl_check_p2_death:
+    bit 3, _ep_player_attr(iy)
+    jr z, gl_check_p2_physics
+
+        ld a, _ep_anim_counter(iy)
+        cp #0xFF
+        jr z, gl_check_p2_physics
+        
+        dec a
+        ld _ep_anim_counter(iy), a
+        
+        cp #0x00
+        call z, _sp_player_death
+        
+        jr gl_no_p2_physics
+
+
+
+gl_check_p2_physics:
     ld a, _ep_player_attr(iy)
     ld b, a
     and #0b00011000
@@ -337,9 +412,9 @@ gl_no_transition:
             
             ;; Loop de ejecución de cada enemigo activo
             call _sa_manage_enemy_ai
-            push iy
+            ;push iy
             call _sp_manage_enemy_physics
-            pop iy
+            ;pop iy
 
             ld a, _ee_disabled(iy)
             cp #0x00
@@ -400,6 +475,27 @@ gl_check_p2_render:
     ld iy, #player_2
     call _sr_manage_player_animations
     ld hl, #0x0438
+    cp #0x00
+    jr z, gl_p2_continue_render
+    
+    ld hl, #0x00
+    cp #0x01
+    jr z, gl_p2_door_anim
+    cp #0x02
+    jr z, gl_p2_death_anim
+
+        ld de, #anim_player_2_respawn
+        jr gl_p2_continue_render
+
+gl_p2_death_anim:
+        ld de, #anim_player_2_death
+        jr gl_p2_continue_render
+
+gl_p2_door_anim:
+
+        ld de, #anim_player_2_door
+
+gl_p2_continue_render:
     call _sr_apply_animation
     call _sr_draw_entity
 

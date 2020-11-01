@@ -117,7 +117,7 @@ anim_player_idle_L:
     .dw #0xFFFF             ;REPEAT_ed_anim_pos
 
 anim_player_wall_L:
-    .dw _player_spr_13      ;Sprite
+    .dw _player_spr_14      ;Sprite
     .db #0xFF               ;Duracion
     .db #0x00               ;Padding
     
@@ -189,12 +189,129 @@ anim_player_door:
     .db #0x20               ;Duracion
     .db #0x00               ;Padding
 
-    .dw _player_spr_14      ;Sprite
+    .dw _player_2_spr_15      ;Sprite
     .db #0x10               ;Duracion
     .db #0x00               ;Padding
 
-    .dw _player_spr_15      ;Sprite
+    .dw _player_2_spr_13      ;Sprite
     .db #0x10              ;Duracion
+    .db #0x00               ;Padding
+
+    .dw #0xFEFE             ;REPEAT_ed_anim_pos
+
+
+anim_player_2_door:
+
+    .dw _player_2_spr_00      ;Sprite
+    .db #0x20               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_2_spr_15      ;Sprite
+    .db #0x10               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_2_spr_13      ;Sprite
+    .db #0x10              ;Duracion
+    .db #0x00               ;Padding
+
+    .dw #0xFEFE             ;REPEAT_ed_anim_pos
+
+
+anim_player_death:
+
+    .dw _player_spr_16      ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_2_spr_17      ;Sprite
+    .db #0x03              ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_spr_17      ;Sprite
+    .db #0x03             ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_spr_13      ;Sprite
+    .db #0x03             ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_2_spr_13   ;Sprite
+    .db #0x03             ;Duracion
+    .db #0x00               ;Padding
+
+
+    .dw #0xFEFE             ;REPEAT_ed_anim_pos
+
+anim_player_2_death:
+
+    .dw _player_2_spr_16      ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_2_spr_17      ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_spr_17      ;Sprite
+    .db #0x03              ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_spr_13      ;Sprite
+    .db #0x03              ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_2_spr_13   ;Sprite
+    .db #0x03              ;Duracion
+    .db #0x00               ;Padding
+
+
+    .dw #0xFEFE             ;REPEAT_ed_anim_pos
+
+
+anim_player_respawn:
+
+    .dw _player_2_spr_13   ;Sprite
+    .db #0x03              ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_spr_13      ;Sprite
+    .db #0x03              ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_spr_17      ;Sprite
+    .db #0x03              ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_2_spr_17      ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_spr_16      ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw #0xFEFE             ;REPEAT_ed_anim_pos
+
+anim_player_2_respawn:
+
+    .dw _player_2_spr_13   ;Sprite
+    .db #0x03              ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_spr_13      ;Sprite
+    .db #0x03              ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_spr_17      ;Sprite
+    .db #0x03              ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_2_spr_17      ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _player_2_spr_16      ;Sprite
+    .db #0x03               ;Duracion
     .db #0x00               ;Padding
 
     .dw #0xFEFE             ;REPEAT_ed_anim_pos

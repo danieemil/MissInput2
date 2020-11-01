@@ -8,6 +8,7 @@
 .globl _sp_move_entity_y
 .globl _sy_manage_player_physics
 .globl _sp_manage_enemy_physics
+.globl _sp_player_death
 
 .globl _sr_update_hud_player_data
 .globl _sr_update_hud_skull

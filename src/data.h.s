@@ -37,8 +37,15 @@ NUM_LEVELS = 2
 .globl _player_spr_13
 .globl _player_spr_14
 .globl _player_spr_15
+.globl _player_spr_16
+.globl _player_spr_17
 
 .globl _player_2_spr_00
+.globl _player_2_spr_13
+.globl _player_2_spr_14
+.globl _player_2_spr_15
+.globl _player_2_spr_16
+.globl _player_2_spr_17 
 
 .globl _enemy_spr_00
 .globl _enemy_spr_04
@@ -187,6 +194,11 @@ SPR_DOOR_SIZE = 2 * 11
 .globl anim_player_jump_R
 .globl anim_player_jump_L
 .globl anim_player_door
+.globl anim_player_2_door
+.globl anim_player_death
+.globl anim_player_2_death
+.globl anim_player_respawn
+.globl anim_player_2_respawn
 
 
 ;ENEMY ANIMATIONS

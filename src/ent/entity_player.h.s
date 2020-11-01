@@ -13,21 +13,23 @@ _ep_name:
     .db #0x00           ;;Deaths [Millares, Centenas]
     .db #0x00           ;;Deaths [Decenas, Unidades]
     .db _player_attr    ;;Player Attributes
+    .db #0xFF           ;;Anim Counter
 
     _ep_name'_size = . - _ep_name ;; Saves the number of bytes that fills a DefineEntity
 .endm
 
-_ep_jump_state  = 0 + _ed_size ;;Offset de la tabla de saltos
-_ep_wall_dir    = 1 + _ed_size ;;Indica si esta chocando con una pared y su orientacion
-_ep_force_x     = 2 + _ed_size ;;Force X
-_ep_score_cdm   = 3 + _ed_size ;;Score [Centenas de Millar, Decenas de Millar]
-_ep_score_mc    = 4 + _ed_size ;;Score [Millares, Centenas]
-_ep_score_du    = 5 + _ed_size ;;Score [Decenas, Unidades]
-_ep_deaths_mc   = 6 + _ed_size ;;Deaths [Millares, Centenas]
-_ep_deaths_du   = 7 + _ed_size ;;Deaths [Decenas, Unidades]
-_ep_player_attr = 8 + _ed_size ;;Player Attributes
+_ep_jump_state      = 0 + _ed_size ;;Offset de la tabla de saltos
+_ep_wall_dir        = 1 + _ed_size ;;Indica si esta chocando con una pared y su orientacion
+_ep_force_x         = 2 + _ed_size ;;Force X
+_ep_score_cdm       = 3 + _ed_size ;;Score [Centenas de Millar, Decenas de Millar]
+_ep_score_mc        = 4 + _ed_size ;;Score [Millares, Centenas]
+_ep_score_du        = 5 + _ed_size ;;Score [Decenas, Unidades]
+_ep_deaths_mc       = 6 + _ed_size ;;Deaths [Millares, Centenas]
+_ep_deaths_du       = 7 + _ed_size ;;Deaths [Decenas, Unidades]
+_ep_player_attr     = 8 + _ed_size ;;Player Attributes
+_ep_anim_counter    = 9 + _ed_size ;;Contador para ciertas animaciones del jugador
 
-_ep_size        = 9 + _ed_size
+_ep_size            = 10 + _ed_size
 
 
 
@@ -56,8 +58,8 @@ _ep_size        = 9 + _ed_size
 ;6   D -> In Door (1 -> Esta en la puerta, 0 -> NO esta en la puerta)
 ;5   E -> End Level (1 -> Animacion entrar puerta)
 ;4   d -> Player dead (1 -> El jugador ha muerto)
-;3   . -> 
-;2   . -> 
+;3   A -> Dead Animation (1 -> Se anima al jugador) 
+;2   R -> Respawn Animation
 ;1   . -> 
 ;0   P -> Indica qué jugador es (1 -> Jugador 2, 0 -> Jugador 1)
 

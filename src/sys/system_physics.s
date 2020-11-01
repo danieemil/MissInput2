@@ -665,7 +665,10 @@ mpp_collision_x_dangerous:                          ;;PELIGROSOS X
         cp #DANGEROUS
         jr nz, mpp_collision_x_solid
             pop af
-            jp _sp_player_death
+            set 3, _ep_player_attr(iy)
+            ld a, #0x15
+            ld _ep_anim_counter(iy), a
+            ret
 
 mpp_collision_x_solid:                              ;;SOLIDOS X
         cp #SOLID
@@ -721,7 +724,10 @@ mpp_no_map_collision_x:
 mpp_collision_y_dangerous:                          ;;PELIGROSOS Y
         cp #DANGEROUS
         jr nz, mpp_collision_y_solid
-            jp _sp_player_death
+            set 3, _ep_player_attr(iy)
+            ld a, #0x15
+            ld _ep_anim_counter(iy), a
+            ret
 
 mpp_collision_y_solid:                              ;;SOLIDOS Y
         cp #SOLID
@@ -1424,18 +1430,22 @@ _sp_manage_enemy_physics:
     call _sp_check_entity_collision
     cp #0x00
     jr z, mep_check_player_2_collision
-        push ix
-        pop iy
-        jp _sp_player_death
+        ;push ix
+        ;pop iy
+        set 3, _ep_player_attr(ix)
+        ld a, #0x15
+        ld _ep_anim_counter(ix), a
 
     mep_check_player_2_collision:
     ld ix, #player_2
     call _sp_check_entity_collision
     cp #0x00
     jr z, mep_no_player_collision
-        push ix
-        pop iy
-        jp _sp_player_death
+        ;push ix
+        ;pop iy
+        set 3, _ep_player_attr(ix)
+        ld a, #0x15
+        ld _ep_anim_counter(ix), a
 
     mep_no_player_collision:
 
@@ -1549,7 +1559,9 @@ pd_no_death_carry:
     ld a, #0x00
     call _sr_update_hud_player_data
 
-    
+    set 2, _ep_player_attr(iy)
+    ld a, #0x15
+    ld _ep_anim_counter(iy), a
 
     ld a, (tries)
     cp #0x04
@@ -1595,8 +1607,8 @@ pd_no_death_carry:
         call cpct_waitHalts_asm
 
         call _mg_game_init
-        jp _mg_game_loop
-
+        ;jp _mg_game_loop
+        ret
 
     pd_staying_alive:
 
@@ -1608,7 +1620,6 @@ pd_no_death_carry:
     daa
     ld l, a
     ld (level_score), hl
-
 
     ld a, (tries)
     dec a
@@ -1627,10 +1638,10 @@ pd_no_death_carry:
     call _sr_fill_backbuffer
     call _sr_copy_back_to_front
         
-    ld b, #0xF0
+    ld b, #0x10
     call cpct_waitHalts_asm
 
     call _mg_game_init
-    jp _mg_game_loop
-
+    ;jp _mg_game_loop
+    ret
 
