@@ -479,6 +479,10 @@ mel_check_multiplayer:
         ret
 
     mel_no_transition:
+        ld a, (tries)
+        cp #0xFF
+        ret z
+        
         ld a, #0x03
         ld (tries), a
         call _sr_update_hud_skull
