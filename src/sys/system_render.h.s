@@ -2,6 +2,7 @@
 
 .globl mg_front_buffer
 .globl mg_back_buffer
+.globl mg_game_state
 
 .globl tries
 
@@ -20,5 +21,6 @@
 .globl _sr_update_hud_skull
 .globl _sr_draw_string
 .globl _sr_draw_submenu_box
+.globl _sr_draw_number_2d
 
 .globl _sr_apply_animation

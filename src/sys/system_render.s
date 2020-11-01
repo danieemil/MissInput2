@@ -392,6 +392,23 @@ _sr_draw_entity_vector:
         ld a, _ee_disabled(iy)
         cp #0x00
         jr nz, dev_next_entity
+
+            ;Comprobamos animaciones
+            ld a, _ed_anim_ind_h(iy) 
+            cp #0xFE
+            jr nz, dev_yes_animation
+
+            ld a, _ed_anim_ind_l(iy)
+            cp #0xFE
+            jr z, dev_no_animation
+
+    dev_yes_animation:
+            ld d, _ed_anim_ind_h(iy)
+            ld e, _ed_anim_ind_l(iy)
+            ld hl, #0x0000
+            call _sr_apply_animation
+
+    dev_no_animation:
             call _sr_draw_entity
             jr dev_next_entity
 
@@ -642,9 +659,22 @@ aa_change_animation_sprite:
         ld l, e
         add hl, bc
         pop bc
+        inc hl
         ld a, (hl)
+        dec hl
         cp #0xFE
         jr z, aa_change_animation_sprite_infinite
+        cp #0xFD
+        jr nz, aa_check_end_animation 
+
+            ld bc, #-20
+            add hl, bc
+
+            ld c, #0x01
+
+            jr aa_change_animation_sprite_continue
+
+aa_check_end_animation:
         cp #0xFF
         jr nz, aa_change_animation_sprite_continue
 
@@ -985,6 +1015,7 @@ dh_draw_hud_line_loop:
 
     
 
+    call _sr_update_hud_skull 
 
     ld iy, #player_1
     ld a, #0x00
@@ -992,14 +1023,41 @@ dh_draw_hud_line_loop:
     ld a, #0x01
     call _sr_update_hud_player_data
 
+    ld a, (mg_game_state)
+    cp #GS_SINGLEPLAYER 
+    jr nz, dh_draw_p2_data
+
+        ld a, (mg_front_buffer)
+        ld hl, #HUD_SCORE_POS
+        ld de, #em_no_p2_score
+        call _sr_draw_string
+
+        ld a, (mg_back_buffer)
+        ld hl, #HUD_SCORE_POS
+        ld de, #em_no_p2_score
+        call _sr_draw_string
+        
+
+        ld a, (mg_front_buffer)
+        ld hl, #HUD_DEATH_POS
+        ld de, #em_no_p2_deaths
+        call _sr_draw_string
+
+        ld a, (mg_back_buffer)
+        ld hl, #HUD_DEATH_POS
+        ld de, #em_no_p2_deaths
+        call _sr_draw_string
+
+        ret
+
+
+dh_draw_p2_data:
 
     ld iy, #player_2
     ld a, #0x00
     call _sr_update_hud_player_data
     ld a, #0x02
     call _sr_update_hud_player_data
-
-    call _sr_update_hud_skull
 
     ret
 

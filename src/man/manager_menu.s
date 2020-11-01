@@ -657,6 +657,195 @@ _mm_congrats_menu_init:
     ld de, #TILEMAP_START
     call cpct_etm_drawTilemap4x8_ag_asm
 
+
+    ld a, (mg_front_buffer)
+    ld hl, #EM_COMPLETED 
+    ld de, #em_completed
+    call _sr_draw_string
+
+
+    ld a, (mg_front_buffer)
+    ld hl, #EM_SCORE 
+    ld de, #em_score
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld hl, #EM_DEATHS 
+    ld de, #em_deaths
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld hl, #EM_P1 
+    ld de, #em_p1
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld hl, #EM_P2 
+    ld de, #em_p2
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld hl, #EM_TIME
+    ld de, #em_time
+    call _sr_draw_string
+
+    ld a, (mg_front_buffer)
+    ld hl, #EM_CONTINUE 
+    ld de, #em_key
+    call _sr_draw_string
+
+;;PLAYER 1 DATA ------------------------------------
+    ld iy, #player_1
+    ld a, (mg_front_buffer)
+    ld hl, #EM_P1_SCORE_DCM
+    ld b, a
+    ld c, #0x00
+    add hl, bc
+    ex de, hl
+    ld a, _ep_score_cdm(iy)
+    push de
+    call _sr_draw_number_2d
+    pop de
+    inc de
+    inc de
+    ld a, _ep_score_mc(iy)
+    push de
+    call _sr_draw_number_2d
+    pop de
+    inc de
+    inc de
+    ld a, _ep_score_du(iy)
+    push de
+    call _sr_draw_number_2d
+    pop de
+    inc de
+    inc de
+    ld hl, #_hud_spr_00
+    ld bc, #0x0501
+    call cpct_drawSprite_asm
+
+    ld a, (mg_front_buffer)
+    ld hl, #EM_P1_DEATHS_MC
+    ld b, a
+    ld c, #0x00
+    add hl, bc
+    ex de, hl
+    ld a, _ep_deaths_mc(iy)
+    push de
+    call _sr_draw_number_2d
+    pop de
+    inc de
+    inc de
+    ld a, _ep_deaths_du(iy)
+    call _sr_draw_number_2d
+
+    ld a, (mg_game_state)
+    cp #GS_SINGLEPLAYER
+    jr nz, cmi_draw_p2_data
+
+        ld a, (mg_front_buffer)
+        ld hl, #EM_P2_SCORE_DCM
+        ld de, #em_no_p2_score
+        call _sr_draw_string
+
+        ld a, (mg_front_buffer)
+        ld hl, #EM_P2_DEATHS_MC
+        ld de, #em_no_p2_deaths
+        call _sr_draw_string
+
+        jr cmi_end_draw_player_data
+
+cmi_draw_p2_data:
+;;PLAYER 2 DATA ------------------------------------
+    ld iy, #player_2
+    ld a, (mg_front_buffer)
+    ld hl, #EM_P2_SCORE_DCM
+    ld b, a
+    ld c, #0x00
+    add hl, bc
+    ex de, hl
+    ld a, _ep_score_cdm(iy)
+    push de
+    call _sr_draw_number_2d
+    pop de
+    inc de
+    inc de
+    ld a, _ep_score_mc(iy)
+    push de
+    call _sr_draw_number_2d
+    pop de
+    inc de
+    inc de
+    ld a, _ep_score_du(iy)
+    push de
+    call _sr_draw_number_2d
+    pop de
+    inc de
+    inc de
+    ld hl, #_hud_spr_00
+    ld bc, #0x0501
+    call cpct_drawSprite_asm
+
+    ld a, (mg_front_buffer)
+    ld hl, #EM_P2_DEATHS_MC
+    ld b, a
+    ld c, #0x00
+    add hl, bc
+    ex de, hl
+    ld a, _ep_deaths_mc(iy)
+    push de
+    call _sr_draw_number_2d
+    pop de
+    inc de
+    inc de
+    ld a, _ep_deaths_du(iy)
+    call _sr_draw_number_2d
+
+cmi_end_draw_player_data:
+
+;;DIBUJADO DE CRONOMETRO--------------------------------
+
+    ld iy, #player_2
+    ld a, (mg_front_buffer)
+    ld hl, #EM_TOTAL_TIME
+    ld b, a
+    ld c, #0x00
+    add hl, bc
+    ex de, hl
+    ld a, (hours)
+    push de
+    call _sr_draw_number_2d
+    pop de
+
+    inc de
+    inc de
+    ld hl, #_dospuntos_spr
+    ld bc, #0x0501
+    push de
+    call cpct_drawSprite_asm
+    pop de
+
+    inc de
+    ld a, (minutes)
+    push de
+    call _sr_draw_number_2d
+    pop de
+
+    inc de
+    inc de
+    ld hl, #_dospuntos_spr
+    ld bc, #0x0501
+    push de
+    call cpct_drawSprite_asm
+    pop de
+
+    inc de
+    ld a, (seconds)
+    push de
+    call _sr_draw_number_2d
+    pop de
+
+
     ;; Para que no se salte la pantalla final por error
     ld b, #0xA0
     call cpct_waitHalts_asm

@@ -71,6 +71,17 @@ pm_pause: .asciz "[@PAUSE@[/"
 pm_return: .asciz "1[@RESUME/"
 pm_mainmenu: .asciz "2[@MAIN@MENU/"
 
+em_completed: .asciz "YOU@HAVE@COMPLETED@MISS@INPUT@2/"
+em_score: .asciz "SCORE/"
+em_deaths: .asciz "DEATHS/"
+em_p1: .asciz "P1[/"
+em_p2: .asciz "P2[/"
+em_time: .asciz "[FINAL@TIME[/"
+em_key: .asciz "[PRESS@ANY@KEY@TO@CONTINUE[/"
+em_no_p2_score: .asciz "[[[[[[[/"
+em_no_p2_deaths: .asciz "[[[[/"
+
+
 
 
 
@@ -375,6 +386,7 @@ anim_enemy_S:
     .dw #0xFFFF             ;REPEAT_ed_anim_pos
 
 
+
 ;;INTERACTABLE ANIMATIONS-----------------------------
 anim_interactable_door:
     .dw _door_spr_0         ;Sprite
@@ -401,3 +413,121 @@ anim_interactable_door:
 
 
     .dw #0xFEFE             ;REPEAT_ed_anim_pos
+
+
+anim_interactable_gravity_up_power_up:
+
+    .dw _gravity_spr_00     ;Sprite
+    .db #0x10               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _gravity_spr_01     ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _gravity_spr_02     ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _gravity_spr_03     ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _gravity_spr_04     ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _gravity_spr_05     ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _gravity_spr_06     ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw #0xFFFF             ;REPEAT_ed_anim_pos
+
+anim_interactable_gravity_down_power_up:
+
+    .dw _gravity_spr_07     ;Sprite
+    .db #0x10               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _gravity_spr_08     ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _gravity_spr_09     ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _gravity_spr_10     ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _gravity_spr_11     ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _gravity_spr_12     ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _gravity_spr_13     ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw #0xFFFF             ;REPEAT_ed_anim_pos
+
+
+
+anim_interactable_djump_active_power_up:
+
+    .dw _double_jump_spr_4  ;Sprite
+    .db #0x15               ;Duracion
+    .db #0x00               ;Padding
+
+anim_interactable_djump_power_up:
+
+    .dw _double_jump_spr_0  ;Sprite
+    .db #0x10               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _double_jump_spr_1  ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _double_jump_spr_2  ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _double_jump_spr_3  ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _double_jump_spr_2  ;Sprite
+    .db #0x03               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw #0xFDFD             ;REPEAT_ed_anim_pos
+
+
+anim_interactable_colectable:
+
+    .dw _colectable_spr_0   ;Sprite
+    .db #0x0A               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _colectable_spr_1   ;Sprite
+    .db #0x0A               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _colectable_spr_2   ;Sprite
+    .db #0x0A               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw _colectable_spr_3   ;Sprite
+    .db #0x0A               ;Duracion
+    .db #0x00               ;Padding
+
+    .dw #0xFFFF             ;REPEAT_ed_anim_pos

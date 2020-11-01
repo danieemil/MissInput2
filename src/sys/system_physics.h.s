@@ -12,6 +12,7 @@
 
 .globl _sr_update_hud_player_data
 .globl _sr_update_hud_skull
+.globl _sr_draw_entity
 
 .globl mg_game_state
 .globl jump_table

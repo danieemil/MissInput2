@@ -12,6 +12,7 @@
     .globl _sr_fill_backbuffer
     .globl _sr_decompress_image_on_video_memory
     .globl _sr_draw_string
+    .globl _sr_draw_number_2d
 
     .globl _su_reset_data
     .globl _su_set_player_keys
@@ -27,6 +28,10 @@
     .globl god_mode
 
     .globl palette
+    
+    .globl seconds
+    .globl minutes
+    .globl hours
     
 
 ;;FUNCIONES

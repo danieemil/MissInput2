@@ -452,11 +452,13 @@ gl_no_transition:
             cp #0x00
             jr nz, gl_entity_disabled
                 ld de, #anim_enemy_S
-                ld hl, #0x0300
+                ld hl, #0x0480
 
                 ld a, _ee_type(iy)
                 cp #ET_SAW
                 jr z, gl_continue_enemy_animation
+
+                ld hl, #0x0300
                 
                 ld de, #anim_enemy_R
                 cp #ET_ROCK
