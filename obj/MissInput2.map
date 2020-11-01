@@ -1,0 +1,1114 @@
+ASxxxx Linker V03.00 + NoICE + sdld,  page 1.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000000  .__.ABS.                           cpct_easytilemaps
+     00000000  MENU_TILESET_SPR_00_OFF            
+     00000000  MENU_TILESET_SPR_PALETTE_OFF       
+     00000000  MENU_TILESET_SPR_PALETTE_SIZE      
+     00000000  TILESET_SPR_00_OFF                 
+     00000000  TILESET_SPR_PALETTE_OFF            
+     00000000  TILESET_SPR_PALETTE_SIZE           
+     00000000  l__CABS                         
+     00000000  l__DABS                         
+     00000000  l__GSFINAL                      
+     00000000  l__GSINIT                       
+     00000000  l__HOME                         
+     00000000  l__INITIALIZED                  
+     00000000  l__INITIALIZER                  
+     00000000  l___ambient_sound               
+     00000000  s__CABS                         
+     00000000  s__DABS                         
+     00000000  s___ambient_sound               
+     00000000  s___ambient_sound0              
+     00000004  MENU_TILESET_SPR_00_W              
+     00000004  MENU_TILESET_SPR_01_W              
+     00000004  MENU_TILESET_SPR_02_W              
+     00000004  MENU_TILESET_SPR_03_W              
+     00000004  MENU_TILESET_SPR_04_W              
+     00000004  MENU_TILESET_SPR_05_W              
+     00000004  MENU_TILESET_SPR_06_W              
+     00000004  MENU_TILESET_SPR_07_W              
+     00000004  MENU_TILESET_SPR_08_W              
+     00000004  MENU_TILESET_SPR_09_W              
+     00000004  MENU_TILESET_SPR_10_W              
+     00000004  MENU_TILESET_SPR_11_W              
+     00000004  MENU_TILESET_SPR_12_W              
+     00000004  MENU_TILESET_SPR_13_W              
+     00000004  MENU_TILESET_SPR_14_W              
+     00000004  MENU_TILESET_SPR_15_W              
+     00000004  MENU_TILESET_SPR_16_W              
+     00000004  MENU_TILESET_SPR_17_W              
+     00000004  MENU_TILESET_SPR_18_W              
+     00000004  MENU_TILESET_SPR_19_W              
+     00000004  MENU_TILESET_SPR_20_W              
+     00000004  MENU_TILESET_SPR_21_W              
+     00000004  MENU_TILESET_SPR_22_W              
+     00000004  MENU_TILESET_SPR_23_W              
+     00000004  MENU_TILESET_SPR_24_W              
+     00000004  MENU_TILESET_SPR_25_W              
+     00000004  MENU_TILESET_SPR_26_W              
+     00000004  MENU_TILESET_SPR_27_W              
+     00000004  MENU_TILESET_SPR_28_W              
+     00000004  MENU_TILESET_SPR_29_W              
+     00000004  MENU_TILESET_SPR_30_W              
+ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000004  MENU_TILESET_SPR_31_W              
+     00000004  MENU_TILESET_SPR_32_W              
+     00000004  MENU_TILESET_SPR_33_W              
+     00000004  MENU_TILESET_SPR_34_W              
+     00000004  MENU_TILESET_SPR_35_W              
+     00000004  MENU_TILESET_SPR_36_W              
+     00000004  MENU_TILESET_SPR_37_W              
+     00000004  MENU_TILESET_SPR_38_W              
+     00000004  MENU_TILESET_SPR_39_W              
+     00000004  MENU_TILESET_SPR_40_W              
+     00000004  MENU_TILESET_SPR_41_W              
+     00000004  MENU_TILESET_SPR_42_W              
+     00000004  MENU_TILESET_SPR_43_W              
+     00000004  MENU_TILESET_SPR_44_W              
+     00000004  MENU_TILESET_SPR_45_W              
+     00000004  MENU_TILESET_SPR_46_W              
+     00000004  MENU_TILESET_SPR_47_W              
+     00000004  TILESET_SPR_00_W                   
+     00000004  TILESET_SPR_01_W                   
+     00000004  TILESET_SPR_02_W                   
+     00000004  TILESET_SPR_03_W                   
+     00000004  TILESET_SPR_04_W                   
+     00000004  TILESET_SPR_05_W                   
+     00000004  TILESET_SPR_06_W                   
+     00000004  TILESET_SPR_07_W                   
+     00000004  TILESET_SPR_08_W                   
+     00000004  TILESET_SPR_09_W                   
+     00000004  TILESET_SPR_10_W                   
+     00000004  TILESET_SPR_11_W                   
+     00000004  TILESET_SPR_12_W                   
+     00000004  TILESET_SPR_13_W                   
+     00000004  TILESET_SPR_14_W                   
+     00000004  TILESET_SPR_15_W                   
+     00000004  TILESET_SPR_16_W                   
+     00000004  TILESET_SPR_17_W                   
+     00000004  TILESET_SPR_18_W                   
+     00000004  TILESET_SPR_19_W                   
+     00000004  TILESET_SPR_20_W                   
+     00000004  TILESET_SPR_21_W                   
+     00000004  TILESET_SPR_22_W                   
+     00000004  TILESET_SPR_23_W                   
+     00000004  TILESET_SPR_24_W                   
+     00000004  TILESET_SPR_25_W                   
+     00000004  TILESET_SPR_26_W                   
+     00000004  TILESET_SPR_27_W                   
+     00000004  TILESET_SPR_28_W                   
+     00000004  TILESET_SPR_29_W                   
+     00000004  TILESET_SPR_30_W                   
+     00000004  TILESET_SPR_31_W                   
+     00000004  TILESET_SPR_32_W                   
+     00000004  TILESET_SPR_33_W                   
+ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000004  TILESET_SPR_34_W                   
+     00000004  TILESET_SPR_35_W                   
+     00000004  TILESET_SPR_36_W                   
+     00000004  TILESET_SPR_37_W                   
+     00000004  TILESET_SPR_38_W                   
+     00000004  TILESET_SPR_39_W                   
+     00000004  TILESET_SPR_40_W                   
+     00000004  TILESET_SPR_41_W                   
+     00000004  TILESET_SPR_42_W                   
+     00000004  TILESET_SPR_43_W                   
+     00000004  TILESET_SPR_44_W                   
+     00000004  TILESET_SPR_45_W                   
+     00000004  TILESET_SPR_46_W                   
+     00000004  TILESET_SPR_47_W                   
+     00000008  MENU_TILESET_SPR_00_H              
+     00000008  MENU_TILESET_SPR_01_H              
+     00000008  MENU_TILESET_SPR_02_H              
+     00000008  MENU_TILESET_SPR_03_H              
+     00000008  MENU_TILESET_SPR_04_H              
+     00000008  MENU_TILESET_SPR_05_H              
+     00000008  MENU_TILESET_SPR_06_H              
+     00000008  MENU_TILESET_SPR_07_H              
+     00000008  MENU_TILESET_SPR_08_H              
+     00000008  MENU_TILESET_SPR_09_H              
+     00000008  MENU_TILESET_SPR_10_H              
+     00000008  MENU_TILESET_SPR_11_H              
+     00000008  MENU_TILESET_SPR_12_H              
+     00000008  MENU_TILESET_SPR_13_H              
+     00000008  MENU_TILESET_SPR_14_H              
+     00000008  MENU_TILESET_SPR_15_H              
+     00000008  MENU_TILESET_SPR_16_H              
+     00000008  MENU_TILESET_SPR_17_H              
+     00000008  MENU_TILESET_SPR_18_H              
+     00000008  MENU_TILESET_SPR_19_H              
+     00000008  MENU_TILESET_SPR_20_H              
+     00000008  MENU_TILESET_SPR_21_H              
+     00000008  MENU_TILESET_SPR_22_H              
+     00000008  MENU_TILESET_SPR_23_H              
+     00000008  MENU_TILESET_SPR_24_H              
+     00000008  MENU_TILESET_SPR_25_H              
+     00000008  MENU_TILESET_SPR_26_H              
+     00000008  MENU_TILESET_SPR_27_H              
+     00000008  MENU_TILESET_SPR_28_H              
+     00000008  MENU_TILESET_SPR_29_H              
+     00000008  MENU_TILESET_SPR_30_H              
+     00000008  MENU_TILESET_SPR_31_H              
+     00000008  MENU_TILESET_SPR_32_H              
+     00000008  MENU_TILESET_SPR_33_H              
+     00000008  MENU_TILESET_SPR_34_H              
+     00000008  MENU_TILESET_SPR_35_H              
+     00000008  MENU_TILESET_SPR_36_H              
+ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000008  MENU_TILESET_SPR_37_H              
+     00000008  MENU_TILESET_SPR_38_H              
+     00000008  MENU_TILESET_SPR_39_H              
+     00000008  MENU_TILESET_SPR_40_H              
+     00000008  MENU_TILESET_SPR_41_H              
+     00000008  MENU_TILESET_SPR_42_H              
+     00000008  MENU_TILESET_SPR_43_H              
+     00000008  MENU_TILESET_SPR_44_H              
+     00000008  MENU_TILESET_SPR_45_H              
+     00000008  MENU_TILESET_SPR_46_H              
+     00000008  MENU_TILESET_SPR_47_H              
+     00000008  TILESET_SPR_00_H                   
+     00000008  TILESET_SPR_01_H                   
+     00000008  TILESET_SPR_02_H                   
+     00000008  TILESET_SPR_03_H                   
+     00000008  TILESET_SPR_04_H                   
+     00000008  TILESET_SPR_05_H                   
+     00000008  TILESET_SPR_06_H                   
+     00000008  TILESET_SPR_07_H                   
+     00000008  TILESET_SPR_08_H                   
+     00000008  TILESET_SPR_09_H                   
+     00000008  TILESET_SPR_10_H                   
+     00000008  TILESET_SPR_11_H                   
+     00000008  TILESET_SPR_12_H                   
+     00000008  TILESET_SPR_13_H                   
+     00000008  TILESET_SPR_14_H                   
+     00000008  TILESET_SPR_15_H                   
+     00000008  TILESET_SPR_16_H                   
+     00000008  TILESET_SPR_17_H                   
+     00000008  TILESET_SPR_18_H                   
+     00000008  TILESET_SPR_19_H                   
+     00000008  TILESET_SPR_20_H                   
+     00000008  TILESET_SPR_21_H                   
+     00000008  TILESET_SPR_22_H                   
+     00000008  TILESET_SPR_23_H                   
+     00000008  TILESET_SPR_24_H                   
+     00000008  TILESET_SPR_25_H                   
+     00000008  TILESET_SPR_26_H                   
+     00000008  TILESET_SPR_27_H                   
+     00000008  TILESET_SPR_28_H                   
+     00000008  TILESET_SPR_29_H                   
+     00000008  TILESET_SPR_30_H                   
+     00000008  TILESET_SPR_31_H                   
+     00000008  TILESET_SPR_32_H                   
+     00000008  TILESET_SPR_33_H                   
+     00000008  TILESET_SPR_34_H                   
+     00000008  TILESET_SPR_35_H                   
+     00000008  TILESET_SPR_36_H                   
+     00000008  TILESET_SPR_37_H                   
+     00000008  TILESET_SPR_38_H                   
+     00000008  TILESET_SPR_39_H                   
+ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000008  TILESET_SPR_40_H                   
+     00000008  TILESET_SPR_41_H                   
+     00000008  TILESET_SPR_42_H                   
+     00000008  TILESET_SPR_43_H                   
+     00000008  TILESET_SPR_44_H                   
+     00000008  TILESET_SPR_45_H                   
+     00000008  TILESET_SPR_46_H                   
+     00000008  TILESET_SPR_47_H                   
+     00000014  _end_menu_map_W                    
+     00000014  _level_complete_menu_map_W         
+     00000014  _main_menu_map_W                   
+     00000014  _map00_W                           
+     00000014  _options_menu_map_W                
+     00000017  _map00_H                           
+     00000019  _end_menu_map_H                    
+     00000019  _level_complete_menu_map_H         
+     00000019  _main_menu_map_H                   
+     00000019  _options_menu_map_H                
+     00000020  MENU_TILESET_SPR_00_SIZE           
+     00000020  MENU_TILESET_SPR_01_OFF            
+     00000020  MENU_TILESET_SPR_01_SIZE           
+     00000020  MENU_TILESET_SPR_02_SIZE           
+     00000020  MENU_TILESET_SPR_03_SIZE           
+     00000020  MENU_TILESET_SPR_04_SIZE           
+     00000020  MENU_TILESET_SPR_05_SIZE           
+     00000020  MENU_TILESET_SPR_06_SIZE           
+     00000020  MENU_TILESET_SPR_07_SIZE           
+     00000020  MENU_TILESET_SPR_08_SIZE           
+     00000020  MENU_TILESET_SPR_09_SIZE           
+     00000020  MENU_TILESET_SPR_10_SIZE           
+     00000020  MENU_TILESET_SPR_11_SIZE           
+     00000020  MENU_TILESET_SPR_12_SIZE           
+     00000020  MENU_TILESET_SPR_13_SIZE           
+     00000020  MENU_TILESET_SPR_14_SIZE           
+     00000020  MENU_TILESET_SPR_15_SIZE           
+     00000020  MENU_TILESET_SPR_16_SIZE           
+     00000020  MENU_TILESET_SPR_17_SIZE           
+     00000020  MENU_TILESET_SPR_18_SIZE           
+     00000020  MENU_TILESET_SPR_19_SIZE           
+     00000020  MENU_TILESET_SPR_20_SIZE           
+     00000020  MENU_TILESET_SPR_21_SIZE           
+     00000020  MENU_TILESET_SPR_22_SIZE           
+     00000020  MENU_TILESET_SPR_23_SIZE           
+     00000020  MENU_TILESET_SPR_24_SIZE           
+     00000020  MENU_TILESET_SPR_25_SIZE           
+     00000020  MENU_TILESET_SPR_26_SIZE           
+     00000020  MENU_TILESET_SPR_27_SIZE           
+     00000020  MENU_TILESET_SPR_28_SIZE           
+     00000020  MENU_TILESET_SPR_29_SIZE           
+     00000020  MENU_TILESET_SPR_30_SIZE           
+     00000020  MENU_TILESET_SPR_31_SIZE           
+ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000020  MENU_TILESET_SPR_32_SIZE           
+     00000020  MENU_TILESET_SPR_33_SIZE           
+     00000020  MENU_TILESET_SPR_34_SIZE           
+     00000020  MENU_TILESET_SPR_35_SIZE           
+     00000020  MENU_TILESET_SPR_36_SIZE           
+     00000020  MENU_TILESET_SPR_37_SIZE           
+     00000020  MENU_TILESET_SPR_38_SIZE           
+     00000020  MENU_TILESET_SPR_39_SIZE           
+     00000020  MENU_TILESET_SPR_40_SIZE           
+     00000020  MENU_TILESET_SPR_41_SIZE           
+     00000020  MENU_TILESET_SPR_42_SIZE           
+     00000020  MENU_TILESET_SPR_43_SIZE           
+     00000020  MENU_TILESET_SPR_44_SIZE           
+     00000020  MENU_TILESET_SPR_45_SIZE           
+     00000020  MENU_TILESET_SPR_46_SIZE           
+     00000020  MENU_TILESET_SPR_47_SIZE           
+     00000020  TILESET_SPR_00_SIZE                
+     00000020  TILESET_SPR_01_OFF                 
+     00000020  TILESET_SPR_01_SIZE                
+     00000020  TILESET_SPR_02_SIZE                
+     00000020  TILESET_SPR_03_SIZE                
+     00000020  TILESET_SPR_04_SIZE                
+     00000020  TILESET_SPR_05_SIZE                
+     00000020  TILESET_SPR_06_SIZE                
+     00000020  TILESET_SPR_07_SIZE                
+     00000020  TILESET_SPR_08_SIZE                
+     00000020  TILESET_SPR_09_SIZE                
+     00000020  TILESET_SPR_10_SIZE                
+     00000020  TILESET_SPR_11_SIZE                
+     00000020  TILESET_SPR_12_SIZE                
+     00000020  TILESET_SPR_13_SIZE                
+     00000020  TILESET_SPR_14_SIZE                
+     00000020  TILESET_SPR_15_SIZE                
+     00000020  TILESET_SPR_16_SIZE                
+     00000020  TILESET_SPR_17_SIZE                
+     00000020  TILESET_SPR_18_SIZE                
+     00000020  TILESET_SPR_19_SIZE                
+     00000020  TILESET_SPR_20_SIZE                
+     00000020  TILESET_SPR_21_SIZE                
+     00000020  TILESET_SPR_22_SIZE                
+     00000020  TILESET_SPR_23_SIZE                
+     00000020  TILESET_SPR_24_SIZE                
+     00000020  TILESET_SPR_25_SIZE                
+     00000020  TILESET_SPR_26_SIZE                
+     00000020  TILESET_SPR_27_SIZE                
+     00000020  TILESET_SPR_28_SIZE                
+     00000020  TILESET_SPR_29_SIZE                
+     00000020  TILESET_SPR_30_SIZE                
+     00000020  TILESET_SPR_31_SIZE                
+     00000020  TILESET_SPR_32_SIZE                
+     00000020  TILESET_SPR_33_SIZE                
+ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000020  TILESET_SPR_34_SIZE                
+     00000020  TILESET_SPR_35_SIZE                
+     00000020  TILESET_SPR_36_SIZE                
+     00000020  TILESET_SPR_37_SIZE                
+     00000020  TILESET_SPR_38_SIZE                
+     00000020  TILESET_SPR_39_SIZE                
+     00000020  TILESET_SPR_40_SIZE                
+     00000020  TILESET_SPR_41_SIZE                
+     00000020  TILESET_SPR_42_SIZE                
+     00000020  TILESET_SPR_43_SIZE                
+     00000020  TILESET_SPR_44_SIZE                
+     00000020  TILESET_SPR_45_SIZE                
+     00000020  TILESET_SPR_46_SIZE                
+     00000020  TILESET_SPR_47_SIZE                
+     00000040  MENU_TILESET_SPR_02_OFF            
+     00000040  TILESET_SPR_02_OFF                 
+     0000005F  l___ambient_sound0              
+     00000060  MENU_TILESET_SPR_03_OFF            
+     00000060  TILESET_SPR_03_OFF                 
+     00000078  _map_00_size_z                     
+     00000080  MENU_TILESET_SPR_04_OFF            
+     00000080  TILESET_SPR_04_OFF                 
+     000000A0  MENU_TILESET_SPR_05_OFF            
+     000000A0  TILESET_SPR_05_OFF                 
+     000000C0  MENU_TILESET_SPR_06_OFF            
+     000000C0  TILESET_SPR_06_OFF                 
+     000000E0  MENU_TILESET_SPR_07_OFF            
+     000000E0  TILESET_SPR_07_OFF                 
+     00000100  MENU_TILESET_SPR_08_OFF            
+     00000100  TILESET_SPR_08_OFF                 
+     00000105  Key_8                              cpct_keyboard
+     00000106  Key_6                              cpct_keyboard
+     00000107  Key_4                              cpct_keyboard
+     00000108  Key_1                              cpct_keyboard
+     00000120  MENU_TILESET_SPR_09_OFF            
+     00000120  TILESET_SPR_09_OFF                 
+     00000140  MENU_TILESET_SPR_10_OFF            
+     00000140  TILESET_SPR_10_OFF                 
+     00000160  MENU_TILESET_SPR_11_OFF            
+     00000160  TILESET_SPR_11_OFF                 
+     00000180  MENU_TILESET_SPR_12_OFF            
+     00000180  TILESET_SPR_12_OFF                 
+     000001A0  MENU_TILESET_SPR_13_OFF            
+     000001A0  TILESET_SPR_13_OFF                 
+     000001C0  MENU_TILESET_SPR_14_OFF            
+     000001C0  TILESET_SPR_14_OFF                 
+     000001CC  _map00_SIZE                        
+     000001CC  _map_00_size                       
+     000001E0  MENU_TILESET_SPR_15_OFF            
+     000001E0  TILESET_SPR_15_OFF                 
+     000001F4  _end_menu_map_SIZE                 
+ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     000001F4  _level_complete_menu_map_SIZE      
+     000001F4  _main_menu_map_SIZE                
+     000001F4  _options_menu_map_SIZE             
+     00000200  MENU_TILESET_SPR_16_OFF            
+     00000200  TILESET_SPR_16_OFF                 
+     00000204  Key_9                              cpct_keyboard
+     00000205  Key_7                              cpct_keyboard
+     00000206  Key_5                              cpct_keyboard
+     00000207  Key_3                              cpct_keyboard
+     00000208  Key_2                              cpct_keyboard
+     00000220  MENU_TILESET_SPR_17_OFF            
+     00000220  TILESET_SPR_17_OFF                 
+     00000240  MENU_TILESET_SPR_18_OFF            
+     00000240  TILESET_SPR_18_OFF                 
+     00000260  MENU_TILESET_SPR_19_OFF            
+     00000260  TILESET_SPR_19_OFF                 
+     00000280  MENU_TILESET_SPR_20_OFF            
+     00000280  TILESET_SPR_20_OFF                 
+     000002A0  MENU_TILESET_SPR_21_OFF            
+     000002A0  TILESET_SPR_21_OFF                 
+     000002C0  MENU_TILESET_SPR_22_OFF            
+     000002C0  TILESET_SPR_22_OFF                 
+     000002E0  MENU_TILESET_SPR_23_OFF            
+     000002E0  TILESET_SPR_23_OFF                 
+     00000300  MENU_TILESET_SPR_24_OFF            
+     00000300  TILESET_SPR_24_OFF                 
+     00000320  MENU_TILESET_SPR_25_OFF            
+     00000320  TILESET_SPR_25_OFF                 
+     00000340  MENU_TILESET_SPR_26_OFF            
+     00000340  TILESET_SPR_26_OFF                 
+     00000360  MENU_TILESET_SPR_27_OFF            
+     00000360  TILESET_SPR_27_OFF                 
+     00000380  MENU_TILESET_SPR_28_OFF            
+     00000380  TILESET_SPR_28_OFF                 
+     000003A0  MENU_TILESET_SPR_29_OFF            
+     000003A0  TILESET_SPR_29_OFF                 
+     000003C0  MENU_TILESET_SPR_30_OFF            
+     000003C0  TILESET_SPR_30_OFF                 
+     000003E0  MENU_TILESET_SPR_31_OFF            
+     000003E0  TILESET_SPR_31_OFF                 
+     00000400  MENU_TILESET_SPR_32_OFF            
+     00000400  TILESET_SPR_32_OFF                 
+     00000408  Key_Esc                            cpct_keyboard
+     00000420  MENU_TILESET_SPR_33_OFF            
+     00000420  TILESET_SPR_33_OFF                 
+     00000440  MENU_TILESET_SPR_34_OFF            
+     00000440  TILESET_SPR_34_OFF                 
+     00000460  MENU_TILESET_SPR_35_OFF            
+     00000460  TILESET_SPR_35_OFF                 
+     00000480  MENU_TILESET_SPR_36_OFF            
+     00000480  TILESET_SPR_36_OFF                 
+ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     000004A0  MENU_TILESET_SPR_37_OFF            
+     000004A0  TILESET_SPR_37_OFF                 
+     000004C0  MENU_TILESET_SPR_38_OFF            
+     000004C0  TILESET_SPR_38_OFF                 
+     000004E0  MENU_TILESET_SPR_39_OFF            
+     000004E0  TILESET_SPR_39_OFF                 
+     00000500  MENU_TILESET_SPR_40_OFF            
+     00000500  TILESET_SPR_40_OFF                 
+     00000520  MENU_TILESET_SPR_41_OFF            
+     00000520  TILESET_SPR_41_OFF                 
+     00000540  MENU_TILESET_SPR_42_OFF            
+     00000540  TILESET_SPR_42_OFF                 
+     00000560  MENU_TILESET_SPR_43_OFF            
+     00000560  TILESET_SPR_43_OFF                 
+     00000580  MENU_TILESET_SPR_44_OFF            
+     00000580  TILESET_SPR_44_OFF                 
+     000005A0  MENU_TILESET_SPR_45_OFF            
+     000005A0  TILESET_SPR_45_OFF                 
+     000005C0  MENU_TILESET_SPR_46_OFF            
+     000005C0  TILESET_SPR_46_OFF                 
+     000005E0  MENU_TILESET_SPR_47_OFF            
+     000005E0  TILESET_SPR_47_OFF                 
+     00000690  l__DATA                         
+     00003500  s__CODE                         
+     00004004  Key_M                              cpct_keyboard
+     000040D3  l__CODE                         
+     000075D3  s__DATA                         
+     00007C63  s__GSFINAL                      
+     00007C63  s__GSINIT                       
+     00007C63  s__HOME                         
+     00007C63  s__INITIALIZED                  
+     00007C63  s__INITIALIZER                  
+     00008005  Key_Space                          cpct_keyboard
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00003500    000040D3 =       16595. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00003500  _colectable_void_spr               ColectableVoidSprite
+     0000351A  _colectable_spr_0                  ColectableSprite
+     00003534  _colectable_spr_1                  ColectableSprite
+     0000354E  _colectable_spr_2                  ColectableSprite
+     00003568  _colectable_spr_3                  ColectableSprite
+     00003582  _double_jump_spr_0                 DoubleJumpPowerUpSprites
+     0000359A  _double_jump_spr_1                 DoubleJumpPowerUpSprites
+     000035B2  _double_jump_spr_2                 DoubleJumpPowerUpSprites
+     000035CA  _double_jump_spr_3                 DoubleJumpPowerUpSprites
+     000035E2  _double_jump_spr_4                 DoubleJumpPowerUpSprites
+     000035FA  _gravity_spr_00                    GravityPowerUpSprites
+     0000360A  _gravity_spr_01                    GravityPowerUpSprites
+     0000361A  _gravity_spr_02                    GravityPowerUpSprites
+     0000362A  _gravity_spr_03                    GravityPowerUpSprites
+     0000363A  _gravity_spr_04                    GravityPowerUpSprites
+     0000364A  _gravity_spr_05                    GravityPowerUpSprites
+     0000365A  _gravity_spr_06                    GravityPowerUpSprites
+     0000366A  _gravity_spr_07                    GravityPowerUpSprites
+     0000367A  _gravity_spr_08                    GravityPowerUpSprites
+     0000368A  _gravity_spr_09                    GravityPowerUpSprites
+     0000369A  _gravity_spr_10                    GravityPowerUpSprites
+     000036AA  _gravity_spr_11                    GravityPowerUpSprites
+     000036BA  _gravity_spr_12                    GravityPowerUpSprites
+     000036CA  _gravity_spr_13                    GravityPowerUpSprites
+     000036DA  _dospuntos_spr                     DosPuntosSprite
+     000036DF  _offon_spr_0                       OffOnSprites
+     000036E4  _offon_spr_1                       OffOnSprites
+     000036E9  _offon_spr_2                       OffOnSprites
+     000036EE  _letter_spr_00                     LetterSprites
+     000036F3  _letter_spr_01                     LetterSprites
+     000036F8  _letter_spr_02                     LetterSprites
+     000036FD  _letter_spr_03                     LetterSprites
+     00003702  _letter_spr_04                     LetterSprites
+     00003707  _letter_spr_05                     LetterSprites
+     0000370C  _letter_spr_06                     LetterSprites
+     00003711  _letter_spr_07                     LetterSprites
+     00003716  _letter_spr_08                     LetterSprites
+     0000371B  _letter_spr_09                     LetterSprites
+     00003720  _letter_spr_10                     LetterSprites
+     00003725  _letter_spr_11                     LetterSprites
+     0000372A  _letter_spr_12                     LetterSprites
+     0000372F  _letter_spr_13                     LetterSprites
+     00003734  _letter_spr_14                     LetterSprites
+     00003739  _letter_spr_15                     LetterSprites
+     0000373E  _letter_spr_16                     LetterSprites
+     00003743  _letter_spr_17                     LetterSprites
+     00003748  _letter_spr_18                     LetterSprites
+     0000374D  _letter_spr_19                     LetterSprites
+     00003752  _letter_spr_20                     LetterSprites
+     00003757  _letter_spr_21                     LetterSprites
+ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00003500    000040D3 =       16595. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     0000375C  _letter_spr_22                     LetterSprites
+     00003761  _letter_spr_23                     LetterSprites
+     00003766  _letter_spr_24                     LetterSprites
+     0000376B  _letter_spr_25                     LetterSprites
+     00003770  _letter_spr_26                     LetterSprites
+     00003775  _letter_spr_27                     LetterSprites
+     0000377A  _hud_skull_spr_0                   HUDSkullSprites
+     00003788  _hud_skull_spr_1                   HUDSkullSprites
+     00003796  _hud_skull_spr_2                   HUDSkullSprites
+     000037A4  _hud_spr_00                        HUDSprites
+     000037A9  _hud_spr_01                        HUDSprites
+     000037AE  _hud_spr_02                        HUDSprites
+     000037B3  _hud_spr_03                        HUDSprites
+     000037B8  _hud_spr_04                        HUDSprites
+     000037BD  _hud_spr_05                        HUDSprites
+     000037C2  _hud_spr_06                        HUDSprites
+     000037C7  _hud_spr_07                        HUDSprites
+     000037CC  _hud_spr_08                        HUDSprites
+     000037D1  _hud_spr_09                        HUDSprites
+     000037D6  _hud_spr_10                        HUDSprites
+     000037DB  _hud_spr_11                        HUDSprites
+     000037E0  _hud_spr_12                        HUDSprites
+     000037E5  _hud_spr_13                        HUDSprites
+     000037EA  _hud_spr_14                        HUDSprites
+     000037EF  _hud_spr_15                        HUDSprites
+     000037F4  _door_spr_0                        DoorSprites
+     0000380A  _door_spr_1                        DoorSprites
+     00003820  _door_spr_2                        DoorSprites
+     00003836  _door_spr_3                        DoorSprites
+     0000384C  _door_spr_4                        DoorSprites
+     00003862  _checkpoint_top_spr_0              Checkpoint_top_sprite_01
+     00003866  _checkpoint_top_spr_1              Checkpoint_top_sprite_01
+     0000386A  _enemy_spr_00                      EnemySprites
+     0000389A  _enemy_spr_01                      EnemySprites
+     000038CA  _enemy_spr_02                      EnemySprites
+     000038FA  _enemy_spr_03                      EnemySprites
+     0000392A  _enemy_spr_04                      EnemySprites
+     0000395A  _enemy_spr_05                      EnemySprites
+     0000398A  _enemy_spr_06                      EnemySprites
+     000039BA  _enemy_spr_07                      EnemySprites
+     000039EA  _enemy_spr_08                      EnemySprites
+     00003A1A  _enemy_spr_09                      EnemySprites
+     00003A4A  _enemy_spr_10                      EnemySprites
+     00003A7A  _enemy_spr_11                      EnemySprites
+     00003AAA  _enemy_spr_12                      EnemySprites
+     00003ADA  _enemy_spr_13                      EnemySprites
+     00003B0A  _enemy_spr_14                      EnemySprites
+     00003B3A  _enemy_spr_15                      EnemySprites
+     00003B6A  _enemy_spr_16                      EnemySprites
+     00003B9A  _enemy_spr_17                      EnemySprites
+     00003BCA  _enemy_spr_18                      EnemySprites
+ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00003500    000040D3 =       16595. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00003BFA  _enemy_spr_19                      EnemySprites
+     00003C2A  _enemy_spr_20                      EnemySprites
+     00003C5A  _enemy_spr_21                      EnemySprites
+     00003C8A  _enemy_spr_22                      EnemySprites
+     00003CBA  _enemy_spr_23                      EnemySprites
+     00003CEA  _enemy_saw_spr_0                   EnemySawSprites
+     00003D1A  _enemy_saw_spr_1                   EnemySawSprites
+     00003D4A  _enemy_saw_spr_2                   EnemySawSprites
+     00003D7A  _enemy_saw_spr_3                   EnemySawSprites
+     00003DAA  _enemy_saw_spr_4                   EnemySawSprites
+     00003DDA  _enemy_saw_spr_5                   EnemySawSprites
+     00003E0A  _enemy_saw_spr_6                   EnemySawSprites
+     00003E3A  _enemy_saw_spr_7                   EnemySawSprites
+     00003E6A  _player_spr_00                     PlayerSprites
+     00003EA0  _player_spr_01                     PlayerSprites
+     00003ED6  _player_spr_02                     PlayerSprites
+     00003F0C  _player_spr_03                     PlayerSprites
+     00003F42  _player_spr_04                     PlayerSprites
+     00003F78  _player_spr_05                     PlayerSprites
+     00003FAE  _player_spr_06                     PlayerSprites
+     00003FE4  _player_spr_07                     PlayerSprites
+     0000401A  _player_spr_08                     PlayerSprites
+     00004050  _player_spr_09                     PlayerSprites
+     00004086  _player_spr_10                     PlayerSprites
+     000040BC  _player_spr_11                     PlayerSprites
+     000040F2  _player_spr_12                     PlayerSprites
+     00004128  _player_spr_13                     PlayerSprites
+     0000415E  _player_spr_14                     PlayerSprites
+     00004194  _player_spr_15                     PlayerSprites
+     000041CA  _player_spr_16                     PlayerSprites
+     00004200  _player_spr_17                     PlayerSprites
+     00004236  _player_spr_18                     PlayerSprites
+     0000426C  _player_spr_19                     PlayerSprites
+     000042A2  _player_2_spr_00                   PlayerSprites2
+     000042D8  _player_2_spr_01                   PlayerSprites2
+     0000430E  _player_2_spr_02                   PlayerSprites2
+     00004344  _player_2_spr_03                   PlayerSprites2
+     0000437A  _player_2_spr_04                   PlayerSprites2
+     000043B0  _player_2_spr_05                   PlayerSprites2
+     000043E6  _player_2_spr_06                   PlayerSprites2
+     0000441C  _player_2_spr_07                   PlayerSprites2
+     00004452  _player_2_spr_08                   PlayerSprites2
+     00004488  _player_2_spr_09                   PlayerSprites2
+     000044BE  _player_2_spr_10                   PlayerSprites2
+     000044F4  _player_2_spr_11                   PlayerSprites2
+     0000452A  _player_2_spr_12                   PlayerSprites2
+     00004560  _player_2_spr_13                   PlayerSprites2
+     00004596  _player_2_spr_14                   PlayerSprites2
+     000045CC  _player_2_spr_15                   PlayerSprites2
+     00004602  _player_2_spr_16                   PlayerSprites2
+     00004638  _player_2_spr_17                   PlayerSprites2
+ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00003500    000040D3 =       16595. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     0000466E  _player_2_spr_18                   PlayerSprites2
+     000046A4  _player_2_spr_19                   PlayerSprites2
+     000046DA  _g_palette                         g_palette
+     000046DE  _map_00                            
+     00004755  _map_00_end                        
+     00004756  _tileset                           
+     00004AA7  _tileset_end                       
+     00004AA8  _level_complete_menu_map           
+     00004AFE  _level_complete_menu_map_end       
+     00004AFF  _end_menu_map                      
+     00004B6A  _end_menu_map_end                  
+     00004B6B  _options_menu_map                  
+     00004BCA  _options_menu_map_end              
+     00004BCB  _main_menu_map                     
+     00004C70  _main_menu_map_end                 
+     00004C71  _menu_tileset                      
+     00004E56  _menu_tileset_end                  
+     00004E57  _main                              cpct_keyboard
+     00004E7F  _mg_game_init                      cpct_keyboard
+     00004EF7  _mg_game_loop                      cpct_keyboard
+     00005124  _mp_init_players                   cpct_keyboard
+     0000512C  _mp_init_player                    cpct_keyboard
+     00005173  _mm_main_menu_init                 cpct_keyboard
+     000051D5  _mm_main_menu_loop                 cpct_keyboard
+     000053A6  _mm_pause_menu_init                cpct_keyboard
+     000053D9  _mm_pause_menu_loop                cpct_keyboard
+     00005425  _mm_congrats_menu_init             cpct_keyboard
+     000055B0  _mm_congrats_menu_loop             cpct_keyboard
+     000055E1  _mi_search_vector                  cpct_keyboard
+     000055FA  _mi_init_vector                    cpct_keyboard
+     00005606  _mi_add_interactable               cpct_keyboard
+     00005686  _mi_remove_interactable            cpct_keyboard
+     000056A4  _me_init_vector                    cpct_keyboard
+     000056B0  _me_add_enemy                      cpct_keyboard
+     00005732  _me_remove_enemy                   cpct_keyboard
+     00005750  _sp_fix_y                          
+     00005774  _sp_fix_x                          
+     00005798  _sp_check_map_collisions           
+     000057F8  _sp_get_collision_points_x         
+     00005818  _sp_get_collision_points_y         
+     00005839  _sy_manage_player_physics          
+     00005BC3  _sp_move_entity_x                  
+     00005BF4  _sp_move_entity_y                  
+     00005CC0  _sp_manage_enemy_physics           
+     00005D8E  _sp_player_death                   
+     00005E3F  _sr_redraw_tiles                   
+     00005EE5  _sr_redraw_vector                  
+     00005F07  _sr_swap_buffers                   
+     00005F1A  _sr_draw_entity                    
+     00005F89  _sr_draw_entity_vector             
+     00005FBC  _sr_redraw_tiles_fast              
+ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00003500    000040D3 =       16595. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00005FEA  _sr_manage_player_animations       
+     0000605F  _sr_apply_animation                
+     000060D3  _sr_decompress_image_on_video_me   
+     000060E1  _sr_copy_back_to_front             
+     000060F3  _sr_fill_backbuffer                
+     00006103  _sr_draw_HUD                       
+     00006268  _sr_update_hud_skull               
+     000062F4  _sr_update_hud_player_data         
+     00006356  _sr_draw_number_2d                 
+     0000638C  _sr_draw_string                    
+     000063BE  _sr_draw_submenu_box               
+     000063F4  _sl_generate_level                 
+     000065BF  _sl_manage_end_level               
+     00006681  _sl_transition_level               
+     000066B0  _sa_manage_enemy_ai                
+     0000671C  _su_add_score                      
+     00006742  _su_get_key_input                  
+     000067B1  _su_get_menu_key_input             
+     00006837  _su_reset_data                     
+     0000687E  _su_get_key_pressed                
+     000068A1  _su_set_player_keys                
+     00006917  _si_reset_timer                    
+     00006926  _si_init_interruptions             
+     000069B7  _cpct_isKeyPressed                 cpct_keyboard
+     000069B7  cpct_isKeyPressed_asm              cpct_keyboard
+     000069C3  cpct_drawSpriteVFlipMasked_asm     cpct_sprites
+     000069EE  cpct_setPalette_asm                cpct_video
+     00006A01  cpct_setPALColour_asm              cpct_video
+     00006A0B  cpct_drawTileZigZagGrayCode4x8_a   cpct_sprites
+     00006A6D  cpct_drawSprite_asm                cpct_sprites
+     00006B0D  cpct_etm_drawTilemap4x8_ag_asm     cpct_easytilemaps
+     00006B0F  cpct_etm_dtm4x8_ag_asm_widthHeig   cpct_easytilemaps
+     00006B25  cpct_etm_dtm4x8_ag_asm_tilesetPt   cpct_easytilemaps
+     00006B90  cpct_etm_dtm4x8_ag_asm_restoreI    cpct_easytilemaps
+     00006B96  cpct_etm_dtm4x8_ag_asm_increment   cpct_easytilemaps
+     00006B9B  cpct_etm_dtm4x8_ag_asm_restoreWi   cpct_easytilemaps
+     00006B9E  cpct_etm_dtm4x8_ag_asm_updateWid   cpct_easytilemaps
+     00006BA6  _cpct_keyboardStatusBuffer         cpct_keyboard
+     00006BB0  cpct_waitHalts_asm                 cpct_memutils
+     00006BB4  _cpct_setVideoMemoryPage           cpct_video
+     00006BB4  cpct_setVideoMemoryPage_asm        cpct_video
+     00006BBD  cpct_drawSpriteMasked_asm          cpct_sprites
+     00006BE7  cpct_drawSpriteVFlip_asm           cpct_sprites
+     00006C0C  cpct_zx7b_decrunch_s_asm           cpct_compression
+     00006C4C  _cpct_isAnyKeyPressed_f            cpct_keyboard
+     00006C4C  cpct_isAnyKeyPressed_f_asm         cpct_keyboard
+     00006C67  cpct_setVideoMode_asm              cpct_video
+     00006C74  _cpct_waitVSYNC                    cpct_video
+     00006C74  cpct_waitVSYNC_asm                 cpct_video
+     00006C7C  _cpct_akp_digidrumStatus           cpct_audio
+     00006C7D  _cpct_akp_songLoopTimes            cpct_audio
+ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00003500    000040D3 =       16595. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00006C7E  _cpct_akp_musicPlay                cpct_audio
+     00006C7E  cpct_akp_musicPlay_asm             cpct_audio
+     00007381  _cpct_akp_musicInit                cpct_audio
+     00007388  cpct_akp_musicInit_asm             cpct_audio
+     000073E1  _cpct_akp_stop                     cpct_audio
+     000073E1  cpct_akp_stop_asm                  cpct_audio
+     000073F4  _cpct_akp_SFXGetInstrument         cpct_audio
+     000073F9  cpct_akp_SFXGetInstrument_asm      cpct_audio
+     0000740D  _cpct_akp_SFXInit                  cpct_audio
+     00007414  cpct_akp_SFXInit_asm               cpct_audio
+     0000741B  _cpct_akp_SFXStopAll               cpct_audio
+     0000741B  cpct_akp_SFXStopAll_asm            cpct_audio
+     00007428  _cpct_akp_SFXPlay                  cpct_audio
+     0000743A  cpct_akp_SFXPlay_asm               cpct_audio
+     00007487  _cpct_akp_SFXStop                  cpct_audio
+     0000748C  cpct_akp_SFXStop_asm               cpct_audio
+     000074A5  _cpct_disableFirmware              cpct_firmware
+     000074A5  _cpct_removeInterruptHandler       cpct_firmware
+     000074A5  cpct_disableFirmware_asm           cpct_firmware
+     000074A5  cpct_removeInterruptHandler_asm    cpct_firmware
+     000074B5  cpct_drawSolidBox_asm              cpct_sprites
+     00007559  _cpct_mode_rom_status              cpct_firmware
+     0000755A  _cpct_scanKeyboard                 cpct_keyboard
+     0000755A  cpct_scanKeyboard_asm              cpct_keyboard
+     0000758B  cpct_getScreenPtr_asm              cpct_video
+     000075A7  cpct_etm_setDrawTilemap4x8_ag_as   cpct_easytilemaps
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_DATA                               000075D3    00000690 =        1680. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     000075D3  string                             cpct_keyboard
+     000075DC  level_index                        
+     000075E8  palette_index                      
+     00007605  mm_singleplayer                    
+     00007616  mm_multiplayer                     
+     00007626  mm_options                         
+     00007632  om_controls                        
+     0000763C  om_p1controls                      
+     0000764C  om_p2controls                      
+     0000765C  om_accessibility                   
+     0000766B  om_godmode                         
+     00007678  om_palette                         
+     00007684  om_restore                         
+     00007698  om_back                            
+     000076A1  om_changecontrols                  
+     000076C1  om_rightkey                        
+     000076CC  om_leftkey                         
+     000076D7  om_jumpkey                         
+     000076E2  om_off                             
+     000076E7  om_on                              
+     000076EC  pm_pause                           
+     000076F7  pm_return                          
+     00007702  pm_mainmenu                        
+     00007710  em_completed                       
+     00007731  em_score                           
+     00007738  em_deaths                          
+     00007740  em_p1                              
+     00007745  em_p2                              
+     0000774A  em_time                            
+     00007758  em_key                             
+     00007775  em_no_p2_score                     
+     0000777E  em_no_p2_deaths                    
+     00007784  _hud_number_index                  
+     00007798  _hud_letter_index                  
+     000077D6  anim_player_idle_R                 
+     000077DC  anim_player_idle_L                 
+     000077E2  anim_player_wall_L                 
+     000077E8  anim_player_wall_R                 
+     000077EE  anim_player_jump_L                 
+     000077F4  anim_player_jump_R                 
+     000077FA  anim_player_run_R                  
+     0000780C  anim_player_run_L                  
+     0000781E  anim_player_door                   
+     0000782C  anim_player_2_door                 
+     0000783A  anim_player_death                  
+     00007850  anim_player_2_death                
+     00007866  anim_player_respawn                
+     0000787C  anim_player_2_respawn              
+     00007892  anim_enemy_R                       
+     0000789C  anim_enemy_L                       
+ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_DATA                               000075D3    00000690 =        1680. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     000078A6  anim_enemy_S                       
+     000078B0  anim_interactable_door             
+     000078C6  anim_interactable_gravity_up_pow   
+     000078E4  anim_interactable_gravity_down_p   
+     00007902  anim_interactable_djump_active_p   
+     00007906  anim_interactable_djump_power_up   
+     0000791C  anim_interactable_colectable       
+     0000792E  enemy_index                        
+     0000795B  interactable_index                 
+     000079BB  mg_front_buffer                    cpct_keyboard
+     000079BC  mg_back_buffer                     cpct_keyboard
+     000079BD  mg_game_state                      cpct_keyboard
+     000079BE  actual_level                       cpct_keyboard
+     000079BF  actual_level_attr                  cpct_keyboard
+     000079C0  transition                         cpct_keyboard
+     000079C1  god_mode                           cpct_keyboard
+     000079C2  tries                              cpct_keyboard
+     000079C3  level_score                        cpct_keyboard
+     000079C5  checkpoint_x                       cpct_keyboard
+     000079C6  checkpoint_y                       cpct_keyboard
+     000079C7  checkpoint_level                   cpct_keyboard
+     000079C8  door_id                            cpct_keyboard
+     000079C9  collectable_id                     cpct_keyboard
+     000079CA  p1_key_gameplay                    cpct_keyboard
+     000079CB  p2_key_gameplay                    cpct_keyboard
+     000079CC  mg_p1_keys                         cpct_keyboard
+     000079CC  p1_key_r                           cpct_keyboard
+     000079CE  p1_key_l                           cpct_keyboard
+     000079D0  p1_key_j                           cpct_keyboard
+     000079D2  mg_p2_keys                         cpct_keyboard
+     000079D2  p2_key_r                           cpct_keyboard
+     000079D4  p2_key_l                           cpct_keyboard
+     000079D6  p2_key_j                           cpct_keyboard
+     000079DA  jump_table                         cpct_keyboard
+     000079F2  enemy_jump_table                   cpct_keyboard
+     00007A0A  timer_state                        cpct_keyboard
+     00007A0B  seconds_dc                         cpct_keyboard
+     00007A0C  seconds                            cpct_keyboard
+     00007A0D  minutes                            cpct_keyboard
+     00007A0E  hours                              cpct_keyboard
+     00007A0F  playing_music                      cpct_keyboard
+     00007A10  palette                            cpct_keyboard
+     00007A11  player_1                           cpct_keyboard
+     00007A31  player_2                           cpct_keyboard
+     00007A51  interactable_vector                cpct_keyboard
+     00007B4B  mi_num_interactable                cpct_keyboard
+     00007B4C  mi_next_interactable_l             cpct_keyboard
+     00007B4E  enemy_vector                       cpct_keyboard
+     00007C5C  me_num_enemy                       cpct_keyboard
+ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+__ambient_sound0                    00000000    0000005F =          95. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000041  _ambient_sound                     
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
+
+Files Linked                              [ module(s) ]
+
+obj/spr/ColectableVoidSprite.rel          [ ColectableVoidSprite ]
+obj/spr/ColectableSprite.rel              [ ColectableSprite ]
+obj/spr/DoubleJumpPowerUpSprites.rel      [ DoubleJumpPowerUpSprites ]
+obj/spr/GravityPowerUpSprites.rel         [ GravityPowerUpSprites ]
+obj/spr/DosPuntosSprite.rel               [ DosPuntosSprite ]
+obj/spr/OffOnSprites.rel                  [ OffOnSprites ]
+obj/spr/LetterSprites.rel                 [ LetterSprites ]
+obj/spr/HUDSkullSprites.rel               [ HUDSkullSprites ]
+obj/spr/HUDSprites.rel                    [ HUDSprites ]
+obj/spr/DoorSprites.rel                   [ DoorSprites ]
+obj/spr/Checkpoint_top_sprite_01.rel      [ Checkpoint_top_sprite_01 ]
+obj/spr/EnemySprites.rel                  [ EnemySprites ]
+obj/spr/EnemySawSprites.rel               [ EnemySawSprites ]
+obj/spr/PlayerSprites.rel                 [ PlayerSprites ]
+obj/spr/PlayerSprites2.rel                [ PlayerSprites2 ]
+obj/spr/g_palette.rel                     [ g_palette ]
+obj/bins/map_00.rel                       [  ]
+obj/bins/tileset.rel                      [  ]
+obj/bins/level_complete_menu_map.rel      [  ]
+obj/bins/end_menu_map.rel                 [  ]
+obj/bins/options_menu_map.rel             [  ]
+obj/bins/main_menu_map.rel                [  ]
+obj/bins/menu_tileset.rel                 [  ]
+obj/bins/prueba.rel                       [  ]
+obj/maps/Mapa_00.h.rel                    [  ]
+obj/maps/Level_Complete_Menu_Map.h.rel    [  ]
+obj/maps/End_Menu_Map.h.rel               [  ]
+obj/maps/Options_Menu_Map.h.rel           [  ]
+obj/maps/Main_Menu_Map.h.rel              [  ]
+obj/bins/Tileset_01.h.rel                 [  ]
+obj/bins/MenuTileset.h.rel                [  ]
+obj/main.rel                              [ cpct_keyboard ]
+obj/main.h.rel                            [  ]
+obj/data.h.rel                            [  ]
+obj/data.rel                              [  ]
+obj/ent/entity_enemy.h.rel                [ cpct_keyboard ]
+obj/ent/entity_enemy.rel                  [  ]
+obj/ent/entity_physics.h.rel              [ cpct_keyboard ]
+obj/ent/entity_interactable.rel           [  ]
+obj/ent/entity_player.h.rel               [ cpct_keyboard ]
+obj/ent/entity_interactable.h.rel         [ cpct_keyboard ]
+obj/ent/entity_drawable.h.rel             [ cpct_keyboard ]
+obj/man/manager_game.rel                  [ cpct_keyboard ]
+obj/man/manager_player.h.rel              [ cpct_keyboard ]
+obj/man/manager_player.rel                [ cpct_keyboard ]
+obj/man/manager_gui.h.rel                 [  ]
+obj/man/manager_menu.rel                  [ cpct_keyboard ]
+obj/man/manager_game.h.rel                [ cpct_keyboard ]
+obj/man/manager_enemy.h.rel               [ cpct_keyboard ]
+obj/man/manager_interactable.rel          [ cpct_keyboard ]
+obj/man/manager_enemy.rel                 [ cpct_keyboard ]
+obj/man/manager_menu.h.rel                [ cpct_keyboard ]
+obj/man/manager_gui.rel                   [  ]
+obj/man/manager_interactable.h.rel        [ cpct_keyboard ]
+obj/sys/system_physics.rel                [  ]
+obj/sys/system_physics.h.rel              [  ]
+obj/sys/system_render.rel                 [  ]
+obj/sys/system_level.rel                  [  ]
+obj/sys/system_user.h.rel                 [  ]
+obj/sys/system_interrupt.h.rel            [  ]
+obj/sys/system_ai.rel                     [  ]
+obj/sys/system_user.rel                   [  ]
+obj/sys/system_level.h.rel                [  ]
+obj/sys/system_interrupt.rel              [  ]
+obj/sys/system_ai.h.rel                   [  ]
+obj/sys/system_render.h.rel               [  ]
+
+
+Libraries Linked                          [ object file ]
+
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_isKeyPressed.rel ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawSpriteVFlipMasked_asmbi ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setPalette_asmbindings.rel ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setPALColour_asmbindings.re ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawTileZigZagGrayCode4x8_a ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawSprite_asmbindings.rel ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_etm_drawTilemap4x8_ag_asmbi ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ keyboard.rel ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_waitHalts_asmbindings.rel ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setVideoMemoryPage.rel ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawSpriteMasked_asmbinding ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawSpriteVFlip_asmbindings ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_zx7b_decrunch_s_asmbindings ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_isAnyKeyPressed_f.rel ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setVideoMode_asmbindings.re ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_waitVSYNC.rel ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ arkostracker.rel ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_removeInterruptHandler.rel ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawSolidBox_asmbindings.re ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpc_mode_rom_status.rel ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_scanKeyboard.rel ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_getScreenPtr_asmbindings.re ]
+/home/enriquevid/git/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_etm_setDrawTilemap4x8_ag_as ]
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
+
+User Base Address Definitions
+
+_CODE = 0x3500
+_DATA = 0x0000
+
+

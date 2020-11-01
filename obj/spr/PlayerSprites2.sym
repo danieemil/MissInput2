@@ -1,0 +1,45 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =  2710 L
+    .__.ABS.                                                    =  0000 G
+    .__.CPU.                                                    =  0000 L
+    .__.H$L.                                                    =  0000 L
+  0 _player_2_spr_00                                               0000 GR
+  0 _player_2_spr_01                                               0036 GR
+  0 _player_2_spr_02                                               006C GR
+  0 _player_2_spr_03                                               00A2 GR
+  0 _player_2_spr_04                                               00D8 GR
+  0 _player_2_spr_05                                               010E GR
+  0 _player_2_spr_06                                               0144 GR
+  0 _player_2_spr_07                                               017A GR
+  0 _player_2_spr_08                                               01B0 GR
+  0 _player_2_spr_09                                               01E6 GR
+  0 _player_2_spr_10                                               021C GR
+  0 _player_2_spr_11                                               0252 GR
+  0 _player_2_spr_12                                               0288 GR
+  0 _player_2_spr_13                                               02BE GR
+  0 _player_2_spr_14                                               02F4 GR
+  0 _player_2_spr_15                                               032A GR
+  0 _player_2_spr_16                                               0360 GR
+  0 _player_2_spr_17                                               0396 GR
+  0 _player_2_spr_18                                               03CC GR
+  0 _player_2_spr_19                                               0402 GR
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+Area Table
+
+   0 _CODE                                      size  438   flags    0
+   1 _DATA                                      size    0   flags    0
+   2 _INITIALIZED                               size    0   flags    0
+   3 _DABS                                      size    0   flags    8
+   4 _HOME                                      size    0   flags    0
+   5 _GSINIT                                    size    0   flags    0
+   6 _GSFINAL                                   size    0   flags    0
+   7 _INITIALIZER                               size    0   flags    0
+   8 _CABS                                      size    0   flags    8
+

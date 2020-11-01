@@ -1,0 +1,985 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+
+
+                              1 .include "data.h.s"
+                              1 ;;MAPS
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+
+
+                              2 .include "bins/map_00.h.s"
+                              1 ;; File 'src/bins/map_00.h.s' generated using cpct_pack
+                              2 ;; Compresor used:   zx7b
+                              3 ;; Files compressed: [ 'src/maps/Mapa_00.bin' ]
+                              4 ;; Uncompressed:     460 bytes
+                              5 ;; Compressed:       120 bytes
+                              6 ;; Space saved:      340 bytes
+                              7 ;;
+                              8 
+                              9 ;; Declaration of the compressed array and
+                             10 ;; the address of the latest byte of the compressed array (for unpacking purposes)
+                             11 .globl _map_00
+                             12 .globl _map_00_end
+                             13 
+                             14 ;; Compressed and uncompressed sizes
+                     0078    15 _map_00_size_z == 120
+                     01CC    16 _map_00_size   == 460
+                             17 
+                             18 
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
+Hexadecimal [16-Bits]
+
+
+
+                              3 
+                              4 .globl level_index
+                              5 
+                              6 .globl palette_index
+                              7 
+                              8 
+                              9 ;HUD COSAS
+                             10 ;                         ptr
+                     A807    11 HUD_P1_DEATHS   = 0xA807
+                     A847    12 HUD_P2_DEATHS   = 0xA847
+                             13 
+                     A80E    14 HUD_P1_SCORE    = 0xA80E
+                     A83B    15 HUD_P2_SCORE    = 0xA83B
+                             16 
+                     A024    17 HUD_SKULL_1     = 0xA024
+                     A027    18 HUD_SKULL_2     = 0xA027
+                     A02A    19 HUD_SKULL_3     = 0xA02A
+                             20 
+                             21 
+                             22 
+                     0002    23 NUM_LEVELS = 2
+                             24 
+                             25 ;;SPRITES
+                             26 .globl _checkpoint_top_spr_0
+                             27 .globl _checkpoint_top_spr_1
+                             28 
+                             29 .globl _player_spr_00
+                             30 .globl _player_spr_01
+                             31 .globl _player_spr_04
+                             32 .globl _player_spr_05
+                             33 .globl _player_spr_08
+                             34 .globl _player_spr_09
+                             35 .globl _player_spr_12
+                             36 .globl _player_spr_13
+                             37 .globl _player_spr_14
+                             38 .globl _player_spr_15
+                             39 .globl _player_spr_16
+                             40 .globl _player_spr_17
+                             41 
+                             42 .globl _player_2_spr_00
+                             43 .globl _player_2_spr_13
+                             44 .globl _player_2_spr_14
+                             45 .globl _player_2_spr_15
+                             46 .globl _player_2_spr_16
+                             47 .globl _player_2_spr_17 
+                             48 
+                             49 .globl _enemy_spr_00
+                             50 .globl _enemy_spr_04
+                             51 .globl _enemy_spr_08
+                             52 .globl _enemy_spr_12
+                             53 .globl _enemy_spr_16
+                             54 .globl _enemy_spr_20
+                             55 
+                             56 .globl _door_spr_0
+                             57 .globl _door_spr_1
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 4.
+Hexadecimal [16-Bits]
+
+
+
+                             58 .globl _door_spr_2
+                             59 .globl _door_spr_3
+                             60 .globl _door_spr_4
+                             61 
+                             62 .globl _hud_spr_15
+                             63 .globl _hud_spr_14
+                             64 .globl _hud_spr_13
+                             65 .globl _hud_spr_12
+                             66 .globl _hud_spr_11
+                             67 .globl _hud_spr_10
+                             68 .globl _hud_spr_09
+                             69 .globl _hud_spr_08
+                             70 .globl _hud_spr_07
+                             71 .globl _hud_spr_06
+                             72 .globl _hud_spr_05
+                             73 .globl _hud_spr_04
+                             74 .globl _hud_spr_03
+                             75 .globl _hud_spr_02
+                             76 .globl _hud_spr_01
+                             77 .globl _hud_spr_00
+                             78 
+                             79 .globl _hud_skull_spr_2
+                             80 .globl _hud_skull_spr_1
+                             81 .globl _hud_skull_spr_0
+                             82 
+                             83 .globl _letter_spr_27
+                             84 .globl _letter_spr_26
+                             85 .globl _letter_spr_25
+                             86 .globl _letter_spr_24
+                             87 .globl _letter_spr_23
+                             88 .globl _letter_spr_22
+                             89 .globl _letter_spr_21
+                             90 .globl _letter_spr_20
+                             91 .globl _letter_spr_19
+                             92 .globl _letter_spr_18
+                             93 .globl _letter_spr_17
+                             94 .globl _letter_spr_16
+                             95 .globl _letter_spr_15
+                             96 .globl _letter_spr_14
+                             97 .globl _letter_spr_13
+                             98 .globl _letter_spr_12
+                             99 .globl _letter_spr_11
+                            100 .globl _letter_spr_10
+                            101 .globl _letter_spr_09
+                            102 .globl _letter_spr_08
+                            103 .globl _letter_spr_07
+                            104 .globl _letter_spr_06
+                            105 .globl _letter_spr_05
+                            106 .globl _letter_spr_04
+                            107 .globl _letter_spr_03
+                            108 .globl _letter_spr_02
+                            109 .globl _letter_spr_01
+                            110 .globl _letter_spr_00
+                            111 
+                            112 .globl _offon_spr_2
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 5.
+Hexadecimal [16-Bits]
+
+
+
+                            113 .globl _offon_spr_1
+                            114 .globl _offon_spr_0
+                            115 
+                            116 .globl _dospuntos_spr
+                            117 
+                            118 .globl _double_jump_spr_0
+                            119 .globl _double_jump_spr_1
+                            120 .globl _double_jump_spr_2
+                            121 .globl _double_jump_spr_3
+                            122 .globl _double_jump_spr_4
+                            123 
+                            124 .globl _gravity_spr_13
+                            125 .globl _gravity_spr_12
+                            126 .globl _gravity_spr_11
+                            127 .globl _gravity_spr_10
+                            128 .globl _gravity_spr_09
+                            129 .globl _gravity_spr_08
+                            130 .globl _gravity_spr_07
+                            131 .globl _gravity_spr_06
+                            132 .globl _gravity_spr_05
+                            133 .globl _gravity_spr_04
+                            134 .globl _gravity_spr_03
+                            135 .globl _gravity_spr_02
+                            136 .globl _gravity_spr_01
+                            137 .globl _gravity_spr_00
+                            138 
+                            139 .globl _colectable_spr_3
+                            140 .globl _colectable_spr_2
+                            141 .globl _colectable_spr_1
+                            142 .globl _colectable_spr_0
+                            143 .globl _colectable_void_spr
+                            144 
+                            145 .globl _hud_number_index
+                            146 .globl _hud_letter_index
+                            147 
+                            148 ;;TEXTOS
+                            149 .globl mm_singleplayer
+                            150 .globl mm_multiplayer
+                            151 .globl mm_options
+                            152 
+                            153 .globl om_controls
+                            154 .globl om_p1controls
+                            155 .globl om_p2controls
+                            156 .globl om_accessibility
+                            157 .globl om_godmode
+                            158 .globl om_palette
+                            159 .globl om_restore
+                            160 .globl om_back
+                            161 .globl om_changecontrols
+                            162 .globl om_rightkey
+                            163 .globl om_leftkey
+                            164 .globl om_jumpkey
+                            165 .globl om_off
+                            166 .globl om_on
+                            167 
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 6.
+Hexadecimal [16-Bits]
+
+
+
+                            168 .globl pm_pause
+                            169 .globl pm_return
+                            170 .globl pm_mainmenu
+                            171 
+                            172 .globl em_completed
+                            173 .globl em_score
+                            174 .globl em_deaths
+                            175 .globl em_p1
+                            176 .globl em_p2
+                            177 .globl em_time
+                            178 .globl em_key
+                            179 .globl em_no_p2_score
+                            180 .globl em_no_p2_deaths
+                            181 
+                            182 
+                            183 ;;                       Y        X
+                     0C30   184 MM_SINGLEPLAYER_POS = 0x0C10 + 0x0020
+                     0CD0   185 MM_MULTIPLAYER_POS  = 0x0CB0 + 0x0020
+                     0D70   186 MM_OPTIONS_POS      = 0x0D50 + 0x0020
+                            187 
+                            188 ;;                          Y        X
+                     0AE8   189 OM_CONTROLS_POS        = 0x0AD0 + 0x0018
+                     0B84   190 OM_P1CONTROLS_POS      = 0x0B70 + 0x0014
+                     0C24   191 OM_P2CONTROLS_POS      = 0x0C10 + 0x0014
+                     0AFD   192 OM_ACCESSIBILITY_POS    = 0x0AD0 + 0x002E - 1
+                     0B9C   193 OM_GODMODE_POS          = 0x0B70 + 0x002C
+                     0C3C   194 OM_PALETTE_POS          = 0x0C10 + 0x002C
+                     0D70   195 OM_RESTORE_POS          = 0x0D50 + 0x0020
+                     0EB4   196 OM_BACK_POS             = 0x0E90 + 0x0024
+                     0BA9   197 OM_OFF_POS              = 0x0B70 + 0x002C + 13
+                     0BA9   198 OM_ON_POS               = 0x0B70 + 0x002C + 13
+                            199 
+                     0B89   200 OM_CHANGECONTROLS_POS   = 0x0B70 + 0x0026 - 13
+                     0C34   201 OM_RIGHTKEY_POS         = 0x0C10 + 0x002D - 9
+                     0C34   202 OM_LEFTKEY_POS          = 0x0C10 + 0x002D - 9
+                     0C34   203 OM_JUMPKEY_POS          = 0x0C10 + 0x002D - 9
+                            204 
+                            205 ;;                   Y        X
+                     0B94   206 PM_PAUSE_POS    = 0x0B70 + 0x0026 - 2
+                     0C2B   207 PM_RETURN_POS   = 0x0C10 + 0x001C - 1
+                     0C3D   208 PM_MAINMENU_POS = 0x0C10 + 0x002D
+                            209 
+                            210 
+                     1298   211 EM_COMPLETED    = 0x1280 + 24
+                     13E1   212 EM_SCORE        = 0x13C0 + 33
+                     13EA   213 EM_DEATHS       = 0x13C0 + 42
+                     147C   214 EM_P1           = 0x1460 + 28
+                     151C   215 EM_P2           = 0x1500 + 28
+                     1612   216 EM_TIME         = 0x15F0 + 34
+                     174B   217 EM_CONTINUE     = 0x1730 + 27
+                            218 
+                     1480   219 EM_P1_SCORE_DCM = 0x1460 + 32
+                     1482   220 EM_P1_SCORE_MC  = EM_P1_SCORE_DCM + 2
+                     1484   221 EM_P1_SCORE_DU  = EM_P1_SCORE_MC + 2
+                            222 
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 7.
+Hexadecimal [16-Bits]
+
+
+
+                     148B   223 EM_P1_DEATHS_MC = 0x1460 + 43
+                     148D   224 EM_P1_DEATHS_DU = EM_P1_DEATHS_MC + 2
+                            225 
+                     1520   226 EM_P2_SCORE_DCM = 0x1500 + 32
+                     1522   227 EM_P2_SCORE_MC  = EM_P2_SCORE_DCM + 2
+                     1524   228 EM_P2_SCORE_DU  = EM_P2_SCORE_MC + 2
+                            229 
+                     152B   230 EM_P2_DEATHS_MC    = 0x1500 + 43
+                     152D   231 EM_P2_DEATHS_DU = EM_P2_DEATHS_MC + 2
+                            232 
+                     1664   233 EM_TOTAL_TIME   = 0x1640 + 36
+                            234 
+                            235 
+                     0320   236 SUBMENU_BOX_1_POS       = 0x0320
+                     0360   237 SUBMENU_BOX_2_POS       = 0x0320 + 0x0040
+                     1B20   238 SUBMENU_BOX_LINE_TOP    = 0x1B20
+                     2460   239 SUBMENU_BOX_LINE_BOTTOM = 0x2460
+                            240 
+                            241 
+                     283B   242 HUD_SCORE_POS = 0x2800 + 59
+                     2847   243 HUD_DEATH_POS = 0x2800 + 71
+                            244 
+                            245 
+                            246 ;;STRING CONSTS
+                     002F   247 END_STRING = 47
+                     003D   248 START_CHARACTERS = 61
+                     0030   249 START_NUMBERS = 48
+                            250 
+                            251 
+                            252 
+                            253 ;;SPRITE SIZE
+                     0030   254 SPR_PLAYER_SIZE = 2 * 3 * 8
+                     0004   255 SPR_CHECKPOINT_SIZE = 1 * 4
+                     001A   256 SPR_COLLECTABLE_SIZE = 2 * 13
+                     0016   257 SPR_DOOR_SIZE = 2 * 11
+                     0018   258 SPR_DJUMP_SIZE = 4 * 6
+                     0010   259 SPR_GPUP_SIZE = 2 * 8
+                            260 
+                            261 
+                            262 
+                            263 
+                            264 
+                            265 ;PLAYER ANIMATIONS
+                            266 .globl anim_player_idle_R
+                            267 .globl anim_player_idle_L
+                            268 .globl anim_player_run_R
+                            269 .globl anim_player_run_L
+                            270 .globl anim_player_wall_R
+                            271 .globl anim_player_wall_L
+                            272 .globl anim_player_jump_R
+                            273 .globl anim_player_jump_L
+                            274 .globl anim_player_door
+                            275 .globl anim_player_2_door
+                            276 .globl anim_player_death
+                            277 .globl anim_player_2_death
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 8.
+Hexadecimal [16-Bits]
+
+
+
+                            278 .globl anim_player_respawn
+                            279 .globl anim_player_2_respawn
+                            280 
+                            281 
+                            282 ;ENEMY ANIMATIONS
+                            283 .globl anim_enemy_R
+                            284 .globl anim_enemy_L
+                            285 .globl anim_enemy_S
+                            286 
+                            287 
+                            288 ;INTERACTABLE ANIMATIONS
+                            289 .globl anim_interactable_door
+                            290 .globl anim_interactable_gravity_up_power_up
+                            291 .globl anim_interactable_gravity_down_power_up
+                            292 .globl anim_interactable_djump_power_up
+                            293 .globl anim_interactable_djump_active_power_up
+                            294 .globl anim_interactable_colectable
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 9.
+Hexadecimal [16-Bits]
+
+
+
+                              2 
+                              3 .area _DATA
+                              4 
+                              5 ;;LEVEL DATA -----------------------------------
+   0000                       6 level_index:
+                              7     ;;LEVEL 00
+   0000 00 00                 8     .dw _map_00_end ;;Tilemap del Nivel #0x28FF
+   0002 00                    9     .db #0x00       ;;Level Attr
+   0003 00                   10     .db #0x00       ;;
+                             11 
+                             12     ;;LEVEL 01
+   0004 00 00                13     .dw _map_00_end ;;Tilemap del Nivel
+   0006 00                   14     .db #0x00       ;;Level Attr
+   0007 00                   15     .db #0x00       ;;
+                             16 
+                             17     ;;LEVEL 01
+   0008 00 00                18     .dw _map_00_end ;;Tilemap del Nivel
+   000A 00                   19     .db #0x00       ;;Level Attr
+   000B FF                   20     .db #0xFF       ;;Nivel final
+                             21 
+                             22 ;;Level Attr [C c 0 0 0 0 0 0]
+                             23 ; C -> Completed (1 -> Nivel Completado, 0 -> Nivel NO Completado)
+                             24 ; c -> Collecable (1 -> Collectable Cogido, 0 -> Collectable NO Cogido)
+                             25 ; - ->
+                             26 ; - ->
+                             27 ; - ->
+                             28 ; - ->
+                             29 ; - ->
+                             30 ; - ->
+                             31 
+   000C                      32 palette_index:
+   000C 54 54 4C 4B          33     .db #0x54, #0x54, #0x4c, #0x4b      ;; Paleta por defecto
+   0010 54 54 40 4B          34     .db #0x54, #0x54, #0x40, #0x4b      ;; Miss Input 2 psicodélico
+                             35     ;.db #0x4c, #0x4c, #0x4b, #0x54      ;; Miss Input 2 psicodélico 2
+   0014 44 44 4C 4A          36     .db #0x44, #0x44, #0x4C, #0x4A
+   0018 5C 5C 4C 4B          37     .db #0x5C, #0x5C, #0x4C, #0x4B
+   001C 56 56 52 4B          38     .db #0x56, #0x56, #0x52, #0x4B
+   0020 44 44 55 5B          39     .db #0x44, #0x44, #0x55, #0x5B
+   0024 5E 5E 4A 49          40     .db #0x5E, #0x5E, #0x4A, #0x49
+                             41 
+   0028 FF                   42     .db #0xFF
+                             43 
+                             44 
+                             45 
+                             46 
+                             47 
+                             48 
+                             49 ;;ALL TEXTS
+   0029 31 5B 40 53 49 4E    50 mm_singleplayer: .asciz "1[@SINGLEPLAYER/"
+        47 4C 45 50 4C 41
+        59 45 52 2F 00
+   003A 32 5B 40 4D 55 4C    51 mm_multiplayer: .asciz "2[@MULTIPLAYER/"
+        54 49 50 4C 41 59
+        45 52 2F 00
+   004A 33 5B 40 4F 50 54    52 mm_options: .asciz "3[@OPTIONS/"
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 10.
+Hexadecimal [16-Bits]
+
+
+
+        49 4F 4E 53 2F 00
+                             53 
+   0056 43 4F 4E 54 52 4F    54 om_controls: .asciz "CONTROLS/"
+        4C 53 2F 00
+   0060 31 5B 40 50 31 40    55 om_p1controls: .asciz "1[@P1@CONTROLS/"
+        43 4F 4E 54 52 4F
+        4C 53 2F 00
+   0070 32 5B 40 50 32 40    56 om_p2controls: .asciz "2[@P2@CONTROLS/"
+        43 4F 4E 54 52 4F
+        4C 53 2F 00
+   0080 41 43 43 45 53 53    57 om_accessibility: .asciz "ACCESSIBILITY/"
+        49 42 49 4C 49 54
+        59 2F 00
+   008F 33 5B 40 47 4F 44    58 om_godmode: .asciz "3[@GOD@MODE/"
+        40 4D 4F 44 45 2F
+        00
+   009C 34 5B 40 50 41 4C    59 om_palette: .asciz "4[@PALETTE/"
+        45 54 54 45 2F 00
+   00A8 35 5B 40 52 45 53    60 om_restore: .asciz "5[@RESTORE@DEFAULT/"
+        54 4F 52 45 40 44
+        45 46 41 55 4C 54
+        2F 00
+   00BC 36 5B 40 42 41 43    61 om_back: .asciz "6[@BACK/"
+        4B 2F 00
+   00C5 50 52 45 53 53 40    62 om_changecontrols: .asciz "PRESS@A@KEY@TO@CHANGE@CONTROLS/"
+        41 40 4B 45 59 40
+        54 4F 40 43 48 41
+        4E 47 45 40 43 4F
+        4E 54 52 4F 4C 53
+        2F 00
+   00E5 5B 40 52 49 47 48    63 om_rightkey: .asciz "[@RIGHT@[/"
+        54 40 5B 2F 00
+   00F0 5B 40 4C 45 46 54    64 om_leftkey: .asciz "[@LEFT@[@/"
+        40 5B 40 2F 00
+   00FB 5B 40 4A 55 4D 50    65 om_jumpkey: .asciz "[@JUMP@[@/"
+        40 5B 40 2F 00
+   0106 3D 3F 3F 2F 00       66 om_off: .asciz "=??/"
+   010B 3D 3E 40 2F 00       67 om_on: .asciz "=>@/"
+                             68 
+                             69 
+   0110 5B 40 50 41 55 53    70 pm_pause: .asciz "[@PAUSE@[/"
+        45 40 5B 2F 00
+   011B 31 5B 40 52 45 53    71 pm_return: .asciz "1[@RESUME/"
+        55 4D 45 2F 00
+   0126 32 5B 40 4D 41 49    72 pm_mainmenu: .asciz "2[@MAIN@MENU/"
+        4E 40 4D 45 4E 55
+        2F 00
+                             73 
+   0134 59 4F 55 40 48 41    74 em_completed: .asciz "YOU@HAVE@COMPLETED@MISS@INPUT@2/"
+        56 45 40 43 4F 4D
+        50 4C 45 54 45 44
+        40 4D 49 53 53 40
+        49 4E 50 55 54 40
+        32 2F 00
+   0155 53 43 4F 52 45 2F    75 em_score: .asciz "SCORE/"
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 11.
+Hexadecimal [16-Bits]
+
+
+
+        00
+   015C 44 45 41 54 48 53    76 em_deaths: .asciz "DEATHS/"
+        2F 00
+   0164 50 31 5B 2F 00       77 em_p1: .asciz "P1[/"
+   0169 50 32 5B 2F 00       78 em_p2: .asciz "P2[/"
+   016E 5B 46 49 4E 41 4C    79 em_time: .asciz "[FINAL@TIME[/"
+        40 54 49 4D 45 5B
+        2F 00
+   017C 5B 50 52 45 53 53    80 em_key: .asciz "[PRESS@ANY@KEY@TO@CONTINUE[/"
+        40 41 4E 59 40 4B
+        45 59 40 54 4F 40
+        43 4F 4E 54 49 4E
+        55 45 5B 2F 00
+   0199 5B 5B 5B 5B 5B 5B    81 em_no_p2_score: .asciz "[[[[[[[/"
+        5B 2F 00
+   01A2 5B 5B 5B 5B 2F 00    82 em_no_p2_deaths: .asciz "[[[[/"
+                             83 
+                             84 
+                             85 
+                             86 
+                             87 
+                             88 
+   01A8                      89 _hud_number_index:
+   01A8 00 00                90     .dw _hud_spr_00
+   01AA 00 00                91     .dw _hud_spr_01
+   01AC 00 00                92     .dw _hud_spr_02
+   01AE 00 00                93     .dw _hud_spr_03
+   01B0 00 00                94     .dw _hud_spr_04
+   01B2 00 00                95     .dw _hud_spr_05
+   01B4 00 00                96     .dw _hud_spr_06
+   01B6 00 00                97     .dw _hud_spr_07
+   01B8 00 00                98     .dw _hud_spr_08
+   01BA 00 00                99     .dw _hud_spr_09
+                            100 
+                            101 
+   01BC                     102 _hud_letter_index:
+   01BC 00 00               103     .dw _offon_spr_0
+   01BE 00 00               104     .dw _offon_spr_1
+   01C0 00 00               105     .dw _offon_spr_2
+   01C2 00 00               106     .dw _letter_spr_00
+   01C4 00 00               107     .dw _letter_spr_01
+   01C6 00 00               108     .dw _letter_spr_02
+   01C8 00 00               109     .dw _letter_spr_03
+   01CA 00 00               110     .dw _letter_spr_04
+   01CC 00 00               111     .dw _letter_spr_05
+   01CE 00 00               112     .dw _letter_spr_06
+   01D0 00 00               113     .dw _letter_spr_07
+   01D2 00 00               114     .dw _letter_spr_08
+   01D4 00 00               115     .dw _letter_spr_09
+   01D6 00 00               116     .dw _letter_spr_10
+   01D8 00 00               117     .dw _letter_spr_11
+   01DA 00 00               118     .dw _letter_spr_12
+   01DC 00 00               119     .dw _letter_spr_13
+   01DE 00 00               120     .dw _letter_spr_14
+   01E0 00 00               121     .dw _letter_spr_15
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 12.
+Hexadecimal [16-Bits]
+
+
+
+   01E2 00 00               122     .dw _letter_spr_16
+   01E4 00 00               123     .dw _letter_spr_17
+   01E6 00 00               124     .dw _letter_spr_18
+   01E8 00 00               125     .dw _letter_spr_19
+   01EA 00 00               126     .dw _letter_spr_20
+   01EC 00 00               127     .dw _letter_spr_21
+   01EE 00 00               128     .dw _letter_spr_22
+   01F0 00 00               129     .dw _letter_spr_23
+   01F2 00 00               130     .dw _letter_spr_24
+   01F4 00 00               131     .dw _letter_spr_25
+   01F6 00 00               132     .dw _letter_spr_26
+   01F8 00 00               133     .dw _letter_spr_27
+                            134 
+                            135 
+                            136 
+                            137 ;;PLAYER ANIMATIONS ----------------------------
+   01FA                     138 anim_player_idle_R:
+   01FA 00 00               139     .dw _player_spr_00      ;Sprite
+   01FC FF                  140     .db #0xFF               ;Duracion
+   01FD 00                  141     .db #0x00               ;Padding
+                            142     
+   01FE FF FF               143     .dw #0xFFFF             ;REPEAT_ed_anim_pos
+                            144 
+   0200                     145 anim_player_idle_L:
+   0200 00 00               146     .dw _player_spr_01      ;Sprite
+   0202 FF                  147     .db #0xFF               ;Duracion
+   0203 00                  148     .db #0x00               ;Padding
+                            149     
+   0204 FF FF               150     .dw #0xFFFF             ;REPEAT_ed_anim_pos
+                            151 
+   0206                     152 anim_player_wall_L:
+   0206 00 00               153     .dw _player_spr_14      ;Sprite
+   0208 FF                  154     .db #0xFF               ;Duracion
+   0209 00                  155     .db #0x00               ;Padding
+                            156     
+   020A FF FF               157     .dw #0xFFFF             ;REPEAT_ed_anim_pos
+                            158 
+   020C                     159 anim_player_wall_R:
+   020C 00 00               160     .dw _player_spr_12      ;Sprite
+   020E FF                  161     .db #0xFF               ;Duracion
+   020F 00                  162     .db #0x00               ;Padding
+                            163     
+   0210 FF FF               164     .dw #0xFFFF             ;REPEAT_ed_anim_pos
+                            165 
+   0212                     166 anim_player_jump_L:
+   0212 00 00               167     .dw _player_spr_05      ;Sprite
+   0214 FF                  168     .db #0xFF               ;Duracion
+   0215 00                  169     .db #0x00               ;Padding
+                            170     
+   0216 FF FF               171     .dw #0xFFFF             ;REPEAT_ed_anim_pos
+                            172 
+   0218                     173 anim_player_jump_R:
+   0218 00 00               174     .dw _player_spr_04      ;Sprite
+   021A FF                  175     .db #0xFF               ;Duracion
+   021B 00                  176     .db #0x00               ;Padding
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 13.
+Hexadecimal [16-Bits]
+
+
+
+                            177     
+   021C FF FF               178     .dw #0xFFFF             ;REPEAT_ed_anim_pos
+                            179 
+                            180 
+   021E                     181 anim_player_run_R:
+   021E 00 00               182     .dw _player_spr_00      ;Sprite
+   0220 03                  183     .db #0x03               ;Duracion
+   0221 00                  184     .db #0x00               ;Padding
+                            185 
+   0222 00 00               186     .dw _player_spr_04
+   0224 09                  187     .db #0x09
+   0225 00                  188     .db #0x00
+                            189 
+   0226 00 00               190     .dw _player_spr_00
+   0228 03                  191     .db #0x03
+   0229 00                  192     .db #0x00
+                            193 
+   022A 00 00               194     .dw _player_spr_08
+   022C 09                  195     .db #0x09
+   022D 00                  196     .db #0x00
+                            197     
+   022E FF FF               198     .dw #0xFFFF             ;REPEAT_ed_anim_pos
+                            199 
+   0230                     200 anim_player_run_L:
+   0230 00 00               201     .dw _player_spr_01      ;Sprite
+   0232 03                  202     .db #0x03               ;Duracion
+   0233 00                  203     .db #0x00               ;Padding
+                            204 
+   0234 00 00               205     .dw _player_spr_05
+   0236 09                  206     .db #0x09
+   0237 00                  207     .db #0x00
+                            208 
+   0238 00 00               209     .dw _player_spr_01
+   023A 03                  210     .db #0x03
+   023B 00                  211     .db #0x00
+                            212 
+   023C 00 00               213     .dw _player_spr_09
+   023E 09                  214     .db #0x09
+   023F 00                  215     .db #0x00
+                            216     
+   0240 FF FF               217     .dw #0xFFFF             ;REPEAT_ed_anim_pos
+                            218 
+   0242                     219 anim_player_door:
+                            220 
+   0242 00 00               221     .dw _player_spr_00      ;Sprite
+   0244 20                  222     .db #0x20               ;Duracion
+   0245 00                  223     .db #0x00               ;Padding
+                            224 
+   0246 00 00               225     .dw _player_2_spr_15      ;Sprite
+   0248 10                  226     .db #0x10               ;Duracion
+   0249 00                  227     .db #0x00               ;Padding
+                            228 
+   024A 00 00               229     .dw _player_2_spr_13      ;Sprite
+   024C 10                  230     .db #0x10              ;Duracion
+   024D 00                  231     .db #0x00               ;Padding
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 14.
+Hexadecimal [16-Bits]
+
+
+
+                            232 
+   024E FE FE               233     .dw #0xFEFE             ;REPEAT_ed_anim_pos
+                            234 
+                            235 
+   0250                     236 anim_player_2_door:
+                            237 
+   0250 00 00               238     .dw _player_2_spr_00      ;Sprite
+   0252 20                  239     .db #0x20               ;Duracion
+   0253 00                  240     .db #0x00               ;Padding
+                            241 
+   0254 00 00               242     .dw _player_2_spr_15      ;Sprite
+   0256 10                  243     .db #0x10               ;Duracion
+   0257 00                  244     .db #0x00               ;Padding
+                            245 
+   0258 00 00               246     .dw _player_2_spr_13      ;Sprite
+   025A 10                  247     .db #0x10              ;Duracion
+   025B 00                  248     .db #0x00               ;Padding
+                            249 
+   025C FE FE               250     .dw #0xFEFE             ;REPEAT_ed_anim_pos
+                            251 
+                            252 
+   025E                     253 anim_player_death:
+                            254 
+   025E 00 00               255     .dw _player_spr_16      ;Sprite
+   0260 03                  256     .db #0x03               ;Duracion
+   0261 00                  257     .db #0x00               ;Padding
+                            258 
+   0262 00 00               259     .dw _player_2_spr_17      ;Sprite
+   0264 03                  260     .db #0x03              ;Duracion
+   0265 00                  261     .db #0x00               ;Padding
+                            262 
+   0266 00 00               263     .dw _player_spr_17      ;Sprite
+   0268 03                  264     .db #0x03             ;Duracion
+   0269 00                  265     .db #0x00               ;Padding
+                            266 
+   026A 00 00               267     .dw _player_spr_13      ;Sprite
+   026C 03                  268     .db #0x03             ;Duracion
+   026D 00                  269     .db #0x00               ;Padding
+                            270 
+   026E 00 00               271     .dw _player_2_spr_13   ;Sprite
+   0270 03                  272     .db #0x03             ;Duracion
+   0271 00                  273     .db #0x00               ;Padding
+                            274 
+                            275 
+   0272 FE FE               276     .dw #0xFEFE             ;REPEAT_ed_anim_pos
+                            277 
+   0274                     278 anim_player_2_death:
+                            279 
+   0274 00 00               280     .dw _player_2_spr_16      ;Sprite
+   0276 03                  281     .db #0x03               ;Duracion
+   0277 00                  282     .db #0x00               ;Padding
+                            283 
+   0278 00 00               284     .dw _player_2_spr_17      ;Sprite
+   027A 03                  285     .db #0x03               ;Duracion
+   027B 00                  286     .db #0x00               ;Padding
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 15.
+Hexadecimal [16-Bits]
+
+
+
+                            287 
+   027C 00 00               288     .dw _player_spr_17      ;Sprite
+   027E 03                  289     .db #0x03              ;Duracion
+   027F 00                  290     .db #0x00               ;Padding
+                            291 
+   0280 00 00               292     .dw _player_spr_13      ;Sprite
+   0282 03                  293     .db #0x03              ;Duracion
+   0283 00                  294     .db #0x00               ;Padding
+                            295 
+   0284 00 00               296     .dw _player_2_spr_13   ;Sprite
+   0286 03                  297     .db #0x03              ;Duracion
+   0287 00                  298     .db #0x00               ;Padding
+                            299 
+                            300 
+   0288 FE FE               301     .dw #0xFEFE             ;REPEAT_ed_anim_pos
+                            302 
+                            303 
+   028A                     304 anim_player_respawn:
+                            305 
+   028A 00 00               306     .dw _player_2_spr_13   ;Sprite
+   028C 03                  307     .db #0x03              ;Duracion
+   028D 00                  308     .db #0x00               ;Padding
+                            309 
+   028E 00 00               310     .dw _player_spr_13      ;Sprite
+   0290 03                  311     .db #0x03              ;Duracion
+   0291 00                  312     .db #0x00               ;Padding
+                            313 
+   0292 00 00               314     .dw _player_spr_17      ;Sprite
+   0294 03                  315     .db #0x03              ;Duracion
+   0295 00                  316     .db #0x00               ;Padding
+                            317 
+   0296 00 00               318     .dw _player_2_spr_17      ;Sprite
+   0298 03                  319     .db #0x03               ;Duracion
+   0299 00                  320     .db #0x00               ;Padding
+                            321 
+   029A 00 00               322     .dw _player_spr_16      ;Sprite
+   029C 03                  323     .db #0x03               ;Duracion
+   029D 00                  324     .db #0x00               ;Padding
+                            325 
+   029E FE FE               326     .dw #0xFEFE             ;REPEAT_ed_anim_pos
+                            327 
+   02A0                     328 anim_player_2_respawn:
+                            329 
+   02A0 00 00               330     .dw _player_2_spr_13   ;Sprite
+   02A2 03                  331     .db #0x03              ;Duracion
+   02A3 00                  332     .db #0x00               ;Padding
+                            333 
+   02A4 00 00               334     .dw _player_spr_13      ;Sprite
+   02A6 03                  335     .db #0x03              ;Duracion
+   02A7 00                  336     .db #0x00               ;Padding
+                            337 
+   02A8 00 00               338     .dw _player_spr_17      ;Sprite
+   02AA 03                  339     .db #0x03              ;Duracion
+   02AB 00                  340     .db #0x00               ;Padding
+                            341 
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 16.
+Hexadecimal [16-Bits]
+
+
+
+   02AC 00 00               342     .dw _player_2_spr_17      ;Sprite
+   02AE 03                  343     .db #0x03               ;Duracion
+   02AF 00                  344     .db #0x00               ;Padding
+                            345 
+   02B0 00 00               346     .dw _player_2_spr_16      ;Sprite
+   02B2 03                  347     .db #0x03               ;Duracion
+   02B3 00                  348     .db #0x00               ;Padding
+                            349 
+   02B4 FE FE               350     .dw #0xFEFE             ;REPEAT_ed_anim_pos
+                            351 
+                            352 
+                            353 ;;ENEMY ANIMATIONS-----------------------------
+   02B6                     354 anim_enemy_R:
+   02B6 00 00               355     .dw _enemy_spr_00      ;Sprite
+   02B8 0A                  356     .db #0x0A               ;Duracion
+   02B9 00                  357     .db #0x00               ;Padding
+                            358 
+   02BA 00 00               359     .dw _enemy_spr_04      ;Sprite
+   02BC 0A                  360     .db #0x0A               ;Duracion
+   02BD 00                  361     .db #0x00               ;Padding
+                            362 
+   02BE FF FF               363     .dw #0xFFFF             ;REPEAT_ed_anim_pos
+                            364 
+   02C0                     365 anim_enemy_L:
+   02C0 00 00               366     .dw _enemy_spr_08      ;Sprite
+   02C2 0A                  367     .db #0x0A               ;Duracion
+   02C3 00                  368     .db #0x00               ;Padding
+                            369 
+   02C4 00 00               370     .dw _enemy_spr_12      ;Sprite
+   02C6 0A                  371     .db #0x0A               ;Duracion
+   02C7 00                  372     .db #0x00               ;Padding
+                            373 
+   02C8 FF FF               374     .dw #0xFFFF             ;REPEAT_ed_anim_pos
+                            375 
+                            376 
+   02CA                     377 anim_enemy_S:
+   02CA 00 00               378     .dw _enemy_spr_00      ;Sprite
+   02CC 02                  379     .db #0x02               ;Duracion
+   02CD 00                  380     .db #0x00               ;Padding
+                            381 
+   02CE 00 00               382     .dw _enemy_spr_04      ;Sprite
+   02D0 02                  383     .db #0x02               ;Duracion
+   02D1 00                  384     .db #0x00               ;Padding
+                            385 
+   02D2 FF FF               386     .dw #0xFFFF             ;REPEAT_ed_anim_pos
+                            387 
+                            388 
+                            389 
+                            390 ;;INTERACTABLE ANIMATIONS-----------------------------
+   02D4                     391 anim_interactable_door:
+   02D4 00 00               392     .dw _door_spr_0         ;Sprite
+   02D6 0A                  393     .db #0x0A               ;Duracion
+   02D7 00                  394     .db #0x00               ;Padding
+                            395 
+   02D8 00 00               396     .dw _door_spr_1         ;Sprite
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 17.
+Hexadecimal [16-Bits]
+
+
+
+   02DA 20                  397     .db #0x20               ;Duracion
+   02DB 00                  398     .db #0x00               ;Padding
+                            399 
+   02DC 00 00               400     .dw _door_spr_2         ;Sprite
+   02DE 20                  401     .db #0x20               ;Duracion
+   02DF 00                  402     .db #0x00               ;Padding
+                            403 
+                            404 
+   02E0 00 00               405     .dw _door_spr_3         ;Sprite
+   02E2 20                  406     .db #0x20               ;Duracion
+   02E3 00                  407     .db #0x00               ;Padding
+                            408 
+                            409 
+   02E4 00 00               410     .dw _door_spr_4         ;Sprite
+   02E6 05                  411     .db #0x05               ;Duracion
+   02E7 00                  412     .db #0x00               ;Padding
+                            413 
+                            414 
+   02E8 FE FE               415     .dw #0xFEFE             ;REPEAT_ed_anim_pos
+                            416 
+                            417 
+   02EA                     418 anim_interactable_gravity_up_power_up:
+                            419 
+   02EA 00 00               420     .dw _gravity_spr_00     ;Sprite
+   02EC 10                  421     .db #0x10               ;Duracion
+   02ED 00                  422     .db #0x00               ;Padding
+                            423 
+   02EE 00 00               424     .dw _gravity_spr_01     ;Sprite
+   02F0 03                  425     .db #0x03               ;Duracion
+   02F1 00                  426     .db #0x00               ;Padding
+                            427 
+   02F2 00 00               428     .dw _gravity_spr_02     ;Sprite
+   02F4 03                  429     .db #0x03               ;Duracion
+   02F5 00                  430     .db #0x00               ;Padding
+                            431 
+   02F6 00 00               432     .dw _gravity_spr_03     ;Sprite
+   02F8 03                  433     .db #0x03               ;Duracion
+   02F9 00                  434     .db #0x00               ;Padding
+                            435 
+   02FA 00 00               436     .dw _gravity_spr_04     ;Sprite
+   02FC 03                  437     .db #0x03               ;Duracion
+   02FD 00                  438     .db #0x00               ;Padding
+                            439 
+   02FE 00 00               440     .dw _gravity_spr_05     ;Sprite
+   0300 03                  441     .db #0x03               ;Duracion
+   0301 00                  442     .db #0x00               ;Padding
+                            443 
+   0302 00 00               444     .dw _gravity_spr_06     ;Sprite
+   0304 03                  445     .db #0x03               ;Duracion
+   0305 00                  446     .db #0x00               ;Padding
+                            447 
+   0306 FF FF               448     .dw #0xFFFF             ;REPEAT_ed_anim_pos
+                            449 
+   0308                     450 anim_interactable_gravity_down_power_up:
+                            451 
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 18.
+Hexadecimal [16-Bits]
+
+
+
+   0308 00 00               452     .dw _gravity_spr_07     ;Sprite
+   030A 10                  453     .db #0x10               ;Duracion
+   030B 00                  454     .db #0x00               ;Padding
+                            455 
+   030C 00 00               456     .dw _gravity_spr_08     ;Sprite
+   030E 03                  457     .db #0x03               ;Duracion
+   030F 00                  458     .db #0x00               ;Padding
+                            459 
+   0310 00 00               460     .dw _gravity_spr_09     ;Sprite
+   0312 03                  461     .db #0x03               ;Duracion
+   0313 00                  462     .db #0x00               ;Padding
+                            463 
+   0314 00 00               464     .dw _gravity_spr_10     ;Sprite
+   0316 03                  465     .db #0x03               ;Duracion
+   0317 00                  466     .db #0x00               ;Padding
+                            467 
+   0318 00 00               468     .dw _gravity_spr_11     ;Sprite
+   031A 03                  469     .db #0x03               ;Duracion
+   031B 00                  470     .db #0x00               ;Padding
+                            471 
+   031C 00 00               472     .dw _gravity_spr_12     ;Sprite
+   031E 03                  473     .db #0x03               ;Duracion
+   031F 00                  474     .db #0x00               ;Padding
+                            475 
+   0320 00 00               476     .dw _gravity_spr_13     ;Sprite
+   0322 03                  477     .db #0x03               ;Duracion
+   0323 00                  478     .db #0x00               ;Padding
+                            479 
+   0324 FF FF               480     .dw #0xFFFF             ;REPEAT_ed_anim_pos
+                            481 
+                            482 
+                            483 
+   0326                     484 anim_interactable_djump_active_power_up:
+                            485 
+   0326 00 00               486     .dw _double_jump_spr_4  ;Sprite
+   0328 15                  487     .db #0x15               ;Duracion
+   0329 00                  488     .db #0x00               ;Padding
+                            489 
+   032A                     490 anim_interactable_djump_power_up:
+                            491 
+   032A 00 00               492     .dw _double_jump_spr_0  ;Sprite
+   032C 10                  493     .db #0x10               ;Duracion
+   032D 00                  494     .db #0x00               ;Padding
+                            495 
+   032E 00 00               496     .dw _double_jump_spr_1  ;Sprite
+   0330 03                  497     .db #0x03               ;Duracion
+   0331 00                  498     .db #0x00               ;Padding
+                            499 
+   0332 00 00               500     .dw _double_jump_spr_2  ;Sprite
+   0334 03                  501     .db #0x03               ;Duracion
+   0335 00                  502     .db #0x00               ;Padding
+                            503 
+   0336 00 00               504     .dw _double_jump_spr_3  ;Sprite
+   0338 03                  505     .db #0x03               ;Duracion
+   0339 00                  506     .db #0x00               ;Padding
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 19.
+Hexadecimal [16-Bits]
+
+
+
+                            507 
+   033A 00 00               508     .dw _double_jump_spr_2  ;Sprite
+   033C 03                  509     .db #0x03               ;Duracion
+   033D 00                  510     .db #0x00               ;Padding
+                            511 
+   033E FD FD               512     .dw #0xFDFD             ;REPEAT_ed_anim_pos
+                            513 
+                            514 
+   0340                     515 anim_interactable_colectable:
+                            516 
+   0340 00 00               517     .dw _colectable_spr_0   ;Sprite
+   0342 0A                  518     .db #0x0A               ;Duracion
+   0343 00                  519     .db #0x00               ;Padding
+                            520 
+   0344 00 00               521     .dw _colectable_spr_1   ;Sprite
+   0346 0A                  522     .db #0x0A               ;Duracion
+   0347 00                  523     .db #0x00               ;Padding
+                            524 
+   0348 00 00               525     .dw _colectable_spr_2   ;Sprite
+   034A 0A                  526     .db #0x0A               ;Duracion
+   034B 00                  527     .db #0x00               ;Padding
+                            528 
+   034C 00 00               529     .dw _colectable_spr_3   ;Sprite
+   034E 0A                  530     .db #0x0A               ;Duracion
+   034F 00                  531     .db #0x00               ;Padding
+                            532 
+   0350 FF FF               533     .dw #0xFFFF             ;REPEAT_ed_anim_pos

@@ -1,0 +1,36 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+
+
+                              1 ;; File 'src/bins/options_menu_map.s' generated using cpct_pack
+                              2 ;; Compresor used:   zx7b
+                              3 ;; Files compressed: [ 'src/maps/Options_Menu_Map.bin' ]
+                              4 ;; Uncompressed:     500 bytes
+                              5 ;; Compressed:       96 bytes
+                              6 ;; Space saved:      404 bytes
+                              7 ;;
+                              8 
+                              9 ;; Data array definition
+   0000                      10 _options_menu_map::
+   0000 60 55 00 75 54 2F    11    .db  0x60, 0x55, 0x00, 0x75, 0x54, 0x2f, 0x01, 0xad, 0x15, 0x08, 0x05, 0x22, 0x23, 0x13, 0xc3, 0x07
+        01 AD 15 08 05 22
+        23 13 C3 07
+   0010 00 05 38 01 09 0D    12    .db  0x00, 0x05, 0x38, 0x01, 0x09, 0x0d, 0x0a, 0x11, 0x23, 0x12, 0x13, 0xa5, 0x05, 0x0a, 0x0d, 0x04
+        0A 11 23 12 13 A5
+        05 0A 0D 04
+   0020 2F 01 C3 03 06 05    13    .db  0x2f, 0x01, 0xc3, 0x03, 0x06, 0x05, 0x03, 0x05, 0x13, 0xc3, 0x05, 0x0a, 0xf8, 0x0e, 0x2f, 0x01
+        03 05 13 C3 05 0A
+        F8 0E 2F 01
+   0030 8C 13 0D 00 24 08    14    .db  0x8c, 0x13, 0x0d, 0x00, 0x24, 0x08, 0x8b, 0xab, 0x3b, 0xab, 0x05, 0x8e, 0x71, 0x13, 0xe1, 0x20
+        8B AB 3B AB 05 8E
+        71 13 E1 20
+   0040 19 18 3B C8 00 00    15    .db  0x19, 0x18, 0x3b, 0xc8, 0x00, 0x00, 0x06, 0x2b, 0x13, 0x5a, 0x44, 0x2f, 0x13, 0x2d, 0x08, 0xa6
+        06 2B 13 5A 44 2F
+        13 2D 08 A6
+   0050 2A 13 16 2A 07 0F    16    .db  0x2a, 0x13, 0x16, 0x2a, 0x07, 0x0f, 0xe5, 0x18, 0x00, 0x0a, 0x2f, 0x19, 0x01, 0x20, 0x64, 0x21
+        E5 18 00 0A 2F 19
+        01 20 64 21
+                             17 ;; Address of the latest byte of the compressed array (for unpacking purposes)
+                     005F    18 _options_menu_map_end == . - 1
+                             19 

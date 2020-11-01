@@ -1,0 +1,84 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.=  2710 L   |     .__.ABS.=  0000 G   |     .__.CPU.=  0000 L
+    .__.H$L.=  0000 L   |     TILESET_=  0008 G   |     TILESET_=  0000 G
+    TILESET_=  0020 G   |     TILESET_=  0004 G   |     TILESET_=  0008 G
+    TILESET_=  0020 G   |     TILESET_=  0020 G   |     TILESET_=  0004 G
+    TILESET_=  0008 G   |     TILESET_=  0040 G   |     TILESET_=  0020 G
+    TILESET_=  0004 G   |     TILESET_=  0008 G   |     TILESET_=  0060 G
+    TILESET_=  0020 G   |     TILESET_=  0004 G   |     TILESET_=  0008 G
+    TILESET_=  0080 G   |     TILESET_=  0020 G   |     TILESET_=  0004 G
+    TILESET_=  0008 G   |     TILESET_=  00A0 G   |     TILESET_=  0020 G
+    TILESET_=  0004 G   |     TILESET_=  0008 G   |     TILESET_=  00C0 G
+    TILESET_=  0020 G   |     TILESET_=  0004 G   |     TILESET_=  0008 G
+    TILESET_=  00E0 G   |     TILESET_=  0020 G   |     TILESET_=  0004 G
+    TILESET_=  0008 G   |     TILESET_=  0100 G   |     TILESET_=  0020 G
+    TILESET_=  0004 G   |     TILESET_=  0008 G   |     TILESET_=  0120 G
+    TILESET_=  0020 G   |     TILESET_=  0004 G   |     TILESET_=  0008 G
+    TILESET_=  0140 G   |     TILESET_=  0020 G   |     TILESET_=  0004 G
+    TILESET_=  0008 G   |     TILESET_=  0160 G   |     TILESET_=  0020 G
+    TILESET_=  0004 G   |     TILESET_=  0008 G   |     TILESET_=  0180 G
+    TILESET_=  0020 G   |     TILESET_=  0004 G   |     TILESET_=  0008 G
+    TILESET_=  01A0 G   |     TILESET_=  0020 G   |     TILESET_=  0004 G
+    TILESET_=  0008 G   |     TILESET_=  01C0 G   |     TILESET_=  0020 G
+    TILESET_=  0004 G   |     TILESET_=  0008 G   |     TILESET_=  01E0 G
+    TILESET_=  0020 G   |     TILESET_=  0004 G   |     TILESET_=  0008 G
+    TILESET_=  0200 G   |     TILESET_=  0020 G   |     TILESET_=  0004 G
+    TILESET_=  0008 G   |     TILESET_=  0220 G   |     TILESET_=  0020 G
+    TILESET_=  0004 G   |     TILESET_=  0008 G   |     TILESET_=  0240 G
+    TILESET_=  0020 G   |     TILESET_=  0004 G   |     TILESET_=  0008 G
+    TILESET_=  0260 G   |     TILESET_=  0020 G   |     TILESET_=  0004 G
+    TILESET_=  0008 G   |     TILESET_=  0280 G   |     TILESET_=  0020 G
+    TILESET_=  0004 G   |     TILESET_=  0008 G   |     TILESET_=  02A0 G
+    TILESET_=  0020 G   |     TILESET_=  0004 G   |     TILESET_=  0008 G
+    TILESET_=  02C0 G   |     TILESET_=  0020 G   |     TILESET_=  0004 G
+    TILESET_=  0008 G   |     TILESET_=  02E0 G   |     TILESET_=  0020 G
+    TILESET_=  0004 G   |     TILESET_=  0008 G   |     TILESET_=  0300 G
+    TILESET_=  0020 G   |     TILESET_=  0004 G   |     TILESET_=  0008 G
+    TILESET_=  0320 G   |     TILESET_=  0020 G   |     TILESET_=  0004 G
+    TILESET_=  0008 G   |     TILESET_=  0340 G   |     TILESET_=  0020 G
+    TILESET_=  0004 G   |     TILESET_=  0008 G   |     TILESET_=  0360 G
+    TILESET_=  0020 G   |     TILESET_=  0004 G   |     TILESET_=  0008 G
+    TILESET_=  0380 G   |     TILESET_=  0020 G   |     TILESET_=  0004 G
+    TILESET_=  0008 G   |     TILESET_=  03A0 G   |     TILESET_=  0020 G
+    TILESET_=  0004 G   |     TILESET_=  0008 G   |     TILESET_=  03C0 G
+    TILESET_=  0020 G   |     TILESET_=  0004 G   |     TILESET_=  0008 G
+    TILESET_=  03E0 G   |     TILESET_=  0020 G   |     TILESET_=  0004 G
+    TILESET_=  0008 G   |     TILESET_=  0400 G   |     TILESET_=  0020 G
+    TILESET_=  0004 G   |     TILESET_=  0008 G   |     TILESET_=  0420 G
+    TILESET_=  0020 G   |     TILESET_=  0004 G   |     TILESET_=  0008 G
+    TILESET_=  0440 G   |     TILESET_=  0020 G   |     TILESET_=  0004 G
+    TILESET_=  0008 G   |     TILESET_=  0460 G   |     TILESET_=  0020 G
+    TILESET_=  0004 G   |     TILESET_=  0008 G   |     TILESET_=  0480 G
+    TILESET_=  0020 G   |     TILESET_=  0004 G   |     TILESET_=  0008 G
+    TILESET_=  04A0 G   |     TILESET_=  0020 G   |     TILESET_=  0004 G
+    TILESET_=  0008 G   |     TILESET_=  04C0 G   |     TILESET_=  0020 G
+    TILESET_=  0004 G   |     TILESET_=  0008 G   |     TILESET_=  04E0 G
+    TILESET_=  0020 G   |     TILESET_=  0004 G   |     TILESET_=  0008 G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    TILESET_=  0500 G   |     TILESET_=  0020 G   |     TILESET_=  0004 G
+    TILESET_=  0008 G   |     TILESET_=  0520 G   |     TILESET_=  0020 G
+    TILESET_=  0004 G   |     TILESET_=  0008 G   |     TILESET_=  0540 G
+    TILESET_=  0020 G   |     TILESET_=  0004 G   |     TILESET_=  0008 G
+    TILESET_=  0560 G   |     TILESET_=  0020 G   |     TILESET_=  0004 G
+    TILESET_=  0008 G   |     TILESET_=  0580 G   |     TILESET_=  0020 G
+    TILESET_=  0004 G   |     TILESET_=  0008 G   |     TILESET_=  05A0 G
+    TILESET_=  0020 G   |     TILESET_=  0004 G   |     TILESET_=  0008 G
+    TILESET_=  05C0 G   |     TILESET_=  0020 G   |     TILESET_=  0004 G
+    TILESET_=  0008 G   |     TILESET_=  05E0 G   |     TILESET_=  0020 G
+    TILESET_=  0004 G   |     TILESET_=  0000 G   |     TILESET_=  0000 G
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
+Hexadecimal [16-Bits]
+
+Area Table
+
+   0 _CODE      size    0   flags    0
+

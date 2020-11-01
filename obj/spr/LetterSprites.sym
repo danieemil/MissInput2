@@ -1,0 +1,54 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =  2710 L
+    .__.ABS.                                                    =  0000 G
+    .__.CPU.                                                    =  0000 L
+    .__.H$L.                                                    =  0000 L
+  0 _letter_spr_00                                                 0000 GR
+  0 _letter_spr_01                                                 0005 GR
+  0 _letter_spr_02                                                 000A GR
+  0 _letter_spr_03                                                 000F GR
+  0 _letter_spr_04                                                 0014 GR
+  0 _letter_spr_05                                                 0019 GR
+  0 _letter_spr_06                                                 001E GR
+  0 _letter_spr_07                                                 0023 GR
+  0 _letter_spr_08                                                 0028 GR
+  0 _letter_spr_09                                                 002D GR
+  0 _letter_spr_10                                                 0032 GR
+  0 _letter_spr_11                                                 0037 GR
+  0 _letter_spr_12                                                 003C GR
+  0 _letter_spr_13                                                 0041 GR
+  0 _letter_spr_14                                                 0046 GR
+  0 _letter_spr_15                                                 004B GR
+  0 _letter_spr_16                                                 0050 GR
+  0 _letter_spr_17                                                 0055 GR
+  0 _letter_spr_18                                                 005A GR
+  0 _letter_spr_19                                                 005F GR
+  0 _letter_spr_20                                                 0064 GR
+  0 _letter_spr_21                                                 0069 GR
+  0 _letter_spr_22                                                 006E GR
+  0 _letter_spr_23                                                 0073 GR
+  0 _letter_spr_24                                                 0078 GR
+  0 _letter_spr_25                                                 007D GR
+  0 _letter_spr_26                                                 0082 GR
+  0 _letter_spr_27                                                 0087 GR
+
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+Area Table
+
+   0 _CODE                                      size   8C   flags    0
+   1 _DATA                                      size    0   flags    0
+   2 _INITIALIZED                               size    0   flags    0
+   3 _DABS                                      size    0   flags    8
+   4 _HOME                                      size    0   flags    0
+   5 _GSINIT                                    size    0   flags    0
+   6 _GSFINAL                                   size    0   flags    0
+   7 _INITIALIZER                               size    0   flags    0
+   8 _CABS                                      size    0   flags    8
+

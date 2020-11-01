@@ -1,0 +1,84 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.=  2710 L   |     .__.ABS.=  0000 G   |     .__.CPU.=  0000 L
+    .__.H$L.=  0000 L   |     MENU_TIL=  0008 G   |     MENU_TIL=  0000 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0004 G   |     MENU_TIL=  0008 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0020 G   |     MENU_TIL=  0004 G
+    MENU_TIL=  0008 G   |     MENU_TIL=  0040 G   |     MENU_TIL=  0020 G
+    MENU_TIL=  0004 G   |     MENU_TIL=  0008 G   |     MENU_TIL=  0060 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0004 G   |     MENU_TIL=  0008 G
+    MENU_TIL=  0080 G   |     MENU_TIL=  0020 G   |     MENU_TIL=  0004 G
+    MENU_TIL=  0008 G   |     MENU_TIL=  00A0 G   |     MENU_TIL=  0020 G
+    MENU_TIL=  0004 G   |     MENU_TIL=  0008 G   |     MENU_TIL=  00C0 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0004 G   |     MENU_TIL=  0008 G
+    MENU_TIL=  00E0 G   |     MENU_TIL=  0020 G   |     MENU_TIL=  0004 G
+    MENU_TIL=  0008 G   |     MENU_TIL=  0100 G   |     MENU_TIL=  0020 G
+    MENU_TIL=  0004 G   |     MENU_TIL=  0008 G   |     MENU_TIL=  0120 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0004 G   |     MENU_TIL=  0008 G
+    MENU_TIL=  0140 G   |     MENU_TIL=  0020 G   |     MENU_TIL=  0004 G
+    MENU_TIL=  0008 G   |     MENU_TIL=  0160 G   |     MENU_TIL=  0020 G
+    MENU_TIL=  0004 G   |     MENU_TIL=  0008 G   |     MENU_TIL=  0180 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0004 G   |     MENU_TIL=  0008 G
+    MENU_TIL=  01A0 G   |     MENU_TIL=  0020 G   |     MENU_TIL=  0004 G
+    MENU_TIL=  0008 G   |     MENU_TIL=  01C0 G   |     MENU_TIL=  0020 G
+    MENU_TIL=  0004 G   |     MENU_TIL=  0008 G   |     MENU_TIL=  01E0 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0004 G   |     MENU_TIL=  0008 G
+    MENU_TIL=  0200 G   |     MENU_TIL=  0020 G   |     MENU_TIL=  0004 G
+    MENU_TIL=  0008 G   |     MENU_TIL=  0220 G   |     MENU_TIL=  0020 G
+    MENU_TIL=  0004 G   |     MENU_TIL=  0008 G   |     MENU_TIL=  0240 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0004 G   |     MENU_TIL=  0008 G
+    MENU_TIL=  0260 G   |     MENU_TIL=  0020 G   |     MENU_TIL=  0004 G
+    MENU_TIL=  0008 G   |     MENU_TIL=  0280 G   |     MENU_TIL=  0020 G
+    MENU_TIL=  0004 G   |     MENU_TIL=  0008 G   |     MENU_TIL=  02A0 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0004 G   |     MENU_TIL=  0008 G
+    MENU_TIL=  02C0 G   |     MENU_TIL=  0020 G   |     MENU_TIL=  0004 G
+    MENU_TIL=  0008 G   |     MENU_TIL=  02E0 G   |     MENU_TIL=  0020 G
+    MENU_TIL=  0004 G   |     MENU_TIL=  0008 G   |     MENU_TIL=  0300 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0004 G   |     MENU_TIL=  0008 G
+    MENU_TIL=  0320 G   |     MENU_TIL=  0020 G   |     MENU_TIL=  0004 G
+    MENU_TIL=  0008 G   |     MENU_TIL=  0340 G   |     MENU_TIL=  0020 G
+    MENU_TIL=  0004 G   |     MENU_TIL=  0008 G   |     MENU_TIL=  0360 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0004 G   |     MENU_TIL=  0008 G
+    MENU_TIL=  0380 G   |     MENU_TIL=  0020 G   |     MENU_TIL=  0004 G
+    MENU_TIL=  0008 G   |     MENU_TIL=  03A0 G   |     MENU_TIL=  0020 G
+    MENU_TIL=  0004 G   |     MENU_TIL=  0008 G   |     MENU_TIL=  03C0 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0004 G   |     MENU_TIL=  0008 G
+    MENU_TIL=  03E0 G   |     MENU_TIL=  0020 G   |     MENU_TIL=  0004 G
+    MENU_TIL=  0008 G   |     MENU_TIL=  0400 G   |     MENU_TIL=  0020 G
+    MENU_TIL=  0004 G   |     MENU_TIL=  0008 G   |     MENU_TIL=  0420 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0004 G   |     MENU_TIL=  0008 G
+    MENU_TIL=  0440 G   |     MENU_TIL=  0020 G   |     MENU_TIL=  0004 G
+    MENU_TIL=  0008 G   |     MENU_TIL=  0460 G   |     MENU_TIL=  0020 G
+    MENU_TIL=  0004 G   |     MENU_TIL=  0008 G   |     MENU_TIL=  0480 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0004 G   |     MENU_TIL=  0008 G
+    MENU_TIL=  04A0 G   |     MENU_TIL=  0020 G   |     MENU_TIL=  0004 G
+    MENU_TIL=  0008 G   |     MENU_TIL=  04C0 G   |     MENU_TIL=  0020 G
+    MENU_TIL=  0004 G   |     MENU_TIL=  0008 G   |     MENU_TIL=  04E0 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0004 G   |     MENU_TIL=  0008 G
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    MENU_TIL=  0500 G   |     MENU_TIL=  0020 G   |     MENU_TIL=  0004 G
+    MENU_TIL=  0008 G   |     MENU_TIL=  0520 G   |     MENU_TIL=  0020 G
+    MENU_TIL=  0004 G   |     MENU_TIL=  0008 G   |     MENU_TIL=  0540 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0004 G   |     MENU_TIL=  0008 G
+    MENU_TIL=  0560 G   |     MENU_TIL=  0020 G   |     MENU_TIL=  0004 G
+    MENU_TIL=  0008 G   |     MENU_TIL=  0580 G   |     MENU_TIL=  0020 G
+    MENU_TIL=  0004 G   |     MENU_TIL=  0008 G   |     MENU_TIL=  05A0 G
+    MENU_TIL=  0020 G   |     MENU_TIL=  0004 G   |     MENU_TIL=  0008 G
+    MENU_TIL=  05C0 G   |     MENU_TIL=  0020 G   |     MENU_TIL=  0004 G
+    MENU_TIL=  0008 G   |     MENU_TIL=  05E0 G   |     MENU_TIL=  0020 G
+    MENU_TIL=  0004 G   |     MENU_TIL=  0000 G   |     MENU_TIL=  0000 G
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
+Hexadecimal [16-Bits]
+
+Area Table
+
+   0 _CODE      size    0   flags    0
+

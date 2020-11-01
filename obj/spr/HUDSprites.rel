@@ -1,0 +1,94 @@
+XL2
+H 9 areas 11 global symbols
+M HUDSprites
+O -mz80
+S .__.ABS. Def0000
+A _CODE size 50 flags 0 addr 0
+S _hud_spr_00 Def0000
+S _hud_spr_01 Def0005
+S _hud_spr_10 Def0032
+S _hud_spr_02 Def000A
+S _hud_spr_11 Def0037
+S _hud_spr_03 Def000F
+S _hud_spr_12 Def003C
+S _hud_spr_04 Def0014
+S _hud_spr_13 Def0041
+S _hud_spr_05 Def0019
+S _hud_spr_14 Def0046
+S _hud_spr_06 Def001E
+S _hud_spr_15 Def004B
+S _hud_spr_07 Def0023
+S _hud_spr_08 Def0028
+S _hud_spr_09 Def002D
+A _DATA size 0 flags 0 addr 0
+A _INITIALIZED size 0 flags 0 addr 0
+A _DABS size 0 flags 8 addr 0
+A _HOME size 0 flags 0 addr 0
+A _GSINIT size 0 flags 0 addr 0
+A _GSFINAL size 0 flags 0 addr 0
+A _INITIALIZER size 0 flags 0 addr 0
+A _CABS size 0 flags 8 addr 0
+T 00 00
+R 00 00 00 00
+T 00 00 FE FA FA FA FE
+R 00 00 00 00
+T 05 00
+R 00 00 00 00
+T 05 00 F4 FC F4 F4 FE
+R 00 00 00 00
+T 0A 00
+R 00 00 00 00
+T 0A 00 FE F2 FE F8 FE
+R 00 00 00 00
+T 0F 00
+R 00 00 00 00
+T 0F 00 FE F2 F6 F2 FE
+R 00 00 00 00
+T 14 00
+R 00 00 00 00
+T 14 00 FA FA FE F2 F2
+R 00 00 00 00
+T 19 00
+R 00 00 00 00
+T 19 00 FE F8 FE F2 FE
+R 00 00 00 00
+T 1E 00
+R 00 00 00 00
+T 1E 00 FE F8 FE FA FE
+R 00 00 00 00
+T 23 00
+R 00 00 00 00
+T 23 00 FE F2 F2 F2 F2
+R 00 00 00 00
+T 28 00
+R 00 00 00 00
+T 28 00 FE FA FE FA FE
+R 00 00 00 00
+T 2D 00
+R 00 00 00 00
+T 2D 00 FE FA FE F2 F2
+R 00 00 00 00
+T 32 00
+R 00 00 00 00
+T 32 00 F7 FF FA F7 F5
+R 00 00 00 00
+T 37 00
+R 00 00 00 00
+T 37 00 F0 FA F8 F2 F0
+R 00 00 00 00
+T 3C 00
+R 00 00 00 00
+T 3C 00 F0 F6 F0 F7 F6
+R 00 00 00 00
+T 41 00
+R 00 00 00 00
+T 41 00 FD F9 FD FD F8
+R 00 00 00 00
+T 46 00
+R 00 00 00 00
+T 46 00 F0 F6 F0 F7 F6
+R 00 00 00 00
+T 4B 00
+R 00 00 00 00
+T 4B 00 F8 FE F8 FB F8
+R 00 00 00 00

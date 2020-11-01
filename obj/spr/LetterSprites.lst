@@ -1,0 +1,240 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 3.6.8 #9946 (Linux)
+                              4 ;--------------------------------------------------------
+                              5 	.module LetterSprites
+                              6 	.optsdcc -mz80
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _letter_spr_27
+                             12 	.globl _letter_spr_26
+                             13 	.globl _letter_spr_25
+                             14 	.globl _letter_spr_24
+                             15 	.globl _letter_spr_23
+                             16 	.globl _letter_spr_22
+                             17 	.globl _letter_spr_21
+                             18 	.globl _letter_spr_20
+                             19 	.globl _letter_spr_19
+                             20 	.globl _letter_spr_18
+                             21 	.globl _letter_spr_17
+                             22 	.globl _letter_spr_16
+                             23 	.globl _letter_spr_15
+                             24 	.globl _letter_spr_14
+                             25 	.globl _letter_spr_13
+                             26 	.globl _letter_spr_12
+                             27 	.globl _letter_spr_11
+                             28 	.globl _letter_spr_10
+                             29 	.globl _letter_spr_09
+                             30 	.globl _letter_spr_08
+                             31 	.globl _letter_spr_07
+                             32 	.globl _letter_spr_06
+                             33 	.globl _letter_spr_05
+                             34 	.globl _letter_spr_04
+                             35 	.globl _letter_spr_03
+                             36 	.globl _letter_spr_02
+                             37 	.globl _letter_spr_01
+                             38 	.globl _letter_spr_00
+                             39 ;--------------------------------------------------------
+                             40 ; special function registers
+                             41 ;--------------------------------------------------------
+                             42 ;--------------------------------------------------------
+                             43 ; ram data
+                             44 ;--------------------------------------------------------
+                             45 	.area _DATA
+                             46 ;--------------------------------------------------------
+                             47 ; ram data
+                             48 ;--------------------------------------------------------
+                             49 	.area _INITIALIZED
+                             50 ;--------------------------------------------------------
+                             51 ; absolute external ram data
+                             52 ;--------------------------------------------------------
+                             53 	.area _DABS (ABS)
+                             54 ;--------------------------------------------------------
+                             55 ; global & static initialisations
+                             56 ;--------------------------------------------------------
+                             57 	.area _HOME
+                             58 	.area _GSINIT
+                             59 	.area _GSFINAL
+                             60 	.area _GSINIT
+                             61 ;--------------------------------------------------------
+                             62 ; Home
+                             63 ;--------------------------------------------------------
+                             64 	.area _HOME
+                             65 	.area _HOME
+                             66 ;--------------------------------------------------------
+                             67 ; code
+                             68 ;--------------------------------------------------------
+                             69 	.area _CODE
+                             70 	.area _CODE
+   0000                      71 _letter_spr_00:
+   0000 F0                   72 	.db #0xf0	; 240
+   0001 F0                   73 	.db #0xf0	; 240
+   0002 F0                   74 	.db #0xf0	; 240
+   0003 F0                   75 	.db #0xf0	; 240
+   0004 F0                   76 	.db #0xf0	; 240
+   0005                      77 _letter_spr_01:
+   0005 FE                   78 	.db #0xfe	; 254
+   0006 FA                   79 	.db #0xfa	; 250
+   0007 FE                   80 	.db #0xfe	; 254
+   0008 FA                   81 	.db #0xfa	; 250
+   0009 FA                   82 	.db #0xfa	; 250
+   000A                      83 _letter_spr_02:
+   000A FE                   84 	.db #0xfe	; 254
+   000B FA                   85 	.db #0xfa	; 250
+   000C FC                   86 	.db #0xfc	; 252
+   000D FA                   87 	.db #0xfa	; 250
+   000E FE                   88 	.db #0xfe	; 254
+   000F                      89 _letter_spr_03:
+   000F FE                   90 	.db #0xfe	; 254
+   0010 F8                   91 	.db #0xf8	; 248
+   0011 F8                   92 	.db #0xf8	; 248
+   0012 F8                   93 	.db #0xf8	; 248
+   0013 FE                   94 	.db #0xfe	; 254
+   0014                      95 _letter_spr_04:
+   0014 FC                   96 	.db #0xfc	; 252
+   0015 FA                   97 	.db #0xfa	; 250
+   0016 FA                   98 	.db #0xfa	; 250
+   0017 FA                   99 	.db #0xfa	; 250
+   0018 FC                  100 	.db #0xfc	; 252
+   0019                     101 _letter_spr_05:
+   0019 FE                  102 	.db #0xfe	; 254
+   001A F8                  103 	.db #0xf8	; 248
+   001B FC                  104 	.db #0xfc	; 252
+   001C F8                  105 	.db #0xf8	; 248
+   001D FE                  106 	.db #0xfe	; 254
+   001E                     107 _letter_spr_06:
+   001E FE                  108 	.db #0xfe	; 254
+   001F F8                  109 	.db #0xf8	; 248
+   0020 FC                  110 	.db #0xfc	; 252
+   0021 F8                  111 	.db #0xf8	; 248
+   0022 F8                  112 	.db #0xf8	; 248
+   0023                     113 _letter_spr_07:
+   0023 FE                  114 	.db #0xfe	; 254
+   0024 F8                  115 	.db #0xf8	; 248
+   0025 FA                  116 	.db #0xfa	; 250
+   0026 FA                  117 	.db #0xfa	; 250
+   0027 FE                  118 	.db #0xfe	; 254
+   0028                     119 _letter_spr_08:
+   0028 FA                  120 	.db #0xfa	; 250
+   0029 FA                  121 	.db #0xfa	; 250
+   002A FE                  122 	.db #0xfe	; 254
+   002B FA                  123 	.db #0xfa	; 250
+   002C FA                  124 	.db #0xfa	; 250
+   002D                     125 _letter_spr_09:
+   002D FE                  126 	.db #0xfe	; 254
+   002E F4                  127 	.db #0xf4	; 244
+   002F F4                  128 	.db #0xf4	; 244
+   0030 F4                  129 	.db #0xf4	; 244
+   0031 FE                  130 	.db #0xfe	; 254
+   0032                     131 _letter_spr_10:
+   0032 FE                  132 	.db #0xfe	; 254
+   0033 F2                  133 	.db #0xf2	; 242
+   0034 F2                  134 	.db #0xf2	; 242
+   0035 FA                  135 	.db #0xfa	; 250
+   0036 F6                  136 	.db #0xf6	; 246
+   0037                     137 _letter_spr_11:
+   0037 FA                  138 	.db #0xfa	; 250
+   0038 FA                  139 	.db #0xfa	; 250
+   0039 FC                  140 	.db #0xfc	; 252
+   003A FA                  141 	.db #0xfa	; 250
+   003B FA                  142 	.db #0xfa	; 250
+   003C                     143 _letter_spr_12:
+   003C F8                  144 	.db #0xf8	; 248
+   003D F8                  145 	.db #0xf8	; 248
+   003E F8                  146 	.db #0xf8	; 248
+   003F F8                  147 	.db #0xf8	; 248
+   0040 FE                  148 	.db #0xfe	; 254
+   0041                     149 _letter_spr_13:
+   0041 FA                  150 	.db #0xfa	; 250
+   0042 FE                  151 	.db #0xfe	; 254
+   0043 FE                  152 	.db #0xfe	; 254
+   0044 FA                  153 	.db #0xfa	; 250
+   0045 FA                  154 	.db #0xfa	; 250
+   0046                     155 _letter_spr_14:
+   0046 FC                  156 	.db #0xfc	; 252
+   0047 FA                  157 	.db #0xfa	; 250
+   0048 FA                  158 	.db #0xfa	; 250
+   0049 FA                  159 	.db #0xfa	; 250
+   004A FA                  160 	.db #0xfa	; 250
+   004B                     161 _letter_spr_15:
+   004B FE                  162 	.db #0xfe	; 254
+   004C FA                  163 	.db #0xfa	; 250
+   004D FA                  164 	.db #0xfa	; 250
+   004E FA                  165 	.db #0xfa	; 250
+   004F FE                  166 	.db #0xfe	; 254
+   0050                     167 _letter_spr_16:
+   0050 FE                  168 	.db #0xfe	; 254
+   0051 FA                  169 	.db #0xfa	; 250
+   0052 FE                  170 	.db #0xfe	; 254
+   0053 F8                  171 	.db #0xf8	; 248
+   0054 F8                  172 	.db #0xf8	; 248
+   0055                     173 _letter_spr_17:
+   0055 FE                  174 	.db #0xfe	; 254
+   0056 FA                  175 	.db #0xfa	; 250
+   0057 FA                  176 	.db #0xfa	; 250
+   0058 FC                  177 	.db #0xfc	; 252
+   0059 F2                  178 	.db #0xf2	; 242
+   005A                     179 _letter_spr_18:
+   005A FE                  180 	.db #0xfe	; 254
+   005B FA                  181 	.db #0xfa	; 250
+   005C FE                  182 	.db #0xfe	; 254
+   005D FC                  183 	.db #0xfc	; 252
+   005E FA                  184 	.db #0xfa	; 250
+   005F                     185 _letter_spr_19:
+   005F FE                  186 	.db #0xfe	; 254
+   0060 F8                  187 	.db #0xf8	; 248
+   0061 FE                  188 	.db #0xfe	; 254
+   0062 F2                  189 	.db #0xf2	; 242
+   0063 FE                  190 	.db #0xfe	; 254
+   0064                     191 _letter_spr_20:
+   0064 FE                  192 	.db #0xfe	; 254
+   0065 F4                  193 	.db #0xf4	; 244
+   0066 F4                  194 	.db #0xf4	; 244
+   0067 F4                  195 	.db #0xf4	; 244
+   0068 F4                  196 	.db #0xf4	; 244
+   0069                     197 _letter_spr_21:
+   0069 FA                  198 	.db #0xfa	; 250
+   006A FA                  199 	.db #0xfa	; 250
+   006B FA                  200 	.db #0xfa	; 250
+   006C FA                  201 	.db #0xfa	; 250
+   006D FE                  202 	.db #0xfe	; 254
+   006E                     203 _letter_spr_22:
+   006E FA                  204 	.db #0xfa	; 250
+   006F FA                  205 	.db #0xfa	; 250
+   0070 FA                  206 	.db #0xfa	; 250
+   0071 FA                  207 	.db #0xfa	; 250
+   0072 F4                  208 	.db #0xf4	; 244
+   0073                     209 _letter_spr_23:
+   0073 FA                  210 	.db #0xfa	; 250
+   0074 FA                  211 	.db #0xfa	; 250
+   0075 FE                  212 	.db #0xfe	; 254
+   0076 FE                  213 	.db #0xfe	; 254
+   0077 FA                  214 	.db #0xfa	; 250
+   0078                     215 _letter_spr_24:
+   0078 FA                  216 	.db #0xfa	; 250
+   0079 FA                  217 	.db #0xfa	; 250
+   007A F4                  218 	.db #0xf4	; 244
+   007B FA                  219 	.db #0xfa	; 250
+   007C FA                  220 	.db #0xfa	; 250
+   007D                     221 _letter_spr_25:
+   007D FA                  222 	.db #0xfa	; 250
+   007E FE                  223 	.db #0xfe	; 254
+   007F F4                  224 	.db #0xf4	; 244
+   0080 F4                  225 	.db #0xf4	; 244
+   0081 F4                  226 	.db #0xf4	; 244
+   0082                     227 _letter_spr_26:
+   0082 FE                  228 	.db #0xfe	; 254
+   0083 F2                  229 	.db #0xf2	; 242
+   0084 F4                  230 	.db #0xf4	; 244
+   0085 F8                  231 	.db #0xf8	; 248
+   0086 FE                  232 	.db #0xfe	; 254
+   0087                     233 _letter_spr_27:
+   0087 F0                  234 	.db #0xf0	; 240
+   0088 F0                  235 	.db #0xf0	; 240
+   0089 FE                  236 	.db #0xfe	; 254
+   008A F0                  237 	.db #0xf0	; 240
+   008B F0                  238 	.db #0xf0	; 240
+                            239 	.area _INITIALIZER
+                            240 	.area _CABS (ABS)

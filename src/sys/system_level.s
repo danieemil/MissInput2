@@ -101,7 +101,7 @@ _sl_generate_level:
                     gl_check_enemy_saw_right_down:
                     cp #SAW_RIGHT_DOWN
                     jr nz, gl_check_enemy_saw_down
-                        ld de, #0x0202
+                        ld de, #0x0200
 
                         jr gl_generate_enemy_saw
 
@@ -123,7 +123,7 @@ _sl_generate_level:
                     gl_check_enemy_saw_right_up:
                     cp #SAW_RIGHT_UP
                     jp nz, gl_check_enemy_saw_left_down
-                        ld de, #0x02FE
+                        ld de, #0x00FE
 
                         jr gl_generate_enemy_saw
 
@@ -132,7 +132,7 @@ _sl_generate_level:
                     inc b
                     cp #SAW_LEFT_DOWN
                     jr nz, gl_check_enemy_saw_left
-                        ld de, #0xFE02
+                        ld de, #0x0002
 
                         jr gl_generate_enemy_saw
 
@@ -146,7 +146,7 @@ _sl_generate_level:
                     gl_check_enemy_saw_left_up:
                     cp #SAW_LEFT_UP
                     jp nz, gl_next_tile
-                        ld de, #0xFEFE
+                        ld de, #0xFE00
 
 
                     gl_generate_enemy_saw:
@@ -321,6 +321,12 @@ _sl_generate_level:
                 gl_check_interactable_collectable:
                 cp #ID_COLLECTABLE
                 jp nz, gl_next_tile
+                    dec c
+                    dec c
+                    dec c
+                    dec c
+                    dec c
+                    inc b
                     ld (hl), #0x00
                     ld a, (mi_num_interactable)
                     ld (collectable_id), a
@@ -366,9 +372,12 @@ _sl_generate_level:
         ret nz
 
         ld _ei_type(ix), #EI_NONE
-        ld hl, #_collectable_spr_1
+        ld hl, #_colectable_void_spr
         ld _ed_spr_l(ix), l
         ld _ed_spr_h(ix), h
+        ld _ed_anim_ind_h(ix), #0xFE
+        ld _ed_anim_ind_l(ix), #0xFE
+        
 
 ret
 
@@ -433,6 +442,19 @@ mel_door_opened:
 
         set 5, _ep_player_attr(iy)
         res 6, _ep_player_attr(iy)
+
+        ld a, (actual_level)
+        sla a
+        sla a
+        ld b, #0x00
+        ld c, a
+        ld hl, #level_index
+        add hl, bc
+        inc hl
+        inc hl
+        bit 7, (hl)
+        jr nz, mel_door_opened_check_p2
+
         ld hl, (level_score)
         ex de, hl
         call _su_add_score
@@ -444,6 +466,19 @@ mel_door_opened_check_p2:
 
         set 5, _ep_player_attr(iy)
         res 6, _ep_player_attr(iy)
+
+        ld a, (actual_level)
+        sla a
+        sla a
+        ld b, #0x00
+        ld c, a
+        ld hl, #level_index
+        add hl, bc
+        inc hl
+        inc hl
+        bit 7, (hl)
+        jr nz, mel_door_opened_end
+
         ld hl, (level_score)
         ex de, hl
         call _su_add_score

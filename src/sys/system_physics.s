@@ -852,6 +852,21 @@ mpp_check_double_jump_item:
     cp #EI_DOUBLE_JUMP
     jr nz, mpp_check_gravity_up_item
         
+        ld _ed_anim_pos(ix), #0x00
+        ld _ed_anim_dur(ix), #0x10
+
+        push iy  
+
+            ld bc, #_double_jump_spr_4
+            ld _ed_spr_l(ix), c
+            ld _ed_spr_h(ix), b
+
+        push ix 
+        pop iy  
+
+            call _sr_draw_entity
+
+        pop iy
         set 0, _eph_attributes(iy)  ;;seteamos el doble salto
         ret
 
@@ -877,15 +892,17 @@ mpp_check_collectable_item:
     cp #EI_COLLECTABLE
     jr nz, mpp_check_door_item
 
-        ld bc, #SPR_COLLECTABLE_SIZE
-        ld l, _ed_spr_l(ix)
-        ld h, _ed_spr_h(ix)
-        add hl, bc
-        ld _ed_spr_l(ix), l
-        ld _ed_spr_h(ix), h
+        ld bc, #_colectable_void_spr
+
+        ld _ed_spr_l(ix), c
+        ld _ed_spr_h(ix), b
         ld _ei_type(ix), #0x00
         ld e, _ei_score(ix)
         ld d, #0x00
+
+        ld _ed_anim_ind_h(ix), #0xFE
+        ld _ed_anim_ind_l(ix), #0xFE
+
         call _su_add_score
 
         ld hl, #level_index

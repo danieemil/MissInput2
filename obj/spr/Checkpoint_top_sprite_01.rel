@@ -1,0 +1,24 @@
+XL2
+H 9 areas 3 global symbols
+M Checkpoint_top_sprite_01
+O -mz80
+S .__.ABS. Def0000
+A _CODE size 8 flags 0 addr 0
+S _checkpoint_top_spr_0 Def0000
+S _checkpoint_top_spr_1 Def0004
+A _DATA size 0 flags 0 addr 0
+A _INITIALIZED size 0 flags 0 addr 0
+A _DABS size 0 flags 8 addr 0
+A _HOME size 0 flags 0 addr 0
+A _GSINIT size 0 flags 0 addr 0
+A _GSFINAL size 0 flags 0 addr 0
+A _INITIALIZER size 0 flags 0 addr 0
+A _CABS size 0 flags 8 addr 0
+T 00 00
+R 00 00 00 00
+T 00 00 F0 F0 F6 F6
+R 00 00 00 00
+T 04 00
+R 00 00 00 00
+T 04 00 96 6F 6F 96
+R 00 00 00 00

@@ -25,9 +25,6 @@ NUM_LEVELS = 2
 ;;SPRITES
 .globl _checkpoint_top_spr_0
 .globl _checkpoint_top_spr_1
-.globl _collectable_spr_0
-.globl _collectable_spr_1
-
 
 .globl _player_spr_00
 .globl _player_spr_01
@@ -116,6 +113,35 @@ NUM_LEVELS = 2
 .globl _offon_spr_1
 .globl _offon_spr_0
 
+.globl _dospuntos_spr
+
+.globl _double_jump_spr_0
+.globl _double_jump_spr_1
+.globl _double_jump_spr_2
+.globl _double_jump_spr_3
+.globl _double_jump_spr_4
+
+.globl _gravity_spr_13
+.globl _gravity_spr_12
+.globl _gravity_spr_11
+.globl _gravity_spr_10
+.globl _gravity_spr_09
+.globl _gravity_spr_08
+.globl _gravity_spr_07
+.globl _gravity_spr_06
+.globl _gravity_spr_05
+.globl _gravity_spr_04
+.globl _gravity_spr_03
+.globl _gravity_spr_02
+.globl _gravity_spr_01
+.globl _gravity_spr_00
+
+.globl _colectable_spr_3
+.globl _colectable_spr_2
+.globl _colectable_spr_1
+.globl _colectable_spr_0
+.globl _colectable_void_spr
+
 .globl _hud_number_index
 .globl _hud_letter_index
 
@@ -142,6 +168,16 @@ NUM_LEVELS = 2
 .globl pm_pause
 .globl pm_return
 .globl pm_mainmenu
+
+.globl em_completed
+.globl em_score
+.globl em_deaths
+.globl em_p1
+.globl em_p2
+.globl em_time
+.globl em_key
+.globl em_no_p2_score
+.globl em_no_p2_deaths
 
 
 ;;                       Y        X
@@ -172,10 +208,39 @@ PM_RETURN_POS   = 0x0C10 + 0x001C - 1
 PM_MAINMENU_POS = 0x0C10 + 0x002D
 
 
+EM_COMPLETED    = 0x1280 + 24
+EM_SCORE        = 0x13C0 + 33
+EM_DEATHS       = 0x13C0 + 42
+EM_P1           = 0x1460 + 28
+EM_P2           = 0x1500 + 28
+EM_TIME         = 0x15F0 + 34
+EM_CONTINUE     = 0x1730 + 27
+
+EM_P1_SCORE_DCM = 0x1460 + 32
+EM_P1_SCORE_MC  = EM_P1_SCORE_DCM + 2
+EM_P1_SCORE_DU  = EM_P1_SCORE_MC + 2
+
+EM_P1_DEATHS_MC = 0x1460 + 43
+EM_P1_DEATHS_DU = EM_P1_DEATHS_MC + 2
+
+EM_P2_SCORE_DCM = 0x1500 + 32
+EM_P2_SCORE_MC  = EM_P2_SCORE_DCM + 2
+EM_P2_SCORE_DU  = EM_P2_SCORE_MC + 2
+
+EM_P2_DEATHS_MC    = 0x1500 + 43
+EM_P2_DEATHS_DU = EM_P2_DEATHS_MC + 2
+
+EM_TOTAL_TIME   = 0x1640 + 36
+
+
 SUBMENU_BOX_1_POS       = 0x0320
 SUBMENU_BOX_2_POS       = 0x0320 + 0x0040
 SUBMENU_BOX_LINE_TOP    = 0x1B20
 SUBMENU_BOX_LINE_BOTTOM = 0x2460
+
+
+HUD_SCORE_POS = 0x2800 + 59
+HUD_DEATH_POS = 0x2800 + 71
 
 
 ;;STRING CONSTS
@@ -188,8 +253,11 @@ START_NUMBERS = 48
 ;;SPRITE SIZE
 SPR_PLAYER_SIZE = 2 * 3 * 8
 SPR_CHECKPOINT_SIZE = 1 * 4
-SPR_COLLECTABLE_SIZE = 2 * 8
+SPR_COLLECTABLE_SIZE = 2 * 13
 SPR_DOOR_SIZE = 2 * 11
+SPR_DJUMP_SIZE = 4 * 6
+SPR_GPUP_SIZE = 2 * 8
+
 
 
 
@@ -219,3 +287,8 @@ SPR_DOOR_SIZE = 2 * 11
 
 ;INTERACTABLE ANIMATIONS
 .globl anim_interactable_door
+.globl anim_interactable_gravity_up_power_up
+.globl anim_interactable_gravity_down_power_up
+.globl anim_interactable_djump_power_up
+.globl anim_interactable_djump_active_power_up
+.globl anim_interactable_colectable

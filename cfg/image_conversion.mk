@@ -54,17 +54,23 @@ $(eval $(call IMG2SP, SET_OUTPUT      , c                						))
 $(eval $(call IMG2SP, SET_MASK        , interlaced               						))
 $(eval $(call IMG2SP, CONVERT         , assets/PlayerSprites2.png , 12, 9, player_2_spr	))
 $(eval $(call IMG2SP, CONVERT         , assets/PlayerSprites.png , 12, 9, player_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/EnemySawSprites.png , 12, 8, enemy_saw_spr	))
 $(eval $(call IMG2SP, CONVERT         , assets/EnemySprites.png , 12, 8, enemy_spr	))
 
 #SPRITES SIN TRASPARENCIAS
 $(eval $(call IMG2SP, SET_MASK        , none               						))
 $(eval $(call IMG2SP, CONVERT         , assets/old/Checkpoint_top_sprite_01.png , 4, 4, checkpoint_top_spr	))
-$(eval $(call IMG2SP, CONVERT         , assets/old/pruebaCollectable.png , 8, 8, collectable_spr	))
 $(eval $(call IMG2SP, CONVERT         , assets/DoorSprites.png , 8, 11, door_spr	))
 $(eval $(call IMG2SP, CONVERT         , assets/HUDSprites.png , 4, 5, hud_spr	))
 $(eval $(call IMG2SP, CONVERT         , assets/HUDSkullSprites.png , 8, 7, hud_skull_spr	))
 $(eval $(call IMG2SP, CONVERT         , assets/LetterSprites.png , 4, 5, letter_spr	))
 $(eval $(call IMG2SP, CONVERT         , assets/OffOnSprites.png , 4, 5, offon_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/DosPuntosSprite.png , 4, 5, dospuntos_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/GravityPowerUpSprites.png , 8, 8, gravity_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/DoubleJumpPowerUpSprites.png , 16, 6, double_jump_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/ColectableSprite.png , 8, 13, colectable_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/ColectableVoidSprite.png , 8, 13, colectable_void_spr	))
+
 
 
 

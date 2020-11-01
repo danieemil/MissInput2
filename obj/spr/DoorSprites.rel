@@ -1,0 +1,49 @@
+XL2
+H 9 areas 6 global symbols
+M DoorSprites
+O -mz80
+S .__.ABS. Def0000
+A _CODE size 6E flags 0 addr 0
+S _door_spr_0 Def0000
+S _door_spr_1 Def0016
+S _door_spr_2 Def002C
+S _door_spr_3 Def0042
+S _door_spr_4 Def0058
+A _DATA size 0 flags 0 addr 0
+A _INITIALIZED size 0 flags 0 addr 0
+A _DABS size 0 flags 8 addr 0
+A _HOME size 0 flags 0 addr 0
+A _GSINIT size 0 flags 0 addr 0
+A _GSFINAL size 0 flags 0 addr 0
+A _INITIALIZER size 0 flags 0 addr 0
+A _CABS size 0 flags 8 addr 0
+T 00 00
+R 00 00 00 00
+T 00 00 FC F3 F3 FC F0 F0 FC F3 F3 FC F0 F0 FC F3
+R 00 00 00 00
+T 0E 00 F3 FC F0 F0 FF FF F4 F2
+R 00 00 00 00
+T 16 00
+R 00 00 00 00
+T 16 00 FC F3 F3 FC F0 F0 FC F3 F3 FC F0 F0 FF FF
+R 00 00 00 00
+T 24 00 F4 F2 FF FF FF FF FF FF
+R 00 00 00 00
+T 2C 00
+R 00 00 00 00
+T 2C 00 FC F3 F3 FC F0 F0 FF FF F4 F2 FF FF FF FF
+R 00 00 00 00
+T 3A 00 FF FF FF FF FF FF FF FF
+R 00 00 00 00
+T 42 00
+R 00 00 00 00
+T 42 00 FF FF F4 F2 FF FF FF FF FF FF FF FF FF FF
+R 00 00 00 00
+T 50 00 FF FF FF FF FF FF FF FF
+R 00 00 00 00
+T 58 00
+R 00 00 00 00
+T 58 00 FF FF FF FF FF FF FF FF FF FF FF FF FF FF
+R 00 00 00 00
+T 66 00 FF FF FF FF FF FF FF FF
+R 00 00 00 00
