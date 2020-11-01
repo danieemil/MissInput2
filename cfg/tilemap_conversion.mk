@@ -45,6 +45,8 @@ $(eval $(call TMX2DATA, SET_BITSPERITEM , 8         ))
 # Menus
 $(eval $(call TMX2DATA, CONVERT, assets/maps/Main_Menu_Map.tmx, main_menu_map ))
 $(eval $(call TMX2DATA, CONVERT, assets/maps/Options_Menu_Map.tmx, options_menu_map ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/End_Menu_Map.tmx, end_menu_map ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Level_Complete_Menu_Map.tmx, level_complete_menu_map ))
 
 # Game
 $(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_00.tmx, map00 ))

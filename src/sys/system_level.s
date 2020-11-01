@@ -531,5 +531,16 @@ _sl_transition_level:
     inc hl
     set 7, (hl) ;; Marcar nivel como completado
 
+    ;; Comprobar si era el nivel final
+    inc hl
+    ld a, (hl)
+    cp #0xFF
+    jr nz, tl_not_end
+        pop hl
+        call _mm_congrats_menu_init
+        jp _mm_congrats_menu_loop
+
+    tl_not_end:
+    
     xor a
     ret

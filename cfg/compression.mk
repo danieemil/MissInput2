@@ -54,6 +54,13 @@ $(eval $(call ADD2PACK,options_menu_map,src/maps/Options_Menu_Map.bin))
 $(eval $(call PACKZX7B,options_menu_map,src/bins/))
 
 
+$(eval $(call ADD2PACK,end_menu_map,src/maps/End_Menu_Map.bin))
+$(eval $(call PACKZX7B,end_menu_map,src/bins/))
+
+$(eval $(call ADD2PACK,level_complete_menu_map,src/maps/Level_Complete_Menu_Map.bin))
+$(eval $(call PACKZX7B,level_complete_menu_map,src/bins/))
+
+
 #GAME
 $(eval $(call ADD2PACK,tileset,src/bins/Tileset_01.bin))
 $(eval $(call PACKZX7B,tileset,src/bins/))

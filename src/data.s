@@ -5,19 +5,19 @@
 ;;LEVEL DATA -----------------------------------
 level_index:
     ;;LEVEL 00
-    .dw _map_00_end ;;Tilemap del Nivel
+    .dw _map_00_end ;;Tilemap del Nivel #0x28FF
     .db #0x00       ;;Level Attr
-    .db #0x00       ;;Palette
+    .db #0x00       ;;
 
     ;;LEVEL 01
     .dw _map_00_end ;;Tilemap del Nivel
     .db #0x00       ;;Level Attr
-    .db #0x00       ;;Palette
+    .db #0x00       ;;
 
     ;;LEVEL 01
     .dw _map_00_end ;;Tilemap del Nivel
     .db #0x00       ;;Level Attr
-    .db #0x00       ;;Palette
+    .db #0xFF       ;;Nivel final
 
 ;;Level Attr [C c 0 0 0 0 0 0]
 ; C -> Completed (1 -> Nivel Completado, 0 -> Nivel NO Completado)

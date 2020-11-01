@@ -7,6 +7,10 @@
     .include "sys/system_level.h.s"
     .include "sys/system_interrupt.h.s"
 
+    .globl _level_complete_menu_map_end
+    .globl _menu_tileset_end
+    .globl _tileset_end
+
     .globl _mm_pause_menu_init
     .globl _mm_pause_menu_loop
     

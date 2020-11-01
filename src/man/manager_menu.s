@@ -35,13 +35,11 @@
 ;;==================================================================
 _mm_main_menu_init:
 
+    ;; Pantalla de transición breve
     ld b, #0xF0
     call _sr_fill_backbuffer
-
     call _sr_swap_buffers
-
-    ;; Para que no se vuelva a pulsar otra opción por error
-    ld b, #0x50
+    ld b, #0x10
     call cpct_waitHalts_asm
 
 
@@ -86,10 +84,9 @@ _mm_main_menu_init:
     ld de, #mm_options
     call _sr_draw_string
 
-    ;ld a, (mg_front_buffer)
-    ;call _sr_draw_submenu_box
-
-
+    ;; Para que no se vuelva a pulsar otra opción por error
+    ld b, #0x20
+    call cpct_waitHalts_asm
 
     ret
 
@@ -160,10 +157,6 @@ mml_default_option:
 
         call _sr_swap_buffers
 
-        ld hl, #_tileset_end
-        ld de, #TILESET_START + TILESET_SIZE - 1
-        call cpct_zx7b_decrunch_s_asm
-
         ;; Para que no se vuelva a pulsar otra opción por error
         ld b, #0x50
         call cpct_waitHalts_asm
@@ -220,15 +213,12 @@ mml_default_option:
 _mm_options_menu_init:
 
 
-    ;ld b, #0xF0
-    ;call _sr_fill_backbuffer
-
-    ;call _sr_swap_buffers
-
-    ;; Para que no se vuelva a pulsar otra opción por error
-    ;ld b, #0x50
-    ;call cpct_waitHalts_asm
-
+    ;; Pantalla de transición breve
+    ld b, #0xF0
+    call _sr_fill_backbuffer
+    call _sr_swap_buffers
+    ld b, #0x10
+    call cpct_waitHalts_asm
 
     ;; Descomprimimos el mapa
     ld hl, #_options_menu_map_end
@@ -619,6 +609,100 @@ _mm_pause_menu_loop:
     ret
 
 
+
+
+
+;;==================================================================
+;;                       CONGRATS MENU INIT
+;;------------------------------------------------------------------
+;; Inicializa los elementos del menú de final del juego
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  NONE
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: []
+;;==================================================================
+_mm_congrats_menu_init:
+
+
+    ;; Descomprimimos el tileset
+    ld hl, #_menu_tileset_end
+    ld de, #TILESET_START + TILESET_SIZE - 1
+    call cpct_zx7b_decrunch_s_asm
+
+    ;; Descomprimimos el mapa
+    ld hl, #_end_menu_map_end
+    ld de, #TILEMAP_START + TILEMAP_MENU_SIZE - 1
+    call cpct_zx7b_decrunch_s_asm
+
+    ;; Cargamos y seleccionamos el tileset
+    ld b, #25 ;;Height
+    ld c, #20 ;;Width
+    ld de, #20
+    ld hl, #TILESET_START
+    call cpct_etm_setDrawTilemap4x8_ag_asm
+
+    ;; Dibujar tilemap en el frontbuffer
+    ld a, (mg_front_buffer)
+    ld h, a
+    ld l, #0x00
+    ld de, #TILEMAP_START
+    call cpct_etm_drawTilemap4x8_ag_asm
+
+    ;; Para que no se salte la pantalla final por error
+    ld b, #0xA0
+    call cpct_waitHalts_asm
+
+    ret
+
+
+
+;;==================================================================
+;;                       CONGRATS MENU LOOP
+;;------------------------------------------------------------------
+;; Bucle de ejecución del menú de final del juego
+;;------------------------------------------------------------------
+;;
+;; INPUT:
+;;  NONE
+;;
+;; OUTPUT:
+;;  NONE
+;;
+;; DESTROYS:
+;;  AF, BC, DE, HL
+;;
+;;------------------------------------------------------------------
+;; CYCLES: []
+;;==================================================================
+_mm_congrats_menu_loop:
+
+    cml_loop:
+    
+    ;; Escanear teclado
+    halt
+    call cpct_scanKeyboard_asm
+
+    call cpct_isAnyKeyPressed_f_asm
+    cp #0x00
+    jr z, cml_loop
+
+    call _su_reset_data
+    call _mm_main_menu_init
+    jp _mm_main_menu_loop
+
+
+    jr cml_loop
+
+    ret
 
 
 ;;==================================================================

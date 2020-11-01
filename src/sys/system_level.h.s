@@ -31,6 +31,9 @@
 
 .globl _su_add_score
 
+.globl _mm_congrats_menu_init
+.globl _mm_congrats_menu_loop
+
 ;;FUNCIONES
 .globl _sl_generate_level
 .globl _sl_manage_end_level

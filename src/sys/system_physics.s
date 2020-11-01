@@ -1647,19 +1647,7 @@ pd_no_death_carry:
     pop af
     ret nz
 
-    ld a, (actual_level)
-    inc a
-    ld (actual_level), a
-
-    ;; Pantalla de transición entre niveles
-    ld b, #0x00
-    call _sr_fill_backbuffer
-    call _sr_copy_back_to_front
-        
-    ld b, #0x10
-    call cpct_waitHalts_asm
-
-    call _mg_game_init
-    ;jp _mg_game_loop
+    ld a, #0x01
+    ld (transition), a
     ret
 

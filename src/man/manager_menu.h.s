@@ -4,8 +4,8 @@
     ;.globl _main_menu_screen_end
     .globl _main_menu_map_end
     .globl _options_menu_map_end
+    .globl _end_menu_map_end
     .globl _menu_tileset_end
-    .globl _tileset_end
 
     .globl _sr_swap_buffers
     .globl _sr_copy_back_to_front
@@ -35,5 +35,8 @@
 
 .globl _mm_pause_menu_init
 .globl _mm_pause_menu_loop
+
+.globl _mm_congrats_menu_init
+.globl _mm_congrats_menu_loop
 
 ;;CONSTANTES

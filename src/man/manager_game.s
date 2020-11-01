@@ -134,6 +134,11 @@ _mg_game_init:
     ld b, #0xF0
     call _sr_fill_backbuffer
     
+    ;; Descomprimir el tileset
+    ld hl, #_tileset_end
+    ld de, #TILESET_START + TILESET_SIZE - 1
+    call cpct_zx7b_decrunch_s_asm
+
     ;; Seleccionar tileset
     ld b, #23 ;;Height
     ld c, #20 ;;Width
@@ -369,11 +374,32 @@ gl_end_level_continue:
             ;CAMBIO DE NIVEL
 
             ;; Pantalla de transición entre niveles
-            ld b, #0x00
-            call _sr_fill_backbuffer
-            call _sr_copy_back_to_front
             
-            ld b, #0xA0
+            ;; Descomprimimos el tileset
+            ld hl, #_menu_tileset_end
+            ld de, #TILESET_START + TILESET_SIZE - 1
+            call cpct_zx7b_decrunch_s_asm
+
+            ;; Descomprimimos el mapa
+            ld hl, #_level_complete_menu_map_end
+            ld de, #TILEMAP_START + TILEMAP_MENU_SIZE - 1
+            call cpct_zx7b_decrunch_s_asm
+
+            ;; Cargamos y seleccionamos el tileset
+            ld b, #25 ;;Height
+            ld c, #20 ;;Width
+            ld de, #20
+            ld hl, #TILESET_START
+            call cpct_etm_setDrawTilemap4x8_ag_asm
+
+            ;; Dibujar tilemap en el frontbuffer
+            ld a, (mg_front_buffer)
+            ld h, a
+            ld l, #0x00
+            ld de, #TILEMAP_START
+            call cpct_etm_drawTilemap4x8_ag_asm
+
+            ld b, #0xFF
             call cpct_waitHalts_asm
 
             call _mg_game_init
