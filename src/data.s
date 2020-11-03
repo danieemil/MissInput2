@@ -25,7 +25,7 @@
 level_index:
 
     ;;LEVEL PRUEBA
-    .dw _map_20_end ;;Tilemap del Nivel #0x28FF
+    .dw _map_22_end ;;Tilemap del Nivel #0x28FF
     .db #0x00       ;;Level Attr
     .db #0x00       ;;
 

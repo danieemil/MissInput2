@@ -40,6 +40,7 @@
 .include "bins/map_17.h.s"
 .include "bins/map_18.h.s"
 .include "bins/map_20.h.s"
+.include "bins/map_22.h.s"
 
 NUM_LEVELS = 19
 
