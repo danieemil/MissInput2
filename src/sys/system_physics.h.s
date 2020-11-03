@@ -22,6 +22,8 @@
 .globl checkpoint_y
 .globl checkpoint_level
 .globl level_score
+.globl playing_music
+.globl timer_state
 
 .globl _mp_init_player
 

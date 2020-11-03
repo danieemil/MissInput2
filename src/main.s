@@ -73,6 +73,3 @@ _main::
 
    call _mm_main_menu_init
    call _mm_main_menu_loop
-
-   ;;call _mg_game_init
-   ;;call _mg_game_loop
