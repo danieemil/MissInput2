@@ -1,5 +1,18 @@
 ;;MAPS
 .include "bins/map_00.h.s"
+.include "bins/map_01.h.s"
+.include "bins/map_02.h.s"
+.include "bins/map_03.h.s"
+.include "bins/map_04.h.s"
+.include "bins/map_05.h.s"
+.include "bins/map_06.h.s"
+.include "bins/map_07.h.s"
+.include "bins/map_08.h.s"
+.include "bins/map_09.h.s"
+.include "bins/map_10.h.s"
+.include "bins/map_11.h.s"
+.include "bins/map_12.h.s"
+NUM_LEVELS = 11
 
 .globl level_index
 
@@ -18,9 +31,6 @@ HUD_SKULL_1     = 0xA024
 HUD_SKULL_2     = 0xA027
 HUD_SKULL_3     = 0xA02A
 
-
-
-NUM_LEVELS = 2
 
 ;;SPRITES
 .globl _checkpoint_top_spr_0

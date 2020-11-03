@@ -30,8 +30,6 @@
 ;;
 .area _DATA
 
-string:: .asciz "\@PAUSE\"
-
 ;;
 ;; Start of _CODE area
 ;; 

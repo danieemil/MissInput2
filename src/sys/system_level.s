@@ -249,7 +249,7 @@ _sl_generate_level:
                     inc b
                     inc b
                     ld a, #EI_DOUBLE_JUMP
-                    jr gl_generate_interactable
+                    jp gl_generate_interactable
 
                 gl_check_interactable_gravity_up_l:
                 cp #ID_GRAVITY_UP_L
@@ -292,6 +292,11 @@ _sl_generate_level:
                     ld a, (actual_level)
                     sub d
                     jr nz, gl_init_players
+
+                        ld a, (actual_level)
+                        cp #0x00
+                        jr z, gl_init_players
+
                         ld hl, #checkpoint_x
                         ld b, (hl)
                         inc hl

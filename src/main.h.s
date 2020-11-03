@@ -49,7 +49,7 @@ TILEMAP_W           = 20
 TILEMAP_H           = 23
 TILEMAP_MENU_H      = 25
 
-TILEMAP_START       = 0x2A00
+TILEMAP_START       = 0x1000
 TILEMAP_SIZE        = TILEMAP_W * TILEMAP_H
 TILEMAP_MENU_SIZE   = TILEMAP_W * TILEMAP_MENU_H
 TILESET_START       = TILEMAP_START + TILEMAP_MENU_SIZE
@@ -167,7 +167,7 @@ ET_ROCK         = 3
 
 EE_DISABLED         = 132
 EE_SAW_DISABLED     = 20
-EE_ROCK_DISABLED    = 100
+EE_ROCK_DISABLED    = 25
 
 ;;ENTITY PLAYER CONSTS
 _ep_jump_state      = 0 + _ed_size ;;Offset de la tabla de saltos
