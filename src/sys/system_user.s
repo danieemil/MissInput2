@@ -215,6 +215,7 @@ gki_check_mute:
         exx
         push bc
         push de
+        call cpct_akp_SFXStopAll_asm
         call cpct_akp_stop_asm
         pop de
         pop bc

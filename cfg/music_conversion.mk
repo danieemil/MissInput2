@@ -34,10 +34,10 @@
 #$(eval $(call AKS2DATA, SET_EXTRAPAR ,      )) 
 # Conversion
 $(eval $(call AKS2DATA, SET_FOLDER   , src/bins ))
-$(eval $(call AKS2DATA, CONVERT      , assets/music/experimental3.aks , ambient_sound , 0x0041 ))
+$(eval $(call AKS2DATA, CONVERT      , assets/music/ambient_sound.aks , ambient_sound , 0x0041 ))
 
 $(eval $(call AKS2DATA, SET_SFXONLY  , yes   ))
-$(eval $(call AKS2DATA, CONVERT      , assets/music/SFX.aks , effects , 0x015b ))
+$(eval $(call AKS2DATA, CONVERT      , assets/music/SFX.aks , effects , 0x027E ))
 
 
 

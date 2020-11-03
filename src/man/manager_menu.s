@@ -508,7 +508,7 @@ _mm_options_menu_loop:
 ;;==================================================================
 _mm_pause_menu_init:
 
-    
+    call cpct_akp_SFXStopAll_asm
     call cpct_akp_stop_asm
 
     ;; Para que no se vuelva a pulsar otra opción por error

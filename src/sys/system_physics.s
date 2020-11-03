@@ -1640,7 +1640,13 @@ _sp_manage_enemy_physics:
     call _sp_check_map_collisions
 
     cp #SOLID
-    jr nz, mep_no_move_x
+    jr z, mep_collided_on_x
+    cp #DANGEROUS
+    jr z, mep_collided_on_x
+
+        jr mep_no_move_x
+
+        mep_collided_on_x:
         ld b, _eph_vx(iy)
         call _sp_fix_x
         
@@ -1667,10 +1673,18 @@ _sp_manage_enemy_physics:
 
         res 4, _eph_attributes(iy)
         cp #SOLID
-        jr nz, mep_no_move_y
+        jr z, mep_collided_on_y
+        cp #DANGEROUS
+        jr z, mep_collided_on_y
+
+            jr mep_no_move_y
+
+            mep_collided_on_y:
             ld b, _eph_vy(iy)
             call _sp_fix_y
             ld _ee_jump_state(iy), #JT_ON_GROUND    ;Ponemos la jump table a la posicion de colision con el suelo
+
+
 
     mep_no_move_y:
 
@@ -1922,6 +1936,7 @@ pd_no_death_carry:
         ld a, #0x00
         ld (playing_music), a
         ld (timer_state), a
+        call cpct_akp_SFXStopAll_asm
         call cpct_akp_stop_asm
 
 
