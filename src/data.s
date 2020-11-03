@@ -25,7 +25,7 @@
 level_index:
 
     ;;LEVEL PRUEBA
-    ;.dw _map_17_end ;;Tilemap del Nivel #0x28FF
+    ;.dw _map_21_end ;;Tilemap del Nivel #0x28FF
     ;.db #0x00       ;;Level Attr
     ;.db #0x00       ;;
 
@@ -115,6 +115,16 @@ level_index:
     .db #0x00       ;;Nivel final
 
     ;;LEVEL 17
+    .dw _map_19_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
+    .db #0x00       ;;Nivel final
+
+    ;;LEVEL 18
+    .dw _map_21_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
+    .db #0x00       ;;Nivel final
+
+    ;;LEVEL 19
     .dw _map_17_end ;;Tilemap del Nivel
     .db #0x00       ;;Level Attr
     .db #0xFF       ;;Nivel final

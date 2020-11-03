@@ -103,6 +103,14 @@ $(eval $(call ADD2PACK,map_17,src/maps/Mapa_17.bin))
 $(eval $(call PACKZX7B,map_17,src/bins/))
 
 
+$(eval $(call ADD2PACK,map_19,src/maps/Mapa_19.bin))
+$(eval $(call PACKZX7B,map_19,src/bins/))
+
+
+$(eval $(call ADD2PACK,map_21,src/maps/Mapa_21.bin))
+$(eval $(call PACKZX7B,map_21,src/bins/))
+
+
 
 ############################################################################
 ##              DETAILED INSTRUCTIONS AND PARAMETERS                      ##
