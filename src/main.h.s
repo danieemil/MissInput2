@@ -30,12 +30,18 @@
 
 .globl cpct_akp_musicInit_asm
 .globl cpct_akp_musicPlay_asm
+.globl cpct_akp_stop_asm
+.globl cpct_akp_SFXInit_asm
+.globl cpct_akp_SFXPlay_asm
 
 .globl cpct_waitHalts_asm
 
 .globl _cpct_keyboardStatusBuffer
 .globl _g_palette
 .globl _ambient_sound
+.globl _effects
+
+
 
 
 
@@ -216,6 +222,10 @@ FORCE_X_R           = #0b01111111
 FORCE_X_L           = #0b10000000
 FORCE_X_R_MIN       = FORCE_X_R - 2
 FORCE_X_L_MIN       = FORCE_X_L + 3
+
+PLAYER_2_PITCH = #0X0000
+PLAYER_1_PITCH = #0X0000
+
 
 ;;SPRITE SIZES
 PLAYER = 48  ;; 0x30 

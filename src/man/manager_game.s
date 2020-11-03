@@ -89,6 +89,9 @@ _mg_game_init:
 
     ld de, #_ambient_sound
     call cpct_akp_musicInit_asm
+    ld de, #_effects
+    call cpct_akp_SFXInit_asm
+
     ld a, #0x01
     ld (playing_music), a
     ld (timer_state), a
@@ -193,9 +196,12 @@ _mg_game_loop:
     dec a
     jr nz, gl_game_not_paused
 
+        ;; Parar la música y el temporizador
         ld a, #0x00
         ld (playing_music), a
         ld (timer_state), a
+        call cpct_akp_stop_asm
+
         call _sr_swap_buffers
         call _mm_pause_menu_init
         jp _mm_pause_menu_loop
@@ -373,6 +379,12 @@ gl_end_level_continue:
 
             ;CAMBIO DE NIVEL
 
+            ;; Parar la música y el temporizador
+            ld a, #0x00
+            ld (playing_music), a
+            ld (timer_state), a
+            call cpct_akp_stop_asm
+
             ;; Pantalla de transición entre niveles
             
             ;; Descomprimimos el tileset
@@ -444,9 +456,7 @@ gl_no_transition:
             
             ;; Loop de ejecución de cada enemigo activo
             call _sa_manage_enemy_ai
-            ;push iy
             call _sp_manage_enemy_physics
-            ;pop iy
 
             ld a, _ee_disabled(iy)
             cp #0x00

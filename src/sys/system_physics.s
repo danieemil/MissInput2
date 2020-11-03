@@ -509,15 +509,30 @@ mpp_end_x_input:
     ld _eph_vy(iy), a
 
     bit 7, _ep_player_attr(iy)
-    jr nz, mpp_no_key_j
+    jp nz, mpp_no_key_j
     bit 0, e                                ;;Comprobamos el boton de saltar
-    jr z, mpp_no_key_j 
+    jp z, mpp_no_key_j 
         
         bit 4, _eph_attributes(iy)          ;;Comprobamos si esta en el suelo
         jr z, mpp_no_floor_jump
 
         bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar
-        jr nz, mpp_hold_key_j
+        jp nz, mpp_hold_key_j
+
+            push de
+            push bc
+            ;; Reproducimos el cambio de gravedad hacia abajo
+            ld l, #9       ;; Instrumento
+            ld h, #15      ;; Volumen(15 -> max)
+            ld e, #24      ;; Nota (64 -> E-5, Mi5)
+            ld d, #0       ;; Velocidad (1-255), 0 = original
+            ld bc, #0      ;; Pitch (más pitch, más grave)
+            ld a, #2       ;; Canal, bit-flag, tres bits de derecha (C1->001, C2->010, C3->100)
+            push iy
+            call cpct_akp_SFXPlay_asm
+            pop iy
+            pop bc
+            pop de
 
             ld c, #JT_INIT
             ld _ep_jump_state(iy), c
@@ -544,7 +559,7 @@ mpp_no_floor_jump:
                 jp p, mpp_jump_check_end
                 ld _ep_force_x(iy), #FORCE_X_R
                 ld _eph_vx(iy), #0x02
-                jr mpp_jump_check_end
+                jp mpp_jump_check_end
 
 mpp_double_jump:
         bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar
@@ -555,6 +570,22 @@ mpp_double_jump:
 
                 res 0, _eph_attributes(iy)  ;;REiniciamos el doble salto
                 ld _ep_force_x(iy), #0x00
+
+                push de
+                push bc
+                ;; Reproducimos el cambio de gravedad hacia abajo
+                ld l, #10       ;; Instrumento
+                ld h, #15      ;; Volumen(15 -> max)
+                ld e, #28      ;; Nota (64 -> E-5, Mi5)
+                ld d, #0       ;; Velocidad (1-255), 0 = original
+                ld bc, #-0x0010;; Pitch (más pitch, más grave)
+                ld a, #2       ;; Canal, bit-flag, tres bits de derecha (C1->001, C2->010, C3->100)
+                push iy
+                call cpct_akp_SFXPlay_asm
+                pop iy
+                pop bc
+                pop de
+
                 ld c, #JT_INIT
                 ld _ep_jump_state(iy), c
                 jp mpp_jump_check_end
@@ -667,7 +698,7 @@ mpp_no_change_gravity:
     call _sp_move_entity_x
     ld a, d                    ;VX
     cp #0x00
-    jr z, mpp_no_map_collision_x
+    jp z, mpp_no_map_collision_x
         ld b, a
         push bc
         call _sp_get_collision_points_x
@@ -677,12 +708,40 @@ mpp_no_change_gravity:
                                                     ;;TRANSPARENTES X
         cp #TRANSPARENT
         jr nz, mpp_collision_x_dangerous
-            jr mpp_no_map_collision_x
+            jp mpp_no_map_collision_x
 
 mpp_collision_x_dangerous:                          ;;PELIGROSOS X
         cp #DANGEROUS
         jr nz, mpp_collision_x_solid
             pop af
+
+            ld l, #4
+            ld a, (tries)
+            cp #0xFF
+            jr nz, mpp_play_death_x
+            
+                ld l, #5       ;; Instrumento
+
+            mpp_play_death_x:
+            push iy
+            push ix
+
+            ld bc, #PLAYER_2_PITCH
+
+            bit 0, _ep_player_attr(iy)
+            jr nz, mpp_play_death_x_2
+                ld bc, #PLAYER_1_PITCH
+
+            mpp_play_death_x_2:
+            ;; Reproducimos la muerte del jugador
+            ld h, #15      ;; Volumen(15 -> max)
+            ld e, #48      ;; Nota (64 -> E-5, Mi5)
+            ld d, #0       ;; Velocidad (1-255), 0 = original
+            ld a, #2       ;; Canal, bit-flag, tres bits de derecha (C1->001(1), C2->010(2), C3->100(4))
+            call cpct_akp_SFXPlay_asm
+            pop ix
+            pop iy
+
             set 3, _ep_player_attr(iy)
             ld a, #0x15
             ld _ep_anim_counter(iy), a
@@ -704,6 +763,17 @@ mpp_collision_x_gdown:
             bit 6, _eph_attributes(iy)
             jr z, mpp_no_map_collision_x
 
+            ;; Reproducimos el cambio de gravedad hacia abajo
+            ld l, #2       ;; Instrumento
+            ld h, #15      ;; Volumen(15 -> max)
+            ld e, #12      ;; Nota (64 -> E-5, Mi5)
+            ld d, #0       ;; Velocidad (1-255), 0 = original
+            ld bc, #0      ;; Pitch (más pitch, más grave)
+            ld a, #2       ;; Canal, bit-flag, tres bits de derecha (C1->001, C2->010, C3->100)
+            push iy
+            call cpct_akp_SFXPlay_asm
+            pop iy
+
             res 6, _eph_attributes(iy)  ;;Revertimos la gravedad
             call _sp_apply_change_gravity
             jr mpp_no_map_collision_x
@@ -714,6 +784,17 @@ mpp_collision_x_gup:
         jr nz, mpp_no_map_collision_x
             bit 6, _eph_attributes(iy)
             jr nz, mpp_no_map_collision_x
+
+            ;; Reproducimos el cambio de gravedad hacia arriba
+            ld l, #1       ;; Instrumento
+            ld h, #15      ;; Volumen(15 -> max)
+            ld e, #12      ;; Nota (64 -> E-5, Mi5)
+            ld d, #0       ;; Velocidad (1-255), 0 = original
+            ld bc, #0      ;; Pitch (más pitch, más grave)
+            ld a, #2       ;; Canal, bit-flag, tres bits de derecha (C1->001, C2->010, C3->100)
+            push iy
+            call cpct_akp_SFXPlay_asm
+            pop iy
 
             set 6, _eph_attributes(iy)  ;;Invertimos la gravedad
             call _sp_apply_change_gravity
@@ -726,7 +807,7 @@ mpp_no_map_collision_x:
     call _sp_move_entity_y
     pop af
     cp #0x00
-    jr z, mpp_no_map_collision_y
+    jp z, mpp_no_map_collision_y
         ld b, a
         push bc
         call _sp_get_collision_points_y
@@ -737,11 +818,40 @@ mpp_no_map_collision_x:
         cp #TRANSPARENT
         jr nz, mpp_collision_y_dangerous
             res 4, _eph_attributes(iy)
-            jr mpp_no_map_collision_y
+            jp mpp_no_map_collision_y
 
 mpp_collision_y_dangerous:                          ;;PELIGROSOS Y
         cp #DANGEROUS
         jr nz, mpp_collision_y_solid
+
+            ld l, #4
+            ld a, (tries)
+            cp #0xFF
+            jr nz, mpp_play_death
+            
+                ld l, #5       ;; Instrumento
+
+            mpp_play_death:
+            push iy
+            push ix
+
+            ld bc, #PLAYER_2_PITCH
+
+            bit 0, _ep_player_attr(iy)
+            jr nz, mpp_play_death_2
+                ld bc, #PLAYER_1_PITCH
+
+            mpp_play_death_2:
+            ;; Reproducimos la muerte del jugador
+            ld h, #15      ;; Volumen(15 -> max)
+            ld e, #48      ;; Nota (64 -> E-5, Mi5)
+            ld d, #0       ;; Velocidad (1-255), 0 = original
+            ld a, #2       ;; Canal, bit-flag, tres bits de derecha (C1->001(1), C2->010(2), C3->100(4))
+            call cpct_akp_SFXPlay_asm
+            pop ix
+            pop iy
+
+
             set 3, _ep_player_attr(iy)
             ld a, #0x15
             ld _ep_anim_counter(iy), a
@@ -761,6 +871,17 @@ mpp_collision_y_gdown:
             bit 6, _eph_attributes(iy)
             jr z, mpp_no_map_collision_y
 
+            ;; Reproducimos el cambio de gravedad hacia abajo
+            ld l, #2       ;; Instrumento
+            ld h, #15      ;; Volumen(15 -> max)
+            ld e, #12      ;; Nota (64 -> E-5, Mi5)
+            ld d, #0       ;; Velocidad (1-255), 0 = original
+            ld bc, #0      ;; Pitch (más pitch, más grave)
+            ld a, #2       ;; Canal, bit-flag, tres bits de derecha (C1->001, C2->010, C3->100)
+            push iy
+            call cpct_akp_SFXPlay_asm
+            pop iy
+
             res 6, _eph_attributes(iy)  ;;Revertimos la gravedad
             call _sp_apply_change_gravity
             jr mpp_no_map_collision_y
@@ -771,6 +892,17 @@ mpp_collision_y_gup:
         jr nz, mpp_no_map_collision_y
             bit 6, _eph_attributes(iy)
             jr nz, mpp_no_map_collision_y
+
+            ;; Reproducimos el cambio de gravedad hacia arriba
+            ld l, #1       ;; Instrumento
+            ld h, #15      ;; Volumen(15 -> max)
+            ld e, #12      ;; Nota (64 -> E-5, Mi5)
+            ld d, #0       ;; Velocidad (1-255), 0 = original
+            ld bc, #0      ;; Pitch (más pitch, más grave)
+            ld a, #2       ;; Canal, bit-flag, tres bits de derecha (C1->001, C2->010, C3->100)
+            push iy
+            call cpct_akp_SFXPlay_asm
+            pop iy
 
             set 6, _eph_attributes(iy)  ;;Invertimos la gravedad
             call _sp_apply_change_gravity
@@ -791,6 +923,17 @@ mpp_no_map_collision_y:
     ld a, _ei_type(ix)
     cp #EI_CHECKPOINT
     jr nz, mpp_check_double_jump_item
+
+        ;; Reproducimos el audio de tocar el checkpoint
+        ld l, #7       ;; Instrumento
+        ld h, #15      ;; Volumen(15 -> max)
+        ld e, #12      ;; Nota (64 -> E-5, Mi5)
+        ld d, #0       ;; Velocidad (1-255), 0 = original
+        ld bc, #0      ;; Pitch (más pitch, más grave)
+        ld a, #2       ;; Canal, bit-flag, tres bits de derecha (C1->001, C2->010, C3->100)
+        push iy
+        ;call cpct_akp_SFXPlay_asm
+        pop iy
 
         ld a, _eph_x(ix)
         ld (checkpoint_x), a
@@ -876,6 +1019,18 @@ mpp_check_gravity_up_item:
         bit 6, _eph_attributes(iy)
         ret nz
 
+        ;; Reproducimos el cambio de gravedad hacia arriba
+        ld l, #1       ;; Instrumento
+        ld h, #15      ;; Volumen(15 -> max)
+        ld e, #12      ;; Nota (64 -> E-5, Mi5)
+        ld d, #0       ;; Velocidad (1-255), 0 = original
+        ld bc, #0      ;; Pitch (más pitch, más grave)
+        ld a, #2       ;; Canal, bit-flag, tres bits de derecha (C1->001, C2->010, C3->100)
+        push iy
+        call cpct_akp_SFXPlay_asm
+        pop iy
+
+
         set 6, _eph_attributes(iy)  ;;Invertimos la gravedad
         jp _sp_apply_change_gravity
 
@@ -884,6 +1039,18 @@ mpp_check_gravity_down_item:
     jr nz, mpp_check_collectable_item
         bit 6, _eph_attributes(iy)
         ret z
+
+        ;; Reproducimos el cambio de gravedad hacia abajo
+        ld l, #2       ;; Instrumento
+        ld h, #15      ;; Volumen(15 -> max)
+        ld e, #12      ;; Nota (64 -> E-5, Mi5)
+        ld d, #0       ;; Velocidad (1-255), 0 = original
+        ld bc, #0      ;; Pitch (más pitch, más grave)
+        ld a, #2       ;; Canal, bit-flag, tres bits de derecha (C1->001, C2->010, C3->100)
+        push iy
+        call cpct_akp_SFXPlay_asm
+        pop iy
+
 
         res 6, _eph_attributes(iy)  ;;Revertimos la gravedad
         jp _sp_apply_change_gravity
@@ -916,6 +1083,17 @@ mpp_check_collectable_item:
         inc hl
         ;; HL -> Puntero a atributos del nivel actual
         set 6, (hl)
+
+        ;; Reproducimos el salto/doble salto
+        ld l, #6       ;; Instrumento
+        ld h, #15      ;; Volumen(15 -> max)
+        ld e, #36      ;; Nota (64 -> E-5, Mi5)
+        ld d, #0       ;; Velocidad (1-255), 0 = original
+        ld bc, #0      ;; Pitch (más pitch, más grave)
+        ld a, #2       ;; Canal, bit-flag, tres bits de derecha (C1->001, C2->010, C3->100)
+        push iy
+        call cpct_akp_SFXPlay_asm
+        pop iy
 
         ret
 
@@ -1452,6 +1630,10 @@ _sp_manage_enemy_physics:
     ld _eph_offset(iy), a
     ex af, af'
 
+    ld a, _ee_disabled(iy)
+    cp #0x00
+    ret nz
+
     mep_check_player_1_collision:
     ;; Se supone que el siguiente cacho de código hace que las colisiones entre enemigos y
     ;; jugadores sean más precisas
@@ -1462,22 +1644,66 @@ _sp_manage_enemy_physics:
     jr nz, mep_no_player_collision
 
     ld ix, #player_1
+    bit 3, _ep_player_attr(ix)
+    jr nz, mep_check_player_2_collision
     call _sp_check_entity_collision
     cp #0x00
     jr z, mep_check_player_2_collision
-        ;push ix
-        ;pop iy
+
+        ld l, #4
+        ld a, (tries)
+        cp #0xFF
+        jr nz, mep_play_death
+        
+            ld l, #5       ;; Instrumento
+
+        mep_play_death:
+        push iy
+        push ix
+        ;; Reproducimos la muerte del jugador 1
+        ld h, #15               ;; Volumen(15 -> max)
+        ld e, #48               ;; Nota (64 -> E-5, Mi5)
+        ld d, #0                ;; Velocidad (1-255), 0 = original
+        ld bc, #PLAYER_1_PITCH  ;; Pitch (más pitch, más grave)
+        ld a, #3                ;; Canal, bit-flag, tres bits de derecha (C1->001(1), C2->010(2), C3->100(4))
+        call cpct_akp_SFXPlay_asm
+        pop ix
+        pop iy
+
+
         set 3, _ep_player_attr(ix)
         ld a, #0x15
         ld _ep_anim_counter(ix), a
 
     mep_check_player_2_collision:
     ld ix, #player_2
+    bit 3, _ep_player_attr(ix)
+    jr nz, mep_no_player_collision
+    
     call _sp_check_entity_collision
     cp #0x00
     jr z, mep_no_player_collision
-        ;push ix
-        ;pop iy
+
+        ld l, #4
+        ld a, (tries)
+        cp #0xFF
+        jr nz, mep_play_death_2
+        
+            ld l, #5       ;; Instrumento
+
+        mep_play_death_2:
+        push iy
+        push ix
+        ;; Reproducimos la muerte del jugador 2
+        ld h, #15               ;; Volumen(15 -> max)
+        ld e, #48               ;; Nota (64 -> E-5, Mi5)
+        ld d, #0                ;; Velocidad (1-255), 0 = original
+        ld bc, #PLAYER_2_PITCH  ;; Pitch (más pitch, más grave)
+        ld a, #2                ;; Canal, bit-flag, tres bits de derecha (C1->001(1), C2->010(2), C3->100(4))
+        call cpct_akp_SFXPlay_asm
+        pop ix
+        pop iy
+
         set 3, _ep_player_attr(ix)
         ld a, #0x15
         ld _ep_anim_counter(ix), a
@@ -1633,6 +1859,13 @@ pd_no_death_carry:
 
         pd_init_level:
 
+        ;; Parar la música y el temporizador
+        ld a, #0x00
+        ld (playing_music), a
+        ld (timer_state), a
+        call cpct_akp_stop_asm
+
+
         ;; Pantalla de transición entre niveles
         ld b, #0x0F
         call _sr_fill_backbuffer
@@ -1642,11 +1875,9 @@ pd_no_death_carry:
         call cpct_waitHalts_asm
 
         call _mg_game_init
-        ;jp _mg_game_loop
         ret
 
     pd_staying_alive:
-
 
     ld hl, (level_score)
     xor a

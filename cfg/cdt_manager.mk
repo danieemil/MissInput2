@@ -29,7 +29,7 @@ SCR_PAL=13 0 6 26
 $(eval $(call CDTMAN, SET_FILENAME, Miss Input 2))
 $(eval $(call CDTMAN, SET_MINILOAD_MODE       , 1))
 $(eval $(call CDTMAN, SET_MINILOAD_PALETTE_FW , 0, $(SCR_PAL)))
-$(eval $(call CDTMAN, GEN_MINILOADER          , assets/main_menu_screen.png))
+$(eval $(call CDTMAN, GEN_MINILOADER          , assets/Load_Image.png))
 
 ###############################################################################
 ##                    CASSETE FILE MANAGER HELP INDEX                        ##
