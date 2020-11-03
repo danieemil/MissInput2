@@ -95,6 +95,12 @@ $(eval $(call ADD2PACK,map_13,src/maps/Mapa_13.bin))
 $(eval $(call PACKZX7B,map_13,src/bins/))
 $(eval $(call ADD2PACK,map_14,src/maps/Mapa_14.bin))
 $(eval $(call PACKZX7B,map_14,src/bins/))
+$(eval $(call ADD2PACK,map_15,src/maps/Mapa_15.bin))
+$(eval $(call PACKZX7B,map_15,src/bins/))
+$(eval $(call ADD2PACK,map_16,src/maps/Mapa_16.bin))
+$(eval $(call PACKZX7B,map_16,src/bins/))
+$(eval $(call ADD2PACK,map_17,src/maps/Mapa_17.bin))
+$(eval $(call PACKZX7B,map_17,src/bins/))
 
 
 

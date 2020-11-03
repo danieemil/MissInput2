@@ -49,6 +49,9 @@ $(eval $(call TMX2DATA, CONVERT, assets/maps/End_Menu_Map.tmx, end_menu_map ))
 $(eval $(call TMX2DATA, CONVERT, assets/maps/Level_Complete_Menu_Map.tmx, level_complete_menu_map ))
 
 # Game
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_17.tmx, map17 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_16.tmx, map16 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_15.tmx, map15 ))
 $(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_14.tmx, map14 ))
 $(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_13.tmx, map13 ))
 $(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_12.tmx, map12 ))

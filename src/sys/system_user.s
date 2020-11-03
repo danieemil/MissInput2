@@ -1,3 +1,22 @@
+;;==================================================================
+;;
+;;    Miss Input 2 is a videogame made for Amstrad CPC 464 in 2020 particulary for the CPCRetroDev contest.
+;;    Copyright (C) 2020 Daniel Saura Martínez and Enrique Vidal cayuela 
+;;
+;;    This program is free software: you can redistribute it and/or modify
+;;    it under the terms of the GNU General Public License as published by
+;;    the Free Software Foundation, either version 3 of the License, or
+;;    (at your option) any later version.
+;;
+;;    This program is distributed in the hope that it will be useful,
+;;    but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;;    GNU General Public License for more details.
+;;
+;;    You should have received a copy of the GNU General Public License
+;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;;==================================================================
+
 .include "sys/system_user.h.s"
 
 .area _DATA
@@ -86,6 +105,9 @@ _su_get_key_input:
     ld hl, #p2_key_gameplay
     sla (hl)
 
+    ld hl, #mute_key_state
+    sla (hl)
+
     halt
     call cpct_scanKeyboard_asm
 
@@ -162,9 +184,49 @@ gki_check_p2_j:
 gki_check_pause:
     ld hl, #Key_Esc
     call cpct_isKeyPressed_asm
-    jr z, gki_exit
+    jr z, gki_check_mute
         ld a, #0x01
         jr gki_pause_exit
+
+
+gki_check_mute:
+    ld hl, #Key_M
+    call cpct_isKeyPressed_asm
+    jr z, gki_exit
+
+        ld hl, #mute_key_state
+        set 0, (hl)
+        bit 1, (hl)
+        jr nz, gki_exit
+        
+        ld a, (music_muted)
+        xor #0x01
+        ld (music_muted), a
+        xor #0x01
+        ld (playing_music), a
+        push de
+        push bc
+        push hl
+        push ix
+        push iy
+        push af
+        ex af, af'
+        push af
+        exx
+        push bc
+        push de
+        call cpct_akp_stop_asm
+        pop de
+        pop bc
+        exx
+        pop af
+        ex af, af'
+        pop af
+        pop iy
+        pop ix
+        pop hl
+        pop bc
+        pop de
 
 gki_exit:
     xor a
