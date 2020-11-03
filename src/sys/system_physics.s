@@ -904,7 +904,7 @@ mpp_collision_y_solid:                              ;;SOLIDOS Y
 mpp_collision_y_gdown:
         cp #GRAVITY_DOWN
         jr nz, mpp_collision_y_gup
-        
+
             res 4, _eph_attributes(iy)
 
             bit 6, _eph_attributes(iy)
@@ -1710,13 +1710,15 @@ _sp_manage_enemy_physics:
     ld _eph_offset(iy), a
     ex af, af'
 
-    ld a, _ee_disabled(iy)
-    cp #0x00
-    ret nz
+    
 
     mep_check_player_1_collision:
     ;; Se supone que el siguiente cacho de código hace que las colisiones entre enemigos y
     ;; jugadores sean más precisas
+
+    ld a, _ee_disabled(iy)
+    cp #0x00
+    ret nz
 
     ;; Comprobar si el GOD MODE está activado
     ld a, (god_mode)
