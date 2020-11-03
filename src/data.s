@@ -6,7 +6,7 @@
 level_index:
 
     ;;LEVEL 00
-    .dw _map_11_end ;;Tilemap del Nivel #0x28FF
+    .dw _map_13_end ;;Tilemap del Nivel #0x28FF
     .db #0x00       ;;Level Attr
     .db #0x00       ;;
 

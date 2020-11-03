@@ -91,6 +91,8 @@ $(eval $(call ADD2PACK,map_11,src/maps/Mapa_11.bin))
 $(eval $(call PACKZX7B,map_11,src/bins/))
 $(eval $(call ADD2PACK,map_12,src/maps/Mapa_12.bin))
 $(eval $(call PACKZX7B,map_12,src/bins/))
+$(eval $(call ADD2PACK,map_13,src/maps/Mapa_13.bin))
+$(eval $(call PACKZX7B,map_13,src/bins/))
 
 
 

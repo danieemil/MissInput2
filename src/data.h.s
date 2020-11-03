@@ -12,6 +12,7 @@
 .include "bins/map_10.h.s"
 .include "bins/map_11.h.s"
 .include "bins/map_12.h.s"
+.include "bins/map_13.h.s"
 NUM_LEVELS = 11
 
 .globl level_index
