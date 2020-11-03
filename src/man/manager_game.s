@@ -224,6 +224,7 @@ _mg_game_loop:
         ld (playing_music), a
         ld (timer_state), a
         call cpct_akp_stop_asm
+        call cpct_akp_SFXStopAll_asm
 
         call _sr_swap_buffers
         call _mm_pause_menu_init
@@ -406,6 +407,7 @@ gl_end_level_continue:
             ld a, #0x00
             ld (playing_music), a
             ld (timer_state), a
+            call cpct_akp_SFXStopAll_asm
             call cpct_akp_stop_asm
 
             ;; Pantalla de transición entre niveles

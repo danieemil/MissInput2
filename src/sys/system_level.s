@@ -600,6 +600,7 @@ _sl_transition_level:
         ld a, #0x00
         ld (playing_music), a
         ld (timer_state), a
+        call cpct_akp_SFXStopAll_asm
         call cpct_akp_stop_asm
 
         call _mm_congrats_menu_init
