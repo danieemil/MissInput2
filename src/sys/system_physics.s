@@ -521,12 +521,12 @@ mpp_end_x_input:
 
             push de
             push bc
-            ;; Reproducimos el cambio de gravedad hacia abajo
+            ;; Reproducimos el salto
             ld l, #9       ;; Instrumento
             ld h, #15      ;; Volumen(15 -> max)
-            ld e, #24      ;; Nota (64 -> E-5, Mi5)
+            ld e, #28      ;; Nota (64 -> E-5, Mi5)
             ld d, #0       ;; Velocidad (1-255), 0 = original
-            ld bc, #0      ;; Pitch (más pitch, más grave)
+            ld bc, #-50      ;; Pitch (más pitch, más grave)
             ld a, #2       ;; Canal, bit-flag, tres bits de derecha (C1->001, C2->010, C3->100)
             push iy
             call cpct_akp_SFXPlay_asm
@@ -547,6 +547,24 @@ mpp_no_floor_jump:
             bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar
             jr nz, mpp_hold_key_j
                 
+                push af
+                push de
+                push bc
+                ;; Reproducimos el salto
+                ld l, #9       ;; Instrumento
+                ld h, #15      ;; Volumen(15 -> max)
+                ld e, #28      ;; Nota (64 -> E-5, Mi5)
+                ld d, #0       ;; Velocidad (1-255), 0 = original
+                ld bc, #-80      ;; Pitch (más pitch, más grave)
+                ld a, #2       ;; Canal, bit-flag, tres bits de derecha (C1->001, C2->010, C3->100)
+                push iy
+                push ix
+                call cpct_akp_SFXPlay_asm
+                pop ix
+                pop iy
+                pop bc
+                pop de
+                pop af
 
                 set 1, _eph_attributes(iy)
                 ld c, #JT_WALL_JUMP
@@ -922,7 +940,7 @@ mpp_no_map_collision_y:
 
     ld a, _ei_type(ix)
     cp #EI_CHECKPOINT
-    jr nz, mpp_check_double_jump_item
+    jp nz, mpp_check_double_jump_item
 
         ;; Reproducimos el audio de tocar el checkpoint
         ld l, #7       ;; Instrumento
@@ -932,7 +950,9 @@ mpp_no_map_collision_y:
         ld bc, #0      ;; Pitch (más pitch, más grave)
         ld a, #2       ;; Canal, bit-flag, tres bits de derecha (C1->001, C2->010, C3->100)
         push iy
-        ;call cpct_akp_SFXPlay_asm
+        push ix
+        call cpct_akp_SFXPlay_asm
+        pop ix
         pop iy
 
         ld a, _eph_x(ix)
@@ -1131,12 +1151,33 @@ mpp_check_door_item_check_end:
         ret
 
 mpp_check_door_item_end_end:
+        
+        
+        bit 6, _ep_player_attr(iy)
+        jr nz, mpp_set_door_data
+        
+        push de
+        push bc
+        ;; Reproducimos el salto
+        ld l, #8       ;; Instrumento
+        ld h, #15      ;; Volumen(15 -> max)
+        ld e, #24      ;; Nota (64 -> E-5, Mi5)
+        ld d, #0       ;; Velocidad (1-255), 0 = original
+        ld bc, #0x00      ;; Pitch (más pitch, más grave)
+        ld a, #2       ;; Canal, bit-flag, tres bits de derecha (C1->001, C2->010, C3->100)
+        push iy
+        push ix
+        call cpct_akp_SFXPlay_asm
+        pop ix
+        pop iy
+        pop bc
+        pop de
+
+        mpp_set_door_data:
         res 1, _eph_attributes(iy)
         set 6, _ep_player_attr(iy)
         ld _ep_force_x(iy), #0x00
-        res 1, _eph_attributes(iy)
-        set 6, _ep_player_attr(iy)
-        ld _ep_force_x(iy), #0x00
+
         ret
 
 mpp_end_check_interactables:
