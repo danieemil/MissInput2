@@ -12,6 +12,8 @@
 .globl actual_level
 .globl actual_level_attr
 .globl tries
+.globl timer_state
+.globl playing_music
 
 .globl mg_game_state
 
