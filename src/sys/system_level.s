@@ -576,6 +576,13 @@ _sl_transition_level:
     cp #0xFF
     jr nz, tl_not_end
         pop hl
+
+        ;; Parar la música y el temporizador
+        ld a, #0x00
+        ld (playing_music), a
+        ld (timer_state), a
+        call cpct_akp_stop_asm
+
         call _mm_congrats_menu_init
         jp _mm_congrats_menu_loop
 
