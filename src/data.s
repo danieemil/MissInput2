@@ -24,38 +24,98 @@
 ;;LEVEL DATA -----------------------------------
 level_index:
 
-    ;;LEVEL 00
-    .dw _map_17_end ;;Tilemap del Nivel #0x28FF
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;
+    ;;LEVEL PRUEBA
+    ;.dw _map_17_end ;;Tilemap del Nivel #0x28FF
+    ;.db #0x00       ;;Level Attr
+    ;.db #0x00       ;;
 
     ;;LEVEL 00
-    .dw _map_09_end ;;Tilemap del Nivel #0x28FF
+    .dw _map_00_end ;;Tilemap del Nivel #0x28FF
     .db #0x00       ;;Level Attr
     .db #0x00       ;;
 
     ;;LEVEL 01
-    .dw _map_08_end ;;Tilemap del Nivel
+    .dw _map_03_end ;;Tilemap del Nivel #0x28FF
     .db #0x00       ;;Level Attr
     .db #0x00       ;;
 
     ;;LEVEL 02
     .dw _map_01_end ;;Tilemap del Nivel
     .db #0x00       ;;Level Attr
+    .db #0x00       ;;
+
+    ;;LEVEL 03
+    .dw _map_07_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
     .db #0x00       ;;Nivel final
 
-    ;;LEVEL 02
+    ;;LEVEL 04
     .dw _map_02_end ;;Tilemap del Nivel
     .db #0x00       ;;Level Attr
     .db #0x00       ;;Nivel final
 
-    ;;LEVEL 02
+    ;;LEVEL 05
     .dw _map_04_end ;;Tilemap del Nivel
     .db #0x00       ;;Level Attr
     .db #0x00       ;;Nivel final
 
-    ;;LEVEL 03
+    ;;LEVEL 06
     .dw _map_05_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
+    .db #0x00       ;;Nivel final
+
+    ;;LEVEL 07
+    .dw _map_06_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
+    .db #0x00       ;;Nivel final
+
+    ;;LEVEL 08
+    .dw _map_08_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
+    .db #0x00       ;;Nivel final
+
+    ;;LEVEL 09
+    .dw _map_09_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
+    .db #0x00       ;;Nivel final
+
+    ;;LEVEL 10
+    .dw _map_10_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
+    .db #0x00       ;;Nivel final
+
+    ;;LEVEL 11
+    .dw _map_11_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
+    .db #0x00       ;;Nivel final
+
+    ;;LEVEL 12
+    .dw _map_12_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
+    .db #0x00       ;;Nivel final
+
+    ;;LEVEL 13
+    .dw _map_14_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
+    .db #0x00       ;;Nivel final
+
+    ;;LEVEL 14
+    .dw _map_13_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
+    .db #0x00       ;;Nivel final
+
+    ;;LEVEL 15
+    .dw _map_15_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
+    .db #0x00       ;;Nivel final
+
+    ;;LEVEL 16
+    .dw _map_16_end ;;Tilemap del Nivel
+    .db #0x00       ;;Level Attr
+    .db #0x00       ;;Nivel final
+
+    ;;LEVEL 17
+    .dw _map_17_end ;;Tilemap del Nivel
     .db #0x00       ;;Level Attr
     .db #0xFF       ;;Nivel final
 
