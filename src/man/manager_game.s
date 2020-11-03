@@ -1,3 +1,23 @@
+;;==================================================================
+;;
+;;    Miss Input 2 is a videogame made for Amstrad CPC 464 in 2020 particulary for the CPCRetroDev contest.
+;;    Copyright (C) 2020 Daniel Saura Martínez and Enrique Vidal cayuela 
+;;
+;;    This program is free software: you can redistribute it and/or modify
+;;    it under the terms of the GNU General Public License as published by
+;;    the Free Software Foundation, either version 3 of the License, or
+;;    (at your option) any later version.
+;;
+;;    This program is distributed in the hope that it will be useful,
+;;    but WITHOUT ANY WARRANTY; without even the implied warranty of
+;;    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;;    GNU General Public License for more details.
+;;
+;;    You should have received a copy of the GNU General Public License
+;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;;==================================================================
+
+
 .include "man/manager_game.h.s"
 
 .area _DATA
@@ -55,6 +75,8 @@
 
     ;; Música
     playing_music:: .db #0x00       ;0 -> Música parada, 1 -> Música reproduciéndose
+    music_muted:: .db #0x00         ;0 -> Música no muteada, 1 -> Música muteada.
+    mute_key_state:: .db #0x00      ;0b000000YX -> X = Estado actual, Y = Estado anterior
 
     ;; Paleto
     palette:: .db #0x00
@@ -92,7 +114,8 @@ _mg_game_init:
     ld de, #_effects
     call cpct_akp_SFXInit_asm
 
-    ld a, #0x01
+    ld a, (music_muted)
+    xor #0x01
     ld (playing_music), a
     ld (timer_state), a
     
