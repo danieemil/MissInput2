@@ -904,6 +904,9 @@ mpp_collision_y_solid:                              ;;SOLIDOS Y
 mpp_collision_y_gdown:
         cp #GRAVITY_DOWN
         jr nz, mpp_collision_y_gup
+        
+            res 4, _eph_attributes(iy)
+
             bit 6, _eph_attributes(iy)
             jr z, mpp_no_map_collision_y
 
@@ -919,6 +922,7 @@ mpp_collision_y_gdown:
             pop iy
 
             res 6, _eph_attributes(iy)  ;;Revertimos la gravedad
+
             call _sp_apply_change_gravity
             jr mpp_no_map_collision_y
 
@@ -926,6 +930,9 @@ mpp_collision_y_gdown:
 mpp_collision_y_gup:
         cp #GRAVITY_UP
         jr nz, mpp_no_map_collision_y
+
+            res 4, _eph_attributes(iy)
+
             bit 6, _eph_attributes(iy)
             jr nz, mpp_no_map_collision_y
 

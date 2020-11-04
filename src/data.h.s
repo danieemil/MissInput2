@@ -38,11 +38,14 @@
 .include "bins/map_15.h.s"
 .include "bins/map_16.h.s"
 .include "bins/map_17.h.s"
-
+.include "bins/map_18.h.s"
 .include "bins/map_19.h.s"
-
+.include "bins/map_20.h.s"
 .include "bins/map_21.h.s"
-NUM_LEVELS = 11
+.include "bins/map_23.h.s"
+.include "bins/map_24.h.s"
+
+NUM_LEVELS = 19
 
 .globl level_index
 
