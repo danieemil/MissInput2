@@ -147,7 +147,7 @@ level_index:
     ;;LEVEL 23
     .dw _map_20_end ;;Tilemap del Nivel
     .db #0x00       ;;Level Attr
-    .db #0xFF       ;;Nivel final
+    .db #0x00       ;;Nivel final
 
     ;;LEVEL 24
     .dw _map_24_end ;;Tilemap del Nivel
