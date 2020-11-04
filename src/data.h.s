@@ -44,8 +44,9 @@
 .include "bins/map_21.h.s"
 .include "bins/map_23.h.s"
 .include "bins/map_24.h.s"
+.include "bins/map_22.h.s"
 
-NUM_LEVELS = 19
+NUM_LEVELS = 25
 
 .globl level_index
 
