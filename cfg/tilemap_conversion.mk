@@ -38,6 +38,42 @@
 # Conversion 
 #$(eval $(call TMX2DATA, CONVERT, tmxfile, array )) 
 
+$(eval $(call TMX2DATA, SET_OUTPUTS     , hs bin       )) 
+$(eval $(call TMX2DATA, SET_FOLDER      , src/maps/     ))
+$(eval $(call TMX2DATA, SET_BITSPERITEM , 8         )) 
+
+# Menus
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Main_Menu_Map.tmx, main_menu_map ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Options_Menu_Map.tmx, options_menu_map ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/End_Menu_Map.tmx, end_menu_map ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Level_Complete_Menu_Map.tmx, level_complete_menu_map ))
+
+# Game
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_24.tmx, map24 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_23.tmx, map23 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_21.tmx, map21 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_19.tmx, map19 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_22.tmx, map22 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_20.tmx, map20 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_18.tmx, map18 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_17.tmx, map17 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_16.tmx, map16 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_15.tmx, map15 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_14.tmx, map14 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_13.tmx, map13 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_12.tmx, map12 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_11.tmx, map11 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_10.tmx, map10 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_09.tmx, map09 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_08.tmx, map08 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_07.tmx, map07 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_06.tmx, map06 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_05.tmx, map05 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_04.tmx, map04 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_03.tmx, map03 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_02.tmx, map02 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_01.tmx, map01 ))
+$(eval $(call TMX2DATA, CONVERT, assets/maps/Mapa_00.tmx, map00 ))
 
 ##
 ## OLD MACROS (For compatibility)
@@ -64,6 +100,7 @@
 ##
 
 #$(eval $(call TMX2C,img/level0b.tmx,g_level0_4bit,src/levels/,4))
+
 
 
 

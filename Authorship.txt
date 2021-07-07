@@ -1,0 +1,17 @@
+﻿Authors of the game:
+   - Enrique Vidal Cayuela
+        Correo: enriquevid97@gmail.com
+        Twitter: @Quiquesoyyo
+
+   - Daniel Saura Martínez
+        Correo: danieemil@hotmail.com
+        Twitter: @Danielo_SAY
+
+   
+Licensed content used:
+
+    - CPCtelera:
+    CPCtelera low-level library, examples and scripts are distributed under GNU Lesser General Public License v3
+
+        Autores de CPCtelera: 
+        http://lronaldo.github.io/cpctelera/files/authors-txt.html

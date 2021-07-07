@@ -30,6 +30,8 @@
 ## 16 colours palette
 #PALETTE=0 1 2 3 6 9 11 12 13 15 16 18 20 24 25 26
 
+PALETTE=13 0 6 26
+
 ## Default values
 #$(eval $(call IMG2SP, SET_MODE        , 0                  ))  { 0, 1, 2 }
 #$(eval $(call IMG2SP, SET_MASK        , none               ))  { interlaced, none }
@@ -40,6 +42,55 @@
 #$(eval $(call IMG2SP, SET_PALETTE_FW  , $(PALETTE)         ))
 #$(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette ))
 #$(eval $(call IMG2SP, CONVERT         , img.png , w, h, array, palette, tileset))
+
+
+#SPRITES CON TRANSPARENCIAS
+$(eval $(call IMG2SP, SET_MODE        , 1                  						))
+$(eval $(call IMG2SP, SET_FOLDER      , src/spr/ 								))
+$(eval $(call IMG2SP, SET_PALETTE_FW  , $(PALETTE)								))
+$(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette 					))
+$(eval $(call IMG2SP, SET_IMG_FORMAT  , sprites									))
+$(eval $(call IMG2SP, SET_OUTPUT      , c                						))
+$(eval $(call IMG2SP, SET_MASK        , interlaced               						))
+$(eval $(call IMG2SP, CONVERT         , assets/PlayerSprites2.png , 12, 9, player_2_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/PlayerSprites.png , 12, 9, player_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/EnemySawSprites.png , 12, 8, enemy_saw_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/EnemySprites.png , 12, 8, enemy_spr	))
+
+#SPRITES SIN TRASPARENCIAS
+$(eval $(call IMG2SP, SET_MASK        , none               						))
+$(eval $(call IMG2SP, CONVERT         , assets/old/Checkpoint_top_sprite_01.png , 4, 4, checkpoint_top_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/DoorSprites.png , 8, 11, door_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/HUDSprites.png , 4, 5, hud_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/HUDSkullSprites.png , 8, 7, hud_skull_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/LetterSprites.png , 4, 5, letter_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/OffOnSprites.png , 4, 5, offon_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/DosPuntosSprite.png , 4, 5, dospuntos_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/GravityPowerUpSprites.png , 8, 8, gravity_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/DoubleJumpPowerUpSprites.png , 16, 6, double_jump_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/ColectableSprite.png , 8, 13, colectable_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/ColectableVoidSprite.png , 8, 13, colectable_void_spr	))
+
+
+
+
+#TILES
+$(eval $(call IMG2SP, SET_IMG_FORMAT  , zgtiles            ))
+$(eval $(call IMG2SP, SET_MASK        , none               						))
+
+
+
+#IMÁGENES GRANDES
+$(eval $(call IMG2SP, SET_FOLDER      , src/bins/ 								))
+$(eval $(call IMG2SP, SET_OUTPUT      , bin                						)) # Para poder comprimir la imagen
+$(eval $(call IMG2SP, CONVERT         , assets/MenuTileset.png , 16, 8, menu_tileset_spr	))
+$(eval $(call IMG2SP, CONVERT         , assets/Tileset_01.png , 16, 8, tileset_spr	))
+
+
+#$(eval $(call IMG2SP, SET_IMG_FORMAT  , screen            ))
+#$(eval $(call IMG2SP, SET_MASK        , none               						))
+#$(eval $(call IMG2SP, CONVERT         , assets/main_menu_screen.png , 320, 200, main_menu_screen	))
+
 
 ##
 ## OLD MACROS (For compatibility)
