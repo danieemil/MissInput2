@@ -1,0 +1,1 @@
+This folder will allocate all the compiled files for the sprites

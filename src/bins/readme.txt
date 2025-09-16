@@ -1,0 +1,1 @@
+This folder will allocate all the compiled files of the source code.
