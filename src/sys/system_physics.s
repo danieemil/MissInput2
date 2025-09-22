@@ -599,18 +599,17 @@ mpp_no_floor_jump:
                 jp mpp_jump_check_end
 
 mpp_double_jump:
-        bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar
-        jr nz, mpp_hold_key_j
+        
 
             bit 0, _eph_attributes(iy)
-            jr z, mpp_no_key_j
+            jr z, mpp_check_hold_key_j
 
                 res 0, _eph_attributes(iy)  ;;REiniciamos el doble salto
                 ld _ep_force_x(iy), #0x00
 
                 push de
                 push bc
-                ;; Reproducimos el cambio de gravedad hacia abajo
+                ;; Reproducimos el sonido de doble salto
                 ld l, #10       ;; Instrumento
                 ld h, #15      ;; Volumen(15 -> max)
                 ld e, #28      ;; Nota (64 -> E-5, Mi5)
@@ -627,6 +626,11 @@ mpp_double_jump:
                 ld _ep_jump_state(iy), c
                 jp mpp_jump_check_end
 
+
+
+mpp_check_hold_key_j:
+        bit 1, e                            ;;Comprobamos si se esta manteniendo el boton de saltar
+        jr z, mpp_no_key_j
 
 mpp_hold_key_j:
         
