@@ -25,10 +25,31 @@
 level_index:
 
     ;;LEVEL 00
-    .dw _map_00_end ;;Tilemap del Nivel #0x28FF
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;
+    .dw _map_00_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
+extra_levels_index:
+    ;;LEVEL EXTRA 00
+    .dw _map_Extra_00_end       ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
+
+    ;;LEVEL EXTRA 01
+    .dw _map_Extra_01_end       ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
+
+custom_levels_index:
+    ;; LEVEL CARLOS
+    .dw _map_Chals_end          ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
+    ;; LEVEL CARLA
+    .dw _map_Carla_end          ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
+    ;; LEVEL ENRIQUE
+    .dw _map_Enri_end           ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
+
+
+legacy_levels:
     ;;LEVEL 01
     .dw _map_01_end             ;;Tilemap del Nivel
     .db #0x00                   ;;Level Attr

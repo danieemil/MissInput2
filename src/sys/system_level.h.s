@@ -30,6 +30,7 @@
 .globl transition
 .globl actual_level
 .globl actual_level_attr
+.globl actual_level_index
 .globl tries
 .globl playing_music
 .globl timer_state

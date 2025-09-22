@@ -45,11 +45,23 @@
 .include "bins/map_22.h.s"
 .include "bins/map_23.h.s"
 .include "bins/map_24.h.s"
-.include "bins/map_22.h.s"
 
-NUM_LEVELS = 25
+;; Extra maps
+.include "bins/map_Extra_00.h.s"
+.include "bins/map_Extra_01.h.s"
+
+;; Custom maps
+.include "bins/map_Chals.h.s"
+.include "bins/map_Carla.h.s"
+.include "bins/map_Enri.h.s"
+
 
 .globl level_index
+.globl level_end_index
+
+.globl legacy_levels
+.globl custom_levels_index
+.globl extra_levels_index
 
 .globl palette_index
 

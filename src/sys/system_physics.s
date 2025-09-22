@@ -17,6 +17,7 @@
 ;;    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;==================================================================
 .include "sys/system_physics.h.s"
+.include "man/manager_player.h.s"
 
 
 .area _DATA
@@ -1117,17 +1118,12 @@ mpp_check_collectable_item:
 
         call _su_add_score
 
-        ld hl, #level_index
-        ld b, #0x00
-        ld a, (actual_level)
-        ld c, a
-        sla c
-        sla c
-        add hl, bc
+        ld hl, (actual_level_index)
         inc hl
         inc hl
-        ;; HL -> Puntero a atributos del nivel actual
         set 6, (hl)
+        ld a, (hl)
+        ld (actual_level_attr), a
 
         ;; Reproducimos el salto/doble salto
         ld l, #6       ;; Instrumento
@@ -1936,8 +1932,26 @@ pd_no_death_carry:
         res 4, _ep_player_attr(ix)
 
         ;; Volver al último checkpoint
+        ld hl, (actual_level_index)
         ld a, (checkpoint_level)
+        ld b, a
+        ld a, (actual_level)
+        sub b
+        jr z, pd_init_level
+        ld c, a
+        pd_update_actual_level_index_loop:
+            dec hl
+            dec hl
+            dec hl
+            dec c
+            jr nz, pd_update_actual_level_index_loop
+        
+        ld (actual_level_index), hl
+        ld a, b
         ld (actual_level), a
+        inc hl
+        ld a, (hl)
+        ld (actual_level_attr), a
 
         pd_init_level:
 

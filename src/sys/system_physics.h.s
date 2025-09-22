@@ -37,6 +37,8 @@
 .globl jump_table
 .globl enemy_jump_table
 .globl actual_level
+.globl actual_level_attr
+.globl actual_level_index
 .globl checkpoint_x
 .globl checkpoint_y
 .globl checkpoint_level

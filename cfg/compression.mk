@@ -62,9 +62,10 @@ $(eval $(call PACKZX7B,level_complete_menu_map,src/bins/))
 
 
 #GAME
-$(eval $(call ADD2PACK,tileset,src/bins/Tileset_01.bin))
+$(eval $(call ADD2PACK,tileset,src/bins/GameTileset.bin))
 $(eval $(call PACKZX7B,tileset,src/bins/))
 
+#MAPS
 $(eval $(call ADD2PACK,map_00,src/maps/Mapa_00.bin))
 $(eval $(call PACKZX7B,map_00,src/bins/))
 $(eval $(call ADD2PACK,map_01,src/maps/Mapa_01.bin))
@@ -109,12 +110,27 @@ $(eval $(call ADD2PACK,map_19,src/maps/Mapa_19.bin))
 $(eval $(call PACKZX7B,map_19,src/bins/))
 $(eval $(call ADD2PACK,map_21,src/maps/Mapa_21.bin))
 $(eval $(call PACKZX7B,map_21,src/bins/))
+$(eval $(call ADD2PACK,map_22,src/maps/Mapa_22.bin))
+$(eval $(call PACKZX7B,map_22,src/bins/))
 $(eval $(call ADD2PACK,map_23,src/maps/Mapa_23.bin))
 $(eval $(call PACKZX7B,map_23,src/bins/))
 $(eval $(call ADD2PACK,map_24,src/maps/Mapa_24.bin))
 $(eval $(call PACKZX7B,map_24,src/bins/))
-$(eval $(call ADD2PACK,map_22,src/maps/Mapa_22.bin))
-$(eval $(call PACKZX7B,map_22,src/bins/))
+
+# EXTRA MAPS
+$(eval $(call ADD2PACK,map_Extra_00,src/maps/Mapa_Extra_00.bin))
+$(eval $(call PACKZX7B,map_Extra_00,src/bins/))
+$(eval $(call ADD2PACK,map_Extra_01,src/maps/Mapa_Extra_01.bin))
+$(eval $(call PACKZX7B,map_Extra_01,src/bins/))
+
+
+# CUSTOM MAPS
+$(eval $(call ADD2PACK,map_Chals,src/maps/Mapa_Carlos.bin))
+$(eval $(call PACKZX7B,map_Chals,src/bins/))
+$(eval $(call ADD2PACK,map_Carla,src/maps/Mapa_Carla.bin))
+$(eval $(call PACKZX7B,map_Carla,src/bins/))
+$(eval $(call ADD2PACK,map_Enri,src/maps/Mapa_Enrique.bin))
+$(eval $(call PACKZX7B,map_Enri,src/bins/))
 
 
 

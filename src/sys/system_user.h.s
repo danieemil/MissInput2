@@ -23,6 +23,8 @@
 .globl _sr_update_hud_player_data
 
 .globl actual_level
+.globl actual_level_attr
+.globl actual_level_index
 .globl mg_front_buffer
 
 .globl _sr_draw_string

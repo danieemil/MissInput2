@@ -312,6 +312,7 @@ _sl_generate_level:
                     sub d
                     jr nz, gl_init_players
 
+                        ;; TODO: Remove????
                         ld a, (actual_level)
                         cp #0x00
                         jr z, gl_init_players
@@ -414,7 +415,7 @@ ret
 ;;==================================================================
 ;;                            MANAGE END LEVEL
 ;;------------------------------------------------------------------
-;; A
+;; Gestiona cuando se termina el nivel
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -467,16 +468,8 @@ mel_door_opened:
         set 5, _ep_player_attr(iy)
         res 6, _ep_player_attr(iy)
 
-        ld a, (actual_level)
-        sla a
-        sla a
-        ld b, #0x00
-        ld c, a
-        ld hl, #level_index
-        add hl, bc
-        inc hl
-        inc hl
-        bit 7, (hl)
+        ld a, (actual_level_attr)
+        bit 7, a
         jr nz, mel_door_opened_check_p2
 
         ld hl, (level_score)
@@ -491,16 +484,8 @@ mel_door_opened_check_p2:
         set 5, _ep_player_attr(iy)
         res 6, _ep_player_attr(iy)
 
-        ld a, (actual_level)
-        sla a
-        sla a
-        ld b, #0x00
-        ld c, a
-        ld hl, #level_index
-        add hl, bc
-        inc hl
-        inc hl
-        bit 7, (hl)
+        ld a, (actual_level_attr)
+        bit 7, a
         jr nz, mel_door_opened_end
 
         ld hl, (level_score)
@@ -553,7 +538,7 @@ mel_check_multiplayer:
 ;;==================================================================
 ;;                        TRANSITION LEVEL
 ;;------------------------------------------------------------------
-;; A
+;; Gestiona el cambio de nivel
 ;;------------------------------------------------------------------
 ;;
 ;; INPUT:
@@ -576,28 +561,38 @@ _sl_transition_level:
     cp #0x00
     ret nz
 
-
     ;;SETEAR VARIABLES PARA EL SIGUIENTE NIVEL
     ld a, (actual_level)
-    ld c, a
-    
     inc a
     ld (actual_level), a
     
-    sla c
-    sla c
-    ld b, #0x00
-    ld hl, #level_index
-    add hl, bc
-
+    ld hl, (actual_level_index)
     inc hl
     inc hl
     set 7, (hl) ;; Marcar nivel como completado
 
     ;; Comprobar si era el nivel final
+    push hl
+    push de
+    inc hl
+
+    ld b, h
+    ld c, l
+    ld (actual_level_index), hl
+    inc hl
     inc hl
     ld a, (hl)
-    cp #0xFF
+    ld (actual_level_attr), a
+    dec hl
+    dec hl
+
+    and a      ;; Carry flag -> 0
+    ld de, #level_end_index
+
+    sbc hl, de
+    pop de
+    pop hl
+
     jr nz, tl_not_end
         pop hl
 

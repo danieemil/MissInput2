@@ -27,6 +27,7 @@
 
     actual_level:: .db #0x00
     actual_level_attr:: .db #0x00
+    actual_level_index:: .dw #level_index
     transition:: .db #0xFF
 
     god_mode:: .db #0x00
@@ -119,14 +120,8 @@ _mg_game_init:
     ld (playing_music), a
     ld (timer_state), a
     
-    ;; Llamamos a level factory para que genere el nivel(map_pruebas)
-    ld a, (actual_level)
-    ld c, a
-    sla c
-    sla c
-    ld b, #0x00
-    ld hl, #level_index
-    add hl, bc
+    ;; Llamamos a level factory para que genere el nivel
+    ld hl, (actual_level_index)
 
     ld e, (hl)
     inc hl
@@ -134,10 +129,7 @@ _mg_game_init:
     inc hl
     ld a, (hl)
     ld (actual_level_attr), a
-    inc hl
-    ld c, (hl)
     ;DE -> Tilemap_end_ptr
-    ;C  -> Otros (Por ahora paleta o algo :/)
 
     ld a, #0xFF
     ld (transition), a

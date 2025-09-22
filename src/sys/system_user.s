@@ -384,24 +384,28 @@ _su_reset_data:
     dec b
     jr nz, rd_players_loop
     
+    ;; Set actual level to the first level
+    ld hl, #level_index
     ld (actual_level), a
+    ld (actual_level_attr), a
+    ld (actual_level_index), hl
     
     ld (timer_state), a
     ld (seconds_dc), a
     ld (seconds), a
     ld (minutes), a
 
-    
-    ld hl, #level_index
-    ld b, #NUM_LEVELS
+    ld bc, #level_end_index
     rd_levels_loop:
         inc hl
         inc hl
         ld (hl), a
         inc hl
-        inc hl
 
-    dec b
+        and a      ;; Carry flag -> 0
+        push hl
+        sbc hl, bc
+        pop hl
     jr nz, rd_levels_loop
 
     ld (checkpoint_level), a
