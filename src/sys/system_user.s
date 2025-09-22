@@ -89,7 +89,7 @@ as_add_score_end:
 ;;  DE ->  D = P1(key_r + key_l),  E = P2(key_r + key_l)
 ;;  p1_key_gameplay -> Estado actual y previo de la tecla de salto del jugador 1
 ;;  p2_key_gameplay -> Estado actual y previo de la tecla de salto del jugador 2
-;;  A  -> Si se ha pulsado el botón de pausa o no
+;;  A  -> 0 -> Sin efecto, 1 -> Botón de Pausa, 2 -> Botón de pasar nivel
 ;;
 ;; DESTROYS:
 ;;  AF, BC, DE, HL, BC', DE', HL'
@@ -184,8 +184,16 @@ gki_check_p2_j:
 gki_check_pause:
     ld hl, #Key_Esc
     call cpct_isKeyPressed_asm
-    jr z, gki_check_mute
+    jr z, gki_check_CAR
         ld a, #0x01
+        jr gki_pause_exit
+
+
+gki_check_CAR:
+    ld hl, #Key_C
+    call cpct_isKeyPressed_asm
+    jr z, gki_check_mute
+        ld a, #0x02
         jr gki_pause_exit
 
 
@@ -539,6 +547,11 @@ _su_set_player_keys:
 
         xor a
         ld hl, #Key_M
+        sbc hl, de
+        jr z, spk_key_loop
+
+        xor a
+        ld hl, #Key_C
         sbc hl, de
         jr z, spk_key_loop
 

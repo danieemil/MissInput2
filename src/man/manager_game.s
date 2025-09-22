@@ -223,6 +223,16 @@ _mg_game_loop:
         jp _mm_pause_menu_loop
 
     gl_game_not_paused:
+    dec a
+    jr nz, gl_level_not_skipped
+
+        ;; Skip this level and progress to the next
+        ld a, #0x01
+        ld (transition), a
+        jp gl_end_level_continue
+
+    gl_level_not_skipped:
+
 ;;FISICAS DEL JUGADOR-------------------
     push de
 
