@@ -838,6 +838,13 @@ mpp_collision_x_gup:
             pop iy
 
             set 6, _eph_attributes(iy)  ;;Invertimos la gravedad
+
+            ;; Seteamos la anterior posición del jugador un pixel más arriba para que se limpie el rastro bien
+            ;; (a causa de que el tamaño de las físicas y de los sprites del jugaodr no coinciden)
+            ld a, _ed_pre_y(iy)
+            dec a
+            ld _ed_pre_y(iy), a
+
             call _sp_apply_change_gravity
 
 
@@ -953,6 +960,12 @@ mpp_collision_y_gup:
             pop iy
 
             set 6, _eph_attributes(iy)  ;;Invertimos la gravedad
+
+            ;; Seteamos la anterior posición del jugador un pixel más arriba para que se limpie el rastro bien
+            ;; (a causa de que el tamaño de las físicas y de los sprites del jugaodr no coinciden)
+            ld a, _ed_pre_y(iy)
+            dec a
+            ld _ed_pre_y(iy), a
             call _sp_apply_change_gravity
 
 mpp_no_map_collision_y:
@@ -1151,6 +1164,8 @@ mpp_check_door_item:
 
         set 1, _eph_attributes(iy)
         res 6, _eph_attributes(iy)
+        ld a, #PLAYER_ED_OY
+        ld _ed_oy(iy), a
         set 7, _ep_player_attr(iy)
         ld a, _eph_x(iy)
         ld b, _eph_x(ix)
@@ -1805,7 +1820,7 @@ ret
 ;;
 ;; INPUT:
 ;;  
-;;  IY  -> Puntero al enemigo
+;;  IY  -> Puntero al jugador
 ;;
 ;; OUTPUT:
 ;;
@@ -1816,6 +1831,11 @@ ret
 ;; CYCLES: [ | ]
 ;;==================================================================
 _sp_apply_change_gravity:
+
+    ;; Cambiamos el OY del jugador
+    ld a, _ed_oy(iy)
+    xor #PLAYER_ED_OY
+    ld _ed_oy(iy), a
 
     ld a, _ep_jump_state(iy)
 

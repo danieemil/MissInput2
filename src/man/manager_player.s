@@ -20,9 +20,9 @@
 .include "man/manager_player.h.s"
 
 .area _DATA
-;                  Etiqueta    X      Y      W      H      VX     VY       ATTR           SPR          SPRW  SPRH SPRSIZE   OX    OY
-DefineEntityPlayer player_1, #0x10, #0x30, #0x02, #0x09, #0xFF, #0x00, #0b10110001, _player_spr_00, #0x03, #0x09, #0x36, #0x00, #0x00, #anim_player_jump_R, #0b00000000
-DefineEntityPlayer player_2, #0x13, #0x40, #0x02, #0x09, #0x00, #0x00, #0b10110001, _player_2_spr_00, #0x03, #0x09, #0x36, #0x00, #0x00, #anim_player_jump_R, #0b00000001
+;                  Etiqueta    X      Y           W              H         VX     VY       ATTR           SPR              SPRW          SPRH           SPRSIZE          OX         OY
+DefineEntityPlayer player_1, #0x10, #0x30, #PLAYER_EPH_W, #PLAYER_EPH_H, #0x00, #0x00, #0b10110001, _player_spr_00,   #PLAYER_ED_W, #PLAYER_ED_H, #PLAYER_ED_SPR_SIZE, #0x00, #PLAYER_ED_OY, #anim_player_jump_R, #0b00000000
+DefineEntityPlayer player_2, #0x13, #0x40, #PLAYER_EPH_W, #PLAYER_EPH_H, #0x00, #0x00, #0b10110001, _player_2_spr_00, #PLAYER_ED_W, #PLAYER_ED_H, #PLAYER_ED_SPR_SIZE, #0x00, #PLAYER_ED_OY, #anim_player_jump_R, #0b00000001
 
 .area _CODE
 ;;==================================================================
@@ -127,7 +127,7 @@ _mp_init_player:
     ld (hl), a                  ;; _ox
     inc hl
 
-    ld (hl), a                  ;; _oy
+    ld (hl), #PLAYER_ED_OY      ;; _oy
     inc hl
 
     ld (hl), #>anim_player_jump_R;; _anim_index_h
