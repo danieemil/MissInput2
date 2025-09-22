@@ -42,6 +42,7 @@
 .include "bins/map_19.h.s"
 .include "bins/map_20.h.s"
 .include "bins/map_21.h.s"
+.include "bins/map_22.h.s"
 .include "bins/map_23.h.s"
 .include "bins/map_24.h.s"
 .include "bins/map_22.h.s"

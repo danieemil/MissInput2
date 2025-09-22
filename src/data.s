@@ -24,135 +24,108 @@
 ;;LEVEL DATA -----------------------------------
 level_index:
 
-    ;;LEVEL PRUEBA
-    ;.dw _map_22_end ;;Tilemap del Nivel #0x28FF
-    ;.db #0x00       ;;Level Attr
-    ;.db #0x00       ;;
-
     ;;LEVEL 00
     .dw _map_00_end ;;Tilemap del Nivel #0x28FF
     .db #0x00       ;;Level Attr
     .db #0x00       ;;
 
     ;;LEVEL 01
-    .dw _map_03_end ;;Tilemap del Nivel #0x28FF
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;
+    .dw _map_01_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 02
-    .dw _map_01_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;
+    .dw _map_02_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 03
-    .dw _map_07_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_03_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 04
-    .dw _map_02_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_04_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 05
-    .dw _map_04_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_05_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 06
-    .dw _map_05_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_06_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 07
-    .dw _map_06_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_07_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 08
-    .dw _map_08_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_08_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 09
-    .dw _map_09_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_09_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 10
-    .dw _map_10_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_10_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 11
-    .dw _map_11_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_11_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 12
-    .dw _map_12_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_12_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 13
-    .dw _map_14_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_13_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 14
-    .dw _map_13_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_14_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 15
-    .dw _map_15_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_15_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 16
-    .dw _map_16_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_16_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 17
-    .dw _map_19_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_17_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 18
-    .dw _map_18_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_18_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 19
-    .dw _map_23_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_19_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 20
-    .dw _map_22_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_20_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 21
-    .dw _map_21_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_21_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 22
-    .dw _map_17_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_22_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 23
-    .dw _map_20_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0x00       ;;Nivel final
+    .dw _map_23_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
 
     ;;LEVEL 24
-    .dw _map_24_end ;;Tilemap del Nivel
-    .db #0x00       ;;Level Attr
-    .db #0xFF       ;;Nivel final
+    .dw _map_24_end             ;;Tilemap del Nivel
+    .db #0x00                   ;;Level Attr
+
+level_end_index:
 
 ;;Level Attr [C c 0 0 0 0 0 0]
 ; C -> Completed (1 -> Nivel Completado, 0 -> Nivel NO Completado)
@@ -167,7 +140,7 @@ level_index:
 palette_index:
     .db #0x54, #0x54, #0x4c, #0x4b      ;; Paleta por defecto
     .db #0x54, #0x54, #0x40, #0x4b      ;; Miss Input 2 psicodélico
-    ;.db #0x4c, #0x4c, #0x4b, #0x54      ;; Miss Input 2 psicodélico 2
+    .db #0x4c, #0x4c, #0x4b, #0x54      ;; Miss Input 2 psicodélico 2 (Este debería estar comentado????)
     .db #0x44, #0x44, #0x4C, #0x4A
     .db #0x5C, #0x5C, #0x4C, #0x4B
     .db #0x56, #0x56, #0x52, #0x4B

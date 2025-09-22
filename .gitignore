@@ -1,1 +1,8 @@
- 
+/obj
+/src/bins/*
+/src/maps/*
+/src/spr/*
+
+*.cdt
+*.dsk
+*.sna
